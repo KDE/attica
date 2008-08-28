@@ -47,7 +47,7 @@ Person PersonJob::person() const
 
 void PersonJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/V1/USER/GET/" + m_id );
+  KUrl url( "http://api.opendesktop.org/v1/person/data/" + m_id );
 
   qDebug() << url;
 
@@ -71,6 +71,8 @@ void PersonJob::slotUserJobResult( KJob *job )
     qDebug() << m_userData;
     m_person = PersonParser().parse( m_userData );
   
+    qDebug() << "Getting avatar from" << m_person.avatarUrl();
+  
     m_job = KIO::get( m_person.avatarUrl(), KIO::NoReload,
       KIO::HideProgressInfo );
     connect( m_job, SIGNAL( result( KJob * ) ),
@@ -90,8 +92,7 @@ void PersonJob::slotAvatarJobResult( KJob *job )
   m_job = 0;
 
   if ( job->error() ) {
-    setError( job->error() );
-    setErrorText( job->errorText() );
+    qWarning() << "Error retrieving Avatar:" << job->errorText();
   } else {
     QPixmap pic;
     if ( !pic.loadFromData( m_avatarData ) ) {

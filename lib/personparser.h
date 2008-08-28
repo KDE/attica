@@ -36,7 +36,7 @@ class PersonParser
     Person::List parseList( const QString &xml );
 
   protected:
-    Person parsePerson( QXmlStreamReader &xml, const QString &endTag );
+    Person parsePerson( QXmlStreamReader &xml );
 };
 
 }

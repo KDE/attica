@@ -2,6 +2,10 @@ set(atticaclient_SRCS
    activity.cpp
    activityparser.cpp
    activitylistjob.cpp
+   person.cpp
+   personparser.cpp
+   personjob.cpp
+   personlistjob.cpp
  )
 
 kde4_add_library(atticaclient ${atticaclient_SRCS})

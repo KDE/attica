@@ -38,8 +38,8 @@ Person::List PersonParser::parseList( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
     
-    if ( xml.isStartElement() && xml.name() == "entry" ) {
-      Person person = parsePerson( xml, "entry" );
+    if ( xml.isStartElement() && xml.name() == "person" ) {
+      Person person = parsePerson( xml );
       personList.append( person );
     }
   }
@@ -56,15 +56,15 @@ Person PersonParser::parse( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
     
-    if ( xml.isStartElement() && xml.name() == "data" ) {    
-      person = parsePerson( xml, "data" );
+    if ( xml.isStartElement() && xml.name() == "person" ) {
+      person = parsePerson( xml );
     }
   }
 
   return person;
 }
 
-Person PersonParser::parsePerson( QXmlStreamReader &xml, const QString &endTag )
+Person PersonParser::parsePerson( QXmlStreamReader &xml )
 {
   Person person;
   
@@ -72,7 +72,7 @@ Person PersonParser::parsePerson( QXmlStreamReader &xml, const QString &endTag )
     xml.readNext();
 
     if ( xml.isStartElement() ) {
-      if ( xml.name() == "user" ) {
+      if ( xml.name() == "personid" ) {
         person.setUser( xml.readElementText() );
       } else if ( xml.name() == "firstname" ) {
         person.setFirstName( xml.readElementText() );
@@ -99,8 +99,8 @@ Person PersonParser::parsePerson( QXmlStreamReader &xml, const QString &endTag )
       }
     }
 
-    if ( xml.isEndElement() && xml.name() == endTag ) break;
+    if ( xml.isEndElement() && xml.name() == "person" ) break;
   }
 
-  return person;  
+  return person;
 }
