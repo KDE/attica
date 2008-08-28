@@ -77,6 +77,11 @@ class Person
     void setCity( const QString & );
     QString city() const;
 
+    void addExtendedAttribute( const QString &key, const QString &value );
+    QString extendedAttribute( const QString &key ) const;
+
+    QMap<QString,QString> extendedAttributes() const;
+
   private:
     static Transport *m_transport;
 
@@ -91,6 +96,8 @@ class Person
     QPixmap m_avatar;
     QString m_homepage;
     QString m_city;
+
+    QMap<QString,QString> m_extendedAttributes;
 };
 
 }

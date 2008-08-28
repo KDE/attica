@@ -77,5 +77,13 @@ void DetailsView::showPerson( const Attica::Person &person )
     text += "\n" + person.homepage();
   }
   
+  QMap<QString,QString> extendedAttributes = person.extendedAttributes();
+  foreach( QString key, extendedAttributes.keys() ) {
+    QString value = extendedAttributes.value( key );
+    if ( !value.isEmpty() ) {
+      text += "\n" + key + ": " + value;
+    }
+  }
+  
   m_view->setText( text );
 }

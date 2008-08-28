@@ -37,6 +37,8 @@ class AtticaView : public QWidget
 
     void slotJobSearchNameResult( KJob *j );
 
+    void showActivities();
+
   private:
 
   signals:

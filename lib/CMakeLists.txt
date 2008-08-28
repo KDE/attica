@@ -9,6 +9,10 @@ set(attica_SRCS
    personlistjob.cpp
    detailsview.cpp
    peopleview.cpp
+   activity.cpp
+   activityparser.cpp
+   activitylistjob.cpp
+   activityview.cpp
  )
 
 kde4_add_ui_files(attica_SRCS prefs_base.ui)

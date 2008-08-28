@@ -93,6 +93,9 @@ Person PersonParser::parsePerson( QXmlStreamReader &xml, const QString &endTag )
         person.setLatitude( xml.readElementText().toFloat() );
       } else if ( xml.name() == "longitude" ) {
         person.setLongitude( xml.readElementText().toFloat() );
+      } else {
+        person.addExtendedAttribute( xml.name().toString(),
+          xml.readElementText() );
       }
     }
 

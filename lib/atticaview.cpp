@@ -12,6 +12,7 @@
 #include "personlistjob.h"
 #include "person.h"
 #include "peopleview.h"
+#include "activityview.h"
 
 #include <klocale.h>
 #include <kabc/stdaddressbook.h>
@@ -25,6 +26,16 @@ AtticaView::AtticaView(QWidget *)
   setAutoFillBackground(true);
 
   QBoxLayout *topLayout = new QVBoxLayout( this );
+
+  QBoxLayout *navigationLayout = new QHBoxLayout;
+  topLayout->addLayout( navigationLayout );
+
+  navigationLayout->addStretch( 1 );
+
+  QPushButton *button = new QPushButton( i18n("Show My Activities") );
+  navigationLayout->addWidget( button );
+  connect( button, SIGNAL( clicked() ), SLOT( showActivities() ) );
+
 
   QTabWidget *tabWidget = new QTabWidget;
   topLayout->addWidget( tabWidget );
@@ -181,5 +192,12 @@ void AtticaView::readLocalAddressbook()
     m_peopleView->addWidget( plate );
   }
 }
+
+void AtticaView::showActivities()
+{
+  ActivityView *activityView = new ActivityView;
+  activityView->show();
+}
+
 
 #include "atticaview.moc"

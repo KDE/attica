@@ -161,3 +161,18 @@ QString Person::city() const
 {
   return m_city;
 }
+
+void Person::addExtendedAttribute( const QString &key, const QString &value )
+{
+  m_extendedAttributes.insert( key, value );
+}
+
+QString Person::extendedAttribute( const QString &key ) const
+{
+  return m_extendedAttributes.value( key );
+}
+
+QMap<QString,QString> Person::extendedAttributes() const
+{
+  return m_extendedAttributes;
+}
