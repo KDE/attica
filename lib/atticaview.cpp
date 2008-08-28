@@ -11,6 +11,7 @@
 #include "personjob.h"
 #include "personlistjob.h"
 #include "person.h"
+#include "peopleview.h"
 
 #include <klocale.h>
 #include <kabc/stdaddressbook.h>
@@ -93,11 +94,16 @@ AtticaView::AtticaView(QWidget *)
   localLayout->addWidget( localButton );
   connect( localButton, SIGNAL( clicked() ), SLOT( readLocalAddressbook() ) );
 
+#if 0
+  QScrollArea *scrollArea = new QScrollArea;
+  topLayout->addWidget( scrollArea, 1 );
 
-  m_peopleLayout = new QVBoxLayout;
-  topLayout->addLayout( m_peopleLayout );
-  
-  topLayout->addStretch( 1 );
+  m_peopleView = new PeopleView;
+  scrollArea->setWidget( m_peopleView );
+#else
+  m_peopleView = new PeopleView;
+  topLayout->addWidget( m_peopleView, 1 );
+#endif
 }
 
 AtticaView::~AtticaView()
@@ -108,7 +114,7 @@ void AtticaView::addPerson()
 {
   PersonPlate *plate = new PersonPlate();
   plate->setLabel( "Loading..." );
-  m_peopleLayout->addWidget( plate );
+  m_peopleView->addWidget( plate );
 
   Attica::PersonJob *job = Attica::Person::request( m_addEdit->text() );
   connect( job, SIGNAL( result( KJob * ) ),
@@ -157,7 +163,7 @@ void AtticaView::slotJobSearchNameResult( KJob *j )
   foreach( Attica::Person person, job->personList() ) {
     PersonPlate *plate = new PersonPlate();
     plate->setPerson( person );
-    m_peopleLayout->addWidget( plate );
+    m_peopleView->addWidget( plate );
   }
 }
 
@@ -172,7 +178,7 @@ void AtticaView::readLocalAddressbook()
     
     PersonPlate *plate = new PersonPlate();
     plate->setAddressee( addressee );
-    m_peopleLayout->addWidget( plate );
+    m_peopleView->addWidget( plate );
   }
 }
 

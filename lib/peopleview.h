@@ -17,43 +17,23 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
-*/
-#ifndef PERSONPLATE_H
-#define PERSONPLATE_H
-
-#include "person.h"
-
-#include <kabc/addressee.h>
+ */
+#ifndef PEOPLEVIEW_H
+#define PEOPLEVIEW_H
 
 #include <QtGui>
 
-class KJob;
-
-class PersonPlate : public QWidget
+class PeopleView : public QWidget
 {
-    Q_OBJECT
   public:
-    PersonPlate();
+    PeopleView();
 
-    void enableDetails( bool );
-
-    void setLabel( const QString & );
-
-    void setPerson( const Attica::Person & );
-    void setAddressee( const KABC::Addressee & );
-
-  public slots:
-    void showDetails();
-
-  protected slots:
-    void slotJobResult( KJob *job );
+    void addWidget( QWidget * );
 
   private:
-    QLabel *m_picLabel;
-    QLabel *m_label;
-    QPushButton *m_detailsButton;
-
-    Attica::Person m_person;
+    QBoxLayout *m_plateLayout;
+    
+    QList<QWidget *> m_widgets;
 };
 
 #endif

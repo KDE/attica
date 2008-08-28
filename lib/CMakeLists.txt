@@ -7,6 +7,8 @@ set(attica_SRCS
    personjob.cpp
    personparser.cpp
    personlistjob.cpp
+   detailsview.cpp
+   peopleview.cpp
  )
 
 kde4_add_ui_files(attica_SRCS prefs_base.ui)

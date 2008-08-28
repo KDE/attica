@@ -18,42 +18,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef PERSONPLATE_H
-#define PERSONPLATE_H
 
-#include "person.h"
+#include "peopleview.h"
 
-#include <kabc/addressee.h>
-
-#include <QtGui>
-
-class KJob;
-
-class PersonPlate : public QWidget
+PeopleView::PeopleView()
 {
-    Q_OBJECT
-  public:
-    PersonPlate();
+  QBoxLayout *topLayout = new QVBoxLayout( this );
 
-    void enableDetails( bool );
+  m_plateLayout = new QVBoxLayout;
+  topLayout->addLayout( m_plateLayout );
+  
+  topLayout->addStretch( 1 );
+}
 
-    void setLabel( const QString & );
+void PeopleView::addWidget( QWidget *widget )
+{
+  if ( m_widgets.count() >= 10 ) {
+    QWidget *widget = m_widgets.takeFirst();
+    m_plateLayout->removeWidget( widget );
+    delete widget;
+  }
 
-    void setPerson( const Attica::Person & );
-    void setAddressee( const KABC::Addressee & );
-
-  public slots:
-    void showDetails();
-
-  protected slots:
-    void slotJobResult( KJob *job );
-
-  private:
-    QLabel *m_picLabel;
-    QLabel *m_label;
-    QPushButton *m_detailsButton;
-
-    Attica::Person m_person;
-};
-
-#endif
+  m_plateLayout->addWidget( widget );
+  m_widgets.append( widget );
+}

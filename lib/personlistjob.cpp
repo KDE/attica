@@ -47,7 +47,8 @@ Person::List PersonListJob::personList() const
 
 void PersonListJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/V1/USER/SEARCH/" + m_name );
+  KUrl url( "http://api.opendesktop.org/V1/USER/SEARCH/" + m_name +
+    "//////////" );
 
   qDebug() << url;
 

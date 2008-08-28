@@ -22,23 +22,35 @@
 #include "personplate.h"
 
 #include "personjob.h"
+#include "detailsview.h"
 
 #include "kstandarddirs.h"
 
 PersonPlate::PersonPlate()
 {
-  setFrameStyle( Panel | Raised );
-
   QBoxLayout *topLayout = new QHBoxLayout( this );
+
+  QFrame *topFrame = new QFrame;
+  topFrame->setFrameStyle( QFrame::Panel | QFrame::Raised );
+  topLayout->addWidget( topFrame );
+  
+  QHBoxLayout *frameLayout = new QHBoxLayout( topFrame );
   
   m_picLabel = new QLabel;
-  topLayout->addWidget( m_picLabel );
+  frameLayout->addWidget( m_picLabel );
   QString picPath = KStandardDirs::locate( "appdata", "attica_person.png" );
   m_picLabel->setPixmap( QPixmap( picPath ) );
   
   m_label = new QLabel();
   m_label->setAlignment( Qt::AlignCenter );
-  topLayout->addWidget( m_label, 1 );
+  frameLayout->addWidget( m_label, 1 );
+
+  m_detailsButton = new QPushButton( "..." );
+  topLayout->addWidget( m_detailsButton );
+  connect( m_detailsButton, SIGNAL( clicked() ), SLOT( showDetails() ) );
+  m_detailsButton->setSizePolicy(
+    m_detailsButton->sizePolicy().horizontalPolicy(),
+    QSizePolicy::MinimumExpanding );
 }
 
 void PersonPlate::setLabel( const QString &label )
@@ -82,4 +94,18 @@ void PersonPlate::setAddressee( const KABC::Addressee &addressee )
   }
   
   setLabel( label );
+}
+
+void PersonPlate::showDetails()
+{
+  DetailsView *detailsView = new DetailsView;
+  detailsView->showPerson( m_person );
+  
+  detailsView->show();
+}
+
+void PersonPlate::enableDetails( bool enabled )
+{
+  if ( enabled ) m_detailsButton->show();
+  else m_detailsButton->hide();
 }

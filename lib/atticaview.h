@@ -10,6 +10,7 @@
 
 class KUrl;
 class KJob;
+class PeopleView;
 
 /**
   This is the main view class for Attica.  Most of the non-menu,
@@ -54,11 +55,12 @@ class AtticaView : public QWidget
     void settingsChanged();
 
   private:
-    QBoxLayout *m_peopleLayout;
     QLineEdit *m_addEdit;
     QLineEdit *m_searchEdit;
     QLineEdit *m_latitudeEdit;
     QLineEdit *m_longitudeEdit;
+
+    PeopleView *m_peopleView;
 };
 
 #endif
