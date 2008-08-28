@@ -38,14 +38,14 @@ Activity::List ActivityParser::parseList( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
     
-    if ( xml.isStartElement() && xml.name() == "entry" ) {      
+    if ( xml.isStartElement() && xml.name() == "activity" ) {
       Activity activity;
 
       while ( !xml.atEnd() ) {
         xml.readNext();
 
         if ( xml.isStartElement() ) {
-          if ( xml.name() == "user" ) {
+          if ( xml.name() == "userid" ) {
             activity.setUser( xml.readElementText() );
           } else if ( xml.name() == "timestamp" ) {
             QString timestampString = xml.readElementText();
@@ -58,7 +58,7 @@ Activity::List ActivityParser::parseList( const QString &xmlString )
           }
         }
 
-        if ( xml.isEndElement() && xml.name() == "entry" ) break;
+        if ( xml.isEndElement() && xml.name() == "activity" ) break;
       }
       
       activityList.append( activity );

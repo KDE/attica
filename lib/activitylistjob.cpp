@@ -47,7 +47,7 @@ Activity::List ActivityListJob::ActivityList() const
 
 void ActivityListJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/V1/ACTIVITY/GET/0" );
+  KUrl url( "http://api.opendesktop.org/v1/activity" );
 
   qDebug() << url;
 
