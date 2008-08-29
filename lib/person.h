@@ -21,6 +21,8 @@
 #ifndef ATTICA_PERSON_H
 #define ATTICA_PERSON_H
 
+#include "atticaclient_export.h"
+
 #include <kurl.h>
 
 #include <QtCore>
@@ -32,7 +34,7 @@ class Transport;
 class PersonJob;
 class PersonListJob;
 
-class Person
+class ATTICA_EXPORT Person
 {
   public:
     typedef QList<Person> List;

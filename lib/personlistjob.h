@@ -31,7 +31,7 @@ class Job;
 
 namespace Attica {
 
-class PersonListJob : public KJob
+class ATTICA_EXPORT PersonListJob : public KJob
 {
     Q_OBJECT
   public:

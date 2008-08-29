@@ -21,6 +21,8 @@
 #ifndef ATTICA_ACTIVITY_H
 #define ATTICA_ACTIVITY_H
 
+#include "atticaclient_export.h"
+
 #include <kurl.h>
 
 #include <QtCore>
@@ -31,7 +33,7 @@ namespace Attica {
 class Transport;
 class ActivityListJob;
 
-class Activity
+class ATTICA_EXPORT Activity
 {
   public:
     typedef QList<Activity> List;

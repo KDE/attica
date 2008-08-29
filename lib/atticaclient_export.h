@@ -1,7 +1,5 @@
 /*
-    This file is part of KDE.
-
-    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
+    Copyright (c) 2008 Dirk Mueller <mueller@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,42 +16,20 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITYLISTJOB_H
-#define ATTICA_ACTIVITYLISTJOB_H
+#ifndef ATTICA_EXPORT_H
+#define ATTICA_EXPORT_H
 
-#include "activity.h"
+/* needed for KDE_EXPORT and KDE_IMPORT macros */
+#include <kdemacros.h>
 
-#include <kjob.h>
-
-namespace KIO {
-class Job;
-}
-
-namespace Attica {
-
-class ATTICA_EXPORT ActivityListJob : public KJob
-{
-    Q_OBJECT
-  public:
-    ActivityListJob();
-
-    void start();
-
-    Activity::List ActivityList() const;
-    
-  protected slots:
-    void doWork();
-
-    void slotJobResult( KJob *job );
-    void slotJobData( KIO::Job *job, const QByteArray &data );
-    
-  private:
-    KIO::Job *m_job;
-    QByteArray m_data;
-  
-    Activity::List m_activityList;
-};
-
-}
+#ifndef ATTICA_EXPORT
+# if defined(MAKE_ATTICA_LIB)
+   /* We are building this library */
+#  define ATTICA_EXPORT KDE_EXPORT
+# else
+   /* We are using this library */
+#  define ATTICA_EXPORT KDE_IMPORT
+# endif
+#endif
 
 #endif
