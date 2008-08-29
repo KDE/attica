@@ -51,12 +51,16 @@ class Activity
     void setMessage( const QString & );
     QString message() const;
 
+    void setLink( const QString & );
+    QString link() const;
+
   private:
     static Transport *m_transport;
 
     QString m_user;  
     QDateTime m_timestamp;
     QString m_message;
+    QString m_link;
 };
 
 }

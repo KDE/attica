@@ -45,7 +45,7 @@ Activity::List ActivityParser::parseList( const QString &xmlString )
         xml.readNext();
 
         if ( xml.isStartElement() ) {
-          if ( xml.name() == "userid" ) {
+          if ( xml.name() == "personid" ) {
             activity.setUser( xml.readElementText() );
           } else if ( xml.name() == "timestamp" ) {
             QString timestampString = xml.readElementText();
@@ -55,6 +55,8 @@ Activity::List ActivityParser::parseList( const QString &xmlString )
             activity.setTimestamp( timestamp );
           } else if ( xml.name() == "message" ) {
             activity.setMessage( xml.readElementText() );
+          } else if ( xml.name() == "link" ) {
+            activity.setLink( xml.readElementText() );
           }
         }
 

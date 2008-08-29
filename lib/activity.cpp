@@ -72,3 +72,13 @@ QString Activity::message() const
 {
   return m_message;
 }
+
+void Activity::setLink( const QString &v )
+{
+  m_link = v;
+}
+
+QString Activity::link() const
+{
+  return m_link;
+}
