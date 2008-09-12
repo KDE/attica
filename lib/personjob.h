@@ -35,6 +35,7 @@ class ATTICA_EXPORT PersonJob : public KJob
 {
     Q_OBJECT
   public:
+    PersonJob();
     PersonJob( const QString &id );
 
     void start();

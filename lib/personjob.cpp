@@ -30,6 +30,11 @@
 
 using namespace Attica;
 
+PersonJob::PersonJob()
+  : m_job( 0 )
+{
+}
+
 PersonJob::PersonJob( const QString &id )
   : m_job( 0 ), m_id( id )
 {
@@ -47,7 +52,13 @@ Person PersonJob::person() const
 
 void PersonJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/data/" + m_id );
+  KUrl url( "http://api.opendesktop.org/v1/person/" );
+  
+  if ( m_id.isEmpty() ) {
+    url.addPath( "self" );
+  } else {
+    url.addPath( "data/" + m_id );
+  }
 
   qDebug() << url;
 

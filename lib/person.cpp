@@ -45,6 +45,13 @@ PersonJob *Person::request( const QString &id )
   return job;
 }
 
+PersonJob *Person::requestSelf()
+{
+  PersonJob *job = new PersonJob();
+  job->start();
+  return job;
+}
+
 PersonListJob *Person::requestSearchName( const QString &name )
 {
   PersonListJob *job = new PersonListJob( name );
