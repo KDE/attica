@@ -19,10 +19,6 @@
 
 #include "ocsapi.h"
 
-#include "personjob.h"
-#include "personlistjob.h"
-#include "activitylistjob.h"
-
 using namespace Attica;
 
 OcsApi::OcsApi()
@@ -59,6 +55,17 @@ ActivityListJob *OcsApi::requestActivity()
   return doRequestActivityList( url );
 }
 
+PostJob *OcsApi::postInvitation( const QString &to, const QString &message )
+{
+  PostJob *job = new PostJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/friend/outbox/" + to );
+  job->setUrl( url );
+  job->setData( "message", message );
+
+  job->start();
+  return job;  
+}
 
 PersonJob *OcsApi::doRequestPerson( const KUrl &url )
 {

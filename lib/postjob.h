@@ -1,6 +1,8 @@
 /*
     This file is part of KDE.
 
+    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
@@ -15,41 +17,49 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
-*/
-#ifndef ATTICA_OCSAPI_H
-#define ATTICA_OCSAPI_H
+ */
+#ifndef ATTICA_POSTJOB_H
+#define ATTICA_POSTJOB_H
 
 #include "atticaclient_export.h"
 
-#include "personjob.h"
-#include "personlistjob.h"
-#include "activitylistjob.h"
-#include "postjob.h"
+#include <kjob.h>
+#include <kurl.h>
+
+namespace KIO {
+class Job;
+}
 
 namespace Attica {
 
-/**
-  Open Collaboration Services API.
-*/
-class ATTICA_EXPORT OcsApi
+class ATTICA_EXPORT PostJob : public KJob
 {
+    Q_OBJECT
   public:
-    OcsApi();
+    PostJob();
 
-    static PersonJob *requestPerson( const QString &id );
-    static PersonJob *requestPersonSelf();
-    static PersonListJob *requestPersonSearchByName( const QString &name );
+    void setUrl( const KUrl & );
+    void setData( const QString &name, const QString &value );
 
-    static PersonListJob *requestFriend( const QString &id );
+    void start();
 
-    static ActivityListJob *requestActivity();
+    QString status() const;
+    QString statusMessage() const;
+    
+  protected slots:
+    void doWork();
 
-    static PostJob *postInvitation( const QString &to, const QString &message );
-
-  protected:
-    static PersonJob *doRequestPerson( const KUrl & );
-    static PersonListJob *doRequestPersonList( const KUrl & );
-    static ActivityListJob *doRequestActivityList( const KUrl & );
+    void slotJobResult( KJob *job );
+    void slotJobData( KIO::Job *, const QByteArray & );
+    
+  private:
+    KUrl m_url;
+    QMap<QString,QString> m_data;
+    KIO::Job *m_job;
+    QString m_responseData;
+  
+    QString m_status;
+    QString m_statusMessage;
 };
 
 }
