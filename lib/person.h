@@ -46,6 +46,7 @@ class ATTICA_EXPORT Person
     static PersonJob *request( const QString &id );
     static PersonJob *requestSelf();
     static PersonListJob *requestSearchName( const QString &name );
+    static PersonListJob *requestFriends( const QString &id );
 
     void setUser( const QString & );
     QString user() const;

@@ -30,9 +30,14 @@
 
 using namespace Attica;
 
-PersonListJob::PersonListJob( const QString &name )
-  : m_job( 0 ), m_name( name )
+PersonListJob::PersonListJob()
+  : m_job( 0 )
 {
+}
+
+void PersonListJob::setUrl( const KUrl &url )
+{
+  m_url = url;
 }
 
 void PersonListJob::start()
@@ -47,11 +52,9 @@ Person::List PersonListJob::personList() const
 
 void PersonListJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/data?name=" + m_name );
+  qDebug() << m_url;
 
-  qDebug() << url;
-
-  m_job = KIO::get( url, KIO::NoReload, KIO::HideProgressInfo );
+  m_job = KIO::get( m_url, KIO::NoReload, KIO::HideProgressInfo );
   connect( m_job, SIGNAL( result( KJob * ) ),
     SLOT( slotUserJobResult( KJob * ) ) );
   connect( m_job, SIGNAL( data( KIO::Job *, const QByteArray & ) ),

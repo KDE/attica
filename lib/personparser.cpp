@@ -38,7 +38,8 @@ Person::List PersonParser::parseList( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
     
-    if ( xml.isStartElement() && xml.name() == "person" ) {
+    if ( xml.isStartElement() &&
+         ( xml.name() == "person" || xml.name() == "user" ) ) {
       Person person = parsePerson( xml );
       personList.append( person );
     }
@@ -99,7 +100,8 @@ Person PersonParser::parsePerson( QXmlStreamReader &xml )
       }
     }
 
-    if ( xml.isEndElement() && xml.name() == "person" ) break;
+    if ( xml.isEndElement() &&
+         ( xml.name() == "person" || xml.name() == "user" ) ) break;
   }
 
   return person;

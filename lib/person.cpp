@@ -54,7 +54,22 @@ PersonJob *Person::requestSelf()
 
 PersonListJob *Person::requestSearchName( const QString &name )
 {
-  PersonListJob *job = new PersonListJob( name );
+  PersonListJob *job = new PersonListJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/person/data?name=" + name );
+  job->setUrl( url );
+
+  job->start();
+  return job;
+}
+
+PersonListJob *Person::requestFriends( const QString &id )
+{
+  PersonListJob *job = new PersonListJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/friend/data/" + id );
+  job->setUrl( url );
+
   job->start();
   return job;
 }
