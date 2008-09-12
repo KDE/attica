@@ -35,6 +35,11 @@ ActivityListJob::ActivityListJob()
 {
 }
 
+void ActivityListJob::setUrl( const KUrl &url )
+{
+  m_url = url;
+}
+
 void ActivityListJob::start()
 {
   QTimer::singleShot( 0, this, SLOT( doWork() ) );
@@ -47,11 +52,9 @@ Activity::List ActivityListJob::ActivityList() const
 
 void ActivityListJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/v1/activity" );
+  qDebug() << m_url;
 
-  qDebug() << url;
-
-  m_job = KIO::get( url, KIO::NoReload, KIO::HideProgressInfo );
+  m_job = KIO::get( m_url, KIO::NoReload, KIO::HideProgressInfo );
   connect( m_job, SIGNAL( result( KJob * ) ),
     SLOT( slotJobResult( KJob * ) ) );
   connect( m_job, SIGNAL( data( KIO::Job *, const QByteArray & ) ),

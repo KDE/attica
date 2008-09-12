@@ -36,7 +36,8 @@ class ATTICA_EXPORT PersonJob : public KJob
     Q_OBJECT
   public:
     PersonJob();
-    PersonJob( const QString &id );
+
+    void setUrl( const KUrl & );
 
     void start();
 
@@ -52,11 +53,11 @@ class ATTICA_EXPORT PersonJob : public KJob
     void slotAvatarJobData( KIO::Job *job, const QByteArray &data );
     
   private:
+    KUrl m_url;
     KIO::Job *m_job;
     QString m_userData;
     QByteArray m_avatarData;
   
-    QString m_id;
     Person m_person;
 };
 

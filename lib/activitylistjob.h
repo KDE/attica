@@ -37,6 +37,8 @@ class ATTICA_EXPORT ActivityListJob : public KJob
   public:
     ActivityListJob();
 
+    void setUrl( const KUrl & );
+
     void start();
 
     Activity::List ActivityList() const;
@@ -48,6 +50,7 @@ class ATTICA_EXPORT ActivityListJob : public KJob
     void slotJobData( KIO::Job *job, const QByteArray &data );
     
   private:
+    KUrl m_url;
     KIO::Job *m_job;
     QByteArray m_data;
   

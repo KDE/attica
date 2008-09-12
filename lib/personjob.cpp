@@ -35,9 +35,9 @@ PersonJob::PersonJob()
 {
 }
 
-PersonJob::PersonJob( const QString &id )
-  : m_job( 0 ), m_id( id )
+void PersonJob::setUrl( const KUrl &url )
 {
+  m_url = url;
 }
 
 void PersonJob::start()
@@ -52,17 +52,9 @@ Person PersonJob::person() const
 
 void PersonJob::doWork()
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/" );
-  
-  if ( m_id.isEmpty() ) {
-    url.addPath( "self" );
-  } else {
-    url.addPath( "data/" + m_id );
-  }
+  qDebug() << m_url;
 
-  qDebug() << url;
-
-  m_job = KIO::get( url, KIO::NoReload, KIO::HideProgressInfo );
+  m_job = KIO::get( m_url, KIO::NoReload, KIO::HideProgressInfo );
   connect( m_job, SIGNAL( result( KJob * ) ),
     SLOT( slotUserJobResult( KJob * ) ) );
   connect( m_job, SIGNAL( data( KIO::Job *, const QByteArray & ) ),

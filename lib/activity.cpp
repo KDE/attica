@@ -39,6 +39,10 @@ void Activity::setTransport( Transport *t )
 ActivityListJob *Activity::request()
 {
   ActivityListJob *job = new ActivityListJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/activity" );
+  job->setUrl( url );
+
   job->start();
   return job;
 }

@@ -40,7 +40,11 @@ void Person::setTransport( Transport *t )
 
 PersonJob *Person::request( const QString &id )
 {
-  PersonJob *job = new PersonJob( id );
+  PersonJob *job = new PersonJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/person/data/" + id );
+  job->setUrl( url );
+
   job->start();
   return job;
 }
@@ -48,6 +52,10 @@ PersonJob *Person::request( const QString &id )
 PersonJob *Person::requestSelf()
 {
   PersonJob *job = new PersonJob();
+
+  KUrl url( "http://api.opendesktop.org/v1/person/self" );
+  job->setUrl( url );
+
   job->start();
   return job;
 }
