@@ -48,8 +48,8 @@ class ATTICA_EXPORT Person
     static PersonListJob *requestSearchName( const QString &name );
     static PersonListJob *requestFriends( const QString &id );
 
-    void setUser( const QString & );
-    QString user() const;
+    void setId( const QString & );
+    QString id() const;
 
     void setFirstName( const QString & );
     QString firstName() const;
@@ -89,7 +89,7 @@ class ATTICA_EXPORT Person
   private:
     static Transport *m_transport;
 
-    QString m_user;  
+    QString m_id;  
     QString m_firstName;
     QString m_lastName;
     QDate m_birthday;

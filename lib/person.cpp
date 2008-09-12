@@ -74,14 +74,14 @@ PersonListJob *Person::requestFriends( const QString &id )
   return job;
 }
 
-void Person::setUser( const QString &u )
+void Person::setId( const QString &u )
 {
-  m_user = u;
+  m_id = u;
 }
 
-QString Person::user() const
+QString Person::id() const
 {
-  return m_user;
+  return m_id;
 }
 
 void Person::setFirstName( const QString &name )

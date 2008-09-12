@@ -74,7 +74,7 @@ Person PersonParser::parsePerson( QXmlStreamReader &xml )
 
     if ( xml.isStartElement() ) {
       if ( xml.name() == "personid" ) {
-        person.setUser( xml.readElementText() );
+        person.setId( xml.readElementText() );
       } else if ( xml.name() == "firstname" ) {
         person.setFirstName( xml.readElementText() );
       } else if ( xml.name() == "lastname" ) {
