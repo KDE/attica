@@ -18,44 +18,21 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
+#ifndef ATTICA_MESSAGEPARSER_H
+#define ATTICA_MESSAGEPARSER_H
 
-#include "atticaclient_export.h"
+#include "message.h"
 
-#include <kurl.h>
-
-#include <QtCore>
-#include <QPixmap>
+class QXmlStreamReader;
 
 namespace Attica {
 
-class ActivityListJob;
-
-class ATTICA_EXPORT Activity
+class MessageParser
 {
   public:
-    typedef QList<Activity> List;
-  
-    Activity();
+    MessageParser();
 
-    void setUser( const QString & );
-    QString user() const;
-
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
-
-    void setMessage( const QString & );
-    QString message() const;
-
-    void setLink( const QString & );
-    QString link() const;
-
-  private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
+    Message::List parseList( const QString &xml );
 };
 
 }

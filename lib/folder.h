@@ -18,44 +18,41 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
+#ifndef ATTICA_FOLDER_H
+#define ATTICA_FOLDER_H
 
 #include "atticaclient_export.h"
 
-#include <kurl.h>
-
 #include <QtCore>
-#include <QPixmap>
 
 namespace Attica {
 
-class ActivityListJob;
+class FolderListJob;
 
-class ATTICA_EXPORT Activity
+class ATTICA_EXPORT Folder
 {
   public:
-    typedef QList<Activity> List;
+    typedef QList<Folder> List;
   
-    Activity();
+    Folder();
 
-    void setUser( const QString & );
-    QString user() const;
+    void setId( const QString & );
+    QString id() const;
 
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
+    void setName( const QString & );
+    QString name() const;
 
-    void setMessage( const QString & );
-    QString message() const;
+    void setMessageCount( int );
+    int messageCount() const;
 
-    void setLink( const QString & );
-    QString link() const;
+    void setType( const QString & );
+    QString type() const;
 
   private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
+    QString m_id;  
+    QString m_name;
+    int m_messageCount;
+    QString m_type;
 };
 
 }

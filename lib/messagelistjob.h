@@ -18,44 +18,44 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
+#ifndef ATTICA_MESSAGELISTJOB_H
+#define ATTICA_MESSAGELISTJOB_H
 
-#include "atticaclient_export.h"
+#include "message.h"
 
+#include <kjob.h>
 #include <kurl.h>
 
-#include <QtCore>
-#include <QPixmap>
+namespace KIO {
+class Job;
+}
 
 namespace Attica {
 
-class ActivityListJob;
-
-class ATTICA_EXPORT Activity
+class ATTICA_EXPORT MessageListJob : public KJob
 {
+    Q_OBJECT
   public:
-    typedef QList<Activity> List;
-  
-    Activity();
+    MessageListJob();
 
-    void setUser( const QString & );
-    QString user() const;
+    void setUrl( const KUrl & );
 
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
+    void start();
 
-    void setMessage( const QString & );
-    QString message() const;
+    Message::List messageList() const;
+    
+  protected slots:
+    void doWork();
 
-    void setLink( const QString & );
-    QString link() const;
-
+    void slotJobResult( KJob *job );
+    void slotJobData( KIO::Job *job, const QByteArray &data );
+    
   private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
+    KUrl m_url;
+    KIO::Job *m_job;
+    QByteArray m_data;
+  
+    Message::List m_messageList;
 };
 
 }

@@ -30,9 +30,6 @@
 
 namespace Attica {
 
-class PersonJob;
-class PersonListJob;
-
 class ATTICA_EXPORT Person
 {
   public:

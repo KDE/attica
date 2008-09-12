@@ -25,6 +25,8 @@
 #include "personlistjob.h"
 #include "activitylistjob.h"
 #include "postjob.h"
+#include "folderlistjob.h"
+#include "messagelistjob.h"
 
 namespace Attica {
 
@@ -46,10 +48,17 @@ class ATTICA_EXPORT OcsApi
 
     static PostJob *postInvitation( const QString &to, const QString &message );
 
+    static FolderListJob *requestFolders();
+    static MessageListJob *requestMessages( const QString &folderId );
+
   protected:
+    static KUrl createUrl( const QString &path );
+  
     static PersonJob *doRequestPerson( const KUrl & );
     static PersonListJob *doRequestPersonList( const KUrl & );
     static ActivityListJob *doRequestActivityList( const KUrl & );
+    static FolderListJob *doRequestFolderList( const KUrl &url );
+    static MessageListJob * doRequestMessageList( const KUrl &url );
 };
 
 }

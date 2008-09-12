@@ -67,6 +67,23 @@ PostJob *OcsApi::postInvitation( const QString &to, const QString &message )
   return job;  
 }
 
+FolderListJob *OcsApi::requestFolders()
+{
+  return doRequestFolderList( createUrl( "message" ) );
+}
+
+MessageListJob *OcsApi::requestMessages( const QString &folderId )
+{
+  return doRequestMessageList( createUrl( "message/" + folderId ) );
+}
+
+KUrl OcsApi::createUrl( const QString &path )
+{
+  KUrl url( "http://api.opendesktop.org/v1/" );
+  url.addPath( path );
+  return url;
+}
+
 PersonJob *OcsApi::doRequestPerson( const KUrl &url )
 {
   PersonJob *job = new PersonJob();
@@ -93,6 +110,24 @@ ActivityListJob *OcsApi::doRequestActivityList( const KUrl &url )
 
   job->setUrl( url );
 
+  job->start();
+  return job;
+}
+
+FolderListJob *OcsApi::doRequestFolderList( const KUrl &url )
+{
+  FolderListJob *job = new FolderListJob();
+  
+  job->setUrl( url );
+  job->start();
+  return job;
+}
+
+MessageListJob *OcsApi::doRequestMessageList( const KUrl &url )
+{
+  MessageListJob *job = new MessageListJob();
+  
+  job->setUrl( url );
   job->start();
   return job;
 }

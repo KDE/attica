@@ -18,44 +18,57 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
+#ifndef ATTICA_MESSAGE_H
+#define ATTICA_MESSAGE_H
 
 #include "atticaclient_export.h"
 
-#include <kurl.h>
-
 #include <QtCore>
-#include <QPixmap>
 
 namespace Attica {
 
-class ActivityListJob;
-
-class ATTICA_EXPORT Activity
+class ATTICA_EXPORT Message
 {
   public:
-    typedef QList<Activity> List;
+    typedef QList<Message> List;
+
+    enum Status { Unread = 0, Read = 1 };
   
-    Activity();
+    Message();
 
-    void setUser( const QString & );
-    QString user() const;
+    void setId( const QString & );
+    QString id() const;
 
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
+    void setFrom( const QString & );
+    QString from() const;
+    
+    void setTo( const QString & );
+    QString to() const;
+    
+    void setSent( const QDateTime & );
+    QDateTime sent() const;
 
-    void setMessage( const QString & );
-    QString message() const;
+    void setStatus( Status );
+    Status status() const;
 
-    void setLink( const QString & );
-    QString link() const;
+    void setStatusText( const QString & );
+    QString statusText() const;
+
+    void setSubject( const QString & );
+    QString subject() const;
+
+    void setBody( const QString & );
+    QString body() const;
 
   private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
+    QString m_id;
+    QString m_from;
+    QString m_to;
+    QDateTime m_sent;
+    Status m_status;
+    QString m_statusText;
+    QString m_subject;
+    QString m_body;
 };
 
 }

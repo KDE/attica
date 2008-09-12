@@ -21,9 +21,6 @@
 
 #include "person.h"
 
-#include "personjob.h"
-#include "personlistjob.h"
-
 using namespace Attica;
 
 Person::Person()

@@ -8,6 +8,12 @@ set(atticaclient_SRCS
    personlistjob.cpp
    ocsapi.cpp
    postjob.cpp
+   folder.cpp
+   folderlistjob.cpp
+   folderparser.cpp
+   message.cpp
+   messagelistjob.cpp
+   messageparser.cpp
  )
 
 kde4_add_library(atticaclient SHARED ${atticaclient_SRCS})

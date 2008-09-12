@@ -18,46 +18,54 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
 
-#include "atticaclient_export.h"
+#include "folder.h"
 
-#include <kurl.h>
+#include "folderlistjob.h"
 
-#include <QtCore>
-#include <QPixmap>
+using namespace Attica;
 
-namespace Attica {
-
-class ActivityListJob;
-
-class ATTICA_EXPORT Activity
+Folder::Folder()
+  : m_messageCount( 0 )
 {
-  public:
-    typedef QList<Activity> List;
-  
-    Activity();
-
-    void setUser( const QString & );
-    QString user() const;
-
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
-
-    void setMessage( const QString & );
-    QString message() const;
-
-    void setLink( const QString & );
-    QString link() const;
-
-  private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
-};
-
 }
 
-#endif
+void Folder::setId( const QString &u )
+{
+  m_id = u;
+}
+
+QString Folder::id() const
+{
+  return m_id;
+}
+
+void Folder::setName( const QString &d )
+{
+  m_name = d;
+}
+
+QString Folder::name() const
+{
+  return m_name;
+}
+
+void Folder::setMessageCount( int c )
+{
+  m_messageCount = c;
+}
+
+int Folder::messageCount() const
+{
+  return m_messageCount;
+}
+
+void Folder::setType( const QString &v )
+{
+  m_type = v;
+}
+
+QString Folder::type() const
+{
+  return m_type;
+}
