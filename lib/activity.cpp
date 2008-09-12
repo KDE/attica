@@ -25,26 +25,8 @@
 
 using namespace Attica;
 
-Transport *Activity::m_transport = 0;
-
 Activity::Activity()
 {
-}
-
-void Activity::setTransport( Transport *t )
-{
-  m_transport = t;
-}
-
-ActivityListJob *Activity::request()
-{
-  ActivityListJob *job = new ActivityListJob();
-
-  KUrl url( "http://api.opendesktop.org/v1/activity" );
-  job->setUrl( url );
-
-  job->start();
-  return job;
 }
 
 void Activity::setUser( const QString &u )

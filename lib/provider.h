@@ -1,8 +1,6 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
-
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
@@ -18,45 +16,41 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_ACTIVITY_H
-#define ATTICA_ACTIVITY_H
+#ifndef ATTICA_OCSAPI_H
+#define ATTICA_OCSAPI_H
 
 #include "atticaclient_export.h"
 
 #include <kurl.h>
 
-#include <QtCore>
-#include <QPixmap>
+#include <QString>
 
 namespace Attica {
 
-class Transport;
+class PersonJob;
+class PersonListJob;
 class ActivityListJob;
 
-class ATTICA_EXPORT Activity
+/**
+  Open Collaboration Services API.
+*/
+class ATTICA_EXPORT OcsApi
 {
   public:
-    typedef QList<Activity> List;
-  
-    Activity();
+    OcsApi();
 
-    void setUser( const QString & );
-    QString user() const;
+    static PersonJob *requestPerson( const QString &id );
+    static PersonJob *requestPersonSelf();
+    static PersonListJob *requestPersonSearchByName( const QString &name );
 
-    void setTimestamp( const QDateTime & );
-    QDateTime timestamp() const;
+    static PersonListJob *requestFriend( const QString &id );
 
-    void setMessage( const QString & );
-    QString message() const;
+    static ActivityListJob *requestActivity();
 
-    void setLink( const QString & );
-    QString link() const;
-
-  private:
-    QString m_user;  
-    QDateTime m_timestamp;
-    QString m_message;
-    QString m_link;
+  protected:
+    static PersonJob *doRequestPerson( const KUrl & );
+    static PersonListJob *doRequestPersonList( const KUrl & );
+    static ActivityListJob *doRequestActivityList( const KUrl & );
 };
 
 }

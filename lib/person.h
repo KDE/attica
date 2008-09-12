@@ -30,7 +30,6 @@
 
 namespace Attica {
 
-class Transport;
 class PersonJob;
 class PersonListJob;
 
@@ -40,13 +39,6 @@ class ATTICA_EXPORT Person
     typedef QList<Person> List;
   
     Person();
-
-    static void setTransport( Transport * );
-
-    static PersonJob *request( const QString &id );
-    static PersonJob *requestSelf();
-    static PersonListJob *requestSearchName( const QString &name );
-    static PersonListJob *requestFriends( const QString &id );
 
     void setId( const QString & );
     QString id() const;
@@ -87,8 +79,6 @@ class ATTICA_EXPORT Person
     QMap<QString,QString> extendedAttributes() const;
 
   private:
-    static Transport *m_transport;
-
     QString m_id;  
     QString m_firstName;
     QString m_lastName;

@@ -26,60 +26,9 @@
 
 using namespace Attica;
 
-Transport *Person::m_transport = 0;
-
 Person::Person()
   : m_latitude( 0 ), m_longitude( 0 )
 {
-}
-
-void Person::setTransport( Transport *t )
-{
-  m_transport = t;
-}
-
-PersonJob *Person::request( const QString &id )
-{
-  PersonJob *job = new PersonJob();
-
-  KUrl url( "http://api.opendesktop.org/v1/person/data/" + id );
-  job->setUrl( url );
-
-  job->start();
-  return job;
-}
-
-PersonJob *Person::requestSelf()
-{
-  PersonJob *job = new PersonJob();
-
-  KUrl url( "http://api.opendesktop.org/v1/person/self" );
-  job->setUrl( url );
-
-  job->start();
-  return job;
-}
-
-PersonListJob *Person::requestSearchName( const QString &name )
-{
-  PersonListJob *job = new PersonListJob();
-
-  KUrl url( "http://api.opendesktop.org/v1/person/data?name=" + name );
-  job->setUrl( url );
-
-  job->start();
-  return job;
-}
-
-PersonListJob *Person::requestFriends( const QString &id )
-{
-  PersonListJob *job = new PersonListJob();
-
-  KUrl url( "http://api.opendesktop.org/v1/friend/data/" + id );
-  job->setUrl( url );
-
-  job->start();
-  return job;
 }
 
 void Person::setId( const QString &u )
