@@ -80,10 +80,13 @@ void PostJob::slotJobResult( KJob *job )
 {
   m_job = 0;
 
+  qDebug() << "RESPONSE" << m_responseData;
+
   if ( job->error() ) {
     setError( job->error() );
     setErrorText( job->errorText() );
   } else {
+    qDebug() << "No error ";
     
     QXmlStreamReader xml( m_responseData );
     
@@ -106,6 +109,8 @@ void PostJob::slotJobResult( KJob *job )
         }
       }
     }
+    
+    qDebug() << "STATUS:" << m_status;
     
     if ( m_status != "ok" ) {
       setError( KJob::UserDefinedError );

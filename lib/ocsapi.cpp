@@ -77,6 +77,21 @@ MessageListJob *OcsApi::requestMessages( const QString &folderId )
   return doRequestMessageList( createUrl( "message/" + folderId ) );
 }
 
+PostJob *OcsApi::postMessage( const Message &message )
+{
+  PostJob *job = new PostJob();
+  
+  KUrl url = createUrl( "message/2" );
+  job->setUrl( url );
+  job->setData( "message", message.body() );
+  job->setData( "subject", message.subject() );
+  job->setData( "to", message.to() );
+  
+  job->start();
+  return job;
+}
+
+
 KUrl OcsApi::createUrl( const QString &path )
 {
   KUrl url( "http://api.opendesktop.org/v1/" );

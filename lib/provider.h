@@ -50,6 +50,7 @@ class ATTICA_EXPORT OcsApi
 
     static FolderListJob *requestFolders();
     static MessageListJob *requestMessages( const QString &folderId );
+    static PostJob *postMessage( const Message &message );
 
   protected:
     static KUrl createUrl( const QString &path );
