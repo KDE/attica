@@ -55,6 +55,18 @@ ActivityListJob *OcsApi::requestActivity()
   return doRequestActivityList( url );
 }
 
+PostJob *OcsApi::postActivity( const QString &message )
+{
+  PostJob *job = new PostJob();
+
+  KUrl url = createUrl( "activity" );
+  job->setUrl( url );
+  job->setData( "message", message );
+  
+  job->start();
+  return job;
+}
+
 PostJob *OcsApi::postInvitation( const QString &to, const QString &message )
 {
   PostJob *job = new PostJob();

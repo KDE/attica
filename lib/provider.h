@@ -45,6 +45,7 @@ class ATTICA_EXPORT OcsApi
     static PersonListJob *requestFriend( const QString &id );
 
     static ActivityListJob *requestActivity();
+    static PostJob *postActivity( const QString &message );
 
     static PostJob *postInvitation( const QString &to, const QString &message );
 
