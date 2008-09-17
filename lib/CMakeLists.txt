@@ -14,6 +14,13 @@ set(atticaclient_SRCS
    message.cpp
    messagelistjob.cpp
    messageparser.cpp
+   category.cpp
+   categorylistjob.cpp
+   categoryparser.cpp
+   content.cpp
+   contentjob.cpp
+   contentlistjob.cpp
+   contentparser.cpp
  )
 
 kde4_add_library(atticaclient SHARED ${atticaclient_SRCS})

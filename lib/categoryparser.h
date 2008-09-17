@@ -18,52 +18,23 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+#ifndef ATTICA_CATEGORYPARSER_H
+#define ATTICA_CATEGORYPARSER_H
 
-#include "folder.h"
+#include "category.h"
 
-using namespace Attica;
+class QXmlStreamReader;
 
-Folder::Folder()
-  : m_messageCount( 0 )
+namespace Attica {
+
+class CategoryParser
 {
+  public:
+    CategoryParser();
+
+    Category::List parseList( const QString &xml );
+};
+
 }
 
-void Folder::setId( const QString &u )
-{
-  m_id = u;
-}
-
-QString Folder::id() const
-{
-  return m_id;
-}
-
-void Folder::setName( const QString &d )
-{
-  m_name = d;
-}
-
-QString Folder::name() const
-{
-  return m_name;
-}
-
-void Folder::setMessageCount( int c )
-{
-  m_messageCount = c;
-}
-
-int Folder::messageCount() const
-{
-  return m_messageCount;
-}
-
-void Folder::setType( const QString &v )
-{
-  m_type = v;
-}
-
-QString Folder::type() const
-{
-  return m_type;
-}
+#endif

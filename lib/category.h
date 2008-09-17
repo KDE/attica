@@ -18,52 +18,35 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+#ifndef ATTICA_CATEGORY_H
+#define ATTICA_CATEGORY_H
 
-#include "folder.h"
+#include "atticaclient_export.h"
 
-using namespace Attica;
+#include <QtCore>
 
-Folder::Folder()
-  : m_messageCount( 0 )
+namespace Attica {
+
+class CategoryListJob;
+
+class ATTICA_EXPORT Category
 {
+  public:
+    typedef QList<Category> List;
+  
+    Category();
+
+    void setId( const QString & );
+    QString id() const;
+
+    void setName( const QString & );
+    QString name() const;
+
+  private:
+    QString m_id;  
+    QString m_name;
+};
+
 }
 
-void Folder::setId( const QString &u )
-{
-  m_id = u;
-}
-
-QString Folder::id() const
-{
-  return m_id;
-}
-
-void Folder::setName( const QString &d )
-{
-  m_name = d;
-}
-
-QString Folder::name() const
-{
-  return m_name;
-}
-
-void Folder::setMessageCount( int c )
-{
-  m_messageCount = c;
-}
-
-int Folder::messageCount() const
-{
-  return m_messageCount;
-}
-
-void Folder::setType( const QString &v )
-{
-  m_type = v;
-}
-
-QString Folder::type() const
-{
-  return m_type;
-}
+#endif

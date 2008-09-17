@@ -27,6 +27,9 @@
 #include "postjob.h"
 #include "folderlistjob.h"
 #include "messagelistjob.h"
+#include "categorylistjob.h"
+#include "contentjob.h"
+#include "contentlistjob.h"
 
 namespace Attica {
 
@@ -52,6 +55,12 @@ class ATTICA_EXPORT OcsApi
     static FolderListJob *requestFolders();
     static MessageListJob *requestMessages( const QString &folderId );
     static PostJob *postMessage( const Message &message );
+
+    enum SortMode { Newest, Alphabetical, Rating, Downloads };
+    static CategoryListJob *requestCategories();
+    static ContentListJob *requestContent( const Category::List &categories,
+      const QString &search, SortMode );
+    static ContentJob *requestContent( const QString &id );
 
   protected:
     static KUrl createUrl( const QString &path );

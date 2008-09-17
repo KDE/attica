@@ -17,53 +17,47 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
-*/
+ */
+#ifndef ATTICA_CONTENTLISTJOB_H
+#define ATTICA_CONTENTLISTJOB_H
 
-#include "folder.h"
+#include "content.h"
 
-using namespace Attica;
+#include <kurl.h>
+#include <kjob.h>
 
-Folder::Folder()
-  : m_messageCount( 0 )
-{
+namespace KIO {
+class Job;
 }
 
-void Folder::setId( const QString &u )
+namespace Attica {
+
+class ATTICA_EXPORT ContentListJob : public KJob
 {
-  m_id = u;
+    Q_OBJECT
+  public:
+    ContentListJob();
+
+    void setUrl( const KUrl & );
+
+    void start();
+
+    Content::List contentList() const;
+    
+  protected slots:
+    void doWork();
+
+    void slotJobResult( KJob *job );
+    void slotJobData( KIO::Job *job, const QByteArray &data );
+    
+  private:
+    KUrl m_url;
+    KIO::Job *m_job;
+    QByteArray m_data;
+  
+    Content::List m_contentList;
+};
+
 }
 
-QString Folder::id() const
-{
-  return m_id;
-}
-
-void Folder::setName( const QString &d )
-{
-  m_name = d;
-}
-
-QString Folder::name() const
-{
-  return m_name;
-}
-
-void Folder::setMessageCount( int c )
-{
-  m_messageCount = c;
-}
-
-int Folder::messageCount() const
-{
-  return m_messageCount;
-}
-
-void Folder::setType( const QString &v )
-{
-  m_type = v;
-}
-
-QString Folder::type() const
-{
-  return m_type;
-}
+#endif

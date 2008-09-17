@@ -19,51 +19,30 @@
     USA.
 */
 
-#include "folder.h"
+#include "category.h"
 
 using namespace Attica;
 
-Folder::Folder()
-  : m_messageCount( 0 )
+Category::Category()
 {
 }
 
-void Folder::setId( const QString &u )
+void Category::setId( const QString &u )
 {
   m_id = u;
 }
 
-QString Folder::id() const
+QString Category::id() const
 {
   return m_id;
 }
 
-void Folder::setName( const QString &d )
+void Category::setName( const QString &d )
 {
   m_name = d;
 }
 
-QString Folder::name() const
+QString Category::name() const
 {
   return m_name;
-}
-
-void Folder::setMessageCount( int c )
-{
-  m_messageCount = c;
-}
-
-int Folder::messageCount() const
-{
-  return m_messageCount;
-}
-
-void Folder::setType( const QString &v )
-{
-  m_type = v;
-}
-
-QString Folder::type() const
-{
-  return m_type;
 }

@@ -18,8 +18,8 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_FOLDER_H
-#define ATTICA_FOLDER_H
+#ifndef ATTICA_CONTENT_H
+#define ATTICA_CONTENT_H
 
 #include "atticaclient_export.h"
 
@@ -27,12 +27,12 @@
 
 namespace Attica {
 
-class ATTICA_EXPORT Folder
+class ATTICA_EXPORT Content
 {
   public:
-    typedef QList<Folder> List;
+    typedef QList<Content> List;
   
-    Folder();
+    Content();
 
     void setId( const QString & );
     QString id() const;
@@ -40,17 +40,32 @@ class ATTICA_EXPORT Folder
     void setName( const QString & );
     QString name() const;
 
-    void setMessageCount( int );
-    int messageCount() const;
+    void setRating( int );
+    int rating() const;
+    
+    void setDownloads( int );
+    int downloads() const;
+    
+    void setCreated( const QDateTime & );
+    QDateTime created() const;
 
-    void setType( const QString & );
-    QString type() const;
+    void setUpdated( const QDateTime & );
+    QDateTime updated() const;
+
+    void addExtendedAttribute( const QString &key, const QString &value );
+    QString extendedAttribute( const QString &key ) const;
+
+    QMap<QString,QString> extendedAttributes() const;
 
   private:
     QString m_id;  
     QString m_name;
-    int m_messageCount;
-    QString m_type;
+    int m_rating;
+    int m_downloads;
+    QDateTime m_created;
+    QDateTime m_updated;
+
+    QMap<QString,QString> m_extendedAttributes;
 };
 
 }

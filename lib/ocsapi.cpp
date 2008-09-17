@@ -103,6 +103,67 @@ PostJob *OcsApi::postMessage( const Message &message )
   return job;
 }
 
+CategoryListJob *OcsApi::requestCategories()
+{
+  CategoryListJob *job = new CategoryListJob();
+  
+  KUrl url = createUrl( "content/categories" );
+  job->setUrl( url );
+  
+  job->start();
+  return job;
+}
+
+ContentListJob *OcsApi::requestContent( const Category::List &categories,
+  const QString &search, SortMode sortMode )
+{
+  ContentListJob *job = new ContentListJob();
+  
+  KUrl url = createUrl( "content/data" );
+
+  QStringList categoryIds;
+  foreach( Category category, categories ) {
+    categoryIds.append( category.id() );
+  }
+  url.addQueryItem( "categories", categoryIds.join( "x" ) );
+  
+  url.addQueryItem( "search", search );
+  QString sortModeString;
+  switch ( sortMode ) {
+    case Newest:
+      sortModeString = "new";
+      break;
+    case Alphabetical:
+      sortModeString = "alpha";
+      break;
+    case Rating:
+      sortModeString = "high";
+      break;
+    case Downloads:
+      sortModeString = "down";
+      break;
+  }
+  if ( !sortModeString.isEmpty() ) {
+    url.addQueryItem( "sortmode", sortModeString );
+  }
+
+  job->setUrl( url );
+  
+  job->start();
+  return job;
+}
+
+ContentJob *OcsApi::requestContent( const QString &id )
+{
+  ContentJob *job = new ContentJob();
+  
+  KUrl url = createUrl( "content/data/" + id );
+  job->setUrl( url );
+  
+  job->start();
+  return job;
+}
+
 
 KUrl OcsApi::createUrl( const QString &path )
 {
