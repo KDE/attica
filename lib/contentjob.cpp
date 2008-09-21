@@ -68,12 +68,12 @@ void ContentJob::slotJobResult( KJob *job )
   if ( job->error() ) {
     setError( job->error() );
     setErrorText( job->errorText() );
-  
-    emitResult();
   } else {
     qDebug() << m_data;
     m_content = ContentParser().parse( QString::fromUtf8( m_data.data() ) );
   }
+
+  emitResult();
 }
 
 void ContentJob::slotJobData( KIO::Job *, const QByteArray &data )
