@@ -43,6 +43,18 @@ PersonListJob *OcsApi::requestPersonSearchByName( const QString &name )
   return doRequestPersonList( url );
 }
 
+PersonListJob *OcsApi::requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance)
+{
+  QString la = QString::number(latitude);
+  QString lo = QString::number(longitude);
+  QString di = QString::number(distance);
+  QString u = QString("http://api.opendesktop.org/v1/person/data?latitude=%1&longitude=%2&distance=%3").arg(la, lo, di); 
+  KUrl url( u );
+  qDebug() << "Location-based search:" << u << latitude << longitude << distance;
+  qDebug() << la << lo << di;
+  return doRequestPersonList( url );
+}
+
 PersonListJob *OcsApi::requestFriend( const QString &id )
 {
   KUrl url( "http://api.opendesktop.org/v1/friend/data/" + id );
