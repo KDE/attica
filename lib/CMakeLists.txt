@@ -1,4 +1,4 @@
-set(atticaclient_SRCS
+set(ocsclient_SRCS
    activity.cpp
    activityparser.cpp
    activitylistjob.cpp
@@ -23,9 +23,13 @@ set(atticaclient_SRCS
    contentparser.cpp
  )
 
-kde4_add_library(atticaclient SHARED ${atticaclient_SRCS})
-set_target_properties(atticaclient PROPERTIES VERSION ${KDE_GENERIC_LIB_VERSION} SOVERSION ${KDE_GENERIC_LIB_SOVERSION})
 
-target_link_libraries(atticaclient ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KABC_LIBS})
+find_package(KDE4 REQUIRED)
+include (KDE4Defaults)
 
-install(TARGETS atticaclient DESTINATION ${LIB_INSTALL_DIR})
+kde4_add_library(ocsclient SHARED ${ocsclient_SRCS})
+set_target_properties(ocsclient PROPERTIES VERSION ${KDE_GENERIC_LIB_VERSION} SOVERSION ${KDE_GENERIC_LIB_SOVERSION})
+
+target_link_libraries(ocsclient ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KABC_LIBS})
+
+install(TARGETS ocsclient DESTINATION ${LIB_INSTALL_DIR})

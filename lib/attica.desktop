@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Attica
-Exec=attica %i -caption "%c"
-Icon=attica
-Type=Application
-DocPath=attica/index.html
-GenericName=A KDE4 Application
-Terminal=0
-
