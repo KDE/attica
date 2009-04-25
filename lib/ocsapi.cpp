@@ -176,6 +176,53 @@ ContentJob *OcsApi::requestContent( const QString &id )
   return job;
 }
 
+KnowledgeBaseJob *OcsApi::requestKnowledgeBase( const QString &id )
+{
+  KnowledgeBaseJob *job = new KnowledgeBaseJob();
+
+  KUrl url = createUrl( "knowledgebase/data/" + id );
+  job->setUrl( url );
+
+  job->start();
+  return job;
+}
+
+KnowledgeBaseListJob *OcsApi::requestKnowledgeBase( const QString &search, SortMode sortMode, const int page, const int pageSize )
+{
+  KnowledgeBaseListJob *job = new KnowledgeBaseListJob();
+
+  KUrl url = createUrl( "content/data" );
+
+
+  url.addQueryItem( "search", search );
+  QString sortModeString;
+  switch ( sortMode ) {
+    case Newest:
+      sortModeString = "new";
+      break;
+    case Alphabetical:
+      sortModeString = "alpha";
+      break;
+    case Rating:
+      sortModeString = "high";
+      break;
+    //FIXME: knowledge base doesn't have downloads
+    case Downloads:
+      sortModeString = "new";
+      break;
+  }
+  if ( !sortModeString.isEmpty() ) {
+    url.addQueryItem( "sortmode", sortModeString );
+  }
+
+  url.addQueryItem( "page", QString::number(page) );
+  url.addQueryItem( "pagesize", QString::number(pageSize) );
+
+  job->setUrl( url );
+
+  job->start();
+  return job;
+}
 
 KUrl OcsApi::createUrl( const QString &path )
 {
