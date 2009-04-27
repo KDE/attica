@@ -54,6 +54,7 @@ class ATTICA_EXPORT OcsApi
     static PostJob *postActivity( const QString &message );
 
     static PostJob *postInvitation( const QString &to, const QString &message );
+    static PostJob *postLocation( qreal latitude, qreal longitude, const QString &city = QString(), const QString &country = QString());
 
     static FolderListJob *requestFolders();
     static MessageListJob *requestMessages( const QString &folderId );

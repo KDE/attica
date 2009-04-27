@@ -83,13 +83,31 @@ PostJob *OcsApi::postInvitation( const QString &to, const QString &message )
 {
   PostJob *job = new PostJob();
 
-  KUrl url( "http://api.opendesktop.org/v1/friend/outbox/" + to );
+  KUrl url = createUrl( "friend/outbox/" + to );
   job->setUrl( url );
   job->setData( "message", message );
 
   job->start();
   return job;  
 }
+
+PostJob *OcsApi::postLocation( qreal latitude, qreal longitude, const QString &city, const QString &country )
+{
+  PostJob *job = new PostJob();
+  
+  KUrl url = createUrl( "person/self" );
+  
+  job->setUrl( url ); 
+
+  job->setData( "latitude", QString("%1").arg(latitude) );
+  job->setData( "longitude", QString("%1").arg(longitude) );
+  job->setData( "city", city );
+  job->setData( "country", country );
+  
+  job->start();
+  return job;
+}
+
 
 FolderListJob *OcsApi::requestFolders()
 {
