@@ -209,7 +209,7 @@ KnowledgeBaseListJob *OcsApi::requestKnowledgeBase( const QString &search, SortM
 {
   KnowledgeBaseListJob *job = new KnowledgeBaseListJob();
 
-  KUrl url = createUrl( "content/data" );
+  KUrl url = createUrl( "knowledgebase/data" );
 
 
   url.addQueryItem( "search", search );
