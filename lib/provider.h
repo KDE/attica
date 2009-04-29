@@ -46,9 +46,9 @@ class ATTICA_EXPORT OcsApi
     static PersonJob *requestPerson( const QString &id );
     static PersonJob *requestPersonSelf();
     static PersonListJob *requestPersonSearchByName( const QString &name );
-    static PersonListJob *requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance);
+    static PersonListJob *requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance, const int page = 0, const int pageSize = 100);
 
-    static PersonListJob *requestFriend( const QString &id );
+    static PersonListJob *requestFriend( const QString &id, const int page = 0, const int pageSize = 100 );
 
     static ActivityListJob *requestActivity();
     static PostJob *postActivity( const QString &message );

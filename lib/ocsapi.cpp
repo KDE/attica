@@ -19,6 +19,8 @@
 
 #include "ocsapi.h"
 
+#include <KDebug>
+
 using namespace Attica;
 
 OcsApi::OcsApi()
@@ -27,43 +29,49 @@ OcsApi::OcsApi()
 
 PersonJob *OcsApi::requestPerson( const QString &id )
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/data/" + id );
+  KUrl url = createUrl( "person/data/" + id );
   return doRequestPerson( url );
 }
 
 PersonJob *OcsApi::requestPersonSelf()
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/self" );
+  KUrl url = createUrl( "person/self" );
   return doRequestPerson( url );
 }
 
 PersonListJob *OcsApi::requestPersonSearchByName( const QString &name )
 {
-  KUrl url( "http://api.opendesktop.org/v1/person/data?name=" + name );
+  KUrl url = createUrl( "person/data");
+  url.addQueryItem("name", name);
   return doRequestPersonList( url );
 }
 
-PersonListJob *OcsApi::requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance)
+PersonListJob *OcsApi::requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance, const int page, const int pageSize)
 {
-  QString la = QString::number(latitude);
-  QString lo = QString::number(longitude);
-  QString di = QString::number(distance);
-  QString u = QString("http://api.opendesktop.org/v1/person/data?latitude=%1&longitude=%2&distance=%3").arg(la, lo, di); 
-  KUrl url( u );
-  qDebug() << "Location-based search:" << u << latitude << longitude << distance;
-  qDebug() << la << lo << di;
+  KUrl url = createUrl( "person/data" );
+  url.addQueryItem("latitude", QString::number(latitude));
+  url.addQueryItem("longitude", QString::number(longitude));
+  url.addQueryItem("distance", QString::number(distance));
+  url.addQueryItem("page", QString::number(page));
+  url.addQueryItem("pagesize", QString::number(pageSize));
+  
+  qDebug() << "Location-based search:" << latitude << longitude << distance;
+  qDebug() << "URL:" << url;
   return doRequestPersonList( url );
 }
 
-PersonListJob *OcsApi::requestFriend( const QString &id )
+PersonListJob *OcsApi::requestFriend( const QString &id, const int page, const int pageSize )
 {
-  KUrl url( "http://api.opendesktop.org/v1/friend/data/" + id );
+  KUrl url = createUrl( "friend/data/" + id );
+  url.addQueryItem("page", QString::number(page));
+  url.addQueryItem("pagesize", QString::number(pageSize));
+  kDebug() << "URL:" << url;
   return doRequestPersonList( url );
 }
 
 ActivityListJob *OcsApi::requestActivity()
 {
-  KUrl url( "http://api.opendesktop.org/v1/activity" );
+  KUrl url = createUrl( "activity" );
   return doRequestActivityList( url );
 }
 
