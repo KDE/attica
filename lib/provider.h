@@ -66,7 +66,7 @@ class ATTICA_EXPORT OcsApi
       const QString &search, SortMode );
     static ContentJob *requestContent( const QString &id );
     static KnowledgeBaseJob *requestKnowledgeBase(const QString &id);
-    static KnowledgeBaseListJob *requestKnowledgeBase(const QString &search, SortMode, const int page, const int pageSize);
+    static KnowledgeBaseListJob *requestKnowledgeBase(const int content, const QString &search, SortMode, const int page, const int pageSize);
 
   protected:
     static KUrl createUrl( const QString &path );

@@ -39,7 +39,7 @@ KnowledgeBase::List KnowledgeBaseParser::parseList( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
 
-    if ( xml.isStartElement() && xml.name() == "data" ) {
+    if ( xml.isStartElement() && xml.name() == "content" ) {
       KnowledgeBase KnowledgeBase = parseKnowledgeBase( xml );
       KnowledgeBaseList.append( KnowledgeBase );
     }
@@ -57,7 +57,7 @@ KnowledgeBase KnowledgeBaseParser::parse( const QString &xmlString )
   while ( !xml.atEnd() ) {
     xml.readNext();
 
-    if ( xml.isStartElement() && xml.name() == "data" ) {
+    if ( xml.isStartElement() && xml.name() == "content" ) {
       knowledgeBase = parseKnowledgeBase( xml );
     }
   }
@@ -98,7 +98,7 @@ KnowledgeBase KnowledgeBaseParser::parseKnowledgeBase( QXmlStreamReader &xml )
       }
     }
 
-    if ( xml.isEndElement() && xml.name() == "data" ) break;
+    if ( xml.isEndElement() && xml.name() == "content" ) break;
   }
 
   return knowledgeBase;

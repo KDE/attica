@@ -213,12 +213,15 @@ KnowledgeBaseJob *OcsApi::requestKnowledgeBase( const QString &id )
   return job;
 }
 
-KnowledgeBaseListJob *OcsApi::requestKnowledgeBase( const QString &search, SortMode sortMode, const int page, const int pageSize )
+KnowledgeBaseListJob *OcsApi::requestKnowledgeBase( const int content, const QString &search, SortMode sortMode, const int page, const int pageSize )
 {
   KnowledgeBaseListJob *job = new KnowledgeBaseListJob();
 
   KUrl url = createUrl( "knowledgebase/data" );
 
+  if (content) {
+      url.addQueryItem("content", QString::number(content));
+  }
 
   url.addQueryItem( "search", search );
   QString sortModeString;
