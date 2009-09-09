@@ -16,8 +16,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
-#ifndef ATTICA_OCSAPI_H
-#define ATTICA_OCSAPI_H
+
+#ifndef ATTICA_PROVIDER_H
+#define ATTICA_PROVIDER_H
 
 #include "atticaclient_export.h"
 
@@ -40,47 +41,78 @@ namespace Attica {
 /**
   Open Collaboration Services API.
 */
-class ATTICA_EXPORT OcsApi
+class ATTICA_EXPORT Provider
 {
   public:
-    OcsApi();
+    Provider();
+    Provider(const Provider& other);
+    ~Provider();
+    
+    QString name() const;
+    QString id() const;
 
-    static PersonJob *requestPerson( const QString &id );
-    static PersonJob *requestPersonSelf();
-    static PersonListJob *requestPersonSearchByName( const QString &name );
-    static PersonListJob *requestPersonSearchByLocation( qreal latitude, qreal longitude, qreal distance, const int page = 0, const int pageSize = 100);
+    enum SortMode {
+        Newest,
+        Alphabetical,
+        Rating,
+        Downloads
+    };
 
-    static PersonListJob *requestFriend( const QString &id, const int page = 0, const int pageSize = 100 );
+    static Provider byId(const QString& id);
 
-    static ActivityListJob *requestActivity();
-    static PostJob *postActivity( const QString &message );
+    // Person part of OCS
 
-    static PostJob *postInvitation( const QString &to, const QString &message );
-    static PostJob *postLocation( qreal latitude, qreal longitude, const QString &city = QString(), const QString &country = QString());
+    PersonJob* requestPerson(const QString& id);
+    PersonJob* requestPersonSelf();
+    PersonListJob* requestPersonSearchByName(const QString& name);
+    PersonListJob* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance, int page = 0, int pageSize = 100);
+    PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
 
-    static FolderListJob *requestFolders();
-    static MessageListJob *requestMessages( const QString &folderId );
-    static PostJob *postMessage( const Message &message );
+    // Friend part of OCS
 
-    enum SortMode { Newest, Alphabetical, Rating, Downloads };
-    static CategoryListJob *requestCategories();
-    static ContentListJob *requestContent( const Category::List &categories,
-      const QString &search, SortMode );
-    static ContentJob *requestContent( const QString &id );
-    static KnowledgeBaseJob *requestKnowledgeBase(const QString &id);
-    static KnowledgeBaseListJob *requestKnowledgeBase(const int content, const QString &search, SortMode, const int page, const int pageSize);
+    PersonListJob* requestFriend(const QString& id, int page = 0, int pageSize = 100);
+    PostJob* postInvitation(const QString& to, const QString& message);
 
-    static EventJob* requestEvent(const QString& id);
-    static EventListJob* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
+    // Message part of OCS
+
+    FolderListJob* requestFolders();
+    MessageListJob* requestMessages(const QString& folderId);
+    PostJob* postMessage(const Message& message);
+
+    // Activity part of OCS
+
+    ActivityListJob* requestActivity();
+    PostJob* postActivity(const QString& message);
+
+    // Content part of OCS
+
+    CategoryListJob* requestCategories();
+    ContentListJob* requestContent(const Category::List& categories, const QString& search, SortMode mode);
+    ContentJob* requestContent(const QString& id);
+
+    // KnowledgeBase part of OCS
+
+    KnowledgeBaseJob* requestKnowledgeBase(const QString& id);
+    KnowledgeBaseListJob* requestKnowledgeBase(int content, const QString& search, SortMode, int page, int pageSize);
+
+    // Event part of OCS
+
+    EventJob* requestEvent(const QString& id);
+    EventListJob* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
   protected:
-    static KUrl createUrl( const QString &path );
+    KUrl createUrl(const QString& path);
   
-    static PersonJob *doRequestPerson( const KUrl & );
-    static PersonListJob *doRequestPersonList( const KUrl & );
-    static ActivityListJob *doRequestActivityList( const KUrl & );
-    static FolderListJob *doRequestFolderList( const KUrl &url );
-    static MessageListJob * doRequestMessageList( const KUrl &url );
+    PersonJob* doRequestPerson(const KUrl& url);
+    PersonListJob* doRequestPersonList(const KUrl& url);
+    ActivityListJob* doRequestActivityList(const KUrl& url);
+    FolderListJob* doRequestFolderList(const KUrl& url);
+    MessageListJob* doRequestMessageList(const KUrl& url);
+
+  private:
+    Provider(const QString& id, const KUrl& baseUrl, const QString& name);
+    class Private;
+    Private* const d;
 };
 
 }
