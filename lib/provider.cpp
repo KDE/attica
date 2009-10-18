@@ -122,8 +122,8 @@ void Provider::authenticate(QNetworkReply* , QAuthenticator* auth)
     qDebug() << "authentication requested - implement me :D";
     // TODO
 
-    auth->setUser("der Eckhart");
-    auth->setPassword("dat wes ich doch nich");
+    auth->setUser("API4752248551824585417547616258117595859336334565755742650330375402");
+    //auth->setPassword("pass");
 }
 
 QString Provider::id() const

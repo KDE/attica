@@ -26,15 +26,30 @@
 
 using namespace Attica;
 
-BaseJob::BaseJob(QNetworkReply* data): m_data(data)
+class BaseJob::Private
 {
-  connect(m_data, SIGNAL(finished()), this, SLOT(dataFinished()));
+public:
+    QNetworkReply* m_data;
+
+    Private(QNetworkReply* data): m_data(data)
+    {}
+};
+
+BaseJob::BaseJob(QNetworkReply* data)
+    : d(new Private(data))
+{
+  connect(d->m_data, SIGNAL(finished()), this, SLOT(dataFinished()));
+}
+
+BaseJob::~BaseJob()
+{
+    delete d;
 }
 
 void BaseJob::dataFinished()
 {
     qDebug() << "DataFinished";
-    QByteArray data = m_data->readAll();
+    QByteArray data = d->m_data->readAll();
     qDebug() << data;
 
     parse(data);

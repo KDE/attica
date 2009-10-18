@@ -34,12 +34,11 @@ class ATTICA_EXPORT BaseJob : public QObject
 
 public:
     BaseJob(QNetworkReply* data);
-    virtual ~BaseJob(){}
+    virtual ~BaseJob();
 
 // FIXME
     int error() { return 0; }
     QString errorString() { return QString(); }
-
 
 Q_SIGNALS:
     virtual void finished(Attica::BaseJob* job);
@@ -51,8 +50,8 @@ protected:
     virtual void parse(const QString& xml) = 0;
 
 private:
-    // FIXME d-ptr
-    QNetworkReply* m_data;
+    class Private;
+    Private* d;
 };
 
 }
