@@ -24,6 +24,14 @@
 
 using namespace Attica;
 
+
+template <class T>
+ListJob<T>::ListJob(QNetworkReply* reply): ListJobBase(reply)
+{
+
+}
+
+
 template <class T>
 typename T::List ListJob<T>::itemList() const
 {

@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,32 +17,38 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
-*/
-
-#ifndef LISTJOB_H
-#define LISTJOB_H
+ */
+#ifndef ATTICA_ATTICABASEJOB_H
+#define ATTICA_ATTICABASEJOB_H
 
 #include "atticaclient_export.h"
-#include "listjobbase.h"
+#include <QObject>
 
+class QNetworkReply;
 
 namespace Attica {
 
-template <class T>
-class ATTICA_EXPORT ListJob : public ListJobBase
+class ATTICA_EXPORT AtticaBaseJob : public QObject
 {
-    public:
-        ListJob(QNetworkReply* reply);
-        typename T::List itemList() const;
-        
-    protected:
-        virtual void parse(const QString& xml);
-        
-    private:
-        typename T::List m_itemList;
+    Q_OBJECT
+
+public:
+    AtticaBaseJob(QNetworkReply* data);
+    virtual ~AtticaBaseJob(){}
+
+Q_SIGNALS:
+    virtual void finished();
+
+protected Q_SLOTS:
+    void dataFinished();
+
+protected:
+    virtual void parse(const QString& xml) = 0;
+
+private:
+    QNetworkReply* m_data;
 };
 
 }
-
 
 #endif

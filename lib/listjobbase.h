@@ -22,37 +22,33 @@
 #ifndef ATTICA_LISTJOBBASE_H
 #define ATTICA_LISTJOBBASE_H
 
-#include <KJob>
 #include <QUrl>
 
 #include "atticaclient_export.h"
 
-
-namespace KIO {
-    class Job;
-}
+class QNetworkReply;
 
 namespace Attica
 {
 
-class ATTICA_EXPORT ListJobBase : public KJob {
+class ATTICA_EXPORT ListJobBase : public QObject {
     Q_OBJECT
 
     public:
-        void setUrl(const QUrl& url);
-
-        void start();
+        ListJobBase(QNetworkReply* data, QObject* parent = 0); 
 
     protected:
         virtual void parse(const QString& xml) = 0;
 
-    private slots:
-        void doWork();
-        void slotJobData(KIO::Job* job, const QByteArray& data);
-        void slotJobResult(KJob* job);
+    Q_SIGNALS:
+        void finished();
+
+    private Q_SLOTS:
+        void dataFinished();
 
     protected:
-        QByteArray m_data;
+        QNetworkReply* m_data;
+        //QByteArray m_data;
 
     private:
         QUrl m_url;

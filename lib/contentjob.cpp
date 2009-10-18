@@ -26,25 +26,16 @@
 #include <QtCore/QDebug>
 #include <QtCore/QTimer>
 
-#include <kio/job.h>
-#include <klocale.h>
-
-
 using namespace Attica;
 
-ContentJob::ContentJob()
-  : m_job( 0 )
+ContentJob::ContentJob(QNetworkReply* data)
+    :AtticaBaseJob(data)
 {
 }
 
-void ContentJob::setUrl( const QUrl &url )
+void ContentJob::parse(const QString& xml)
 {
-  m_url = url;
-}
-
-void ContentJob::start()
-{
-  QTimer::singleShot( 0, this, SLOT( doWork() ) );
+    m_content = Content::Parser().parse( xml );
 }
 
 Content ContentJob::content() const
@@ -52,33 +43,3 @@ Content ContentJob::content() const
   return m_content;
 }
 
-void ContentJob::doWork()
-{
-  qDebug() << m_url;
-
-  m_job = KIO::get( m_url, KIO::NoReload, KIO::HideProgressInfo );
-  connect( m_job, SIGNAL( result( KJob * ) ),
-    SLOT( slotJobResult( KJob * ) ) );
-  connect( m_job, SIGNAL( data( KIO::Job *, const QByteArray & ) ),
-    SLOT( slotJobData( KIO::Job *, const QByteArray & ) ) );
-}
-
-void ContentJob::slotJobResult( KJob *job )
-{
-  m_job = 0;
-
-  if ( job->error() ) {
-    setError( job->error() );
-    setErrorText( job->errorText() );
-  } else {
-    qDebug() << m_data;
-    m_content = Content::Parser().parse( QString::fromUtf8( m_data.data() ) );
-  }
-
-  emitResult();
-}
-
-void ContentJob::slotJobData( KIO::Job *, const QByteArray &data )
-{
-  m_data.append( data );
-}

@@ -238,19 +238,14 @@ PostJob* Provider::postMessage( const Message &message )
 
 ListJob<Category>* Provider::requestCategories()
 {
-  ListJob<Category> *job = new ListJob<Category>();
-  
   QUrl url = createUrl( "content/categories" );
-  job->setUrl( url );
-  
-  job->start();
+  ListJob<Category> *job = new ListJob<Category>(d->m_qnam->get(QNetworkRequest(url)));
   return job;
 }
 
 ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode)
 {
-  ListJob<Content> *job = new ListJob<Content>();
-  
+
   QUrl url = createUrl( "content/data" );
 
   QStringList categoryIds;
@@ -279,20 +274,15 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
     url.addQueryItem( "sortmode", sortModeString );
   }
 
-  job->setUrl( url );
-  
-  job->start();
+    ListJob<Content> *job = new ListJob<Content>(d->m_qnam->get(QNetworkRequest(url)));
+
   return job;
 }
 
 ContentJob* Provider::requestContent(const QString& id)
 {
-  ContentJob *job = new ContentJob();
-  
   QUrl url = createUrl( "content/data/" + id );
-  job->setUrl( url );
-  
-  job->start();
+  ContentJob *job = new ContentJob(d->m_qnam->get(QNetworkRequest(url)));
   return job;
 }
 
@@ -359,8 +349,6 @@ EventJob* Provider::requestEvent(const QString& id)
 
 ListJob<Event>* Provider::requestEvent(const QString& country, const QString& search, const QDate& startAt, Provider::SortMode mode, int page, int pageSize)
 {
-  ListJob<Event>* job = new ListJob<Event>();
-
   QUrl url = createUrl("event/data");
 
   if (!search.isEmpty()) {
@@ -391,11 +379,8 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
 
-  job->setUrl(url);
-
-  job->start();
+  ListJob<Event>* job = new ListJob<Event>(d->m_qnam->get(QNetworkRequest(url)));
   return job;
-
 }
 
 QUrl Provider::createUrl(const QString& path)
@@ -418,40 +403,26 @@ PersonJob* Provider::doRequestPerson(const QUrl& url)
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
 {
-  ListJob<Person> *job = new ListJob<Person>();
-
-  job->setUrl( url );
-
-  job->start();
-  return job;
+    ListJob<Person> *job = new ListJob<Person>(d->m_qnam->get(QNetworkRequest(url)));
+    return job;
 }
 
 ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
-  ListJob<Activity> *job = new ListJob<Activity>();
-
-  job->setUrl( url );
-
-  job->start();
-  return job;
+    ListJob<Activity> *job = new ListJob<Activity>(d->m_qnam->get(QNetworkRequest(url)));
+    return job;
 }
 
 ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
-  ListJob<Folder> *job = new ListJob<Folder>();
-  
-  job->setUrl( url );
-  job->start();
-  return job;
+    ListJob<Folder> *job = new ListJob<Folder>(d->m_qnam->get(QNetworkRequest(url)));
+    return job;
 }
 
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
-  ListJob<Message> *job = new ListJob<Message>();
-  
-  job->setUrl( url );
-  job->start();
-  return job;
+    ListJob<Message> *job = new ListJob<Message>(d->m_qnam->get(QNetworkRequest(url)));
+    return job;
 }
 
 #include "provider.moc"

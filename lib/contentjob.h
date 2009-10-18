@@ -22,39 +22,22 @@
 #define ATTICA_CONTENTJOB_H
 
 #include "content.h"
-
-#include <kjob.h>
-#include <kurl.h>
-
-namespace KIO {
-class Job;
-}
+#include "atticabasejob.h"
 
 namespace Attica {
 
-class ATTICA_EXPORT ContentJob : public KJob
+class ATTICA_EXPORT ContentJob : public AtticaBaseJob
 {
-    Q_OBJECT
-  public:
-    ContentJob();
 
-    void setUrl( const QUrl & );
-
-    void start();
+public:
+    ContentJob(QNetworkReply* data);
 
     Content content() const;
-    
-  protected slots:
-    void doWork();
 
-    void slotJobResult( KJob *job );
-    void slotJobData( KIO::Job *job, const QByteArray &data );
-    
-  private:
-    QUrl m_url;
-    KIO::Job *m_job;
-    QByteArray m_data;
-  
+protected:
+    virtual void parse(const QString& xml);
+
+private:
     Content m_content;
 };
 

@@ -23,19 +23,14 @@
 
 #include "person.h"
 
-#include <kjob.h>
-
 class QNetworkReply;
-
-namespace KIO {
-class Job;
-}
 
 namespace Attica {
 
 class ATTICA_EXPORT PersonJob : public QObject
 {
     Q_OBJECT
+    
   public:
     PersonJob(QNetworkReply* data);
     Person person() const;
@@ -46,12 +41,6 @@ class ATTICA_EXPORT PersonJob : public QObject
   protected slots:
     void personDataFinished();
 
-/*    void slotUserJobResult( KJob *job );
-    void slotUserJobData( KIO::Job *job, const QByteArray &data );
-    
-    void slotAvatarJobResult( KJob *job );
-    void slotAvatarJobData( KIO::Job *job, const QByteArray &data );*/
-    
   private:
     QNetworkReply* m_data;
     QString m_userData;

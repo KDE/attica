@@ -21,41 +21,32 @@
 
 #include "listjobbase.h"
 
-#include <QtCore/QTimer>
+#include <QNetworkReply>
 
 #include <KIO/Job>
 
 
 using namespace Attica;
 
-void ListJobBase::setUrl(const QUrl& url)
+
+ListJobBase::ListJobBase(QNetworkReply* data, QObject* parent)
+    :QObject(parent), m_data(data)
 {
-    m_url = url;
+    connect(m_data, SIGNAL(finished()), this, SLOT(dataFinished()));
 }
 
 
-void ListJobBase::start()
+void ListJobBase::dataFinished()
 {
-    QTimer::singleShot(0, this, SLOT(doWork()));
+    parse(QString::fromUtf8(m_data->readAll()));
+
+    // TODO: check if data should be deleted here
+    delete m_data;
+    emit finished();
 }
 
 
-void ListJobBase::doWork()
-{
-    KJob* job = KIO::get(m_url, KIO::NoReload, KIO::HideProgressInfo);
-    connect(job, SIGNAL(data(KIO::Job*, const QByteArray&)), SLOT(slotJobData(KIO::Job*, const QByteArray&)));
-    connect(job, SIGNAL(result(KJob*)), SLOT(slotJobResult(KJob*)));
-}
-
-
-void ListJobBase::slotJobData(KIO::Job* job, const QByteArray& data)
-{
-    Q_UNUSED(job);
-
-    m_data.append(data);
-}
-
-
+/*
 void ListJobBase::slotJobResult(KJob* job)
 {
     if (job->error()) {
@@ -69,6 +60,6 @@ void ListJobBase::slotJobResult(KJob* job)
         emitResult();
     }
 }
-
+*/
 
 #include "listjobbase.moc"
