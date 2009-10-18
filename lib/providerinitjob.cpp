@@ -23,7 +23,7 @@
 
 #include <QTimer>
 
-#include <KUrl>
+#include <QUrl>
 
 
 using namespace Attica;
@@ -60,7 +60,7 @@ void ProviderInitJob::start()
 void ProviderInitJob::doWork()
 {
     if (d->m_id == "opendesktop") {
-        d->m_provider = Provider(d->m_id, KUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org");
+        d->m_provider = Provider(d->m_id, QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org");
     }
     emitResult();
 }

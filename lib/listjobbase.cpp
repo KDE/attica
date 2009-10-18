@@ -28,7 +28,7 @@
 
 using namespace Attica;
 
-void ListJobBase::setUrl(const KUrl& url)
+void ListJobBase::setUrl(const QUrl& url)
 {
     m_url = url;
 }

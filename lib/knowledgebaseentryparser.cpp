@@ -133,7 +133,7 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseKnowledgeBase( QXmlStreamRea
       } else if ( xml.name() == "comments" ) {
         knowledgeBase.setComments( xml.readElementText().toInt() );
       } else if ( xml.name() == "detailpage" ) {
-        knowledgeBase.setDetailPage( KUrl(xml.readElementText()) );
+        knowledgeBase.setDetailPage( QUrl(xml.readElementText()) );
       } else if ( xml.name() == "contentid" ) {
         knowledgeBase.setContentId( xml.readElementText().toInt() );
       } else if ( xml.name() == "name" ) {

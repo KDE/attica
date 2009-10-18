@@ -22,6 +22,8 @@
 
 #include "knowledgebaseentry.h"
 
+#include <QMap>
+
 using namespace Attica;
 
 class KnowledgeBaseEntry::Private : public QSharedData {
@@ -35,7 +37,7 @@ class KnowledgeBaseEntry::Private : public QSharedData {
         QString m_description;
         QString m_answer;
         int m_comments;
-        KUrl m_detailPage;
+        QUrl m_detailPage;
 
         QMap<QString,QString> m_extendedAttributes;
 
@@ -169,12 +171,12 @@ int KnowledgeBaseEntry::comments() const
 }
 
 
-void KnowledgeBaseEntry::setDetailPage(const KUrl &detailPage)
+void KnowledgeBaseEntry::setDetailPage(const QUrl &detailPage)
 {
     d->m_detailPage = detailPage;
 }
 
-KUrl KnowledgeBaseEntry::detailPage() const
+QUrl KnowledgeBaseEntry::detailPage() const
 {
     return d->m_detailPage;
 }

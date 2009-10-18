@@ -21,6 +21,8 @@
 
 #include "person.h"
 
+#include <QMap>
+
 using namespace Attica;
 
 class Person::Private : public QSharedData {
@@ -32,7 +34,7 @@ class Person::Private : public QSharedData {
         QString m_country;
         qreal m_latitude;
         qreal m_longitude;
-        KUrl m_avatarUrl;
+        QUrl m_avatarUrl;
         QPixmap m_avatar;
         QString m_homepage;
         QString m_city;
@@ -137,12 +139,12 @@ qreal Person::longitude() const
   return d->m_longitude;
 }
 
-void Person::setAvatarUrl( const KUrl &url )
+void Person::setAvatarUrl( const QUrl &url )
 {
   d->m_avatarUrl = url;
 }
 
-KUrl Person::avatarUrl() const
+QUrl Person::avatarUrl() const
 {
   return d->m_avatarUrl;
 }

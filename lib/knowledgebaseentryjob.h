@@ -38,7 +38,7 @@ class ATTICA_EXPORT KnowledgeBaseEntryJob : public KJob
   public:
     KnowledgeBaseEntryJob();
 
-    void setUrl( const KUrl & );
+    void setUrl( const QUrl & );
 
     void start();
 
@@ -52,7 +52,7 @@ class ATTICA_EXPORT KnowledgeBaseEntryJob : public KJob
     void slotJobData( KIO::Job *job, const QByteArray &data );
 
   private:
-    KUrl m_url;
+    QUrl m_url;
     KIO::Job *m_job;
     QByteArray m_data;
 

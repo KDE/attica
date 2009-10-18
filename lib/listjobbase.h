@@ -23,7 +23,7 @@
 #define ATTICA_LISTJOBBASE_H
 
 #include <KJob>
-#include <KUrl>
+#include <QUrl>
 
 #include "atticaclient_export.h"
 
@@ -39,7 +39,7 @@ class ATTICA_EXPORT ListJobBase : public KJob {
     Q_OBJECT
 
     public:
-        void setUrl(const KUrl& url);
+        void setUrl(const QUrl& url);
 
         void start();
 
@@ -55,7 +55,7 @@ class ATTICA_EXPORT ListJobBase : public KJob {
         QByteArray m_data;
 
     private:
-        KUrl m_url;
+        QUrl m_url;
 };
 
 }

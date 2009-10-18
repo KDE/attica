@@ -26,7 +26,7 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>
 
-#include <KUrl>
+#include <QUrl>
 
 
 namespace Attica
@@ -77,8 +77,8 @@ class ATTICA_EXPORT KnowledgeBaseEntry
     void setComments(int comments);
     int comments() const;
 
-    void setDetailPage(const KUrl &detailPage);
-    KUrl detailPage() const;
+    void setDetailPage(const QUrl &detailPage);
+    QUrl detailPage() const;
 
     void addExtendedAttribute( const QString &key, const QString &value );
     QString extendedAttribute( const QString &key ) const;

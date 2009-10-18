@@ -25,14 +25,14 @@
 #include <QtCore/QExplicitlySharedDataPointer>
 #include <QtCore/QString>
 
-#include <KUrl>
+#include <QUrl>
 
 #include "atticaclient_export.h"
 #include "category.h"
 #include "listjob.h"
 
 
-class KUrl;
+class QUrl;
 class QDate;
 
 namespace Attica {
@@ -64,7 +64,7 @@ class ATTICA_EXPORT Provider
     ~Provider();
     
     bool isValid() const;
-    KUrl baseUrl() const;
+    QUrl baseUrl() const;
     QString name() const;
     QString id() const;
 
@@ -118,18 +118,18 @@ class ATTICA_EXPORT Provider
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
   protected:
-    KUrl createUrl(const QString& path);
+    QUrl createUrl(const QString& path);
   
-    PersonJob* doRequestPerson(const KUrl& url);
-    ListJob<Person>* doRequestPersonList(const KUrl& url);
-    ListJob<Activity>* doRequestActivityList(const KUrl& url);
-    ListJob<Folder>* doRequestFolderList(const KUrl& url);
-    ListJob<Message>* doRequestMessageList(const KUrl& url);
+    PersonJob* doRequestPerson(const QUrl& url);
+    ListJob<Person>* doRequestPersonList(const QUrl& url);
+    ListJob<Activity>* doRequestActivityList(const QUrl& url);
+    ListJob<Folder>* doRequestFolderList(const QUrl& url);
+    ListJob<Message>* doRequestMessageList(const QUrl& url);
 
   private:
     class Private;
     QExplicitlySharedDataPointer<Private> d;
-    Provider(const QString& id, const KUrl& baseUrl, const QString& name);
+    Provider(const QString& id, const QUrl& baseUrl, const QString& name);
     friend class ProviderInitJob;
 };
 
