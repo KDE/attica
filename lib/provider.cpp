@@ -31,7 +31,6 @@
 #include "message.h"
 #include "personjob.h"
 #include "postjob.h"
-#include "providerinitjob.h"
 #include "listjob.h"
 
 #include <QNetworkAccessManager>
