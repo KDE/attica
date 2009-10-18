@@ -26,18 +26,15 @@ using namespace Attica;
 
 
 template <class T>
-ListJob<T>::ListJob(QNetworkReply* reply): ListJobBase(reply)
+ListJob<T>::ListJob(QNetworkReply* reply): AtticaBaseJob(reply)
 {
-
 }
-
 
 template <class T>
 typename T::List ListJob<T>::itemList() const
 {
     return m_itemList;
 }
-
 
 template <class T>
 void ListJob<T>::parse(const QString& xml)

@@ -33,35 +33,28 @@
 using namespace Attica;
 
 
-PersonJob::PersonJob(QNetworkReply* data): m_data(data)
+PersonJob::PersonJob(QNetworkReply* data)
+    :AtticaBaseJob(data)
 {
-  connect(data, SIGNAL(finished()), this, SLOT(personDataFinished()));
 }
 
 
 Person PersonJob::person() const
 {
-  return m_person;
+    return m_person;
 }
 
 
-void PersonJob::personDataFinished()
+void PersonJob::parse(const QString& xml)
 {
-    qDebug() << "personDataFinished";
-    
     m_person = Person::Parser().parse( m_data->readAll() );
     
     
     if (!m_person.avatarUrl().isEmpty()) {
-      qDebug() << "Getting avatar from" << m_person.avatarUrl();
-      // TODO
-      // either create another qnam instance or retrieve the old one from provider (?)
-       emit finished();
-    } else {
-       emit finished();
+        qDebug() << "Getting avatar from" << m_person.avatarUrl();
+        // TODO
+        // either create another qnam instance or retrieve the old one from provider (?)
     }
-    
-    
 }
 
 

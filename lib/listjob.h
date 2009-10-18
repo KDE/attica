@@ -23,21 +23,24 @@
 #define LISTJOB_H
 
 #include "atticaclient_export.h"
-#include "listjobbase.h"
+
+//#include "listjobbase.h"
+
+#include "atticabasejob.h"
 
 
 namespace Attica {
 
 template <class T>
-class ATTICA_EXPORT ListJob : public ListJobBase
+class ATTICA_EXPORT ListJob : public AtticaBaseJob
 {
     public:
         ListJob(QNetworkReply* reply);
         typename T::List itemList() const;
-        
+
     protected:
         virtual void parse(const QString& xml);
-        
+
     private:
         typename T::List m_itemList;
 };

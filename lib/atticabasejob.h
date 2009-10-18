@@ -35,17 +35,17 @@ class ATTICA_EXPORT AtticaBaseJob : public QObject
 public:
     AtticaBaseJob(QNetworkReply* data);
     virtual ~AtticaBaseJob(){}
+    int error() { return false; }
+    QString errorString() { return QString(); }
 
 Q_SIGNALS:
-    virtual void finished();
+    virtual void finished(AtticaBaseJob* job);
 
 protected Q_SLOTS:
     void dataFinished();
 
 protected:
     virtual void parse(const QString& xml) = 0;
-
-private:
     QNetworkReply* m_data;
 };
 

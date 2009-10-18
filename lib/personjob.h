@@ -22,29 +22,22 @@
 #define ATTICA_PERSONJOB_H
 
 #include "person.h"
+#include "atticabasejob.h"
 
 class QNetworkReply;
 
 namespace Attica {
 
-class ATTICA_EXPORT PersonJob : public QObject
+class ATTICA_EXPORT PersonJob : public AtticaBaseJob
 {
-    Q_OBJECT
-    
-  public:
+public:
     PersonJob(QNetworkReply* data);
     Person person() const;
-    
-  Q_SIGNALS:
-    void finished();
-    
-  protected slots:
-    void personDataFinished();
 
-  private:
-    QNetworkReply* m_data;
+private:
+    virtual void parse(const QString& xml);
+
     QByteArray m_avatarData;
-
     Person m_person;
 };
 

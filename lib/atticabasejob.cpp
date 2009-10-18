@@ -37,7 +37,8 @@ void AtticaBaseJob::dataFinished()
     QByteArray data = m_data->readAll();
 
     parse(data);
-    emit finished();
+    emit finished(this);
+    // TODO single shot to delete this?
 }
 
 #include "atticabasejob.moc"
