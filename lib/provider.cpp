@@ -316,7 +316,7 @@ PostJob* Provider::postMessage( const Message &message )
 ListJob<Category>* Provider::requestCategories()
 {
   QUrl url = createUrl( "content/categories" );
-  ListJob<Category> *job = new ListJob<Category>(d->m_qnam, QNetworkRequest(url));
+  ListJob<Category> *job = new ListJob<Category>(d->m_qnam, createRequest(url));
   return job;
 }
 
@@ -353,7 +353,7 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
   
-    ListJob<Content> *job = new ListJob<Content>(d->m_qnam, QNetworkRequest(url));
+    ListJob<Content> *job = new ListJob<Content>(d->m_qnam, createRequest(url));
 
   return job;
 }
@@ -361,7 +361,7 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
 ItemJob<Content>* Provider::requestContent(const QString& id)
 {
   QUrl url = createUrl( "content/data/" + id );
-  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam, QNetworkRequest(url));
+  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam, createRequest(url));
   return job;
 }
 
@@ -390,14 +390,14 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
     QUrl url = createUrl( "content/download/" + contentId + '/' + itemId );
-    ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_qnam, QNetworkRequest(url));
+    ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_qnam, createRequest(url));
     return job;
 }
 
 ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
     QUrl url = createUrl( "knowledgebase/data/" + id );
-    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam, QNetworkRequest(url));
+    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam, createRequest(url));
     return job;
 }
 
@@ -432,13 +432,13 @@ ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& conten
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
 
-  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam, QNetworkRequest(url));
+  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam, createRequest(url));
   return job;
 }
 
 ItemJob<Event>* Provider::requestEvent(const QString& id)
 {
-    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam, QNetworkRequest(createUrl("event/data/" + id)));
+    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam, createRequest("event/data/" + id));
     return job;
 }
 
@@ -474,7 +474,7 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
 
-  ListJob<Event>* job = new ListJob<Event>(d->m_qnam, QNetworkRequest(url));
+  ListJob<Event>* job = new ListJob<Event>(d->m_qnam, createRequest(url));
   return job;
 }
 
@@ -502,27 +502,27 @@ QNetworkRequest Provider::createRequest(const QString& path)
 
 PersonJob* Provider::doRequestPerson(const QUrl& url)
 {
-  return new PersonJob(d->m_qnam, QNetworkRequest(url));
+  return new PersonJob(d->m_qnam, createRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
 {
-    return new ListJob<Person>(d->m_qnam, QNetworkRequest(url));
+    return new ListJob<Person>(d->m_qnam, createRequest(url));
 }
 
 ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
-    return new ListJob<Activity>(d->m_qnam, QNetworkRequest(url));
+    return new ListJob<Activity>(d->m_qnam, createRequest(url));
 }
 
 ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
-    return new ListJob<Folder>(d->m_qnam, QNetworkRequest(url));
+    return new ListJob<Folder>(d->m_qnam, createRequest(url));
 }
 
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
-    return new ListJob<Message>(d->m_qnam, QNetworkRequest(url));
+    return new ListJob<Message>(d->m_qnam, createRequest(url));
 }
 
 
