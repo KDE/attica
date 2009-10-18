@@ -115,13 +115,13 @@ class ATTICA_EXPORT Activity
     QString message() const;
 
     /**
-     * Sets the link to further informations about this Activity.
+     * Sets the link to further information about this Activity.
      * @param link the new link
      */
     void setLink(const QUrl& link);
 
     /**
-     * Gets the link to further informations about this Activity.
+     * Gets the link to further information about this Activity.
      * @return the link
      */
     QUrl link() const;
