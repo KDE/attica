@@ -24,7 +24,9 @@
 #include "atticaclient_export.h"
 #include <QObject>
 
+class QNetworkAccessManager;
 class QNetworkReply;
+class QIODevice;
 
 namespace Attica {
 
@@ -33,12 +35,18 @@ class ATTICA_EXPORT BaseJob : public QObject
     Q_OBJECT
 
 public:
-    BaseJob(QNetworkReply* data);
+    BaseJob(QNetworkAccessManager* nam);
+
+    BaseJob(QNetworkReply* data, QIODevice* payload);
+
     virtual ~BaseJob();
 
 // FIXME
     int error() { return 0; }
     QString errorString() { return QString(); }
+
+public Q_SLOTS:
+    void start();
 
 Q_SIGNALS:
     virtual void finished(Attica::BaseJob* job);
@@ -47,9 +55,17 @@ protected Q_SLOTS:
     void dataFinished();
 
 protected:
+    virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
+    QNetworkAccessManager* nam();
+
+private Q_SLOTS:
+    void doWork();
 
 private:
+    BaseJob(const BaseJob& other);
+    BaseJob& operator=(const BaseJob& other);
+
     class Private;
     Private* d;
 };

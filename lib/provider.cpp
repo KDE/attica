@@ -23,14 +23,16 @@
 
 #include "activity.h"
 #include "content.h"
+#include "downloaditem.h"
 #include "event.h"
 #include "folder.h"
-#include "knowledgebaseentrylistjob.h"
+#include "knowledgebaseentry.h"
 #include "message.h"
 #include "personjob.h"
 #include "postjob.h"
 #include "itemjob.h"
 #include "listjob.h"
+#include "postjobstatus.h"
 
 #include <QNetworkAccessManager>
 #include <QDebug>
@@ -38,6 +40,13 @@
 #include <QNetworkReply>
 #include <QAuthenticator>
 #include <KDebug>
+
+
+
+#define ATTICA_USE_KDE
+#ifdef ATTICA_USE_KDE
+#include <KIO/AccessManager>
+#endif
 
 using namespace Attica;
 
@@ -54,7 +63,13 @@ class Provider::Private : public QSharedData {
     {
     }
     Private(const QString& id, const QUrl& baseUrl, const QString name)
-      : m_baseUrl(baseUrl), m_id(id), m_name(name), m_qnam(new QNetworkAccessManager)
+      : m_baseUrl(baseUrl), m_id(id), m_name(name), 
+      
+      #ifdef ATTICA_USE_KDE
+      m_qnam(new KIO::AccessManager(0))
+      #else
+      m_qnam(new QNetworkAccessManager)
+      #endif
     {
     }
     ~Private()
@@ -76,28 +91,35 @@ Provider Provider::createProvider(const QString& id)
 Provider::Provider(QObject* parent)
   : QObject(parent), d(new Private(QString(), QUrl(), QString()))
 {
-    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
-
+    initNetworkAccesssManager();
 }
 
 Provider::Provider(const Provider& other, QObject* parent)
   : QObject(parent), d(other.d)
 {
-    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
-    dumpObjectInfo();
+    initNetworkAccesssManager();
 }
 
 Provider::Provider(const QString& id, const QUrl& baseUrl, const QString& name)
   : d(new Private(id, baseUrl, name))
 {
-    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    initNetworkAccesssManager();
 }
 
 Provider& Provider::operator=(const Attica::Provider & other)
 {
     d = other.d;
-    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    initNetworkAccesssManager();
     return *this;
+}
+
+void Provider::initNetworkAccesssManager()
+{
+    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    
+    
+    connect(d->m_qnam, SIGNAL(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)));
+
 }
 
 Provider::~Provider()
@@ -116,13 +138,37 @@ bool Provider::isValid() const
 }
 
 
-void Provider::authenticate(QNetworkReply* , QAuthenticator* auth)
+void Provider::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 {
     qDebug() << "authentication requested - implement me :D";
     // TODO
-
+    
+    // to stop the request use
+    // reply->abort();
+    
+ 
     auth->setUser("API4752248551824585417547616258117595859336334565755742650330375402");
     //auth->setPassword("pass");
+    
+    // we get the authentication details from storage (config/kwallet...)
+    
+    /* authentication needs to be implemented...
+    if (d->m_authenticationStorage && d->m_authenticationStorage.contains(d->m_id)) {
+        auth->setUser(d->m_authenticationStorage.user());
+        auth->setPassword(d->m_authenticationStorage.password());
+        return;
+    }
+    */
+
+    
+}
+
+void Provider::proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator)
+{
+#ifdef ATTICA_USE_KDE
+    // FIXME
+#endif
+
 }
 
 QString Provider::id() const
@@ -179,52 +225,75 @@ ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageS
   return doRequestPersonList( url );
 }
 
+ListJob<Person>* Provider::requestSentInvitations(int page, int pageSize)
+{
+  QUrl url = createUrl("friend/sentinvitations");
+  url.addQueryItem("page", QString::number(page));
+  url.addQueryItem("pagesize", QString::number(pageSize));
+  qDebug() << "URL:" << url;
+  return doRequestPersonList(url);
+}
+
+ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
+{
+  QUrl url = createUrl("friend/receivedinvitations");
+  url.addQueryItem("page", QString::number(page));
+  url.addQueryItem("pagesize", QString::number(pageSize));
+  qDebug() << "URL:" << url;
+  return doRequestPersonList(url);
+}
+
 ListJob<Activity>* Provider::requestActivities()
 {
     qDebug() << "request activity";
-  QUrl url = createUrl( "activity" );
-  return doRequestActivityList( url );
+    QUrl url = createUrl( "activity" );
+    return doRequestActivityList( url );
 }
+
 
 PostJob* Provider::postActivity(const QString& message)
 {
-  PostJob *job = new PostJob();
+    QMap<QString, QString> postData;
+    postData.insert("message", message);
 
-  QUrl url = createUrl( "activity" );
-  job->setUrl( url );
-  job->setData( "message", message );
-  
-  job->start();
-  return job;
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("activity")), postData);
 }
 
-PostJob* Provider::postFriendInvitation(const QString& to, const QString& message)
+
+PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 {
-  PostJob *job = new PostJob();
-
-  QUrl url = createUrl( "friend/outbox/" + to );
-  job->setUrl( url );
-  job->setData( "message", message );
-
-  job->start();
-  return job;  
+    QMap<QString, QString> postData;
+    postData.insert("message", message);
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/invite/" + to)), postData);
 }
+
+
+PostJob* Provider::approveFriendship(const QString& to)
+{
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/approve/" + to)),  QMap<QString, QString> ());
+}
+
+
+PostJob* Provider::declineFriendship(const QString& to)
+{
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/decline/" + to)),  QMap<QString, QString> ());
+}
+
+PostJob* Provider::cancelFriendship(const QString& to)
+{
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/cancel/" + to)),  QMap<QString, QString> ());
+}
+
 
 PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& city, const QString& country)
 {
-  PostJob *job = new PostJob();
-  
-  QUrl url = createUrl( "person/self" );
-  
-  job->setUrl( url ); 
-
-  job->setData( "latitude", QString("%1").arg(latitude) );
-  job->setData( "longitude", QString("%1").arg(longitude) );
-  job->setData( "city", city );
-  job->setData( "country", country );
-  
-  job->start();
-  return job;
+    QMap<QString, QString> postData;
+    postData.insert("latitude", QString::number(latitude));
+    postData.insert("longitude", QString::number(longitude));
+    postData.insert("city", city);
+    postData.insert("country", country);
+    
+    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("person/self/")), postData);
 }
 
 
@@ -240,26 +309,22 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
 
 PostJob* Provider::postMessage( const Message &message )
 {
-  PostJob *job = new PostJob();
-  
-  QUrl url = createUrl( "message/2" );
-  job->setUrl( url );
-  job->setData( "message", message.body() );
-  job->setData( "subject", message.subject() );
-  job->setData( "to", message.to() );
-  
-  job->start();
-  return job;
+  QMap<QString, QString> postData;
+  postData.insert("message", message.body());
+  postData.insert("subject", message.subject());
+  postData.insert("to", message.to());
+
+  return new PostJob(d->m_qnam, QNetworkRequest(createUrl("message/2")), postData);
 }
 
 ListJob<Category>* Provider::requestCategories()
 {
   QUrl url = createUrl( "content/categories" );
-  ListJob<Category> *job = new ListJob<Category>(d->m_qnam->get(QNetworkRequest(url)));
+  ListJob<Category> *job = new ListJob<Category>(d->m_qnam, QNetworkRequest(url));
   return job;
 }
 
-ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode)
+ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
 
   QUrl url = createUrl( "content/data" );
@@ -289,8 +354,10 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
   if ( !sortModeString.isEmpty() ) {
     url.addQueryItem( "sortmode", sortModeString );
   }
-
-    ListJob<Content> *job = new ListJob<Content>(d->m_qnam->get(QNetworkRequest(url)));
+  url.addQueryItem( "page", QString::number(page) );
+  url.addQueryItem( "pagesize", QString::number(pageSize) );
+  
+    ListJob<Content> *job = new ListJob<Content>(d->m_qnam, QNetworkRequest(url));
 
   return job;
 }
@@ -298,7 +365,7 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
 ItemJob<Content>* Provider::requestContent(const QString& id)
 {
   QUrl url = createUrl( "content/data/" + id );
-  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam->get(QNetworkRequest(url)));
+  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam, QNetworkRequest(url));
   return job;
 }
 
@@ -315,10 +382,34 @@ PostJob* Provider::addNewContent(const Category& category, const Content& newCon
   return 0;
 }
 
+PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
+{
+    QUrl url = createUrl( "content/vote/" + contentId );
+    
+    QMap<QString, QString> postData;
+    if (positiveVote) {
+        postData["vote"] = QLatin1String("good");
+    } else {
+        postData["vote"] = QLatin1String("bad");
+    }
+    
+    QNetworkRequest request;
+    request.setUrl(url);
+    
+    return new PostJob(d->m_qnam, QNetworkRequest(url), postData);
+}
+
+ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
+{
+    QUrl url = createUrl( "content/download/" + contentId + '/' + itemId );
+    ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_qnam, QNetworkRequest(url));
+    return job;
+}
+
 ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
     QUrl url = createUrl( "knowledgebase/data/" + id );
-    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam->get(QNetworkRequest(url)));
+    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam, QNetworkRequest(url));
     return job;
 }
 
@@ -353,13 +444,13 @@ ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& conten
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
 
-  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam->get(QNetworkRequest(url)));
+  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam, QNetworkRequest(url));
   return job;
 }
 
 ItemJob<Event>* Provider::requestEvent(const QString& id)
 {
-    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam->get(QNetworkRequest(createUrl("event/data/" + id))));
+    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam, QNetworkRequest(createUrl("event/data/" + id)));
     return job;
 }
 
@@ -395,7 +486,7 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
 
-  ListJob<Event>* job = new ListJob<Event>(d->m_qnam->get(QNetworkRequest(url)));
+  ListJob<Event>* job = new ListJob<Event>(d->m_qnam, QNetworkRequest(url));
   return job;
 }
 
@@ -411,35 +502,28 @@ QUrl Provider::createUrl(const QString& path)
 
 PersonJob* Provider::doRequestPerson(const QUrl& url)
 {
-  QNetworkReply* reply = d->m_qnam->get(QNetworkRequest(url));
-  PersonJob *job = new PersonJob(reply);
-
-  return job;
+  return new PersonJob(d->m_qnam, QNetworkRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
 {
-    ListJob<Person> *job = new ListJob<Person>(d->m_qnam->get(QNetworkRequest(url)));
-    return job;
+    return new ListJob<Person>(d->m_qnam, QNetworkRequest(url));
 }
 
 ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
-    ListJob<Activity> *job = new ListJob<Activity>(d->m_qnam->get(QNetworkRequest(url)));
-    return job;
+    return new ListJob<Activity>(d->m_qnam, QNetworkRequest(url));
 }
 
 ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
-    ListJob<Folder> *job = new ListJob<Folder>(d->m_qnam->get(QNetworkRequest(url)));
-    return job;
+    return new ListJob<Folder>(d->m_qnam, QNetworkRequest(url));
 }
 
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
-    ListJob<Message> *job = new ListJob<Message>(d->m_qnam->get(QNetworkRequest(url)));
-    return job;
+    return new ListJob<Message>(d->m_qnam, QNetworkRequest(url));
 }
 
-#include "provider.moc"
 
+#include "provider.moc"

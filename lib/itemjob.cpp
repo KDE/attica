@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
+    Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,17 +21,15 @@
 
 #include "itemjob.h"
 
-#include <QtCore/QDebug>
-#include <QNetworkReply>
-
 
 using namespace Attica;
 
 template <class T>
-ItemJob<T>::ItemJob(QNetworkReply* data)
-    :BaseJob(data)
+ItemJob<T>::ItemJob(QNetworkAccessManager* nam, const QNetworkRequest& request)
+    : GetJob(nam, request)
 {
 }
+
 
 template <class T>
 void ItemJob<T>::parse(const QString& xml)

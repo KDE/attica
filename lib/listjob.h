@@ -23,26 +23,28 @@
 #define LISTJOB_H
 
 #include "atticaclient_export.h"
-#include "atticabasejob.h"
+#include "getjob.h"
+
+
+class QNetworkRequest;
 
 namespace Attica {
 
-    struct ListJobMetadata
-    {
-        QString status;
-        QString message;
-        int totalItems;
-        int itemsPerPage;
-        
-        void parseMetadata(const QString& xml);
-    };
+struct ListJobMetadata
+{
+    QString status;
+    QString message;
+    int totalItems;
+    int itemsPerPage;
+    
+    void parseMetadata(const QString& xml);
+};
 
 template <class T>
-class ATTICA_EXPORT ListJob : public BaseJob
+class ATTICA_EXPORT ListJob : public GetJob
 {
     public:
-
-        ListJob(QNetworkReply* reply);
+        ListJob(QNetworkAccessManager* nam, const QNetworkRequest& request);
         typename T::List itemList() const;
         ListJobMetadata metadata() const;
 

@@ -28,6 +28,7 @@
 #include "categoryparser.h"
 #include "content.h"
 #include "contentparser.h"
+#include "downloaditemparser.h"
 #include "event.h"
 #include "eventparser.h"
 #include "folder.h"
@@ -38,6 +39,7 @@
 #include "personparser.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
+#include "postjobstatusparser.h"
 
 using namespace Attica;
 
@@ -53,4 +55,5 @@ template class ListJob<KnowledgeBaseEntry>;
 template class ItemJob<Content>;
 template class ItemJob<Event>;
 template class ItemJob<KnowledgeBaseEntry>;
-
+template class ItemJob<DownloadItem>;
+template class ItemJob<PostJobStatus>;

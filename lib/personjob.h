@@ -22,17 +22,16 @@
 #define ATTICA_PERSONJOB_H
 
 #include "atticaclient_export.h"
-#include "atticabasejob.h"
+#include "getjob.h"
 #include "person.h"
 
-class QNetworkReply;
 
 namespace Attica {
 
-class ATTICA_EXPORT PersonJob : public BaseJob
+class ATTICA_EXPORT PersonJob : public GetJob
 {
 public:
-    PersonJob(QNetworkReply* data);
+    PersonJob(QNetworkAccessManager* nam, const QNetworkRequest& request);
     Person result() const;
 
 private:

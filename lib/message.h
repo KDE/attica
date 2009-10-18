@@ -37,7 +37,7 @@ class ATTICA_EXPORT Message
     class Parser;
 
     enum Status { Unread = 0, Read = 1 };
-  
+
     Message();
     Message(const Message& other);
     Message& operator=(const Message& other);

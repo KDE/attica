@@ -1,4 +1,5 @@
 set(ocsclient_SRCS
+   getjob.cpp
    atticabasejob.cpp
    itemjob.cpp
    listjob_inst.cpp
@@ -11,6 +12,8 @@ set(ocsclient_SRCS
    personjob.cpp
    provider.cpp
    postjob.cpp
+   postjobstatus.cpp
+   postjobstatusparser.cpp
    folder.cpp
    folderparser.cpp
    message.cpp
@@ -19,6 +22,8 @@ set(ocsclient_SRCS
    categoryparser.cpp
    content.cpp
    contentparser.cpp
+   downloaditem.cpp
+   downloaditemparser.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
  )

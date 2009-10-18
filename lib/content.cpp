@@ -28,11 +28,11 @@ using namespace Attica;
 
 class Content::Private : public QSharedData {
     public:
-        QDateTime m_created;
-        int m_downloads;
         QString m_id;  
         QString m_name;
+        int m_downloads;
         int m_rating;
+        QDateTime m_created;
         QDateTime m_updated;
 
         QMap<QString,QString> m_extendedAttributes;

@@ -33,8 +33,8 @@
 using namespace Attica;
 
 
-PersonJob::PersonJob(QNetworkReply* data)
-    :BaseJob(data)
+PersonJob::PersonJob(QNetworkAccessManager* nam, const QNetworkRequest& request)
+    : GetJob(nam, request)
 {
 }
 

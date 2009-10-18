@@ -26,30 +26,32 @@
 
 #include <QXmlStreamReader>
 #include <QDebug>
-#include <QTimer>
+
+#include <QtNetwork/QNetworkAccessManager>
+
 using namespace Attica;
 
-PostJob::PostJob()
-  : m_job( 0 )
+
+PostJob::PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, const QMap< QString, QString >& data)
+    : BaseJob(nam), m_data(data), m_request(request)
 {
 }
 
-void PostJob::setUrl( const QUrl &url )
+
+QNetworkReply* PostJob::executeRequest()
 {
-  m_url = url;
+    // FIXME: Populate postData, read up for lifetime of postData
+    QString postData;
+
+    /*QMap<QString, QString>::const_iterator end;
+    for (QMap<QString, QString>::const_iterator i = m_data.begin(); i != end; ++i) {
+        m_url.addQueryItem(i.key(), i.value());
+    }*/
+    return nam()->post(m_request, postData.toUtf8());
 }
 
-void PostJob::setData( const QString &name, const QString &value )
-{
-  m_data.insert( name, value );
-}
 
-void PostJob::start()
-{
-  QTimer::singleShot( 0, this, SLOT( doWork() ) );
-}
-
-QString PostJob::status() const
+/*QString PostJob::status() const
 {
   return m_status;
 }
@@ -57,26 +59,9 @@ QString PostJob::status() const
 QString PostJob::statusMessage() const
 {
   return m_statusMessage;
-}
+}*/
 
-void PostJob::doWork()
-{
-  QString postData;
-
-  foreach( const QString &name, m_data.keys() ) {
-    m_url.addQueryItem( name, m_data.value( name ) );
-  }
-
-  qDebug() << m_url;
-
-  m_job = KIO::http_post( m_url, postData.toUtf8(), KIO::HideProgressInfo );
-  connect( m_job, SIGNAL( result( KJob * ) ),
-    SLOT( slotJobResult( KJob * ) ) );
-  connect( m_job, SIGNAL( data( KIO::Job *, const QByteArray & ) ),
-    SLOT( slotJobData( KIO::Job *, const QByteArray & ) ) );
-}
-
-void PostJob::slotJobResult( KJob *job )
+/*void PostJob::slotJobResult( KJob *job )
 {
   m_job = 0;
 
@@ -124,4 +109,12 @@ void PostJob::slotJobResult( KJob *job )
 void PostJob::slotJobData( KIO::Job *, const QByteArray &data )
 {
   m_responseData.append( QString::fromUtf8( data.data(), data.size() + 1 ) );
+}*/
+
+
+void PostJob::parse(const QString& )
+{
 }
+
+
+#include "postjob.moc"

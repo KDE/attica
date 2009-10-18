@@ -22,34 +22,40 @@
 #include "atticabasejob.h"
 
 #include <QtCore/QDebug>
-#include <QNetworkReply>
+#include <QtCore/QTimer>
+#include <QtNetwork/QNetworkReply>
+
 
 using namespace Attica;
 
 class BaseJob::Private
 {
 public:
-    QNetworkReply* m_data;
+    QNetworkAccessManager* m_nam;
+    QNetworkReply* m_reply;
 
-    Private(QNetworkReply* data): m_data(data)
-    {}
+    Private(QNetworkAccessManager* nam): m_nam(nam), m_reply(0)
+    {
+    }
 };
 
-BaseJob::BaseJob(QNetworkReply* data)
-    : d(new Private(data))
+
+BaseJob::BaseJob(QNetworkAccessManager* nam)
+    : d(new Private(nam))
 {
-  connect(d->m_data, SIGNAL(finished()), this, SLOT(dataFinished()));
 }
+
 
 BaseJob::~BaseJob()
 {
     delete d;
 }
 
+
 void BaseJob::dataFinished()
 {
     qDebug() << "DataFinished";
-    QByteArray data = d->m_data->readAll();
+    QByteArray data = d->m_reply->readAll();
     qDebug() << data;
 
     parse(data);
@@ -57,5 +63,25 @@ void BaseJob::dataFinished()
 
     deleteLater();
 }
+
+
+void BaseJob::start()
+{
+    QTimer::singleShot(0, this, SLOT(doWork()));
+}
+
+
+void BaseJob::doWork()
+{
+    d->m_reply = executeRequest();
+    connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
+}
+
+
+QNetworkAccessManager* BaseJob::nam()
+{
+    return d->m_nam;
+}
+
 
 #include "atticabasejob.moc"

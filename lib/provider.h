@@ -32,6 +32,8 @@
 #include "itemjob.h"
 #include "listjob.h"
 
+class QFile;
+class QNetworkProxy;
 
 class QUrl;
 class QDate;
@@ -40,8 +42,11 @@ class QAuthenticator;
 
 namespace Attica {
 
+class PostJobStatus;
+
 class Activity;
 class Content;
+class DownloadItem;
 class Event;
 class Folder;
 class KnowledgeBaseEntry;
@@ -58,7 +63,7 @@ class Provider;
 class ATTICA_EXPORT Provider :public QObject
 {
     Q_OBJECT
-    
+
   public:
     Provider(QObject* parent = 0);
     Provider(const Provider& other, QObject* parent = 0);
@@ -91,6 +96,12 @@ class ATTICA_EXPORT Provider :public QObject
 
     ListJob<Person>* requestFriends(const QString& id, int page = 0, int pageSize = 100);
     PostJob* postFriendInvitation(const QString& to, const QString& message);
+    ListJob<Person>* requestSentInvitations(int page = 0, int pageSize = 100);
+    ListJob<Person>* requestReceivedInvitations(int page = 0, int pageSize = 100);
+    PostJob* inviteFriend(const QString& to, const QString& message);
+    PostJob* approveFriendship(const QString& to);
+    PostJob* declineFriendship(const QString& to);
+    PostJob* cancelFriendship(const QString& to);
 
     // Message part of OCS
 
@@ -105,11 +116,35 @@ class ATTICA_EXPORT Provider :public QObject
 
     // Content part of OCS
 
+    /** 
+     * Get a list of categories (such as wallpaper)
+     * @return the categories of the server
+     */
     ListJob<Category>* requestCategories();
-    ListJob<Content>* searchContents(const Category::List& categories, const QString& search, SortMode mode);
-    ItemJob<Content>* requestContent(const QString& id);
+    ListJob<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 1, uint pageSize = 10);
+    ItemJob<Content>* requestContent(const QString& contentId);
+
+    ItemJob<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));
+
+    // TODO is positiveVote a good name?
+    PostJob* voteForContent(const QString& contentId, bool positiveVote);
 
     PostJob* addNewContent(const Category& category, const Content& newContent);
+    PostJob* editContent(const QString& contentId, const Content& content);
+    PostJob* deleteContent(const QString& contentId);
+
+    PostJob* setDownloadFile(const QString& contentId, const QFile& payload);
+    PostJob* deleteDownloadFile(const QString& contentId);
+
+    /**
+     * Upload an image file as preview for the content
+     * @param contentId
+     * @param previewId each content can have previews with the id 1,2 or 3
+     * @param payload the image file
+     */
+    PostJob* setPreviewImage(const QString& contentId, const QString& previewId, const QFile& payload);
+    PostJob* deletePreviewImage(const QString& contentId, const QString& previewId);
+
 
     // KnowledgeBase part of OCS
 
@@ -123,6 +158,7 @@ class ATTICA_EXPORT Provider :public QObject
 
   private Q_SLOTS:
     void authenticate(QNetworkReply*,QAuthenticator*);
+    void proxyAuthenticationRequired ( const QNetworkProxy & proxy, QAuthenticator * authenticator );
 
   protected:
     QUrl createUrl(const QString& path);
@@ -134,6 +170,8 @@ class ATTICA_EXPORT Provider :public QObject
     ListJob<Message>* doRequestMessageList(const QUrl& url);
 
   private:
+    void initNetworkAccesssManager();
+    
     class Private;
     QExplicitlySharedDataPointer<Private> d;
     Provider(const QString& id, const QUrl& baseUrl, const QString& name);
