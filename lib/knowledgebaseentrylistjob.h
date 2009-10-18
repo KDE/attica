@@ -24,16 +24,13 @@
 
 #include "knowledgebaseentry.h"
 
-#include <kurl.h>
-#include <kjob.h>
-
-namespace KIO {
-class Job;
-}
+#include "atticabasejob.h"
+#include <QUrl>
 
 namespace Attica {
 
-class ATTICA_EXPORT KnowledgeBaseListJob : public KJob
+    /*
+class ATTICA_EXPORT KnowledgeBaseListJob : public BaseJob
 {
     Q_OBJECT
   public:
@@ -60,7 +57,7 @@ class ATTICA_EXPORT KnowledgeBaseListJob : public KJob
     KnowledgeBaseEntry::List m_knowledgeBaseList;
     KnowledgeBaseEntry::Metadata m_metadata;
 };
-
+  */
 }
 
 #endif

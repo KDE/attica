@@ -51,11 +51,6 @@ KnowledgeBaseEntry KnowledgeBaseEntryJob::knowledgeBase() const
   return m_knowledgeBase;
 }
 
-KnowledgeBaseEntry::Metadata KnowledgeBaseEntryJob::metadata() const
-{
-  return m_metadata;
-}
-
 void KnowledgeBaseEntryJob::doWork()
 {
   qDebug() << m_url;
@@ -78,7 +73,6 @@ void KnowledgeBaseEntryJob::slotJobResult( KJob *job )
     qDebug() << m_data;
     KnowledgeBaseEntry::Parser parser;
     m_knowledgeBase = parser.parse( QString::fromUtf8( m_data.data() ) );
-    m_metadata = parser.lastMetadata();
   }
 
   emitResult();

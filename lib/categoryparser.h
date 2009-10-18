@@ -22,7 +22,7 @@
 #define ATTICA_CATEGORYPARSER_H
 
 #include "category.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -32,6 +32,7 @@ class Category::Parser
     Parser();
 
     Category::List parseList( const QString &xml );
+    ListJobMetadata lastMetadata();
 };
 
 }

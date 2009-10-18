@@ -22,7 +22,6 @@ set(ocsclient_SRCS
    contentparser.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryjob.cpp
-   knowledgebaseentrylistjob.cpp
    knowledgebaseentryparser.cpp
  )
 

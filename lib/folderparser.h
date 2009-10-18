@@ -22,7 +22,7 @@
 #define ATTICA_FOLDERPARSER_H
 
 #include "folder.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -32,6 +32,7 @@ class Folder::Parser
     Parser();
 
     Folder::List parseList( const QString &xml );
+    ListJobMetadata lastMetadata();
 };
 
 }

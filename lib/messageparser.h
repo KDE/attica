@@ -22,7 +22,7 @@
 #define ATTICA_MESSAGEPARSER_H
 
 #include "message.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -32,6 +32,7 @@ class Message::Parser
     Parser();
 
     Message::List parseList( const QString &xml );
+    ListJobMetadata lastMetadata();
 };
 
 }

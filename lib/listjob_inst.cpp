@@ -35,7 +35,8 @@
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
-
+#include "knowledgebaseentry.h"
+#include "knowledgebaseentryparser.h"
 
 using namespace Attica;
 
@@ -46,3 +47,5 @@ template class ListJob<Event>;
 template class ListJob<Folder>;
 template class ListJob<Message>;
 template class ListJob<Person>;
+template class ListJob<KnowledgeBaseEntry>;
+

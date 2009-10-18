@@ -327,12 +327,9 @@ KnowledgeBaseEntryJob* Provider::requestKnowledgeBaseEntry(const QString& id)
   return job;
 }
 
-KnowledgeBaseListJob* Provider::searchKnowledgeBase(const Content& content, const QString& search, Provider::SortMode sortMode, int page, int pageSize)
+ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& content, const QString& search, Provider::SortMode sortMode, int page, int pageSize)
 {
-  KnowledgeBaseListJob *job = new KnowledgeBaseListJob();
-
   QUrl url = createUrl( "knowledgebase/data" );
-
   if (content.isValid()) {
       url.addQueryItem("content", content.id());
   }
@@ -361,9 +358,7 @@ KnowledgeBaseListJob* Provider::searchKnowledgeBase(const Content& content, cons
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
 
-  job->setUrl( url );
-
-  job->start();
+  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam->get(QNetworkRequest(url)));
   return job;
 }
 

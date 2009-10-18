@@ -25,7 +25,7 @@
 #include <QtXml/QXmlStreamReader>
 
 #include "content.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -36,6 +36,7 @@ class Content::Parser
 
     Content parse( const QString &xml );
     Content::List parseList( const QString &xml );
+    ListJobMetadata lastMetadata();
 
   protected:
     Content parseContent( QXmlStreamReader &xml );

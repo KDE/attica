@@ -43,7 +43,6 @@ class ATTICA_EXPORT KnowledgeBaseEntryJob : public KJob
     void start();
 
     KnowledgeBaseEntry knowledgeBase() const;
-    KnowledgeBaseEntry::Metadata metadata() const;
 
   protected slots:
     void doWork();
@@ -57,7 +56,6 @@ class ATTICA_EXPORT KnowledgeBaseEntryJob : public KJob
     QByteArray m_data;
 
     KnowledgeBaseEntry m_knowledgeBase;
-    KnowledgeBaseEntry::Metadata m_metadata;
 };
 
 }

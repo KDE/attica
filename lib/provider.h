@@ -117,7 +117,7 @@ class ATTICA_EXPORT Provider :public QObject
     // KnowledgeBase part of OCS
 
     KnowledgeBaseEntryJob* requestKnowledgeBaseEntry(const QString& id);
-    KnowledgeBaseListJob* searchKnowledgeBase(const Content& content, const QString& search, SortMode, int page, int pageSize);
+    ListJob<KnowledgeBaseEntry>* searchKnowledgeBase(const Content& content, const QString& search, SortMode, int page, int pageSize);
 
     // Event part of OCS
 

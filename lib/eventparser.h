@@ -26,7 +26,7 @@
 #include <QtXml/QXmlStreamReader>
 
 #include "event.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -37,6 +37,8 @@ class Event::Parser
 
         Event parse(const QString& xml);
         Event::List parseList(const QString& xml);
+
+        ListJobMetadata lastMetadata();
 
     private:
         Event parseEvent(QXmlStreamReader& xml);

@@ -35,8 +35,6 @@ KnowledgeBaseEntry::List KnowledgeBaseEntry::Parser::parseList( const QString &x
 
   QXmlStreamReader xml( xmlString );
 
-  m_lastMetadata = parseMetadata(xml);
-
   while ( !xml.atEnd() ) {
     xml.readNext();
 
@@ -55,8 +53,6 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parse( const QString &xmlString )
 
   QXmlStreamReader xml( xmlString );
 
-  m_lastMetadata = parseMetadata(xml);
-
   while ( !xml.atEnd() ) {
     xml.readNext();
 
@@ -66,45 +62,6 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parse( const QString &xmlString )
   }
 
   return knowledgeBase;
-}
-
-KnowledgeBaseEntry::Metadata KnowledgeBaseEntry::Parser::lastMetadata()
-{
-    return m_lastMetadata;
-}
-
-KnowledgeBaseEntry::Metadata KnowledgeBaseEntry::Parser::parseMetadata( QXmlStreamReader &xml )
-{
-    KnowledgeBaseEntry::Metadata meta;
-    meta.status.clear();
-    meta.message.clear();
-    meta.totalItems = 0;
-    meta.itemsPerPage = 0;
-
-    while ( !xml.atEnd() ) {
-        xml.readNext();
-        if (xml.isStartElement() && xml.name() == "meta") {
-            while ( !xml.atEnd() ) {
-                xml.readNext();
-                if (xml.isEndElement() && xml.name() == "meta") {
-                    break;
-                } else if (xml.isStartElement()) {
-                    if (xml.name() == "status") {
-                        meta.status = xml.readElementText();
-                    } else if (xml.name() == "message") {
-                        meta.message = xml.readElementText();
-                    } else if (xml.name() == "totalitems") {
-                        meta.totalItems = xml.readElementText().toInt();
-                    } else if (xml.name() == "itemsperpage") {
-                        meta.itemsPerPage = xml.readElementText().toInt();
-                    }
-                }
-            }
-            break;
-        }
-    }
-
-    return meta;
 }
 
 KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseKnowledgeBase( QXmlStreamReader &xml )

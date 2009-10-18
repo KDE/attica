@@ -37,13 +37,6 @@ class ATTICA_EXPORT KnowledgeBaseEntry
   public:
     typedef QList<KnowledgeBaseEntry> List;
     class Parser;
-    struct Metadata
-    {
-        QString status;
-        QString message;
-        int totalItems;
-        int itemsPerPage;
-    };
 
     KnowledgeBaseEntry();
     KnowledgeBaseEntry(const KnowledgeBaseEntry& other);

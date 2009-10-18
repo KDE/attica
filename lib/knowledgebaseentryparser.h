@@ -26,6 +26,7 @@
 #include <QtXml/QXmlStreamReader>
 
 #include "knowledgebaseentry.h"
+#include "listjob.h"
 
 
 namespace Attica {
@@ -37,14 +38,11 @@ class KnowledgeBaseEntry::Parser
 
     KnowledgeBaseEntry parse( const QString &xml );
     KnowledgeBaseEntry::List parseList( const QString &xml );
-    KnowledgeBaseEntry::Metadata lastMetadata();
 
   protected:
     KnowledgeBaseEntry parseKnowledgeBase( QXmlStreamReader &xml );
-    KnowledgeBaseEntry::Metadata parseMetadata( QXmlStreamReader &xml );
+    ListJobMetadata parseMetadata( QXmlStreamReader &xml );
 
-  private:
-    KnowledgeBaseEntry::Metadata m_lastMetadata;
 };
 
 }

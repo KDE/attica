@@ -22,6 +22,7 @@
 #define ATTICA_PERSONPARSER_H
 
 #include "person.h"
+#include "listjob.h"
 
 class QXmlStreamReader;
 
@@ -34,6 +35,7 @@ class Person::Parser
 
     Person parse( const QString &xml );
     Person::List parseList( const QString &xml );
+    ListJobMetadata lastMetadata();
 
   protected:
     Person parsePerson( QXmlStreamReader &xml );

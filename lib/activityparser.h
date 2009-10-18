@@ -22,7 +22,7 @@
 #define ATTICA_ACTIVITYPARSER_H
 
 #include "activity.h"
-
+#include "listjob.h"
 
 namespace Attica {
 
@@ -32,6 +32,8 @@ class Activity::Parser
     Parser();
 
     Activity::List parseList( const QString &xml );
+
+    ListJobMetadata lastMetadata();
 };
 
 }
