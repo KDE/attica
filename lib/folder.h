@@ -66,7 +66,7 @@ class ATTICA_EXPORT Folder
      * The id uniquely identifies a Folder with the OCS API.
      * @param id the new id
      */
-    void setId( const QString & );
+    void setId( const QString & id);
 
     /**
      * Gets the id of the Folder.
@@ -79,7 +79,7 @@ class ATTICA_EXPORT Folder
      * Sets the name of the Folder.
      * @param name the new name
      */
-    void setName( const QString & );
+    void setName( const QString & name);
 
     /**
      * Gets the name of the Folder.
@@ -88,10 +88,10 @@ class ATTICA_EXPORT Folder
     QString name() const;
 
     /**
-     * Sets the name of messages in the Folder.
-     * @param name the new number of messages
+     * Sets the number of messages in the Folder.
+     * @param messageCount the new number of messages
      */
-    void setMessageCount( int );
+    void setMessageCount( int messageCount);
 
     /**
      * Gets the number of messages in the Folder.
@@ -101,9 +101,9 @@ class ATTICA_EXPORT Folder
 
     /**
      * Sets the type of the folder
-     * @param name the new type
+     * @param type the new type
      */
-    void setType( const QString & );
+    void setType( const QString & type);
 
     /**
      * Gets the type of the Folder.
