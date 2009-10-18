@@ -49,7 +49,7 @@ public Q_SLOTS:
     void start();
 
 Q_SIGNALS:
-    virtual void finished(Attica::BaseJob* job);
+    void finished(Attica::BaseJob* job);
 
 protected Q_SLOTS:
     void dataFinished();
