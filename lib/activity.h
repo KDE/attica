@@ -24,8 +24,6 @@
 #include <QtCore/QList>
 #include <QtCore/QSharedDataPointer>
 
-#include <KUrl>
-
 #include "atticaclient_export.h"
 
 
@@ -43,7 +41,7 @@ class ATTICA_EXPORT Activity
     class Parser;
 
     /**
-     * Creates an empty Activity
+     * Creates an empty activity
      */
     Activity();
 
@@ -119,13 +117,13 @@ class ATTICA_EXPORT Activity
      * Sets the link to further informations about this Activity.
      * @param link the new link
      */
-    void setLink(const KUrl& link);
+    void setLink(const QString& link);
 
     /**
      * Gets the link to further informations about this Activity.
      * @return the link
      */
-    KUrl link() const;
+    QString link() const;
 
     /**
      * Checks whether this Activity has an id
