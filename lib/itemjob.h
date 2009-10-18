@@ -2,7 +2,6 @@
     This file is part of KDE.
 
     Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
-    Copyright (c) 2009 Marco Martin <notmart@gmail.com>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,43 +18,26 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
  */
-#ifndef ATTICA_KNOWLEDGEBASEENTRYJOB_H
-#define ATTICA_KNOWLEDGEBASEENTRYJOB_H
+#ifndef ATTICA_ITEMJOB_H
+#define ATTICA_ITEMJOB_H
 
-#include "knowledgebaseentry.h"
+#include "atticaclient_export.h"
+#include "atticabasejob.h"
 
-#include <kjob.h>
-
-namespace KIO {
-class Job;
-}
+class QNetworkReply;
 
 namespace Attica {
 
-class ATTICA_EXPORT KnowledgeBaseEntryJob : public KJob
+template <class T>
+class ATTICA_EXPORT ItemJob : public BaseJob
 {
-    Q_OBJECT
-  public:
-    KnowledgeBaseEntryJob();
+public:
+    ItemJob(QNetworkReply* data);
+    T result() const;
 
-    void setUrl( const QUrl & );
-
-    void start();
-
-    KnowledgeBaseEntry knowledgeBase() const;
-
-  protected slots:
-    void doWork();
-
-    void slotJobResult( KJob *job );
-    void slotJobData( KIO::Job *job, const QByteArray &data );
-
-  private:
-    QUrl m_url;
-    KIO::Job *m_job;
-    QByteArray m_data;
-
-    KnowledgeBaseEntry m_knowledgeBase;
+private:
+    virtual void parse(const QString& xml);
+    T m_item;
 };
 
 }

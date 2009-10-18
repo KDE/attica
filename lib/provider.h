@@ -29,6 +29,7 @@
 
 #include "atticaclient_export.h"
 #include "category.h"
+#include "itemjob.h"
 #include "listjob.h"
 
 
@@ -46,7 +47,6 @@ class Event;
 class EventJob;
 class Folder;
 class KnowledgeBaseEntry;
-class KnowledgeBaseEntryJob;
 class KnowledgeBaseListJob;
 class Message;
 class Person;
@@ -116,7 +116,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     // KnowledgeBase part of OCS
 
-    KnowledgeBaseEntryJob* requestKnowledgeBaseEntry(const QString& id);
+    ItemJob<KnowledgeBaseEntry>* requestKnowledgeBaseEntry(const QString& id);
     ListJob<KnowledgeBaseEntry>* searchKnowledgeBase(const Content& content, const QString& search, SortMode, int page, int pageSize);
 
     // Event part of OCS

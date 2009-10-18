@@ -20,6 +20,7 @@
 */
 
 #include "listjob.cpp"
+#include "itemjob.cpp"
 
 #include "activity.h"
 #include "activityparser.h"
@@ -48,4 +49,7 @@ template class ListJob<Folder>;
 template class ListJob<Message>;
 template class ListJob<Person>;
 template class ListJob<KnowledgeBaseEntry>;
+
+template class ItemJob<KnowledgeBaseEntry>;
+
 

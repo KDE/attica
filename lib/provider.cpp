@@ -26,11 +26,11 @@
 #include "contentjob.h"
 #include "eventjob.h"
 #include "folder.h"
-#include "knowledgebaseentryjob.h"
 #include "knowledgebaseentrylistjob.h"
 #include "message.h"
 #include "personjob.h"
 #include "postjob.h"
+#include "itemjob.h"
 #include "listjob.h"
 
 #include <QNetworkAccessManager>
@@ -316,15 +316,11 @@ PostJob* Provider::addNewContent(const Category& category, const Content& newCon
   return 0;
 }
 
-KnowledgeBaseEntryJob* Provider::requestKnowledgeBaseEntry(const QString& id)
+ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
-  KnowledgeBaseEntryJob *job = new KnowledgeBaseEntryJob();
-
-  QUrl url = createUrl( "knowledgebase/data/" + id );
-  job->setUrl( url );
-
-  job->start();
-  return job;
+    QUrl url = createUrl( "knowledgebase/data/" + id );
+    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam->get(QNetworkRequest(url)));
+    return job;
 }
 
 ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& content, const QString& search, Provider::SortMode sortMode, int page, int pageSize)
