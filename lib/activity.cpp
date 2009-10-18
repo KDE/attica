@@ -32,7 +32,7 @@ class Activity::Private : public QSharedData {
         QString m_user;
         QDateTime m_timestamp;
         QString m_message;
-        KUrl m_link;
+        QUrl m_link;
 };
 
 Activity::Activity() : d(new Private)
@@ -95,12 +95,12 @@ QString Activity::message() const
   return d->m_message;
 }
 
-void Activity::setLink( const KUrl &v )
+void Activity::setLink( const QUrl &v )
 {
   d->m_link = v;
 }
 
-KUrl Activity::link() const
+QUrl Activity::link() const
 {
   return d->m_link;
 }
