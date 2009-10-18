@@ -43,9 +43,8 @@ class ATTICA_EXPORT PersonJob : public QObject
 
   private:
     QNetworkReply* m_data;
-    QString m_userData;
     QByteArray m_avatarData;
-  
+
     Person m_person;
 };
 

@@ -49,14 +49,14 @@ void PersonJob::personDataFinished()
 {
     qDebug() << "personDataFinished";
     
-    m_person = Person::Parser().parse( m_userData );
+    m_person = Person::Parser().parse( m_data->readAll() );
     
     
     if (!m_person.avatarUrl().isEmpty()) {
       qDebug() << "Getting avatar from" << m_person.avatarUrl();
       // TODO
       // either create another qnam instance or retrieve the old one from provider (?)
-      
+       emit finished();
     } else {
        emit finished();
     }
