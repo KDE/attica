@@ -50,6 +50,7 @@ template class ListJob<Message>;
 template class ListJob<Person>;
 template class ListJob<KnowledgeBaseEntry>;
 
+template class ItemJob<Content>;
+template class ItemJob<Event>;
 template class ItemJob<KnowledgeBaseEntry>;
-
 

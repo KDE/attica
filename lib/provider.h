@@ -42,12 +42,9 @@ namespace Attica {
 
 class Activity;
 class Content;
-class ContentJob;
 class Event;
-class EventJob;
 class Folder;
 class KnowledgeBaseEntry;
-class KnowledgeBaseListJob;
 class Message;
 class Person;
 class PersonJob;
@@ -110,7 +107,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     ListJob<Category>* requestCategories();
     ListJob<Content>* searchContents(const Category::List& categories, const QString& search, SortMode mode);
-    ContentJob* requestContent(const QString& id);
+    ItemJob<Content>* requestContent(const QString& id);
 
     PostJob* addNewContent(const Category& category, const Content& newContent);
 
@@ -121,7 +118,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     // Event part of OCS
 
-    EventJob* requestEvent(const QString& id);
+    ItemJob<Event>* requestEvent(const QString& id);
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
   private Q_SLOTS:

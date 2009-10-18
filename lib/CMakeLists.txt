@@ -2,8 +2,6 @@ set(ocsclient_SRCS
    atticabasejob.cpp
    itemjob.cpp
    listjob_inst.cpp
-
-   eventjob.cpp
    eventparser.cpp
    event.cpp
    activity.cpp
@@ -20,7 +18,6 @@ set(ocsclient_SRCS
    category.cpp
    categoryparser.cpp
    content.cpp
-   contentjob.cpp
    contentparser.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp

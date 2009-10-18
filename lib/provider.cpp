@@ -23,8 +23,7 @@
 
 #include "activity.h"
 #include "content.h"
-#include "contentjob.h"
-#include "eventjob.h"
+#include "event.h"
 #include "folder.h"
 #include "knowledgebaseentrylistjob.h"
 #include "message.h"
@@ -296,10 +295,10 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
   return job;
 }
 
-ContentJob* Provider::requestContent(const QString& id)
+ItemJob<Content>* Provider::requestContent(const QString& id)
 {
   QUrl url = createUrl( "content/data/" + id );
-  ContentJob *job = new ContentJob(d->m_qnam->get(QNetworkRequest(url)));
+  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam->get(QNetworkRequest(url)));
   return job;
 }
 
@@ -358,9 +357,9 @@ ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& conten
   return job;
 }
 
-EventJob* Provider::requestEvent(const QString& id)
+ItemJob<Event>* Provider::requestEvent(const QString& id)
 {
-    EventJob* job = new EventJob(d->m_qnam->get(QNetworkRequest(createUrl("event/data/" + id))));
+    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam->get(QNetworkRequest(createUrl("event/data/" + id))));
     return job;
 }
 
