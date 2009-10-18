@@ -27,17 +27,18 @@
 #include <QtCore/QString>
 
 
-namespace Attica {
+namespace Attica
+{
 
 /**
  * Represents a single mail folder
  */
 class ATTICA_EXPORT Folder
 {
-  public:
+public:
     typedef QList<Folder> List;
     class Parser;
-  
+
     /**
      * Creates an empty Folder
      */
@@ -66,7 +67,7 @@ class ATTICA_EXPORT Folder
      * The id uniquely identifies a Folder with the OCS API.
      * @param id the new id
      */
-    void setId( const QString & id);
+    void setId(const QString& id);
 
     /**
      * Gets the id of the Folder.
@@ -79,7 +80,7 @@ class ATTICA_EXPORT Folder
      * Sets the name of the Folder.
      * @param name the new name
      */
-    void setName( const QString & name);
+    void setName(const QString& name);
 
     /**
      * Gets the name of the Folder.
@@ -91,7 +92,7 @@ class ATTICA_EXPORT Folder
      * Sets the number of messages in the Folder.
      * @param messageCount the new number of messages
      */
-    void setMessageCount( int messageCount);
+    void setMessageCount(int messageCount);
 
     /**
      * Gets the number of messages in the Folder.
@@ -103,7 +104,7 @@ class ATTICA_EXPORT Folder
      * Sets the type of the folder
      * @param type the new type
      */
-    void setType( const QString & type);
+    void setType(const QString& type);
 
     /**
      * Gets the type of the Folder.
@@ -117,11 +118,12 @@ class ATTICA_EXPORT Folder
      */
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };
 
 }
+
 
 #endif
