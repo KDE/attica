@@ -389,10 +389,7 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
     } else {
         pars.insert("vote", "bad");
     }
-    
-    QNetworkRequest request;
-    request.setUrl(url);
-    
+     
     return new PostJob(d->m_qnam, url, pars);
 }
 

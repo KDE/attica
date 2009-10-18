@@ -49,6 +49,8 @@ PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& p
         m_byteArray.append('=');
         m_byteArray.append(QUrl::toPercentEncoding(i.value()));
     }
+    
+    qDebug() << "Post Parameters: " << m_byteArray;
 }
 
 QNetworkReply* PostJob::executeRequest()
