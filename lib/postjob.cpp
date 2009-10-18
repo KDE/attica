@@ -37,12 +37,30 @@ PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, QIODevice* iodevic
 }
 
 
+PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& parameters)
+    : BaseJob(nam), m_url(url), m_ioDevice(0)
+{
+    int j = 0;
+    for(StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
+        if (j++ > 0) {
+            m_byteArray.append('&');
+        }
+        m_byteArray.append(QUrl::toPercentEncoding(i.key()));
+        m_byteArray.append('=');
+        m_byteArray.append(QUrl::toPercentEncoding(i.value()));
+    }
+}
+
 QNetworkReply* PostJob::executeRequest()
 {
     QNetworkRequest request(m_url);
     // FIXME: Populate postData, read up for lifetime of postData
     
-    return nam()->post(request, m_ioDevice);
+    if (m_ioDevice) {
+        return nam()->post(request, m_ioDevice);
+    } else {
+        return nam()->post(request, m_byteArray);
+    }
 }
 
 

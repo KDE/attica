@@ -383,17 +383,17 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
     QUrl url = createUrl( "content/vote/" + contentId );
     
-    
+    StringMap pars;
     if (positiveVote) {
-        url.addQueryItem("vote", "good");
+        pars.insert("vote", "good");
     } else {
-        url.addQueryItem("vote", "bad");
+        pars.insert("vote", "bad");
     }
     
     QNetworkRequest request;
     request.setUrl(url);
     
-    return new PostJob(d->m_qnam, url, 0);
+    return new PostJob(d->m_qnam, url, pars);
 }
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
