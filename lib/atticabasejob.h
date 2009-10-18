@@ -39,7 +39,7 @@ public:
     QString errorString() { return QString(); }
 
 Q_SIGNALS:
-    virtual void finished(AtticaBaseJob* job);
+    virtual void finished(Attica::AtticaBaseJob* job);
 
 protected Q_SLOTS:
     void dataFinished();
@@ -48,6 +48,8 @@ protected:
     virtual void parse(const QString& xml) = 0;
     QNetworkReply* m_data;
 };
+
+
 
 }
 

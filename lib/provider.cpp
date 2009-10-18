@@ -295,8 +295,8 @@ PostJob* Provider::addNewContent(const Category& category, const Content& newCon
   QString cat = category.id();
   
   
-  
-  
+  // FIXME
+  return 0;
 }
 
 KnowledgeBaseEntryJob* Provider::requestKnowledgeBaseEntry(const QString& id)
