@@ -31,15 +31,16 @@
 using namespace Attica;
 
 
-PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, QIODevice* iodevice)
-    : BaseJob(nam), m_url(url), m_ioDevice(iodevice)
+PostJob::PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, QIODevice* iodevice)
+    : BaseJob(nam), m_ioDevice(iodevice), m_request(request)
 {
 }
 
 
-PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& parameters)
-    : BaseJob(nam), m_url(url), m_ioDevice(0)
+PostJob::PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, const StringMap& parameters)
+    : BaseJob(nam), m_ioDevice(0), m_request(request)
 {
+    // Create post data
     int j = 0;
     for(StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
         if (j++ > 0) {
@@ -49,18 +50,14 @@ PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& p
         m_byteArray.append('=');
         m_byteArray.append(QUrl::toPercentEncoding(i.value()));
     }
-    
-    qDebug() << "Post Parameters: " << m_byteArray;
 }
 
 QNetworkReply* PostJob::executeRequest()
 {
-    QNetworkRequest request(m_url);
-    
     if (m_ioDevice) {
-        return nam()->post(request, m_ioDevice);
+        return nam()->post(m_request, m_ioDevice);
     } else {
-        return nam()->post(request, m_byteArray);
+        return nam()->post(m_request, m_byteArray);
     }
 }
 

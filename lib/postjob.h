@@ -37,8 +37,8 @@ class ATTICA_EXPORT PostJob : public Attica::BaseJob
     Q_OBJECT
 
 public:
-    PostJob(QNetworkAccessManager* nam, const QUrl& url, QIODevice * data);
-    PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& parameters = StringMap());
+    PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, QIODevice * data);
+    PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, const StringMap& parameters = StringMap());
     
 /*    QString status() const;
     QString statusMessage() const;
@@ -51,7 +51,6 @@ private:
     virtual QNetworkReply* executeRequest();
     virtual void parse(const QString&);
 
-    QUrl m_url;
     QIODevice* m_ioDevice;
     QByteArray m_byteArray;
     

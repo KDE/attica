@@ -250,46 +250,45 @@ ListJob<Activity>* Provider::requestActivities()
 
 PostJob* Provider::postActivity(const QString& message)
 {
-    QUrl url = createUrl("activity");
-    url.addQueryItem("message", message);
-    return new PostJob(d->m_qnam, url, 0);
+    StringMap postParameters;
+    postParameters.insert("message", message);
+    return new PostJob(d->m_qnam, createRequest("activity"), postParameters);
 }
 
 
 PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 {
-    QUrl url = createUrl("friend/invite/" + to);
-    url.addQueryItem("message", message);
-    return new PostJob(d->m_qnam, url, 0);
+    StringMap postParameters;
+    postParameters.insert("message", message);
+    return new PostJob(d->m_qnam, createRequest("friend/invite/" + to), postParameters);
 }
 
 
 PostJob* Provider::approveFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createUrl("friend/approve/" + to),  0);
+    return new PostJob(d->m_qnam, createRequest("friend/approve/" + to));
 }
 
 
 PostJob* Provider::declineFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createUrl("friend/decline/" + to),  0);
+    return new PostJob(d->m_qnam, createRequest("friend/decline/" + to));
 }
 
 PostJob* Provider::cancelFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createUrl("friend/cancel/" + to),  0);
+    return new PostJob(d->m_qnam, createRequest("friend/cancel/" + to));
 }
 
 
 PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& city, const QString& country)
 {
-    QUrl url;
-    url.addQueryItem("latitude", QString::number(latitude));
-    url.addQueryItem("longitude", QString::number(longitude));
-    url.addQueryItem("city", city);
-    url.addQueryItem("country", country);
-    
-    return new PostJob(d->m_qnam, url, 0);
+    StringMap postParameters;
+    postParameters.insert("latitude", QString::number(latitude));
+    postParameters.insert("longitude", QString::number(longitude));
+    postParameters.insert("city", city);
+    postParameters.insert("country", country);
+    return new PostJob(d->m_qnam, createRequest("person/self"), postParameters);
 }
 
 
@@ -303,16 +302,16 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
   return doRequestMessageList( createUrl( "message/" + folder.id() ) );
 }
 
+
 PostJob* Provider::postMessage( const Message &message )
 {
-    QUrl url = createUrl("message/2");
-    
-    url.addQueryItem("message", message.body());
-    url.addQueryItem("subject", message.subject());
-    url.addQueryItem("to", message.to());
-
-  return new PostJob(d->m_qnam, url, 0);
+    StringMap postParameters;
+    postParameters.insert("message", message.body());
+    postParameters.insert("subject", message.subject());
+    postParameters.insert("to", message.to());
+    return new PostJob(d->m_qnam, createRequest("message/2"), 0);
 }
+
 
 ListJob<Category>* Provider::requestCategories()
 {
@@ -379,19 +378,14 @@ PostJob* Provider::addNewContent(const Category& category, const Content& newCon
   return 0;
 }
 
+
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
-    QUrl url = createUrl( "content/vote/" + contentId );
-    
-    StringMap pars;
-    if (positiveVote) {
-        pars.insert("vote", "good");
-    } else {
-        pars.insert("vote", "bad");
-    }
-     
-    return new PostJob(d->m_qnam, url, pars);
+    StringMap postParameters;
+    postParameters.insert("vote", positiveVote ? "good" : "bad");
+    return new PostJob(d->m_qnam, createRequest("content/vote/" + contentId), postParameters);
 }
+
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
@@ -493,6 +487,18 @@ QUrl Provider::createUrl(const QString& path)
 
   return url;
 }
+
+QNetworkRequest Provider::createRequest(const QUrl& url)
+{
+  return QNetworkRequest(url);
+}
+
+
+QNetworkRequest Provider::createRequest(const QString& path)
+{
+    return createRequest(createUrl(path));
+}
+
 
 PersonJob* Provider::doRequestPerson(const QUrl& url)
 {

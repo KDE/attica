@@ -162,6 +162,9 @@ class ATTICA_EXPORT Provider :public QObject
 
   protected:
     QUrl createUrl(const QString& path);
+    QNetworkRequest createRequest(const QUrl& url);
+    // Convenience overload
+    QNetworkRequest createRequest(const QString& path);
 
     PersonJob* doRequestPerson(const QUrl& url);
     ListJob<Person>* doRequestPersonList(const QUrl& url);
