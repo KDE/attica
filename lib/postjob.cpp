@@ -54,7 +54,6 @@ PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, const StringMap& p
 QNetworkReply* PostJob::executeRequest()
 {
     QNetworkRequest request(m_url);
-    // FIXME: Populate postData, read up for lifetime of postData
     
     if (m_ioDevice) {
         return nam()->post(request, m_ioDevice);
