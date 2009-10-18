@@ -66,11 +66,12 @@ class Provider::Private : public QSharedData {
 };
 
 
-ProviderInitJob* Provider::byId(const QString& id)
+Provider Provider::createProvider(const QString& id)
 {
-  ProviderInitJob* job = new ProviderInitJob(id);
-  job->start();
-  return job;
+    if (id == "opendesktop") {
+        return Provider(id, QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org");
+    }
+    return Provider();
 }
 
 

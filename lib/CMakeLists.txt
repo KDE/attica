@@ -2,7 +2,6 @@ set(ocsclient_SRCS
    atticabasejob.cpp
    listjob_inst.cpp
    listjobbase.cpp
-   providerinitjob.cpp
    eventjob.cpp
    eventparser.cpp
    event.cpp

@@ -52,7 +52,7 @@ class Message;
 class Person;
 class PersonJob;
 class PostJob;
-class ProviderInitJob;
+class Provider;
 
 
 /**
@@ -80,7 +80,7 @@ class ATTICA_EXPORT Provider :public QObject
         Downloads
     };
 
-    static ProviderInitJob* byId(const QString& id);
+    static Provider createProvider(const QString& id);
 
     // Person part of OCS
 
@@ -126,10 +126,10 @@ class ATTICA_EXPORT Provider :public QObject
 
   private Q_SLOTS:
     void authenticate(QNetworkReply*,QAuthenticator*);
-    
+
   protected:
     QUrl createUrl(const QString& path);
-  
+
     PersonJob* doRequestPerson(const QUrl& url);
     ListJob<Person>* doRequestPersonList(const QUrl& url);
     ListJob<Activity>* doRequestActivityList(const QUrl& url);
@@ -140,6 +140,8 @@ class ATTICA_EXPORT Provider :public QObject
     class Private;
     QExplicitlySharedDataPointer<Private> d;
     Provider(const QString& id, const QUrl& baseUrl, const QString& name);
+
+    // TODO remove
     friend class ProviderInitJob;
 };
 }
