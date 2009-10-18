@@ -116,10 +116,7 @@ Provider& Provider::operator=(const Attica::Provider & other)
 void Provider::initNetworkAccesssManager()
 {
     connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
-    
-    
     connect(d->m_qnam, SIGNAL(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)));
-
 }
 
 Provider::~Provider()
@@ -253,47 +250,46 @@ ListJob<Activity>* Provider::requestActivities()
 
 PostJob* Provider::postActivity(const QString& message)
 {
-    QMap<QString, QString> postData;
-    postData.insert("message", message);
-
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("activity")), postData);
+    QUrl url = createUrl("activity");
+    url.addQueryItem("message", message);
+    return new PostJob(d->m_qnam, url, 0);
 }
 
 
 PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 {
-    QMap<QString, QString> postData;
-    postData.insert("message", message);
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/invite/" + to)), postData);
+    QUrl url = createUrl("friend/invite/" + to);
+    url.addQueryItem("message", message);
+    return new PostJob(d->m_qnam, url, 0);
 }
 
 
 PostJob* Provider::approveFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/approve/" + to)),  QMap<QString, QString> ());
+    return new PostJob(d->m_qnam, createUrl("friend/approve/" + to),  0);
 }
 
 
 PostJob* Provider::declineFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/decline/" + to)),  QMap<QString, QString> ());
+    return new PostJob(d->m_qnam, createUrl("friend/decline/" + to),  0);
 }
 
 PostJob* Provider::cancelFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("friend/cancel/" + to)),  QMap<QString, QString> ());
+    return new PostJob(d->m_qnam, createUrl("friend/cancel/" + to),  0);
 }
 
 
 PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& city, const QString& country)
 {
-    QMap<QString, QString> postData;
-    postData.insert("latitude", QString::number(latitude));
-    postData.insert("longitude", QString::number(longitude));
-    postData.insert("city", city);
-    postData.insert("country", country);
+    QUrl url;
+    url.addQueryItem("latitude", QString::number(latitude));
+    url.addQueryItem("longitude", QString::number(longitude));
+    url.addQueryItem("city", city);
+    url.addQueryItem("country", country);
     
-    return new PostJob(d->m_qnam, QNetworkRequest(createUrl("person/self/")), postData);
+    return new PostJob(d->m_qnam, url, 0);
 }
 
 
@@ -309,12 +305,13 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
 
 PostJob* Provider::postMessage( const Message &message )
 {
-  QMap<QString, QString> postData;
-  postData.insert("message", message.body());
-  postData.insert("subject", message.subject());
-  postData.insert("to", message.to());
+    QUrl url = createUrl("message/2");
+    
+    url.addQueryItem("message", message.body());
+    url.addQueryItem("subject", message.subject());
+    url.addQueryItem("to", message.to());
 
-  return new PostJob(d->m_qnam, QNetworkRequest(createUrl("message/2")), postData);
+  return new PostJob(d->m_qnam, url, 0);
 }
 
 ListJob<Category>* Provider::requestCategories()
@@ -386,17 +383,17 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
     QUrl url = createUrl( "content/vote/" + contentId );
     
-    QMap<QString, QString> postData;
+    
     if (positiveVote) {
-        postData["vote"] = QLatin1String("good");
+        url.addQueryItem("vote", "good");
     } else {
-        postData["vote"] = QLatin1String("bad");
+        url.addQueryItem("vote", "bad");
     }
     
     QNetworkRequest request;
     request.setUrl(url);
     
-    return new PostJob(d->m_qnam, QNetworkRequest(url), postData);
+    return new PostJob(d->m_qnam, url, 0);
 }
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)

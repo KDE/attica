@@ -21,7 +21,6 @@
 
 #include "postjob.h"
 
-#include <kio/job.h>
 #include <klocale.h>
 
 #include <QXmlStreamReader>
@@ -32,22 +31,18 @@
 using namespace Attica;
 
 
-PostJob::PostJob(QNetworkAccessManager* nam, const QNetworkRequest& request, const QMap< QString, QString >& data)
-    : BaseJob(nam), m_data(data), m_request(request)
+PostJob::PostJob(QNetworkAccessManager* nam, const QUrl& url, QIODevice* iodevice)
+    : BaseJob(nam), m_url(url), m_ioDevice(iodevice)
 {
 }
 
 
 QNetworkReply* PostJob::executeRequest()
 {
+    QNetworkRequest request(m_url);
     // FIXME: Populate postData, read up for lifetime of postData
-    QString postData;
-
-    /*QMap<QString, QString>::const_iterator end;
-    for (QMap<QString, QString>::const_iterator i = m_data.begin(); i != end; ++i) {
-        m_url.addQueryItem(i.key(), i.value());
-    }*/
-    return nam()->post(m_request, postData.toUtf8());
+    
+    return nam()->post(request, m_ioDevice);
 }
 
 
