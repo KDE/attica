@@ -22,6 +22,7 @@
 #define ATTICA_CONTENT_H
 
 #include <QtCore/QList>
+#include <QtCore/QString>
 #include <QtCore/QMap>
 #include <QtCore/QSharedDataPointer>
 
@@ -31,6 +32,17 @@
 class QDateTime;
 
 namespace Attica {
+
+    struct DownloadUrlDescription {
+        bool isDownloadtypLink;
+        QString category;
+        QString name;
+        QString link;
+        QString distributionType;
+        bool hasPrice;
+        QString priceReason;
+        QString priceAmount;
+    };
 
 /**
  * Represents a single content
@@ -138,27 +150,39 @@ class ATTICA_EXPORT Content
      */
     QDateTime updated() const;
 
+    QString description() const;
+
+    QString changelog() const;
+    QString version() const;
+    QString depend() const;
+    DownloadUrlDescription downloadUrlDescription(int number);
+
+
+    
     /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.
      * If the attribute already exists it gets overwritten.
      * @param key the key of the attribute
      * @param value the value of the attribute
      */
-    void addExtendedAttribute( const QString &key, const QString &value );
+    void addAttribute( const QString &key, const QString &value );
 
     /**
      * Get an attribute that is not included in the basis set of attributes exposed by the Content class.
      * @param key the key of the attribute
      * @return the value of the attribute with the specified key, or an empty string, if the key has not been found
      */
-    QString extendedAttribute( const QString &key ) const;
+    QString attribute( const QString &key ) const;
 
     /**
      * Get all attributes that are not included in the basis set of attributes exposed by the Content class.
      * @return the attribute mappings
      */
-    QMap<QString,QString> extendedAttributes() const;
+    QMap<QString,QString> attributes() const;
 
+
+    
+    
     /**
      * Checks whether this Content has an id
      * @return @c true if an id has been set, @c false otherwise

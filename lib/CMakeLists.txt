@@ -11,6 +11,7 @@ set(ocsclient_SRCS
    personparser.cpp
    personjob.cpp
    provider.cpp
+   providermanager.cpp
    postjob.cpp
    postjobstatus.cpp
    postjobstatusparser.cpp

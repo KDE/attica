@@ -79,12 +79,11 @@ class Provider::Private : public QSharedData {
 };
 
 
-Provider Provider::createProvider(const QString& id)
+QList<Provider> Provider::createProviders()
 {
-    if (id == "opendesktop") {
-        return Provider(id, QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org");
-    }
-    return Provider();
+    QList<Provider> providers;
+    providers << Provider("opendesktop", QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org");
+    return providers;
 }
 
 
@@ -365,17 +364,21 @@ ItemJob<Content>* Provider::requestContent(const QString& id)
   return job;
 }
 
-PostJob* Provider::addNewContent(const Category& category, const Content& newContent)
+PostJob* Provider::addNewContent(const Category& category, const Content& cont)
 {
-  if (!category.isValid() || !newContent.isValid()) {
-    return 0;
-  }
-  
-  QString cat = category.id();
-  
-  
-  // FIXME
-  return 0;
+    if (!category.isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl("content/add");
+    StringMap pars(cont.attributes());
+    
+    pars.insert("type", category.id());
+    pars.insert("name", cont.name());
+    
+    qDebug() << "Parameter map: " << pars;
+    
+    return new PostJob(d->m_qnam, createRequest(url), pars);
 }
 
 

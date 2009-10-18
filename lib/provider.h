@@ -82,7 +82,7 @@ class ATTICA_EXPORT Provider :public QObject
         Downloads
     };
 
-    static Provider createProvider(const QString& id);
+    static QList<Provider> createProviders();
 
     // Person part of OCS
 
@@ -180,7 +180,7 @@ class ATTICA_EXPORT Provider :public QObject
     Provider(const QString& id, const QUrl& baseUrl, const QString& name);
 
     // TODO remove
-    friend class ProviderInitJob;
+    friend class ProviderManager;
 };
 }
 

@@ -126,22 +126,63 @@ QDateTime Content::updated() const
   return d->m_updated;
 }
 
-void Content::addExtendedAttribute( const QString &key, const QString &value )
+void Content::addAttribute( const QString &key, const QString &value )
 {
   d->m_extendedAttributes.insert( key, value );
 }
 
-QString Content::extendedAttribute( const QString &key ) const
+QString Content::attribute( const QString &key ) const
 {
   return d->m_extendedAttributes.value( key );
 }
 
-QMap<QString,QString> Content::extendedAttributes() const
+QMap<QString,QString> Content::attributes() const
 {
   return d->m_extendedAttributes;
 }
 
-
-bool Content::isValid() const {
+bool Content::isValid() const
+{
   return !(d->m_id.isEmpty());
+}
+
+QString Content::description() const
+{
+    return attribute("description");
+}
+
+QString Attica::Content::changelog() const
+{
+    return attribute("changelog");
+
+}
+
+QString Attica::Content::depend() const
+{
+    return attribute("depend");
+}
+
+Attica::DownloadUrlDescription Attica::Content::downloadUrlDescription(int number)
+{
+    QString num(QString::number(number));
+    DownloadUrlDescription desc;
+    
+    desc.isDownloadtypLink = true;
+    if (number == 1 && attribute("downloadtyp1") == "0") {
+        desc.isDownloadtypLink = false;
+    }
+
+    desc.distributionType = attribute("downloaddistributiontype" + num);
+    desc.name = name();
+    desc.hasPrice = attribute("downloadbuy" + num) == "1";
+    desc.link = attribute("downloadlink" + num);
+    desc.priceReason = attribute("downloadbuyreason" + num) == "1";
+    desc.priceAmount = attribute("downloadbuyprice" + num) == "1";
+    
+    return desc;
+}
+
+QString Attica::Content::version() const
+{
+    return attribute("version");
 }

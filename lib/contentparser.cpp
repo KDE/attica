@@ -88,7 +88,7 @@ Content Content::Parser::parseContent( QXmlStreamReader &xml )
         content.setUpdated( QDateTime::fromString( xml.readElementText(),
           Qt::ISODate ) );
       } else {
-        content.addExtendedAttribute( xml.name().toString(),
+        content.addAttribute( xml.name().toString(),
           xml.readElementText() );
       }
     }
