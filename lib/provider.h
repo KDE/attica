@@ -67,7 +67,7 @@ class ATTICA_EXPORT Provider :public QObject
     Provider(const Provider& other, QObject* parent = 0);
     Provider& operator=(const Provider& other);
     ~Provider();
-    
+
     bool isValid() const;
     QUrl baseUrl() const;
     QString name() const;
@@ -142,7 +142,6 @@ class ATTICA_EXPORT Provider :public QObject
     Provider(const QString& id, const QUrl& baseUrl, const QString& name);
     friend class ProviderInitJob;
 };
-
 }
 
 #endif

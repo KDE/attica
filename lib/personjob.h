@@ -21,18 +21,19 @@
 #ifndef ATTICA_PERSONJOB_H
 #define ATTICA_PERSONJOB_H
 
-#include "person.h"
+#include "atticaclient_export.h"
 #include "atticabasejob.h"
+#include "person.h"
 
 class QNetworkReply;
 
 namespace Attica {
 
-class ATTICA_EXPORT PersonJob : public AtticaBaseJob
+class ATTICA_EXPORT PersonJob : public BaseJob
 {
 public:
     PersonJob(QNetworkReply* data);
-    Person person() const;
+    Person result() const;
 
 private:
     virtual void parse(const QString& xml);

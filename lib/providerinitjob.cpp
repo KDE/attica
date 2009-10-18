@@ -22,7 +22,7 @@
 #include "providerinitjob.h"
 
 #include <QTimer>
-
+#include <QDebug>
 #include <QUrl>
 
 

@@ -21,12 +21,13 @@
 
 #include "listjob.h"
 
+#include <QDebug>
 
 using namespace Attica;
 
 
 template <class T>
-ListJob<T>::ListJob(QNetworkReply* reply): AtticaBaseJob(reply)
+ListJob<T>::ListJob(QNetworkReply* reply): BaseJob(reply)
 {
 }
 
@@ -39,5 +40,7 @@ typename T::List ListJob<T>::itemList() const
 template <class T>
 void ListJob<T>::parse(const QString& xml)
 {
+    qDebug() << "Parsing List";
     m_itemList = typename T::Parser().parseList(xml);
 }
+

@@ -26,15 +26,16 @@
 
 using namespace Attica;
 
-AtticaBaseJob::AtticaBaseJob(QNetworkReply* data): m_data(data)
+BaseJob::BaseJob(QNetworkReply* data): m_data(data)
 {
   connect(m_data, SIGNAL(finished()), this, SLOT(dataFinished()));
 }
 
-void AtticaBaseJob::dataFinished()
+void BaseJob::dataFinished()
 {
     qDebug() << "DataFinished";
     QByteArray data = m_data->readAll();
+    qDebug() << data;
 
     parse(data);
     emit finished(this);

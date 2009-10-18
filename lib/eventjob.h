@@ -22,44 +22,24 @@
 #ifndef ATTICA_EVENTJOB_H
 #define ATTICA_EVENTJOB_H
 
-#include <KJob>
 #include <QUrl>
 
 #include "atticaclient_export.h"
 #include "event.h"
 
-
-namespace KIO {
-    class Job;
-}
+#include "atticabasejob.h"
 
 namespace Attica {
 
-class ATTICA_EXPORT EventJob : public KJob
+class ATTICA_EXPORT EventJob : public BaseJob
 {
-    Q_OBJECT
-
     public:
-        EventJob();
+        EventJob(QNetworkReply* data);
 
-        void setUrl(const QUrl& url);
+        Event result() const;
 
-        void start();
-
-        Event event() const;
-        using QObject::event; // Unhide QObject's event()
-        
-    protected slots:
-        void doWork();
-
-        void slotJobResult(KJob* job);
-        void slotJobData(KIO::Job* job, const QByteArray& data);
-        
     private:
-        QUrl m_url;
-        KIO::Job* m_job;
-        QByteArray m_data;
-    
+        virtual void parse(const QString& xml);
         Event m_event;
 };
 

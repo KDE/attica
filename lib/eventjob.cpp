@@ -21,71 +21,28 @@
 
 #include "eventjob.h"
 
-#include <QtCore/QTimer>
 
-#include <KIO/Job>
-
+#include <QNetworkReply>
 #include "eventparser.h"
 
 
 using namespace Attica;
 
 
-EventJob::EventJob()
-    : m_job(0)
+EventJob::EventJob(QNetworkReply* data)
+    :BaseJob(data)
 {
 }
 
-
-void EventJob::setUrl(const QUrl& url)
-{
-    m_url = url;
-}
-
-
-void EventJob::start()
-{
-    QTimer::singleShot(0, this, SLOT(doWork()));
-}
-
-
-Event EventJob::event() const
+Event EventJob::result() const
 {
     return m_event;
 }
 
 
-void EventJob::doWork()
+void EventJob::parse(const QString& xml)
 {
-    m_job = KIO::get(m_url, KIO::NoReload, KIO::HideProgressInfo);
-    connect(m_job, SIGNAL(result(KJob*)), SLOT(slotJobResult(KJob*)));
-    connect(m_job, SIGNAL(data(KIO::Job*, const QByteArray&)),
-        SLOT(slotJobData(KIO::Job*, const QByteArray&)));
-}
-
-
-void EventJob::slotJobResult(KJob* job)
-{
-    m_job = 0;
-
-    if (job->error()) {
-        setError(job->error());
-        setErrorText(job->errorText());
-    
-        emitResult();
-    } else {
-        m_event = Event::Parser().parse(QString::fromUtf8(m_data.data()));
-
-        emitResult();
-    }
-}
-
-
-void EventJob::slotJobData(KIO::Job* job, const QByteArray& data)
-{
-    Q_UNUSED(job);
-
-    m_data.append(data);
+    m_event = Event::Parser().parse(xml);
 }
 
 

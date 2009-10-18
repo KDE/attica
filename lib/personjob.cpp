@@ -34,12 +34,12 @@ using namespace Attica;
 
 
 PersonJob::PersonJob(QNetworkReply* data)
-    :AtticaBaseJob(data)
+    :BaseJob(data)
 {
 }
 
 
-Person PersonJob::person() const
+Person PersonJob::result() const
 {
     return m_person;
 }

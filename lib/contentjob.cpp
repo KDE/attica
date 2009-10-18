@@ -29,7 +29,7 @@
 using namespace Attica;
 
 ContentJob::ContentJob(QNetworkReply* data)
-    :AtticaBaseJob(data)
+    :BaseJob(data)
 {
 }
 

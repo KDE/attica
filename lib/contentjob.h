@@ -26,7 +26,7 @@
 
 namespace Attica {
 
-class ATTICA_EXPORT ContentJob : public AtticaBaseJob
+class ATTICA_EXPORT ContentJob : public BaseJob
 {
 
 public:

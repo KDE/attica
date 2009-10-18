@@ -32,7 +32,7 @@
 namespace Attica {
 
 template <class T>
-class ATTICA_EXPORT ListJob : public AtticaBaseJob
+class ATTICA_EXPORT ListJob : public BaseJob
 {
     public:
         ListJob(QNetworkReply* reply);

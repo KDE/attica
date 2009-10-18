@@ -28,18 +28,21 @@ class QNetworkReply;
 
 namespace Attica {
 
-class ATTICA_EXPORT AtticaBaseJob : public QObject
+class ATTICA_EXPORT BaseJob : public QObject
 {
     Q_OBJECT
 
 public:
-    AtticaBaseJob(QNetworkReply* data);
-    virtual ~AtticaBaseJob(){}
-    int error() { return false; }
+    BaseJob(QNetworkReply* data);
+    virtual ~BaseJob(){}
+
+// FIXME
+    int error() { return 0; }
     QString errorString() { return QString(); }
 
+
 Q_SIGNALS:
-    virtual void finished(Attica::AtticaBaseJob* job);
+    virtual void finished(Attica::BaseJob* job);
 
 protected Q_SLOTS:
     void dataFinished();
@@ -48,10 +51,9 @@ protected:
     virtual void parse(const QString& xml) = 0;
 
 private:
+    // FIXME d-ptr
     QNetworkReply* m_data;
 };
-
-
 
 }
 

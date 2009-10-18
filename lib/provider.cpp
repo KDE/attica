@@ -39,6 +39,7 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <QAuthenticator>
+#include <KDebug>
 
 using namespace Attica;
 
@@ -49,7 +50,7 @@ class Provider::Private : public QSharedData {
     QString m_id;
     QString m_name;
     QNetworkAccessManager* m_qnam;
-    
+
     Private(const Private& other)
       : QSharedData(other), m_baseUrl(other.m_baseUrl), m_id(other.m_id), m_name(other.m_name), m_qnam(other.m_qnam)
     {
@@ -60,7 +61,7 @@ class Provider::Private : public QSharedData {
     }
     ~Private()
     {
-      delete m_qnam;
+        delete m_qnam;
     }
 };
 
@@ -84,6 +85,7 @@ Provider::Provider(const Provider& other, QObject* parent)
   : QObject(parent), d(other.d)
 {
     connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    dumpObjectInfo();
 }
 
 Provider::Provider(const QString& id, const QUrl& baseUrl, const QString& name)
@@ -95,6 +97,7 @@ Provider::Provider(const QString& id, const QUrl& baseUrl, const QString& name)
 Provider& Provider::operator=(const Attica::Provider & other)
 {
     d = other.d;
+    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
     return *this;
 }
 
@@ -102,12 +105,25 @@ Provider::~Provider()
 {
 }
 
+QUrl Provider::baseUrl() const
+{
+    return d->m_baseUrl;
+}
+
+
+bool Provider::isValid() const
+{
+    return d->m_baseUrl.isValid();
+}
+
+
 void Provider::authenticate(QNetworkReply* , QAuthenticator* auth)
 {
-    qDebug() << "authentication requested";
+    qDebug() << "authentication requested - implement me :D";
     // TODO
-    auth->setUser("fregl");
-    auth->setPassword("blah");
+
+    auth->setUser("der Eckhart");
+    auth->setPassword("dat wes ich doch nich");
 }
 
 QString Provider::id() const
@@ -166,6 +182,7 @@ ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageS
 
 ListJob<Activity>* Provider::requestActivities()
 {
+    qDebug() << "request activity";
   QUrl url = createUrl( "activity" );
   return doRequestActivityList( url );
 }
@@ -352,12 +369,8 @@ KnowledgeBaseListJob* Provider::searchKnowledgeBase(const Content& content, cons
 
 EventJob* Provider::requestEvent(const QString& id)
 {
-  EventJob* job = new EventJob();
-
-  job->setUrl(createUrl("event/data/" + id));
-
-  job->start();
-  return job;
+    EventJob* job = new EventJob(d->m_qnam->get(QNetworkRequest(createUrl("event/data/" + id))));
+    return job;
 }
 
 ListJob<Event>* Provider::requestEvent(const QString& country, const QString& search, const QDate& startAt, Provider::SortMode mode, int page, int pageSize)
