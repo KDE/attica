@@ -286,6 +286,19 @@ ContentJob* Provider::requestContent(const QString& id)
   return job;
 }
 
+PostJob* Provider::addNewContent(const Category& category, const Content& newContent)
+{
+  if (!category.isValid() || !newContent.isValid()) {
+    return 0;
+  }
+  
+  QString cat = category.id();
+  
+  
+  
+  
+}
+
 KnowledgeBaseEntryJob* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
   KnowledgeBaseEntryJob *job = new KnowledgeBaseEntryJob();

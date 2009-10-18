@@ -112,6 +112,8 @@ class ATTICA_EXPORT Provider :public QObject
     ListJob<Content>* searchContents(const Category::List& categories, const QString& search, SortMode mode);
     ContentJob* requestContent(const QString& id);
 
+    PostJob* addNewContent(const Category& category, const Content& newContent);
+
     // KnowledgeBase part of OCS
 
     KnowledgeBaseEntryJob* requestKnowledgeBaseEntry(const QString& id);
