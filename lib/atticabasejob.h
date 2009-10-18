@@ -46,6 +46,8 @@ protected Q_SLOTS:
 
 protected:
     virtual void parse(const QString& xml) = 0;
+
+private:
     QNetworkReply* m_data;
 };
 

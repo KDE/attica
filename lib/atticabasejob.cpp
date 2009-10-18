@@ -33,12 +33,13 @@ AtticaBaseJob::AtticaBaseJob(QNetworkReply* data): m_data(data)
 
 void AtticaBaseJob::dataFinished()
 {
-    qDebug() << "personDataFinished";
+    qDebug() << "DataFinished";
     QByteArray data = m_data->readAll();
 
     parse(data);
     emit finished(this);
-    // TODO single shot to delete this?
+
+    deleteLater();
 }
 
 #include "atticabasejob.moc"

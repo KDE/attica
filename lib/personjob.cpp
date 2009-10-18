@@ -47,9 +47,8 @@ Person PersonJob::person() const
 
 void PersonJob::parse(const QString& xml)
 {
-    m_person = Person::Parser().parse( m_data->readAll() );
-    
-    
+    m_person = Person::Parser().parse( xml );
+
     if (!m_person.avatarUrl().isEmpty()) {
         qDebug() << "Getting avatar from" << m_person.avatarUrl();
         // TODO
