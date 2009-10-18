@@ -29,29 +29,92 @@
 
 namespace Attica {
 
+/**
+ * Represents a single mail folder
+ */
 class ATTICA_EXPORT Folder
 {
   public:
     typedef QList<Folder> List;
     class Parser;
   
+    /**
+     * Creates an empty Folder
+     */
     Folder();
+
+    /**
+     * Copy constructor.
+     * @param other the Folder to copy from
+     */
     Folder(const Folder& other);
+
+    /**
+     * Assignment operator.
+     * @param other the Folder to assign from
+     * @return pointer to this Folder
+     */
     Folder& operator=(const Folder& other);
+
+    /**
+     * Destructor.
+     */
     ~Folder();
 
+    /**
+     * Sets the id of the Folder.
+     * The id uniquely identifies a Folder with the OCS API.
+     * @param id the new id
+     */
     void setId( const QString & );
+
+    /**
+     * Gets the id of the Folder.
+     * The id uniquely identifies a Folder with the OCS API.
+     * @return the id
+     */
     QString id() const;
 
+    /**
+     * Sets the name of the Folder.
+     * @param name the new name
+     */
     void setName( const QString & );
+
+    /**
+     * Gets the name of the Folder.
+     * @return the name
+     */
     QString name() const;
 
+    /**
+     * Sets the name of messages in the Folder.
+     * @param name the new number of messages
+     */
     void setMessageCount( int );
+
+    /**
+     * Gets the number of messages in the Folder.
+     * @return the number of messages
+     */
     int messageCount() const;
 
+    /**
+     * Sets the type of the folder
+     * @param name the new type
+     */
     void setType( const QString & );
+
+    /**
+     * Gets the type of the Folder.
+     * @return the type
+     */
     QString type() const;
 
+    /**
+     * Checks whether this Folder has an id
+     * @return @c true if an id has been set, @c false otherwise
+     */
     bool isValid() const;
 
   private:
