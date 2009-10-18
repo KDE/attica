@@ -25,33 +25,38 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QTimer>
+#include <QNetworkReply>
 
-#include <kio/job.h>
-#include <klocale.h>
+//#include <klocale.h>
 
 
 using namespace Attica;
 
-PersonJob::PersonJob()
-  : m_job( 0 )
+
+PersonJob::PersonJob(QNetworkReply* data): m_data(data)
 {
+  connect(data, SIGNAL(finished()), this, SLOT(personDataFinished()));
 }
 
-void PersonJob::setUrl( const QUrl &url )
-{
-  m_url = url;
-}
-
-void PersonJob::start()
-{
-  QTimer::singleShot( 0, this, SLOT( doWork() ) );
-}
 
 Person PersonJob::person() const
 {
   return m_person;
 }
 
+
+void PersonJob::personDataFinished()
+{
+    qDebug() << "personDataFinished";
+    
+    m_person = Person::Parser().parse( m_userData );
+    // TODO avatar
+    emit finished();
+    
+}
+
+
+/*
 void PersonJob::doWork()
 {
   qDebug() << m_url;
@@ -116,3 +121,6 @@ void PersonJob::slotAvatarJobData( KIO::Job *, const QByteArray &data )
 {
   m_avatarData.append( data );
 }
+*/
+
+#include "personjob.moc"

@@ -25,36 +25,35 @@
 
 #include <kjob.h>
 
+class QNetworkReply;
+
 namespace KIO {
 class Job;
 }
 
 namespace Attica {
 
-class ATTICA_EXPORT PersonJob : public KJob
+class ATTICA_EXPORT PersonJob : public QObject
 {
     Q_OBJECT
   public:
-    PersonJob();
-
-    void setUrl( const QUrl & );
-
-    void start();
-
+    PersonJob(QNetworkReply* data);
     Person person() const;
     
+  Q_SIGNALS:
+    void finished();
+    
   protected slots:
-    void doWork();
+    void personDataFinished();
 
-    void slotUserJobResult( KJob *job );
+/*    void slotUserJobResult( KJob *job );
     void slotUserJobData( KIO::Job *job, const QByteArray &data );
     
     void slotAvatarJobResult( KJob *job );
-    void slotAvatarJobData( KIO::Job *job, const QByteArray &data );
+    void slotAvatarJobData( KIO::Job *job, const QByteArray &data );*/
     
   private:
-    QUrl m_url;
-    KIO::Job *m_job;
+    QNetworkReply* m_data;
     QString m_userData;
     QByteArray m_avatarData;
   

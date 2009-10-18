@@ -34,6 +34,8 @@
 
 class QUrl;
 class QDate;
+class QNetworkReply;
+class QAuthenticator;
 
 namespace Attica {
 
@@ -52,11 +54,14 @@ class PersonJob;
 class PostJob;
 class ProviderInitJob;
 
+
 /**
   Open Collaboration Services API.
 */
-class ATTICA_EXPORT Provider
+class ATTICA_EXPORT Provider :public QObject
 {
+    Q_OBJECT
+    
   public:
     Provider();
     Provider(const Provider& other);
@@ -117,6 +122,9 @@ class ATTICA_EXPORT Provider
     EventJob* requestEvent(const QString& id);
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
+  private Q_SLOTS:
+    void authenticate(QNetworkReply*,QAuthenticator*);
+    
   protected:
     QUrl createUrl(const QString& path);
   

@@ -21,9 +21,6 @@
 
 #include "provider.h"
 
-#include <KDebug>
-#include <QUrl>
-
 #include "activity.h"
 #include "content.h"
 #include "contentjob.h"
@@ -37,6 +34,12 @@
 #include "providerinitjob.h"
 #include "listjob.h"
 
+#include <QNetworkAccessManager>
+#include <QDebug>
+#include <QUrl>
+#include <QNetworkReply>
+#include <QAuthenticator>
+
 using namespace Attica;
 
 
@@ -45,13 +48,19 @@ class Provider::Private : public QSharedData {
     QUrl m_baseUrl;
     QString m_id;
     QString m_name;
+    QNetworkAccessManager* m_qnam;
+    
     Private(const Private& other)
-      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_id(other.m_id), m_name(other.m_name)
+      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_id(other.m_id), m_name(other.m_name), m_qnam(other.m_qnam)
     {
     }
     Private(const QString& id, const QUrl& baseUrl, const QString name)
-      : m_baseUrl(baseUrl), m_id(id), m_name(name)
+      : m_baseUrl(baseUrl), m_id(id), m_name(name), m_qnam(new QNetworkAccessManager)
     {
+    }
+    ~Private()
+    {
+      delete m_qnam;
     }
 };
 
@@ -67,16 +76,20 @@ ProviderInitJob* Provider::byId(const QString& id)
 Provider::Provider()
   : d(new Private(QString(), QUrl(), QString()))
 {
+    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+
 }
 
 Provider::Provider(const Provider& other)
   : d(other.d)
 {
+    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
 
 Provider::Provider(const QString& id, const QUrl& baseUrl, const QString& name)
   : d(new Private(id, baseUrl, name))
 {
+    connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
 
 Provider& Provider::operator=(const Attica::Provider & other)
@@ -89,6 +102,13 @@ Provider::~Provider()
 {
 }
 
+void Provider::authenticate(QNetworkReply* , QAuthenticator* auth)
+{
+    qDebug() << "authentication requested";
+    // TODO
+    auth->setUser("fregl");
+    auth->setPassword("blah");
+}
 
 QString Provider::id() const
 {
@@ -140,7 +160,7 @@ ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageS
   QUrl url = createUrl( "friend/data/" + id );
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
-  kDebug() << "URL:" << url;
+  qDebug() << "URL:" << url;
   return doRequestPersonList( url );
 }
 
@@ -390,11 +410,9 @@ QUrl Provider::createUrl(const QString& path)
 
 PersonJob* Provider::doRequestPerson(const QUrl& url)
 {
-  PersonJob *job = new PersonJob();
+  QNetworkReply* reply = d->m_qnam->get(QNetworkRequest(url));
+  PersonJob *job = new PersonJob(reply);
 
-  job->setUrl( url );
-
-  job->start();
   return job;
 }
 
@@ -435,3 +453,6 @@ ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
   job->start();
   return job;
 }
+
+#include "provider.moc"
+
