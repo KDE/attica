@@ -73,15 +73,15 @@ ProviderInitJob* Provider::byId(const QString& id)
 }
 
 
-Provider::Provider()
-  : d(new Private(QString(), QUrl(), QString()))
+Provider::Provider(QObject* parent)
+  : QObject(parent), d(new Private(QString(), QUrl(), QString()))
 {
     connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 
 }
 
-Provider::Provider(const Provider& other)
-  : d(other.d)
+Provider::Provider(const Provider& other, QObject* parent)
+  : QObject(parent), d(other.d)
 {
     connect(d->m_qnam, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
