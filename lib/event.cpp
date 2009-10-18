@@ -34,7 +34,7 @@ class Event::Private : public QSharedData {
         QDate m_endDate;
         qreal m_latitude;
         qreal m_longitude;
-        KUrl m_homepage;
+        QUrl m_homepage;
         QString m_country;
         QString m_city;
         QMap<QString, QString> m_extendedAttributes;
@@ -156,12 +156,12 @@ qreal Event::longitude() const
 }
 
 
-void Event::setHomepage(const KUrl& url)
+void Event::setHomepage(const QUrl& url)
 {
     d->m_homepage = url;
 }
 
-KUrl Event::homepage() const
+QUrl Event::homepage() const
 {
     return d->m_homepage;
 }

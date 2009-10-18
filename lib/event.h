@@ -28,8 +28,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QSharedDataPointer>
-
-#include <KUrl>
+#include <QtCore/QUrl>
 
 
 namespace Attica {
@@ -168,13 +167,13 @@ class ATTICA_EXPORT Event
          * Sets the homepage of the Event.
          * @param homepage the new homepage
          */
-        void setHomepage(const KUrl& homepage);
+        void setHomepage(const QUrl& homepage);
     
         /**
          * Gets the homepage of the Event.
          * @return the homepage
          */
-        KUrl homepage() const;
+        QUrl homepage() const;
 
         /**
          * Sets the country where the Event takes place.
