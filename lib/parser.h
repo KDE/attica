@@ -22,7 +22,8 @@
 #ifndef ATTICA_PARSER_H
 #define ATTICA_PARSER_H
 
-#include <QXmlStreamReader>
+// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
+#include <QtXml/QXmlStreamReader>
 
 #include "listjob.h"
 
