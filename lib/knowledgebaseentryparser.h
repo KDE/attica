@@ -19,32 +19,24 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+
 #ifndef ATTICA_KNOWLEDGEBASEENTRYPARSER_H
 #define ATTICA_KNOWLEDGEBASEENTRYPARSER_H
 
-// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
-#include <QtXml/QXmlStreamReader>
-
 #include "knowledgebaseentry.h"
-#include "listjob.h"
+#include "parser.h"
 
 
 namespace Attica {
 
-class KnowledgeBaseEntry::Parser
+class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
-  public:
-    Parser();
-
-    KnowledgeBaseEntry parse( const QString &xml );
-    KnowledgeBaseEntry::List parseList( const QString &xml );
-
-  protected:
-    KnowledgeBaseEntry parseKnowledgeBase( QXmlStreamReader &xml );
-    ListJobMetadata parseMetadata( QXmlStreamReader &xml );
-
+private:
+    KnowledgeBaseEntry parseXml(QXmlStreamReader& xml);
+    QString xmlElement() const;
 };
 
 }
+
 
 #endif

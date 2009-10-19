@@ -18,23 +18,24 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+
 #ifndef ATTICA_FOLDERPARSER_H
 #define ATTICA_FOLDERPARSER_H
 
 #include "folder.h"
-#include "listjob.h"
+#include "parser.h"
+
 
 namespace Attica {
 
-class Folder::Parser
+class Folder::Parser : public Attica::Parser<Folder>
 {
-  public:
-    Parser();
-
-    Folder::List parseList( const QString &xml );
-    ListJobMetadata lastMetadata();
+private:
+    Folder parseXml(QXmlStreamReader& xml);
+    QString xmlElement() const;
 };
 
 }
+
 
 #endif

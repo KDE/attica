@@ -21,47 +21,35 @@
 
 #include "folderparser.h"
 
-#include <QXmlStreamReader>
 
 using namespace Attica;
 
-Folder::Parser::Parser()
+Folder Folder::Parser::parseXml(QXmlStreamReader& xml)
 {
-}
+    Folder folder;
 
-Folder::List Folder::Parser::parseList( const QString &xmlString )
-{
-  Folder::List folderList;
-  
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-    
-    if ( xml.isStartElement() && xml.name() == "folder" ) {
-      Folder folder;
-
-      while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
 
-        if ( xml.isStartElement() ) {
-          if ( xml.name() == "id" ) {
-            folder.setId( xml.readElementText() );
-          } else if ( xml.name() == "name" ) {
-            folder.setName( xml.readElementText() );
-          } else if ( xml.name() == "messagecount" ) {
-            folder.setMessageCount( xml.readElementText().toInt() );
-          } else if ( xml.name() == "type" ) {
-            folder.setType( xml.readElementText() );
-          }
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                folder.setId(xml.readElementText());
+            } else if (xml.name() == "name") {
+                folder.setName(xml.readElementText());
+            } else if (xml.name() == "messagecount") {
+                folder.setMessageCount(xml.readElementText().toInt());
+            } else if (xml.name() == "type") {
+                folder.setType(xml.readElementText());
+            }
+        } else if (xml.isEndElement() && xml.name() == "folder") {
+            break;
         }
-
-        if ( xml.isEndElement() && xml.name() == "folder" ) break;
-      }
-      
-      folderList.append( folder );
     }
-  }
-  
-  return folderList;
+
+    return folder;
+}
+
+
+QString Folder::Parser::xmlElement() const {
+    return "folder";
 }

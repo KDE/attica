@@ -42,8 +42,12 @@ T Parser<T>::parse(const QString& xmlString)
     while (!xml.atEnd()) {
         xml.readNext();
         
-        if (xml.isStartElement() && xml.name() == element) {
-            item = parseXml(xml);
+        if (xml.isStartElement()) {
+            if (xml.name() == element) {
+                item = parseXml(xml);
+            } else if (xml.name() == "meta") {
+                parseMetadataXml(xml);
+            }
         }
     }
 
@@ -62,20 +66,46 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
     while (!xml.atEnd()) {
         xml.readNext();
 
-        if (xml.isStartElement() && xml.name() == "data") {
-            while (!xml.atEnd()) {
-                xml.readNext();
+        if (xml.isStartElement()) {
+            if (xml.name() == "data") {
+                while (!xml.atEnd()) {
+                    xml.readNext();
 
-                if (xml.isEndElement() && xml.name() == "data") {
-                    break;
-                }
+                    if (xml.isEndElement() && xml.name() == "data") {
+                        break;
+                    }
 
-                if (xml.isStartElement() && xml.name() == element) {
-                    items.append(parseXml(xml));
+                    if (xml.isStartElement() && xml.name() == element) {
+                        items.append(parseXml(xml));
+                    }
                 }
+            } else if (xml.name() == "meta") {
+                parseMetadataXml(xml);
             }
         }
     }
 
     return items;
+}
+
+
+template <class T>
+void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
+{
+    while ( !xml.atEnd() ) {
+        xml.readNext();
+        if (xml.isEndElement() && xml.name() == "meta") {
+            break;
+        } else if (xml.isStartElement()) {
+            if (xml.name() == "status") {
+                m_metadata.status = xml.readElementText();
+            } else if (xml.name() == "message") {
+                m_metadata.message = xml.readElementText();
+            } else if (xml.name() == "totalitems") {
+                m_metadata.totalItems = xml.readElementText().toInt();
+            } else if (xml.name() == "itemsperpage") {
+                m_metadata.itemsPerPage = xml.readElementText().toInt();
+            }
+        }
+    }
 }

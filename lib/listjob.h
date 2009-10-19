@@ -36,8 +36,6 @@ struct ListJobMetadata
     QString message;
     int totalItems;
     int itemsPerPage;
-    
-    void parseMetadata(const QString& xml);
 };
 
 template <class T>

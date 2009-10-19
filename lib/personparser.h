@@ -18,29 +18,24 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+
 #ifndef ATTICA_PERSONPARSER_H
 #define ATTICA_PERSONPARSER_H
 
 #include "person.h"
-#include "listjob.h"
+#include "parser.h"
 
-class QXmlStreamReader;
 
 namespace Attica {
 
-class Person::Parser
+class Person::Parser : public Attica::Parser<Person>
 {
-  public:
-    Parser();
-
-    Person parse( const QString &xml );
-    Person::List parseList( const QString &xml );
-    ListJobMetadata lastMetadata();
-
-  protected:
-    Person parsePerson( QXmlStreamReader &xml );
+private:
+    Person parseXml(QXmlStreamReader& xml);
+    QString xmlElement() const;
 };
 
 }
+
 
 #endif

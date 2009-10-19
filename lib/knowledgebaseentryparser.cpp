@@ -25,84 +25,48 @@
 
 using namespace Attica;
 
-KnowledgeBaseEntry::Parser::Parser()
+KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
 {
-}
+    KnowledgeBaseEntry knowledgeBase;
 
-KnowledgeBaseEntry::List KnowledgeBaseEntry::Parser::parseList( const QString &xmlString )
-{
-  KnowledgeBaseEntry::List KnowledgeBaseList;
+    while (!xml.atEnd()) {
+        xml.readNext();
 
-  QXmlStreamReader xml( xmlString );
-
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-
-    if ( xml.isStartElement() && xml.name() == "content" ) {
-      KnowledgeBaseEntry KnowledgeBase = parseKnowledgeBase( xml );
-      KnowledgeBaseList.append( KnowledgeBase );
-    }
-  }
-
-  return KnowledgeBaseList;
-}
-
-KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parse( const QString &xmlString )
-{
-  KnowledgeBaseEntry knowledgeBase;
-
-  QXmlStreamReader xml( xmlString );
-
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-
-    if ( xml.isStartElement() && xml.name() == "knowledgebase" ) {
-      knowledgeBase = parseKnowledgeBase( xml );
-    }
-  }
-
-  return knowledgeBase;
-}
-
-KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseKnowledgeBase( QXmlStreamReader &xml )
-{
-  KnowledgeBaseEntry knowledgeBase;
-
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-
-    if ( xml.isStartElement() ) {
-      if ( xml.name() == "id" ) {
-        knowledgeBase.setId( xml.readElementText() );
-      } else if ( xml.name() == "status" ) {
-        knowledgeBase.setStatus( xml.readElementText() );
-      } else if ( xml.name() == "contentId" ) {
-        knowledgeBase.setContentId( xml.readElementText().toInt() );
-      } else if ( xml.name() == "user" ) {
-        knowledgeBase.setUser( xml.readElementText() );
-      } else if ( xml.name() == "changed" ) {
-        knowledgeBase.setChanged( QDateTime::fromString( xml.readElementText(),
-          Qt::ISODate ) );
-      } else if ( xml.name() == "description" ) {
-        knowledgeBase.setDescription( xml.readElementText() );
-      } else if ( xml.name() == "answer" ) {
-        knowledgeBase.setAnswer( xml.readElementText() );
-      } else if ( xml.name() == "comments" ) {
-        knowledgeBase.setComments( xml.readElementText().toInt() );
-      } else if ( xml.name() == "detailpage" ) {
-        knowledgeBase.setDetailPage( QUrl(xml.readElementText()) );
-      } else if ( xml.name() == "contentid" ) {
-        knowledgeBase.setContentId( xml.readElementText().toInt() );
-      } else if ( xml.name() == "name" ) {
-        knowledgeBase.setName( xml.readElementText() );
-      } else {
-        knowledgeBase.addExtendedAttribute( xml.name().toString(),
-          xml.readElementText() );
-      }
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                knowledgeBase.setId(xml.readElementText());
+            } else if (xml.name() == "status") {
+                knowledgeBase.setStatus(xml.readElementText());
+            } else if (xml.name() == "contentId") {
+                knowledgeBase.setContentId(xml.readElementText().toInt());
+            } else if (xml.name() == "user") {
+                knowledgeBase.setUser(xml.readElementText());
+            } else if (xml.name() == "changed") {
+                knowledgeBase.setChanged(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
+            } else if (xml.name() == "description") {
+                knowledgeBase.setDescription(xml.readElementText());
+            } else if (xml.name() == "answer") {
+                knowledgeBase.setAnswer(xml.readElementText());
+            } else if (xml.name() == "comments") {
+                knowledgeBase.setComments(xml.readElementText().toInt());
+            } else if (xml.name() == "detailpage") {
+                knowledgeBase.setDetailPage(QUrl(xml.readElementText()));
+            } else if (xml.name() == "contentid") {
+                knowledgeBase.setContentId(xml.readElementText().toInt());
+            } else if (xml.name() == "name") {
+                knowledgeBase.setName(xml.readElementText());
+            } else {
+                knowledgeBase.addExtendedAttribute(xml.name().toString(), xml.readElementText());
+            }
+        } else if (xml.isEndElement() && xml.name() == "content") {
+            break;
+        }
     }
 
-    if ( xml.isEndElement() && xml.name() == "content" ) break;
-  }
+    return knowledgeBase;
+}
 
-  return knowledgeBase;
+
+QString KnowledgeBaseEntry::Parser::xmlElement() const {
+    return "content";
 }

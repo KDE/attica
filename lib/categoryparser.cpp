@@ -21,43 +21,31 @@
 
 #include "categoryparser.h"
 
-#include <QXmlStreamReader>
 
 using namespace Attica;
 
-Category::Parser::Parser()
+Category Category::Parser::parseXml(QXmlStreamReader& xml)
 {
-}
+    Category category;
 
-Category::List Category::Parser::parseList( const QString &xmlString )
-{
-  Category::List categoryList;
-  
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-    
-    if ( xml.isStartElement() && xml.name() == "category" ) {
-      Category category;
-
-      while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
 
-        if ( xml.isStartElement() ) {
-          if ( xml.name() == "id" ) {
-            category.setId( xml.readElementText() );
-          } else if ( xml.name() == "name" ) {
-            category.setName( xml.readElementText() );
-          }
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                category.setId(xml.readElementText());
+            } else if (xml.name() == "name") {
+                category.setName(xml.readElementText());
+            }
+        } else if (xml.isEndElement() && xml.name() == "category") {
+            break;
         }
-
-        if ( xml.isEndElement() && xml.name() == "category" ) break;
-      }
-      
-      categoryList.append( category );
     }
-  }
-  
-  return categoryList;
+      
+    return category;
+}
+
+
+QString Category::Parser::xmlElement() const {
+    return "category";
 }

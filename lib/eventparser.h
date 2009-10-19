@@ -22,26 +22,17 @@
 #ifndef ATTICA_EVENTPARSER_H
 #define ATTICA_EVENTPARSER_H
 
-// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
-#include <QtXml/QXmlStreamReader>
-
 #include "event.h"
-#include "listjob.h"
+#include "parser.h"
+
 
 namespace Attica {
 
-class Event::Parser
+class Event::Parser : public Attica::Parser<Event>
 {
-    public:
-        Parser();
-
-        Event parse(const QString& xml);
-        Event::List parseList(const QString& xml);
-
-        ListJobMetadata lastMetadata();
-
-    private:
-        Event parseEvent(QXmlStreamReader& xml);
+private:
+    Event parseXml(QXmlStreamReader& xml);
+    QString xmlElement() const;
 };
 
 }

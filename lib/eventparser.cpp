@@ -26,48 +26,7 @@
 
 using namespace Attica;
 
-Event::Parser::Parser()
-{
-}
-
-
-Event Event::Parser::parse(const QString& xmlString)
-{
-    Event event;
-
-    QXmlStreamReader xml(xmlString);
-
-    while (!xml.atEnd()) {
-        xml.readNext();
-        
-        if (xml.isStartElement() && xml.name() == "event") {
-            event = parseEvent(xml);
-        }
-    }
-    
-    return event;
-}
-
-
-Event::List Event::Parser::parseList(const QString& xmlString)
-{
-    Event::List eventList;
-    
-    QXmlStreamReader xml(xmlString);
-    
-    while (!xml.atEnd()) {
-        xml.readNext();
-        
-        if (xml.isStartElement() && xml.name() == "event") {
-            eventList.append(parseEvent(xml));
-        }
-    }
-    
-    return eventList;
-}
-
-
-Event Event::Parser::parseEvent(QXmlStreamReader& xml)
+Event Event::Parser::parseXml(QXmlStreamReader& xml)
 {
     Event event;
 
@@ -102,10 +61,15 @@ Event Event::Parser::parseEvent(QXmlStreamReader& xml)
             } else {
                 event.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        }
-        else if (xml.isEndElement() && xml.name() == "event") {
+        } else if (xml.isEndElement() && xml.name() == "event") {
             break;
         }
     }
+
     return event;
+}
+
+
+QString Event::Parser::xmlElement() const {
+    return "event";
 }

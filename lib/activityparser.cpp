@@ -23,54 +23,41 @@
 
 #include <QtCore/QDateTime>
 #include <QRegExp>
-#include <QXmlStreamReader>
 
 
 using namespace Attica;
 
-Activity::Parser::Parser()
+Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
 {
-}
-
-Activity::List Activity::Parser::parseList( const QString &xmlString )
-{
-  Activity::List activityList;
-  
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
+    Activity activity;
     
-    if ( xml.isStartElement() && xml.name() == "activity" ) {
-      Activity activity;
-
-      while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
 
-        if ( xml.isStartElement() ) {
-          if ( xml.name() == "id" ) {
-            activity.setId( xml.readElementText() );
-          } else if ( xml.name() == "personid" ) {
-            activity.setUser( xml.readElementText() );
-          } else if ( xml.name() == "timestamp" ) {
-            QString timestampString = xml.readElementText();
-            timestampString.remove( QRegExp("\\+.*$") );
-            QDateTime timestamp = QDateTime::fromString( timestampString,
-              Qt::ISODate );
-            activity.setTimestamp( timestamp );
-          } else if ( xml.name() == "message" ) {
-            activity.setMessage( xml.readElementText() );
-          } else if ( xml.name() == "link" ) {
-            activity.setLink( xml.readElementText() );
-          }
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                activity.setId(xml.readElementText());
+            } else if (xml.name() == "personid") {
+                activity.setUser(xml.readElementText());
+            } else if (xml.name() == "timestamp") {
+                QString timestampString = xml.readElementText();
+                timestampString.remove(QRegExp("\\+.*$"));
+                QDateTime timestamp = QDateTime::fromString(timestampString, Qt::ISODate);
+                activity.setTimestamp(timestamp);
+            } else if (xml.name() == "message") {
+                activity.setMessage(xml.readElementText());
+            } else if (xml.name() == "link") {
+                activity.setLink(xml.readElementText());
+            }
+        } else if (xml.isEndElement() && xml.name() == "activity") {
+            break;
         }
-
-        if ( xml.isEndElement() && xml.name() == "activity" ) break;
-      }
-      
-      activityList.append( activity );
     }
-  }
-  
-  return activityList;
+
+    return activity;
+}
+
+
+QString Activity::Parser::xmlElement() const {
+    return "activity";
 }

@@ -35,12 +35,16 @@ class Parser {
 public:
     T parse(const QString& xml);
     typename T::List parseList(const QString& xml);
-    ListJobMetadata lastMetadata();
+    ListJobMetadata metadata() const;
     virtual ~Parser();
 
-private:
-    virtual QString xmlElement() const;
+protected:
+    virtual QString xmlElement() const = 0;
     virtual T parseXml(QXmlStreamReader& xml) = 0;
+
+private:
+    void parseMetadataXml(QXmlStreamReader& xml);
+    ListJobMetadata m_metadata;
 };
 
 }
