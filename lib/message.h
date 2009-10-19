@@ -58,9 +58,6 @@ class ATTICA_EXPORT Message
     void setStatus( Status );
     Status status() const;
 
-    void setStatusText( const QString & );
-    QString statusText() const;
-
     void setSubject( const QString & );
     QString subject() const;
 

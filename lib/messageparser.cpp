@@ -41,8 +41,6 @@ Message Message::Parser::parseXml(QXmlStreamReader& xml) {
                 message.setSent(QDateTime::fromString(xml.readElementText(), Qt::ISODate));
             } else if (xml.name() == "status") {
                 message.setStatus(Message::Status(xml.readElementText().toInt()));
-            } else if (xml.name() == "statustext") {
-                message.setStatusText(xml.readElementText());
             } else if (xml.name() == "subject") {
                 message.setSubject(xml.readElementText());
             } else if (xml.name() == "body") {

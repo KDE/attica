@@ -30,7 +30,6 @@ class Message::Private : public QSharedData {
         QString m_to;
         QDateTime m_sent;
         Status m_status;
-        QString m_statusText;
         QString m_subject;
         QString m_body;
 
@@ -110,16 +109,6 @@ void Message::setStatus( Message::Status s )
 Message::Status Message::status() const
 {
   return d->m_status;
-}
-
-void Message::setStatusText( const QString &c )
-{
-  d->m_statusText = c;
-}
-
-QString Message::statusText() const
-{
-  return d->m_statusText;
 }
 
 void Message::setSubject( const QString &subject )
