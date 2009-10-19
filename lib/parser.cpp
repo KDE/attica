@@ -109,3 +109,9 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
         }
     }
 }
+
+
+template <class T>
+ListJobMetadata Parser<T>::metadata() const {
+    return m_metadata;
+}

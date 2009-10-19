@@ -21,10 +21,13 @@
 #ifndef ATTICA_ATTICABASEJOB_H
 #define ATTICA_ATTICABASEJOB_H
 
-#include "atticaclient_export.h"
-#include <QObject>
+#include <QtCore/QObject>
+#include <QtCore/QSharedPointer>
+#include <QtNetwork/QNetworkAccessManager>
 
-class QNetworkAccessManager;
+#include "atticaclient_export.h"
+
+
 class QNetworkReply;
 class QIODevice;
 
@@ -35,7 +38,7 @@ class ATTICA_EXPORT BaseJob : public QObject
     Q_OBJECT
 
 public:
-    BaseJob(QNetworkAccessManager* nam);
+    BaseJob(QSharedPointer<QNetworkAccessManager> nam);
 
     BaseJob(QNetworkReply* data, QIODevice* payload);
 

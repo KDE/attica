@@ -31,7 +31,7 @@ namespace Attica {
 class ATTICA_EXPORT PersonJob : public GetJob
 {
 public:
-    PersonJob(QNetworkAccessManager* nam, const QNetworkRequest& request);
+    PersonJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
     Person result() const;
 
 private:

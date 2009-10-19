@@ -27,7 +27,7 @@
 using namespace Attica;
 
 
-GetJob::GetJob(QNetworkAccessManager* nam, const QNetworkRequest& request)
+GetJob::GetJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request)
     : BaseJob(nam), m_request(request)
 {
 }

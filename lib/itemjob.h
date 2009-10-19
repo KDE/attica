@@ -31,7 +31,7 @@ template <class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
-    ItemJob(QNetworkAccessManager* nam, const QNetworkRequest& request);
+    ItemJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
     T result() const;
 
 private:

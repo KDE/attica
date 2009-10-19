@@ -35,7 +35,7 @@ class ATTICA_EXPORT GetJob : public Attica::BaseJob
     Q_OBJECT
 
 public:
-    GetJob(QNetworkAccessManager* nam, const QNetworkRequest& request);
+    GetJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
     
 private:
     virtual QNetworkReply* executeRequest();

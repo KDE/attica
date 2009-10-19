@@ -28,7 +28,7 @@ using namespace Attica;
 
 
 template <class T>
-ListJob<T>::ListJob(QNetworkAccessManager* nam, const QNetworkRequest& request): GetJob(nam, request)
+ListJob<T>::ListJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request): GetJob(nam, request)
 {
 }
 

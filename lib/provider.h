@@ -23,6 +23,7 @@
 #define ATTICA_PROVIDER_H
 
 #include <QtCore/QExplicitlySharedDataPointer>
+#include <QtCore/QSharedPointer>
 #include <QtCore/QString>
 
 #include <QUrl>
@@ -81,8 +82,6 @@ class ATTICA_EXPORT Provider :public QObject
         Rating,
         Downloads
     };
-
-    static QList<Provider> createProviders();
 
     // Person part of OCS
 
@@ -157,10 +156,6 @@ class ATTICA_EXPORT Provider :public QObject
     ItemJob<Event>* requestEvent(const QString& id);
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
-  private Q_SLOTS:
-    void authenticate(QNetworkReply*,QAuthenticator*);
-    void proxyAuthenticationRequired ( const QNetworkProxy & proxy, QAuthenticator * authenticator );
-
   protected:
     QUrl createUrl(const QString& path);
     QNetworkRequest createRequest(const QUrl& url);
@@ -174,11 +169,9 @@ class ATTICA_EXPORT Provider :public QObject
     ListJob<Message>* doRequestMessageList(const QUrl& url);
 
   private:
-    void initNetworkAccesssManager();
-    
     class Private;
     QExplicitlySharedDataPointer<Private> d;
-    Provider(const QString& id, const QUrl& baseUrl, const QString& name);
+    Provider(QSharedPointer<QNetworkAccessManager> qnam, const QString& id, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
     friend class ProviderManager;

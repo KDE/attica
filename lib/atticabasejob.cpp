@@ -31,16 +31,16 @@ using namespace Attica;
 class BaseJob::Private
 {
 public:
-    QNetworkAccessManager* m_nam;
+    QSharedPointer<QNetworkAccessManager> m_nam;
     QNetworkReply* m_reply;
 
-    Private(QNetworkAccessManager* nam): m_nam(nam), m_reply(0)
+    Private(QSharedPointer<QNetworkAccessManager> nam): m_nam(nam), m_reply(0)
     {
     }
 };
 
 
-BaseJob::BaseJob(QNetworkAccessManager* nam)
+BaseJob::BaseJob(QSharedPointer<QNetworkAccessManager> nam)
     : d(new Private(nam))
 {
 }
@@ -58,7 +58,9 @@ void BaseJob::dataFinished()
     QByteArray data = d->m_reply->readAll();
     qDebug() << data;
 
+    qDebug() << "Before parse(data)";
     parse(data);
+    qDebug() << "After parse(data)";
     emit finished(this);
 
     deleteLater();
@@ -80,7 +82,7 @@ void BaseJob::doWork()
 
 QNetworkAccessManager* BaseJob::nam()
 {
-    return d->m_nam;
+    return d->m_nam.data();
 }
 
 
