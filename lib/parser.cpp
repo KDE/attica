@@ -43,10 +43,10 @@ T Parser<T>::parse(const QString& xmlString)
         xml.readNext();
         
         if (xml.isStartElement()) {
-            if (xml.name() == element) {
-                item = parseXml(xml);
-            } else if (xml.name() == "meta") {
+            if (xml.name() == "meta") {
                 parseMetadataXml(xml);
+            } else if (xml.name() == element) {
+                item = parseXml(xml);
             }
         }
     }
