@@ -1,4 +1,5 @@
 set(ocsclient_SRCS
+   parser.cpp
    getjob.cpp
    atticabasejob.cpp
    itemjob.cpp

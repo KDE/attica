@@ -21,6 +21,7 @@
 
 #include "listjob.cpp"
 #include "itemjob.cpp"
+#include "parser.cpp"
 
 #include "activity.h"
 #include "activityparser.h"
@@ -54,6 +55,9 @@ template class ListJob<KnowledgeBaseEntry>;
 
 template class ItemJob<Content>;
 template class ItemJob<Event>;
+template class ItemJob<Message>;
 template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
 template class ItemJob<PostJobStatus>;
+
+template class Parser<Message>;

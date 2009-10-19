@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
+    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,22 +19,27 @@
     USA.
 */
 
-#ifndef ATTICA_MESSAGEPARSER_H
-#define ATTICA_MESSAGEPARSER_H
+#ifndef ATTICA_PARSER_H
+#define ATTICA_PARSER_H
 
-#include <QtXml/QXmlStreamReader>
+#include <QXmlStreamReader>
 
-#include "message.h"
-#include "parser.h"
+#include "listjob.h"
 
 
 namespace Attica {
 
-class Message::Parser : public Attica::Parser<Message>
-{
+template <class T>
+class Parser {
+public:
+    T parse(const QString& xml);
+    typename T::List parseList(const QString& xml);
+    ListJobMetadata lastMetadata();
+    virtual ~Parser();
+
 private:
-    Message parseXml(QXmlStreamReader& xml);
-    QString xmlElement() const;
+    virtual QString xmlElement() const;
+    virtual T parseXml(QXmlStreamReader& xml) = 0;
 };
 
 }

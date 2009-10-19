@@ -21,65 +21,42 @@
 
 #include "messageparser.h"
 
-#include <QXmlStreamReader>
 
 using namespace Attica;
 
-Message::Parser::Parser()
-{
-}
+Message Message::Parser::parseXml(QXmlStreamReader& xml) {
+    Message message;
 
-Message::List Message::Parser::parseList( const QString &xmlString )
-{
-  Message::List messageList;
-  
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-    
-    if ( xml.isStartElement() && xml.name() == "data" ) {
-      while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
 
-        if ( xml.isEndElement() && xml.name() == "data" ) break;
-
-        if ( xml.isStartElement() && xml.name() == "message" ) {
-          Message message;
-
-          while ( !xml.atEnd() ) {
-            xml.readNext();
-
-            if ( xml.isStartElement() ) {
-              if ( xml.name() == "id" ) {
-                message.setId( xml.readElementText() );
-              } else if ( xml.name() == "messagefrom" ) {
-                message.setFrom( xml.readElementText() );
-              } else if ( xml.name() == "messageto" ) {
-                message.setTo( xml.readElementText() );
-              } else if ( xml.name() == "senddate" ) {
-                message.setSent( QDateTime::fromString( xml.readElementText(),
-                  Qt::ISODate ) );
-              } else if ( xml.name() == "status" ) {
-                message.setStatus(
-                  Message::Status( xml.readElementText().toInt() ) );
-              } else if ( xml.name() == "statustext" ) {
-                message.setStatusText( xml.readElementText() );
-              } else if ( xml.name() == "subject" ) {
-                message.setSubject( xml.readElementText() );
-              } else if ( xml.name() == "body" ) {
-                message.setBody( xml.readElementText() );
-              }
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                message.setId(xml.readElementText());
+            } else if (xml.name() == "messagefrom") {
+                message.setFrom(xml.readElementText());
+            } else if (xml.name() == "messageto") {
+                message.setTo(xml.readElementText());
+            } else if (xml.name() == "senddate") {
+                message.setSent(QDateTime::fromString(xml.readElementText(), Qt::ISODate));
+            } else if (xml.name() == "status") {
+                message.setStatus(Message::Status(xml.readElementText().toInt()));
+            } else if (xml.name() == "statustext") {
+                message.setStatusText(xml.readElementText());
+            } else if (xml.name() == "subject") {
+                message.setSubject(xml.readElementText());
+            } else if (xml.name() == "body") {
+                message.setBody(xml.readElementText());
             }
-
-            if ( xml.isEndElement() && xml.name() == "message" ) break;
-          }
-
-          messageList.append( message );
         }
-      }
+
+        if (xml.isEndElement() && xml.name() == "message") {
+            return message;
+        }
     }
-  }
-  
-  return messageList;
+}
+
+
+QString Message::Parser::xmlElement() const {
+    return "message";
 }
