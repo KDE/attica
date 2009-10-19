@@ -302,6 +302,12 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
 }
 
 
+ItemJob<Message>* Provider::requestMessage(const Folder& folder, const QString& id)
+{
+    return new ItemJob<Message>(d->m_qnam, createRequest("message/" + folder.id() + '/' + id));
+}
+
+
 PostJob* Provider::postMessage( const Message &message )
 {
     StringMap postParameters;

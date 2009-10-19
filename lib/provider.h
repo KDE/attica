@@ -107,6 +107,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     ListJob<Folder>* requestFolders();
     ListJob<Message>* requestMessages(const Folder& folder);
+    ItemJob<Message>* requestMessage(const Folder& folder, const QString& id);
     PostJob* postMessage(const Message& message);
 
     // Activity part of OCS
