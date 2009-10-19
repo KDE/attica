@@ -51,9 +51,11 @@ Message Message::Parser::parseXml(QXmlStreamReader& xml) {
         }
 
         if (xml.isEndElement() && xml.name() == "message") {
-            return message;
+            break;
         }
     }
+
+    return message;
 }
 
 
