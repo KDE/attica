@@ -60,4 +60,5 @@ template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
 template class ItemJob<PostJobStatus>;
 
+template class Parser<Content>;
 template class Parser<Message>;

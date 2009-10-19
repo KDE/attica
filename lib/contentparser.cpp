@@ -26,75 +26,40 @@
 
 using namespace Attica;
 
-Content::Parser::Parser()
+Content Content::Parser::parseXml(QXmlStreamReader& xml)
 {
-}
-
-Content::List Content::Parser::parseList( const QString &xmlString )
-{
-  Content::List contentList;
-  
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
+    Content content;
     
-    if ( xml.isStartElement() && xml.name() == "content" ) {
-      Content content = parseContent( xml );
-      contentList.append( content );
+    while (!xml.atEnd()) {
+        xml.readNext();
+
+        if (xml.isStartElement()) {
+            if (xml.name() == "id") {
+                content.setId( xml.readElementText());
+            } else if (xml.name() == "name") {
+                content.setName( xml.readElementText());
+            } else if (xml.name() == "score") {
+                content.setRating( xml.readElementText().toInt());
+            } else if (xml.name() == "downloads") {
+                content.setDownloads( xml.readElementText().toInt());
+            } else if (xml.name() == "created") {
+                content.setCreated( QDateTime::fromString( xml.readElementText(), Qt::ISODate));
+            } else if (xml.name() == "updated") {
+                content.setUpdated( QDateTime::fromString( xml.readElementText(), Qt::ISODate));
+            } else {
+                content.addAttribute(xml.name().toString(), xml.readElementText());
+            }
+        }
+
+        if (xml.isEndElement() && xml.name() == "content") {
+            break;
+        }
     }
-  }
-  
-  return contentList;
+
+    return content;
 }
 
-Content Content::Parser::parse( const QString &xmlString )
-{
-  Content content;
 
-  QXmlStreamReader xml( xmlString );
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-    
-    if ( xml.isStartElement() && xml.name() == "content" ) {
-      content = parseContent( xml );
-    }
-  }
-
-  return content;
-}
-
-Content Content::Parser::parseContent( QXmlStreamReader &xml )
-{
-  Content content;
-  
-  while ( !xml.atEnd() ) {
-    xml.readNext();
-
-    if ( xml.isStartElement() ) {
-      if ( xml.name() == "id" ) {
-        content.setId( xml.readElementText() );
-      } else if ( xml.name() == "name" ) {
-        content.setName( xml.readElementText() );
-      } else if ( xml.name() == "score" ) {
-        content.setRating( xml.readElementText().toInt() );
-      } else if ( xml.name() == "downloads" ) {
-        content.setDownloads( xml.readElementText().toInt() );
-      } else if ( xml.name() == "created" ) {
-        content.setCreated( QDateTime::fromString( xml.readElementText(),
-          Qt::ISODate ) );
-      } else if ( xml.name() == "updated" ) {
-        content.setUpdated( QDateTime::fromString( xml.readElementText(),
-          Qt::ISODate ) );
-      } else {
-        content.addAttribute( xml.name().toString(),
-          xml.readElementText() );
-      }
-    }
-
-    if ( xml.isEndElement() && xml.name() == "content" ) break;
-  }
-
-  return content;
+QString Content::Parser::xmlElement() const {
+    return "content";
 }

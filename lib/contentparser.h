@@ -18,30 +18,24 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
     USA.
 */
+
 #ifndef ATTICA_CONTENTPARSER_H
 #define ATTICA_CONTENTPARSER_H
 
-// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
-#include <QtXml/QXmlStreamReader>
-
 #include "content.h"
-#include "listjob.h"
+#include "parser.h"
+
 
 namespace Attica {
 
-class Content::Parser
+class Content::Parser : public Attica::Parser<Content>
 {
-  public:
-    Parser();
-
-    Content parse( const QString &xml );
-    Content::List parseList( const QString &xml );
-    ListJobMetadata lastMetadata();
-
-  protected:
-    Content parseContent( QXmlStreamReader &xml );
+private:
+    Content parseXml(QXmlStreamReader& xml);
+    QString xmlElement() const;
 };
 
 }
+
 
 #endif
