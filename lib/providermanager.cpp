@@ -13,7 +13,7 @@ public:
 ProviderManager::ProviderManager()
     : d(new Private)
 {
-    d->m_providers.insert("opendesktop", Provider("opendesktop", QUrl("https://api.opendesktop.org/"), "OpenDesktop.org"));
+    d->m_providers.insert("opendesktop", Provider("opendesktop", QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org"));
     emit providersChanged();
 }
 
