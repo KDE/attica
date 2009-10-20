@@ -66,8 +66,8 @@ class ATTICA_EXPORT Provider :public QObject
     Q_OBJECT
 
   public:
-    Provider(QObject* parent = 0);
-    Provider(const Provider& other, QObject* parent = 0);
+    Provider();
+    Provider(const Provider& other);
     Provider& operator=(const Provider& other);
     ~Provider();
 

@@ -67,13 +67,13 @@ class Provider::Private : public QSharedData {
 };
 
 
-Provider::Provider(QObject* parent)
-  : QObject(parent), d(new Private(QSharedPointer<QNetworkAccessManager>(), QString(), QUrl(), QString(), QUrl()))
+Provider::Provider()
+  : d(new Private(QSharedPointer<QNetworkAccessManager>(), QString(), QUrl(), QString(), QUrl()))
 {
 }
 
-Provider::Provider(const Provider& other, QObject* parent)
-  : QObject(parent), d(other.d)
+Provider::Provider(const Provider& other)
+  : QObject(), d(other.d)
 {
 }
 
