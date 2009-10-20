@@ -46,6 +46,6 @@ Category Category::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Category::Parser::xmlElement() const {
-    return "category";
+QStringList Category::Parser::xmlElement() const {
+    return QStringList("category");
 }

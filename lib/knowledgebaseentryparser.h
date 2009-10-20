@@ -33,7 +33,7 @@ class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
 private:
     KnowledgeBaseEntry parseXml(QXmlStreamReader& xml);
-    QString xmlElement() const;
+    QStringList xmlElement() const;
 };
 
 }

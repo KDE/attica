@@ -61,7 +61,7 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
             } else {
                 person.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "person") {
+        } else if (xml.isEndElement() && (xml.name() == "person" || xml.name() == "user")) {
             break;
         }
     }
@@ -74,6 +74,6 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Person::Parser::xmlElement() const {
-    return "person";
+QStringList Person::Parser::xmlElement() const {
+    return QStringList("person") << "user";
 }

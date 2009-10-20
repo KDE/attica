@@ -50,6 +50,6 @@ Folder Folder::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Folder::Parser::xmlElement() const {
-    return "folder";
+QStringList Folder::Parser::xmlElement() const {
+    return QStringList("folder");
 }

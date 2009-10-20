@@ -57,6 +57,6 @@ Message Message::Parser::parseXml(QXmlStreamReader& xml) {
 }
 
 
-QString Message::Parser::xmlElement() const {
-    return "message";
+QStringList Message::Parser::xmlElement() const {
+    return QStringList("message");
 }

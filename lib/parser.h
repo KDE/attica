@@ -22,6 +22,7 @@
 #ifndef ATTICA_PARSER_H
 #define ATTICA_PARSER_H
 
+#include <QtCore/QStringList>
 // WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
 #include <QtXml/QXmlStreamReader>
 
@@ -39,7 +40,7 @@ public:
     virtual ~Parser();
 
 protected:
-    virtual QString xmlElement() const = 0;
+    virtual QStringList xmlElement() const = 0;
     virtual T parseXml(QXmlStreamReader& xml) = 0;
 
 private:

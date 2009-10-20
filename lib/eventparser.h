@@ -32,7 +32,7 @@ class Event::Parser : public Attica::Parser<Event>
 {
 private:
     Event parseXml(QXmlStreamReader& xml);
-    QString xmlElement() const;
+    QStringList xmlElement() const;
 };
 
 }

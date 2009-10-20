@@ -70,6 +70,6 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Event::Parser::xmlElement() const {
-    return "event";
+QStringList Event::Parser::xmlElement() const {
+    return QStringList("event");
 }

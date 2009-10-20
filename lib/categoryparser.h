@@ -32,7 +32,7 @@ class Category::Parser : public Attica::Parser<Category>
 {
 private:
     Category parseXml(QXmlStreamReader& xml);
-    QString xmlElement() const;
+    QStringList xmlElement() const;
 };
 
 }

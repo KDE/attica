@@ -58,6 +58,6 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Activity::Parser::xmlElement() const {
-    return "activity";
+QStringList Activity::Parser::xmlElement() const {
+    return QStringList("activity");
 }

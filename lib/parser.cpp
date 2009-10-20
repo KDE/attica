@@ -20,6 +20,7 @@
 */
 
 #include "parser.h"
+#include <QStringList>
 
 
 using namespace Attica;
@@ -34,7 +35,7 @@ Parser<T>::~Parser()
 template <class T>
 T Parser<T>::parse(const QString& xmlString)
 {
-    QString element = xmlElement();
+    QStringList elements = xmlElement();
     T item;
 
     QXmlStreamReader xml(xmlString);
@@ -45,7 +46,7 @@ T Parser<T>::parse(const QString& xmlString)
         if (xml.isStartElement()) {
             if (xml.name() == "meta") {
                 parseMetadataXml(xml);
-            } else if (xml.name() == element) {
+            } else if (elements.contains(xml.name().toString())) {
                 item = parseXml(xml);
             }
         }
@@ -58,7 +59,7 @@ T Parser<T>::parse(const QString& xmlString)
 template <class T>
 typename T::List Parser<T>::parseList(const QString& xmlString)
 {
-    QString element = xmlElement();
+    QStringList elements = xmlElement();
     typename T::List items;
 
     QXmlStreamReader xml( xmlString );
@@ -75,7 +76,7 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
                         break;
                     }
 
-                    if (xml.isStartElement() && xml.name() == element) {
+                    if (xml.isStartElement() && elements.contains(xml.name().toString())) {
                         items.append(parseXml(xml));
                     }
                 }

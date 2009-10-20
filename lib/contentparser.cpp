@@ -60,6 +60,6 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 
-QString Content::Parser::xmlElement() const {
-    return "content";
+QStringList Content::Parser::xmlElement() const {
+    return QStringList("content");
 }

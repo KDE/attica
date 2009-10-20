@@ -32,7 +32,7 @@ class Folder::Parser : public Attica::Parser<Folder>
 {
 private:
     Folder parseXml(QXmlStreamReader& xml);
-    QString xmlElement() const;
+    QStringList xmlElement() const;
 };
 
 }
