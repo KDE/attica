@@ -129,11 +129,11 @@ class ATTICA_EXPORT Provider :public QObject
     // TODO is positiveVote a good name?
     PostJob* voteForContent(const QString& contentId, bool positiveVote);
 
-    PostJob* addNewContent(const Category& category, const Content& newContent);
+    ItemPostJob<Content>* addNewContent(const Category& category, const Content& newContent);
     PostJob* editContent(const QString& contentId, const Content& content);
     PostJob* deleteContent(const QString& contentId);
 
-    PostJob* setDownloadFile(const QString& contentId, const QFile& payload);
+    PostJob* setDownloadFile(const QString& contentId, QIODevice* payload);
     PostJob* deleteDownloadFile(const QString& contentId);
 
     /**

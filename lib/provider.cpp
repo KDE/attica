@@ -39,6 +39,7 @@
 #include <QUrl>
 #include <QNetworkReply>
 #include <KDebug>
+#include <QtCore/QFile>
 
 
 using namespace Attica;
@@ -306,7 +307,7 @@ ItemJob<Content>* Provider::requestContent(const QString& id)
   return job;
 }
 
-PostJob* Provider::addNewContent(const Category& category, const Content& cont)
+ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Content& cont)
 {
     if (!category.isValid()) {
         return 0;
@@ -320,9 +321,14 @@ PostJob* Provider::addNewContent(const Category& category, const Content& cont)
     
     qDebug() << "Parameter map: " << pars;
     
-    return new PostJob(d->m_qnam, createRequest(url), pars);
+    return new ItemPostJob<Content>(d->m_qnam, createRequest(url), pars);
 }
 
+PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
+{
+    QUrl url = createUrl("content/uploaddownload/" + contentId);
+    return new PostJob(d->m_qnam, createRequest(url), payload);
+}
 
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
@@ -425,17 +431,13 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 
 QUrl Provider::createUrl(const QString& path)
 {
-
-  QUrl url(d->m_baseUrl.toString() + path);
-
-  //url.addPath( path );
-
-  return url;
+    QUrl url(d->m_baseUrl.toString() + path);
+    return url;
 }
 
 QNetworkRequest Provider::createRequest(const QUrl& url)
 {
-  return QNetworkRequest(url);
+    return QNetworkRequest(url);
 }
 
 

@@ -44,3 +44,30 @@ T ItemJob<T>::result() const
 {
     return m_item;
 }
+
+
+
+template <class T>
+ItemPostJob<T>::ItemPostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request, QIODevice* data)
+    : PostJob(nam, request, data)
+{
+}
+
+template <class T>
+ItemPostJob<T>::ItemPostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request, const StringMap& parameters)
+    : PostJob(nam, request, parameters)
+{
+}
+
+template <class T>
+void ItemPostJob<T>::parse(const QString& xml)
+{
+    typename T::Parser p;
+    m_item = p.parse(xml);
+}
+
+template <class T>
+T ItemPostJob<T>::result() const
+{
+    return m_item;
+}

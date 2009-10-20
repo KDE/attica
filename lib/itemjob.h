@@ -23,7 +23,7 @@
 
 #include "atticaclient_export.h"
 #include "getjob.h"
-
+#include "postjob.h"
 
 namespace Attica {
 
@@ -32,6 +32,21 @@ class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
     ItemJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
+    T result() const;
+
+private:
+    virtual void parse(const QString& xml);
+    T m_item;
+};
+
+
+template <class T>
+class ATTICA_EXPORT ItemPostJob : public PostJob
+{
+public:
+    ItemPostJob(QSharedPointer<QNetworkAccessManager>  nam, const QNetworkRequest& request, QIODevice * data);
+    ItemPostJob(QSharedPointer<QNetworkAccessManager>  nam, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+
     T result() const;
 
 private:

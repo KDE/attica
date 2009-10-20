@@ -46,18 +46,15 @@ ProviderManager::ProviderManager()
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
-
 void ProviderManager::init() {
     d->m_providers.insert("opendesktop", Provider(d->m_qnam, "opendesktop", QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
 
-
 ProviderManager::~ProviderManager()
 {
     delete d;
 }
-
 
 void ProviderManager::addProviderFile(const QUrl& file) {
     // FIXME: Implement
