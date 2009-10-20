@@ -28,7 +28,6 @@ set(ocsclient_SRCS
    downloaditemparser.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
-   httppost.cpp
  )
 
 
