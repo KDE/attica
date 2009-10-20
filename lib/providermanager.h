@@ -18,9 +18,9 @@ public:
 
     void addProviderFile(const QUrl& file);
     void removeProviderFile(const QUrl& file);
-    QSet<QUrl> providerFiles() const;
+    QList<QUrl> providerFiles() const;
 
-    QHash<QString, Provider> providers() const;
+    QList<Provider> providers() const;
     Provider providerById(const QString& id) const;
 
 Q_SIGNALS:
@@ -29,6 +29,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void authenticate(QNetworkReply*, QAuthenticator*);
     void proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator);
+    void init();
 
 private:
     ProviderManager(const ProviderManager& other);

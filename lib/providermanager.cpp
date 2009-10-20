@@ -3,6 +3,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QSet>
 #include <QtCore/QSharedPointer>
+#include <QtCore/QTimer>
 #include <QtNetwork/QAuthenticator>
 #include <QtXml/QXmlStreamReader>
 
@@ -42,6 +43,11 @@ public:
 ProviderManager::ProviderManager()
     : d(new Private)
 {
+    QTimer::singleShot(0, this, SLOT(init()));
+}
+
+
+void ProviderManager::init() {
     d->m_providers.insert("opendesktop", Provider(d->m_qnam, "opendesktop", QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
@@ -80,13 +86,13 @@ Provider ProviderManager::providerById(const QString& id) const {
 }
 
 
-QHash<QString, Provider> ProviderManager::providers() const {
-    return d->m_providers;
+QList<Provider> ProviderManager::providers() const {
+    return d->m_providers.values();
 }
 
 
-QSet<QUrl> ProviderManager::providerFiles() const {
-    return d->m_providerFiles.keys().toSet();
+QList<QUrl> ProviderManager::providerFiles() const {
+    return d->m_providerFiles.keys();
 }
 
 
