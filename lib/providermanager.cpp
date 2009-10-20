@@ -91,6 +91,11 @@ QList<Provider> ProviderManager::providers() const {
 }
 
 
+bool ProviderManager::contains(const QString& provider) const {
+    return d->m_providers.contains(provider);
+}
+
+
 QList<QUrl> ProviderManager::providerFiles() const {
     return d->m_providerFiles.keys();
 }

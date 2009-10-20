@@ -21,6 +21,7 @@ public:
     QList<QUrl> providerFiles() const;
 
     QList<Provider> providers() const;
+    bool contains(const QString& provider) const;
     Provider providerById(const QString& id) const;
 
 Q_SIGNALS:
