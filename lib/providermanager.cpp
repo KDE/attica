@@ -43,6 +43,11 @@ public:
 ProviderManager::ProviderManager()
     : d(new Private)
 {
+    
+}
+
+void ProviderManager::initialize()
+{
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
@@ -58,25 +63,48 @@ ProviderManager::~ProviderManager()
 
 void ProviderManager::addProviderFile(const QUrl& file) {
     // FIXME: Implement
+    
 }
 
+void ProviderManager::addProviderFromXml(const QString& providerXml)
+{
+    parseProviderFile(providerXml);
+}
 
 void ProviderManager::removeProviderFile(const QUrl& file) {
     // FIXME: Implement
 }
 
 
-QHash<QString, Provider> ProviderManager::parseProviderFile(const QString& xmlString) {
-    // FIXME: Implement
+void ProviderManager::parseProviderFile(const QString& xmlString)
+{
     QXmlStreamReader xml(xmlString);
-
     while (xml.readNext()) {
         if (xml.isStartElement() && xml.name() == "provider") {
-            
+            QString location;
+            QString name;
+            QUrl icon;
+            while (xml.readNext()) {
+                if (xml.isStartElement())
+                {
+                    if (xml.name() == "location") {
+                        location = xml.readElementText();
+                        qDebug() << "reading provider with URL: " << location;
+                    }
+                    if (xml.name() == "name") {
+                        name = xml.readElementText();
+                    }
+                    if (xml.name() == "icon") {
+                        icon = QUrl(xml.readElementText());
+                    }
+                }         
+            }
+            if (!location.isEmpty()) {
+                d->m_providers.insert(location, Provider(d->m_qnam, location, QUrl(location), name, icon));
+            }
         }
     }
 }
-
 
 Provider ProviderManager::providerById(const QString& id) const {
     return d->m_providers.value(id);

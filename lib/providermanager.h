@@ -15,7 +15,13 @@ class ATTICA_EXPORT ProviderManager : public QObject
 public:
     ProviderManager();
     ~ProviderManager();
-
+    
+    /** 
+     * Load available providers from configuration
+     */
+    void initialize();
+    
+    void addProviderFromXml(const QString& providerXml);
     void addProviderFile(const QUrl& file);
     void removeProviderFile(const QUrl& file);
     QList<QUrl> providerFiles() const;
@@ -38,7 +44,7 @@ private:
 
     void initNetworkAccesssManager();
 
-    QHash<QString, Provider> parseProviderFile(const QString& xmlString);
+    void parseProviderFile(const QString& xmlString);
 
     class Private;
     Private* const d;

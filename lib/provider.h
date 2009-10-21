@@ -145,7 +145,6 @@ class ATTICA_EXPORT Provider :public QObject
     PostJob* setPreviewImage(const QString& contentId, const QString& previewId, const QFile& payload);
     PostJob* deletePreviewImage(const QString& contentId, const QString& previewId);
 
-
     // KnowledgeBase part of OCS
 
     ItemJob<KnowledgeBaseEntry>* requestKnowledgeBaseEntry(const QString& id);
@@ -171,6 +170,8 @@ class ATTICA_EXPORT Provider :public QObject
   private:
     class Private;
     QExplicitlySharedDataPointer<Private> d;
+    
+    // FIXME use baseUrl as id
     Provider(QSharedPointer<QNetworkAccessManager> qnam, const QString& id, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
