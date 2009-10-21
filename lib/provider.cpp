@@ -251,7 +251,7 @@ PostJob* Provider::postMessage( const Message &message )
     postParameters.insert("message", message.body());
     postParameters.insert("subject", message.subject());
     postParameters.insert("to", message.to());
-    return new PostJob(d->m_qnam, createRequest("message/2"), 0);
+    return new PostJob(d->m_qnam, createRequest("message/2"), postParameters);
 }
 
 
