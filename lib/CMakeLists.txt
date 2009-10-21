@@ -38,3 +38,17 @@ set_target_properties(ocsclient PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERS
 target_link_libraries(ocsclient ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KABC_LIBS})
 
 install(TARGETS ocsclient ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+install(FILES
+    atticaclient_export.h
+    providermanager.h
+    provider.h
+    category.h
+    itemjob.h
+    listjob.h
+    getjob.h
+    postjob.h
+    atticabasejob.h
+    DESTINATION ${INCLUDE_INSTALL_DIR}/attica COMPONENT Devel
+)
+
