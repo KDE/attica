@@ -28,7 +28,7 @@ set(ocsclient_SRCS
    downloaditemparser.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
- )
+)
 
 
 
@@ -41,8 +41,11 @@ install(TARGETS ocsclient ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
     atticaclient_export.h
+    content.h
     providermanager.h
     provider.h
+    person.h
+    personjob.h
     category.h
     itemjob.h
     listjob.h

@@ -87,18 +87,19 @@ void ProviderManager::removeProviderFile(const QUrl& file) {
     // FIXME: Implement
 }
 
-
 void ProviderManager::parseProviderFile(const QString& xmlString)
 {
+    qDebug() << "parseProviderFile" << xmlString;
     QXmlStreamReader xml(xmlString);
-    while (xml.readNext()) {
+    while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == "provider") {
             QString baseUrl;
             QString name;
             QUrl icon;
-            while (xml.readNext()) {
+            while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
                 {
+                    qDebug() << "parseProviderFile" << xml.name();
                     if (xml.name() == "location") {
                         baseUrl = xml.readElementText();
                         qDebug() << "reading provider with URL: " << baseUrl;
@@ -113,6 +114,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
             }
             if (!baseUrl.isEmpty()) {
                 d->m_providers.insert(baseUrl, Provider(d->m_qnam, QUrl(baseUrl), name, icon));
+                emit providersChanged();
             }
         }
     }
