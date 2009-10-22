@@ -5,12 +5,14 @@
 #include <QtCore/QSharedPointer>
 #include <QtCore/QTimer>
 #include <QtNetwork/QAuthenticator>
+#include <QtNetwork/QNetworkReply>
 #include <QtXml/QXmlStreamReader>
 
 
 #define ATTICA_USE_KDE
 #ifdef ATTICA_USE_KDE
 #include <KIO/AccessManager>
+#include <KWallet/Wallet>
 #endif
 
 
@@ -25,12 +27,15 @@ public:
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSharedPointer<QNetworkAccessManager> m_qnam;
+    KWallet::Wallet* m_wallet;
 
     Private()
-#ifdef ATTICA_USE_KDE
-        : m_qnam(new KIO::AccessManager(0))
+#ifndef ATTICA_USE_KDE
+        : m_qnam(new KIO::AccessManager(0)),
+          m_wallet(0)
 #else
-        : m_qnam(new QNetworkAccessManager)
+        : m_qnam(new QNetworkAccessManager),
+          m_wallet(0)
 #endif
     {
     }
@@ -43,7 +48,7 @@ public:
 ProviderManager::ProviderManager()
     : d(new Private)
 {
-    
+    connect(d->m_qnam.data(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
 
 void ProviderManager::loadDefaultProviders()
@@ -135,28 +140,36 @@ QList<QUrl> ProviderManager::providerFiles() const {
 
 void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 {
-    qDebug() << "authentication requested - implement me :D";
-    // TODO
-    
-    // to stop the request use
-    // reply->abort();
-    
- 
-    auth->setUser("API4752248551824585417547616258117595859336334565755742650330375402");
-    //auth->setPassword("pass");
-    
-    // we get the authentication details from storage (config/kwallet...)
-    
-    /* authentication needs to be implemented...
-    if (d->m_authenticationStorage && d->m_authenticationStorage.contains(d->m_id)) {
-        auth->setUser(d->m_authenticationStorage.user());
-        auth->setPassword(d->m_authenticationStorage.password());
-        return;
+    // FIXME: This is a KDE specific authentication only atm
+    QUrl baseUrl;
+    foreach (const QUrl& url, d->m_providers.keys()) {
+        if (url.isParentOf(reply->url())) {
+            baseUrl = url;
+            break;
+        }
     }
-    */
-
     
+    if (auth->user().isEmpty() && auth->password().isEmpty()) {
+        QString networkWallet = KWallet::Wallet::NetworkWallet();
+        if (!KWallet::Wallet::keyDoesNotExist(networkWallet, "Attica", baseUrl.toString())) {
+            if (!d->m_wallet) {
+                d->m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
+            }
+            if (d->m_wallet) {
+                d->m_wallet->setFolder("Attica");
+                QMap<QString, QString> entries;
+                d->m_wallet->readMap(baseUrl.toString(), entries);
+                auth->setUser(entries.value("user"));
+                auth->setPassword(entries.value("password"));
+                return;
+            }
+        }
+    } else {
+        qDebug() << "We already authenticated once, not trying forever...";
+    }
+    reply->abort();
 }
+
 
 void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator)
 {
