@@ -29,7 +29,7 @@ public:
 
     QList<Provider> providers() const;
     bool contains(const QString& provider) const;
-    Provider providerById(const QString& id) const;
+    Provider providerByUrl(const QUrl& url) const;
 
 Q_SIGNALS:
     void providersChanged();

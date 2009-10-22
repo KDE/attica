@@ -113,8 +113,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
     }
 }
 
-Provider ProviderManager::providerById(const QString& id) const {
-    return d->m_providers.value(id);
+Provider ProviderManager::providerByUrl(const QUrl& url) const {
+    return d->m_providers.value(url);
 }
 
 
