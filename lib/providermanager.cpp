@@ -59,7 +59,7 @@ void ProviderManager::clear() {
 
 
 void ProviderManager::init() {
-    d->m_providers.insert(QUrl("https://api.opendesktop.com/v1/"), Provider(d->m_qnam, QUrl("https://api.opendesktop.com/v1/"), "OpenDesktop.org", QUrl()));
+    d->m_providers.insert(QUrl("https://api.opendesktop.org/v1/"), Provider(d->m_qnam, QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
 
