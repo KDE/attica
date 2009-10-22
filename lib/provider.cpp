@@ -48,17 +48,16 @@ using namespace Attica;
 class Provider::Private : public QSharedData {
   public:
     QUrl m_baseUrl;
-    QString m_id;
     QUrl m_icon;
     QString m_name;
     QSharedPointer<QNetworkAccessManager> m_qnam;
 
     Private(const Private& other)
-      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_id(other.m_id), m_name(other.m_name), m_qnam(other.m_qnam)
+      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name), m_qnam(other.m_qnam)
     {
     }
-    Private(QSharedPointer<QNetworkAccessManager> qnam, const QString& id, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-      : m_baseUrl(baseUrl), m_id(id), m_icon(icon), m_name(name), m_qnam(qnam)
+    Private(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+      : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_qnam(qnam)
     {
     }
     ~Private()
@@ -68,7 +67,7 @@ class Provider::Private : public QSharedData {
 
 
 Provider::Provider()
-  : d(new Private(QSharedPointer<QNetworkAccessManager>(), QString(), QUrl(), QString(), QUrl()))
+  : d(new Private(QSharedPointer<QNetworkAccessManager>(), QUrl(), QString(), QUrl()))
 {
 }
 
@@ -77,8 +76,8 @@ Provider::Provider(const Provider& other)
 {
 }
 
-Provider::Provider(QSharedPointer<QNetworkAccessManager> qnam, const QString& id, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-  : d(new Private(qnam, id, baseUrl, name, icon))
+Provider::Provider(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+  : d(new Private(qnam, baseUrl, name, icon))
 {
 }
 
@@ -104,15 +103,23 @@ bool Provider::isValid() const
 }
 
 
-QString Provider::id() const
-{
-    return d->m_id;
-}
-
-
 QString Provider::name() const
 {
     return d->m_name;
+}
+
+
+PostJob* Provider::registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName)
+{
+    QMap<QString, QString> postParameters;
+
+    postParameters.insert("login", id);
+    postParameters.insert("password", password);
+    postParameters.insert("firstname", firstName);
+    postParameters.insert("lastname", lastName);
+    postParameters.insert("email", mail);
+
+    return new PostJob(d->m_qnam, createRequest("person/add"), postParameters);
 }
 
 

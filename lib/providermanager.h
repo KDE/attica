@@ -19,8 +19,9 @@ public:
     /** 
      * Load available providers from configuration
      */
-    void initialize();
-    
+    void loadDefaultProviders();
+
+    void clear();
     void addProviderFromXml(const QString& providerXml);
     void addProviderFile(const QUrl& file);
     void removeProviderFile(const QUrl& file);

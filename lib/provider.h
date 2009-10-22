@@ -74,7 +74,6 @@ class ATTICA_EXPORT Provider :public QObject
     bool isValid() const;
     QUrl baseUrl() const;
     QString name() const;
-    QString id() const;
 
     enum SortMode {
         Newest,
@@ -85,6 +84,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     // Person part of OCS
 
+    PostJob* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);
     PersonJob* requestPerson(const QString& id);
     PersonJob* requestPersonSelf();
     ListJob<Person>* requestPersonSearchByName(const QString& name);
@@ -172,7 +172,7 @@ class ATTICA_EXPORT Provider :public QObject
     QExplicitlySharedDataPointer<Private> d;
     
     // FIXME use baseUrl as id
-    Provider(QSharedPointer<QNetworkAccessManager> qnam, const QString& id, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
+    Provider(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
     friend class ProviderManager;

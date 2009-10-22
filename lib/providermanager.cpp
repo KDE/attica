@@ -22,7 +22,7 @@ uint qHash(const QUrl& key) {
 
 class ProviderManager::Private {
 public:
-    QHash<QString, Provider> m_providers;
+    QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSharedPointer<QNetworkAccessManager> m_qnam;
 
@@ -46,13 +46,20 @@ ProviderManager::ProviderManager()
     
 }
 
-void ProviderManager::initialize()
+void ProviderManager::loadDefaultProviders()
 {
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
+
+void ProviderManager::clear() {
+    d->m_providerFiles.clear();
+    d->m_providers.clear();
+}
+
+
 void ProviderManager::init() {
-    d->m_providers.insert("opendesktop", Provider(d->m_qnam, "opendesktop", QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org", QUrl()));
+    d->m_providers.insert(QUrl("http://api.opendesktop.dev.hive01.com/v1/"), Provider(d->m_qnam, QUrl("http://api.opendesktop.dev.hive01.com/v1/"), "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
 
@@ -81,15 +88,15 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
     QXmlStreamReader xml(xmlString);
     while (xml.readNext()) {
         if (xml.isStartElement() && xml.name() == "provider") {
-            QString location;
+            QString baseUrl;
             QString name;
             QUrl icon;
             while (xml.readNext()) {
                 if (xml.isStartElement())
                 {
                     if (xml.name() == "location") {
-                        location = xml.readElementText();
-                        qDebug() << "reading provider with URL: " << location;
+                        baseUrl = xml.readElementText();
+                        qDebug() << "reading provider with URL: " << baseUrl;
                     }
                     if (xml.name() == "name") {
                         name = xml.readElementText();
@@ -99,8 +106,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
                     }
                 }         
             }
-            if (!location.isEmpty()) {
-                d->m_providers.insert(location, Provider(d->m_qnam, location, QUrl(location), name, icon));
+            if (!baseUrl.isEmpty()) {
+                d->m_providers.insert(baseUrl, Provider(d->m_qnam, QUrl(baseUrl), name, icon));
             }
         }
     }
