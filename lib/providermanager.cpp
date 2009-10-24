@@ -73,9 +73,20 @@ ProviderManager::~ProviderManager()
     delete d;
 }
 
-void ProviderManager::addProviderFile(const QUrl& file) {
-    // FIXME: Implement
+void ProviderManager::addProviderFile(const QUrl& file)
+{
+    // TODO: use qnam::get to get the file and then parse it
     
+    // For local files:
+    /*
+    QFile file(localFile);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
+        return;
+    }
+    addProviderFromXml(file.readAll());
+    file.close();
+    */
 }
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
@@ -165,9 +176,11 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
                 auth->setPassword(entries.value("password"));
                 return;
             }
+        } else {
+            qDebug() << "ProviderManager::authenticate: Wallet entry not found";
         }
     } else {
-        qDebug() << "We already authenticated once, not trying forever...";
+        qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever...";
     }
     reply->abort();
 }
