@@ -36,6 +36,10 @@ PostJob::PostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkReques
 {
 }
 
+Attica::PostJob::PostJob(QSharedPointer< QNetworkAccessManager > nam, const QNetworkRequest& request, const QByteArray& byteArray)
+    : BaseJob(nam), m_ioDevice(0) , m_byteArray(byteArray), m_request(request)
+{
+}
 
 PostJob::PostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request, const StringMap& parameters)
     : BaseJob(nam), m_ioDevice(0), m_request(request)

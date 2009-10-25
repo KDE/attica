@@ -85,7 +85,7 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
     QByteArray data(
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"localfile\"; filename=\"" + fileName.toUtf8()
-        + "\"\r\nContent-Type: " + mimeType.toAscii() + "\r\n\r\n";
+        + "\"\r\nContent-Type: " + mimeType.toAscii() + "\r\n\r\n");
     
     d->buffer.append(data);
     d->buffer.append(file.data() + QByteArray("\r\n"));
