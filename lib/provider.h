@@ -134,6 +134,7 @@ class ATTICA_EXPORT Provider :public QObject
     PostJob* deleteContent(const QString& contentId);
 
     PostJob* setDownloadFile(const QString& contentId, QIODevice* payload);
+    PostJob* setDownloadFile(const QString& contentId, const QByteArray& payload);
     PostJob* deleteDownloadFile(const QString& contentId);
 
     /**

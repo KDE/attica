@@ -30,6 +30,7 @@
 #include "message.h"
 #include "personjob.h"
 #include "postjob.h"
+#include "postfiledata.h"
 #include "itemjob.h"
 #include "listjob.h"
 #include "postjobstatus.h"
@@ -261,7 +262,6 @@ PostJob* Provider::postMessage( const Message &message )
     return new PostJob(d->m_qnam, createRequest("message/2"), postParameters);
 }
 
-
 ListJob<Category>* Provider::requestCategories()
 {
   QUrl url = createUrl( "content/categories" );
@@ -334,7 +334,19 @@ ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Co
 PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
 {
     QUrl url = createUrl("content/uploaddownload/" + contentId);
-    return new PostJob(d->m_qnam, createRequest(url), payload);
+    PostFileData postRequest(url);
+    // FIXME mime type
+    postRequest.addFile("localfile", payload, "application/octet-stream");
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+}
+
+PostJob* Provider::setDownloadFile(const QString& contentId, const QByteArray& payload)
+{
+    QUrl url = createUrl("content/uploaddownload/" + contentId);
+    PostFileData postRequest(url);
+    // FIXME mime type
+    postRequest.addFile("localfile", payload, "application/octet-stream");
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)

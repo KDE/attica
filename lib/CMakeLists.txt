@@ -14,6 +14,7 @@ set(ocsclient_SRCS
    provider.cpp
    providermanager.cpp
    postjob.cpp
+   postfiledata.cpp
    postjobstatus.cpp
    postjobstatusparser.cpp
    folder.cpp

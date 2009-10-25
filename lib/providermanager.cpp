@@ -1,3 +1,24 @@
+/*
+    This file is part of KDE.
+    
+    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
+    
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License version 2 as published by the Free Software Foundation.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.
+
+    You should have received a copy of the GNU Library General Public License
+    along with this library; see the file COPYING.LIB.  If not, write to
+    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA 02110-1301, USA.
+*/
+
 #include "providermanager.h"
 
 #include <QtCore/QDebug>
@@ -64,7 +85,8 @@ void ProviderManager::clear() {
 
 
 void ProviderManager::init() {
-    d->m_providers.insert(QUrl("https://api.opendesktop.org/v1/"), Provider(d->m_qnam, QUrl("https://api.opendesktop.org/v1/"), "OpenDesktop.org", QUrl()));
+    QUrl url("https://api.opendesktop.org/v1/");
+    d->m_providers.insert(url, Provider(d->m_qnam, url, "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
 
@@ -167,6 +189,7 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
         if (!KWallet::Wallet::keyDoesNotExist(networkWallet, "Attica", baseUrl.toString())) {
             if (!d->m_wallet) {
                 d->m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
+                qDebug() << "ProviderManager::authenticate: Opening wallet failed";
             }
             if (d->m_wallet) {
                 d->m_wallet->setFolder("Attica");
@@ -177,6 +200,7 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
                 return;
             }
         } else {
+            // FIXME notify the app that uses attica that a wallet doesn't exist
             qDebug() << "ProviderManager::authenticate: Wallet entry not found";
         }
     } else {
