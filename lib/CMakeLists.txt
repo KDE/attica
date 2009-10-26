@@ -1,4 +1,7 @@
 set(ocsclient_SRCS
+   internals.cpp
+   kdeinternals.cpp
+   qtinternals.cpp
    parser.cpp
    getjob.cpp
    atticabasejob.cpp
