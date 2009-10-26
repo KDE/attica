@@ -25,6 +25,8 @@
 #include <QtCore/QTimer>
 #include <QtNetwork/QNetworkReply>
 
+#include "internals.h"
+
 
 using namespace Attica;
 
@@ -33,18 +35,18 @@ class BaseJob::Private
 public:
     int m_error;
     QString m_errorString;
-    QSharedPointer<QNetworkAccessManager> m_nam;
+    QSharedPointer<Internals> m_internals;
     QNetworkReply* m_reply;
 
-    Private(QSharedPointer<QNetworkAccessManager> nam)
-        : m_error(0), m_nam(nam), m_reply(0)
+    Private(QSharedPointer<Internals> internals)
+        : m_error(0), m_internals(internals), m_reply(0)
     {
     }
 };
 
 
-BaseJob::BaseJob(QSharedPointer<QNetworkAccessManager> nam)
-    : d(new Private(nam))
+BaseJob::BaseJob(const QSharedPointer<Internals>& internals)
+    : d(new Private(internals))
 {
 }
 
@@ -96,7 +98,7 @@ void BaseJob::doWork()
 
 QNetworkAccessManager* BaseJob::nam()
 {
-    return d->m_nam.data();
+    return d->m_internals->nam();
 }
 
 

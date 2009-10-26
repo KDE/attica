@@ -26,6 +26,7 @@
 #include "downloaditem.h"
 #include "event.h"
 #include "folder.h"
+#include "internals.h"
 #include "knowledgebaseentry.h"
 #include "message.h"
 #include "personjob.h"
@@ -45,20 +46,19 @@
 
 using namespace Attica;
 
-
 class Provider::Private : public QSharedData {
   public:
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
-    QSharedPointer<QNetworkAccessManager> m_qnam;
+    QSharedPointer<Internals> m_internals;
 
     Private(const Private& other)
-      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name), m_qnam(other.m_qnam)
+      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name), m_internals(other.m_internals)
     {
     }
-    Private(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-      : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_qnam(qnam)
+    Private(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+      : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
     {
     }
     ~Private()
@@ -68,7 +68,7 @@ class Provider::Private : public QSharedData {
 
 
 Provider::Provider()
-  : d(new Private(QSharedPointer<QNetworkAccessManager>(), QUrl(), QString(), QUrl()))
+  : d(new Private(QSharedPointer<Internals>(0), QUrl(), QString(), QUrl()))
 {
 }
 
@@ -77,8 +77,8 @@ Provider::Provider(const Provider& other)
 {
 }
 
-Provider::Provider(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-  : d(new Private(qnam, baseUrl, name, icon))
+Provider::Provider(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+  : d(new Private(internals, baseUrl, name, icon))
 {
 }
 
@@ -120,7 +120,7 @@ PostJob* Provider::registerAccount(const QString& id, const QString& password, c
     postParameters.insert("lastname", lastName);
     postParameters.insert("email", mail);
 
-    return new PostJob(d->m_qnam, createRequest("person/add"), postParameters);
+    return new PostJob(d->m_internals, createRequest("person/add"), postParameters);
 }
 
 
@@ -196,7 +196,7 @@ PostJob* Provider::postActivity(const QString& message)
 {
     StringMap postParameters;
     postParameters.insert("message", message);
-    return new PostJob(d->m_qnam, createRequest("activity"), postParameters);
+    return new PostJob(d->m_internals, createRequest("activity"), postParameters);
 }
 
 
@@ -204,24 +204,24 @@ PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 {
     StringMap postParameters;
     postParameters.insert("message", message);
-    return new PostJob(d->m_qnam, createRequest("friend/invite/" + to), postParameters);
+    return new PostJob(d->m_internals, createRequest("friend/invite/" + to), postParameters);
 }
 
 
 PostJob* Provider::approveFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createRequest("friend/approve/" + to));
+    return new PostJob(d->m_internals, createRequest("friend/approve/" + to));
 }
 
 
 PostJob* Provider::declineFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createRequest("friend/decline/" + to));
+    return new PostJob(d->m_internals, createRequest("friend/decline/" + to));
 }
 
 PostJob* Provider::cancelFriendship(const QString& to)
 {
-    return new PostJob(d->m_qnam, createRequest("friend/cancel/" + to));
+    return new PostJob(d->m_internals, createRequest("friend/cancel/" + to));
 }
 
 
@@ -232,7 +232,7 @@ PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& 
     postParameters.insert("longitude", QString::number(longitude));
     postParameters.insert("city", city);
     postParameters.insert("country", country);
-    return new PostJob(d->m_qnam, createRequest("person/self"), postParameters);
+    return new PostJob(d->m_internals, createRequest("person/self"), postParameters);
 }
 
 
@@ -249,7 +249,7 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
 
 ItemJob<Message>* Provider::requestMessage(const Folder& folder, const QString& id)
 {
-    return new ItemJob<Message>(d->m_qnam, createRequest("message/" + folder.id() + '/' + id));
+    return new ItemJob<Message>(d->m_internals, createRequest("message/" + folder.id() + '/' + id));
 }
 
 
@@ -259,13 +259,13 @@ PostJob* Provider::postMessage( const Message &message )
     postParameters.insert("message", message.body());
     postParameters.insert("subject", message.subject());
     postParameters.insert("to", message.to());
-    return new PostJob(d->m_qnam, createRequest("message/2"), postParameters);
+    return new PostJob(d->m_internals, createRequest("message/2"), postParameters);
 }
 
 ListJob<Category>* Provider::requestCategories()
 {
   QUrl url = createUrl( "content/categories" );
-  ListJob<Category> *job = new ListJob<Category>(d->m_qnam, createRequest(url));
+  ListJob<Category> *job = new ListJob<Category>(d->m_internals, createRequest(url));
   return job;
 }
 
@@ -302,7 +302,7 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
   
-    ListJob<Content> *job = new ListJob<Content>(d->m_qnam, createRequest(url));
+    ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
 
   return job;
 }
@@ -310,7 +310,7 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
 ItemJob<Content>* Provider::requestContent(const QString& id)
 {
   QUrl url = createUrl( "content/data/" + id );
-  ItemJob<Content> *job = new ItemJob<Content>(d->m_qnam, createRequest(url));
+  ItemJob<Content> *job = new ItemJob<Content>(d->m_internals, createRequest(url));
   return job;
 }
 
@@ -328,7 +328,7 @@ ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Co
     
     qDebug() << "Parameter map: " << pars;
     
-    return new ItemPostJob<Content>(d->m_qnam, createRequest(url), pars);
+    return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
 
 PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
@@ -337,7 +337,7 @@ PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
     PostFileData postRequest(url);
     // FIXME mime type
     postRequest.addFile("localfile", payload, "application/octet-stream");
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::setDownloadFile(const QString& contentId, const QByteArray& payload)
@@ -346,28 +346,28 @@ PostJob* Provider::setDownloadFile(const QString& contentId, const QByteArray& p
     PostFileData postRequest(url);
     // FIXME mime type
     postRequest.addFile("localfile", payload, "application/octet-stream");
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
     StringMap postParameters;
     postParameters.insert("vote", positiveVote ? "good" : "bad");
-    return new PostJob(d->m_qnam, createRequest("content/vote/" + contentId), postParameters);
+    return new PostJob(d->m_internals, createRequest("content/vote/" + contentId), postParameters);
 }
 
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
     QUrl url = createUrl( "content/download/" + contentId + '/' + itemId );
-    ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_qnam, createRequest(url));
+    ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_internals, createRequest(url));
     return job;
 }
 
 ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
     QUrl url = createUrl( "knowledgebase/data/" + id );
-    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_qnam, createRequest(url));
+    ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
     return job;
 }
 
@@ -402,13 +402,13 @@ ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& conten
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
 
-  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_qnam, createRequest(url));
+  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
   return job;
 }
 
 ItemJob<Event>* Provider::requestEvent(const QString& id)
 {
-    ItemJob<Event>* job = new ItemJob<Event>(d->m_qnam, createRequest("event/data/" + id));
+    ItemJob<Event>* job = new ItemJob<Event>(d->m_internals, createRequest("event/data/" + id));
     return job;
 }
 
@@ -444,7 +444,7 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
 
-  ListJob<Event>* job = new ListJob<Event>(d->m_qnam, createRequest(url));
+  ListJob<Event>* job = new ListJob<Event>(d->m_internals, createRequest(url));
   return job;
 }
 
@@ -468,27 +468,27 @@ QNetworkRequest Provider::createRequest(const QString& path)
 
 PersonJob* Provider::doRequestPerson(const QUrl& url)
 {
-  return new PersonJob(d->m_qnam, createRequest(url));
+  return new PersonJob(d->m_internals, createRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
 {
-    return new ListJob<Person>(d->m_qnam, createRequest(url));
+    return new ListJob<Person>(d->m_internals, createRequest(url));
 }
 
 ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
-    return new ListJob<Activity>(d->m_qnam, createRequest(url));
+    return new ListJob<Activity>(d->m_internals, createRequest(url));
 }
 
 ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
-    return new ListJob<Folder>(d->m_qnam, createRequest(url));
+    return new ListJob<Folder>(d->m_internals, createRequest(url));
 }
 
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
-    return new ListJob<Message>(d->m_qnam, createRequest(url));
+    return new ListJob<Message>(d->m_internals, createRequest(url));
 }
 
 

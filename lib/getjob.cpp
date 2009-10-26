@@ -23,12 +23,14 @@
 
 #include <QtNetwork/QNetworkAccessManager>
 
+#include "internals.h"
+
 
 using namespace Attica;
 
 
-GetJob::GetJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request)
-    : BaseJob(nam), m_request(request)
+GetJob::GetJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request)
+    : BaseJob(internals), m_request(request)
 {
 }
 

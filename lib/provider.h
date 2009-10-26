@@ -33,15 +33,13 @@
 #include "itemjob.h"
 #include "listjob.h"
 
-class QFile;
-class QNetworkProxy;
-
-class QUrl;
 class QDate;
-class QNetworkReply;
-class QAuthenticator;
+class QFile;
+class QUrl;
 
 namespace Attica {
+
+class Internals;
 
 class PostJobStatus;
 
@@ -173,7 +171,7 @@ class ATTICA_EXPORT Provider :public QObject
     QExplicitlySharedDataPointer<Private> d;
     
     // FIXME use baseUrl as id
-    Provider(QSharedPointer<QNetworkAccessManager> qnam, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
+    Provider(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
     friend class ProviderManager;

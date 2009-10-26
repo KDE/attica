@@ -33,12 +33,14 @@ class QIODevice;
 
 namespace Attica {
 
+class Internals;
+
 class ATTICA_EXPORT BaseJob : public QObject
 {
     Q_OBJECT
 
 public:
-    BaseJob(QSharedPointer<QNetworkAccessManager> nam);
+    BaseJob(const QSharedPointer<Internals>& internals);
 
     BaseJob(QNetworkReply* data, QIODevice* payload);
 

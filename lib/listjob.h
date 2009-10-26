@@ -43,7 +43,7 @@ template <class T>
 class ATTICA_EXPORT ListJob : public GetJob
 {
     public:
-        ListJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
+        ListJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
         typename T::List itemList() const;
         ListJobMetadata metadata() const;
 

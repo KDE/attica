@@ -94,3 +94,8 @@ QList<QUrl> KDEInternals::getDefaultProviderFiles() const {
     // FIXME: Return KDE provider files
     return QList<QUrl>();
 }
+
+
+QNetworkAccessManager* Attica::KDEInternals::nam() {
+    return &m_qnam;
+}

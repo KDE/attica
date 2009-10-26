@@ -27,6 +27,7 @@
 
 class QByteArray;
 class QIODevice;
+class QNetworkAccessManager;
 class QNetworkReply;
 class QNetworkRequest;
 class QString;
@@ -44,6 +45,7 @@ public:
     virtual QNetworkReply* get(const QNetworkRequest& request) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data) = 0;
+    virtual QNetworkAccessManager* nam() = 0;
 };
 
 }

@@ -31,7 +31,7 @@ template <class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
-    ItemJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request);
+    ItemJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
     T result() const;
 
 private:
@@ -44,8 +44,8 @@ template <class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
 public:
-    ItemPostJob(QSharedPointer<QNetworkAccessManager>  nam, const QNetworkRequest& request, QIODevice * data);
-    ItemPostJob(QSharedPointer<QNetworkAccessManager>  nam, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, QIODevice * data);
+    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
 
     T result() const;
 

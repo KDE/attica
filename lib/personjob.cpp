@@ -33,8 +33,8 @@
 using namespace Attica;
 
 
-PersonJob::PersonJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request)
-    : GetJob(nam, request)
+PersonJob::PersonJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request)
+    : GetJob(internals, request)
 {
 }
 

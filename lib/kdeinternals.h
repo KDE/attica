@@ -43,9 +43,11 @@ public:
     virtual QNetworkReply* get(const QNetworkRequest& request);
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
+    virtual QNetworkAccessManager* nam();
 
 private:
-    KIO::AccessManager m_qnam;
+    // FIXME: Change to KIO::AccessManager
+    QNetworkAccessManager m_qnam;
     KWallet::Wallet* m_wallet;
 };
 

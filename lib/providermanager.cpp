@@ -44,11 +44,9 @@ public:
     QSharedPointer<Internals> m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
-    QSharedPointer<QNetworkAccessManager> m_qnam;
 
     Private()
-        : m_internals(new KDEInternals),
-          m_qnam(new QNetworkAccessManager)
+        : m_internals(new KDEInternals)
     {
     }
     ~Private()
@@ -60,7 +58,7 @@ public:
 ProviderManager::ProviderManager()
     : d(new Private)
 {
-    connect(d->m_qnam.data(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
 
 void ProviderManager::loadDefaultProviders()
@@ -76,8 +74,8 @@ void ProviderManager::clear() {
 
 
 void ProviderManager::init() {
-    QUrl url("https://api.opendesktop.org/v1/");
-    d->m_providers.insert(url, Provider(d->m_qnam, url, "OpenDesktop.org", QUrl()));
+    QUrl url("http://api.opendesktop.dev.hive01.com/v1/");
+    d->m_providers.insert(url, Provider(d->m_internals, url, "OpenDesktop.org", QUrl()));
     emit providersChanged();
 }
 
@@ -137,7 +135,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
                 }         
             }
             if (!baseUrl.isEmpty()) {
-                d->m_providers.insert(baseUrl, Provider(d->m_qnam, QUrl(baseUrl), name, icon));
+                d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon));
                 emit providersChanged();
             }
         }
@@ -200,8 +198,8 @@ void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy& proxy, QA
 
 void ProviderManager::initNetworkAccesssManager()
 {
-    connect(d->m_qnam.data(), SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*, QAuthenticator*)));
-    connect(d->m_qnam.data(), SIGNAL(proxyAuthenticationRequired(QNetworkProxy, QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy, QAuthenticator*)));
+    connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*, QAuthenticator*)));
+    connect(d->m_internals->nam(), SIGNAL(proxyAuthenticationRequired(QNetworkProxy, QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy, QAuthenticator*)));
 }
 
 

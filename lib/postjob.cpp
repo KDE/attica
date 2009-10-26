@@ -31,18 +31,18 @@
 using namespace Attica;
 
 
-PostJob::PostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request, QIODevice* iodevice)
-    : BaseJob(nam), m_ioDevice(iodevice), m_request(request)
+PostJob::PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, QIODevice* iodevice)
+    : BaseJob(internals), m_ioDevice(iodevice), m_request(request)
 {
 }
 
-Attica::PostJob::PostJob(QSharedPointer< QNetworkAccessManager > nam, const QNetworkRequest& request, const QByteArray& byteArray)
-    : BaseJob(nam), m_ioDevice(0) , m_byteArray(byteArray), m_request(request)
+Attica::PostJob::PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const QByteArray& byteArray)
+    : BaseJob(internals), m_ioDevice(0) , m_byteArray(byteArray), m_request(request)
 {
 }
 
-PostJob::PostJob(QSharedPointer<QNetworkAccessManager> nam, const QNetworkRequest& request, const StringMap& parameters)
-    : BaseJob(nam), m_ioDevice(0), m_request(request)
+PostJob::PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const StringMap& parameters)
+    : BaseJob(internals), m_ioDevice(0), m_request(request)
 {
     // Create post data
     int j = 0;
