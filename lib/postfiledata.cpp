@@ -67,6 +67,7 @@ void PostFileData::addArgument(const QString& key, const QString& value)
     d->buffer.append(data);
 }
 
+/*
 void PostFileData::addFile(const QString& fileName, QIODevice* file, const QString& mimeType)
 {
     if (d->finished) {
@@ -75,6 +76,7 @@ void PostFileData::addFile(const QString& fileName, QIODevice* file, const QStri
     QByteArray data = file->readAll();
     addFile(fileName, data, mimeType);
 }
+*/
 
 void PostFileData::addFile(const QString& fileName, const QByteArray& file, const QString& mimeType)
 {
@@ -86,9 +88,9 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"localfile\"; filename=\"" + fileName.toUtf8()
         + "\"\r\nContent-Type: " + mimeType.toAscii() + "\r\n\r\n");
-    
+
     d->buffer.append(data);
-    d->buffer.append(file.data() + QByteArray("\r\n"));
+    d->buffer.append(file + QByteArray("\r\n"));
 }
 
 QNetworkRequest PostFileData::request()
