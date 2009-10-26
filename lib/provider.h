@@ -128,11 +128,11 @@ class ATTICA_EXPORT Provider :public QObject
     PostJob* voteForContent(const QString& contentId, bool positiveVote);
 
     ItemPostJob<Content>* addNewContent(const Category& category, const Content& newContent);
-    PostJob* editContent(const QString& contentId, const Content& content);
+    ItemPostJob<Content>* editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent);
     PostJob* deleteContent(const QString& contentId);
 
-    PostJob* setDownloadFile(const QString& contentId, QIODevice* payload);
-    PostJob* setDownloadFile(const QString& contentId, const QByteArray& payload);
+    PostJob* setDownloadFile(const QString& contentId, const QString& fileName, QIODevice* payload);
+    PostJob* setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload);
     PostJob* deleteDownloadFile(const QString& contentId);
 
     /**
@@ -141,7 +141,7 @@ class ATTICA_EXPORT Provider :public QObject
      * @param previewId each content can have previews with the id 1,2 or 3
      * @param payload the image file
      */
-    PostJob* setPreviewImage(const QString& contentId, const QString& previewId, const QFile& payload);
+    PostJob* setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image);
     PostJob* deletePreviewImage(const QString& contentId, const QString& previewId);
 
     // KnowledgeBase part of OCS

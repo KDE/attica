@@ -331,23 +331,81 @@ ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Co
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
 
+
+ItemPostJob<Content>* Provider::editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent)
+{
+    // FIXME I get a server error message here, though the name of the item is changed
+    QUrl url = createUrl("content/edit/" + contentId);
+    StringMap pars(updatedContent.attributes());
+
+    pars.insert("type", updatedCategory.id());
+    pars.insert("name", updatedContent.name());
+
+    qDebug() << "Parameter map: " << pars;
+
+    return new ItemPostJob<Content>(d->m_qnam, createRequest(url), pars);
+}
+
+
+/*
 PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
 {
     QUrl url = createUrl("content/uploaddownload/" + contentId);
     PostFileData postRequest(url);
     // FIXME mime type
-    postRequest.addFile("localfile", payload, "application/octet-stream");
+    //postRequest.addFile("localfile", payload, "application/octet-stream");
+    postRequest.addFile("localfile", payload, "image/jpeg");
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
+*/
 
-PostJob* Provider::setDownloadFile(const QString& contentId, const QByteArray& payload)
+PostJob* Provider::deleteContent(const QString& contentId)
+{
+    QUrl url = createUrl("content/delete/" + contentId);
+    PostFileData postRequest(url);
+    postRequest.addArgument("contentid", contentId);
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+}
+
+PostJob* Provider::setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload)
 {
     QUrl url = createUrl("content/uploaddownload/" + contentId);
     PostFileData postRequest(url);
     // FIXME mime type
-    postRequest.addFile("localfile", payload, "application/octet-stream");
+    postRequest.addFile(fileName, payload, "application/octet-stream");
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
+
+PostJob* Provider::deleteDownloadFile(const QString& contentId)
+{
+    QUrl url = createUrl("content/deletedownload/" + contentId);
+    PostFileData postRequest(url);
+    postRequest.addArgument("contentid", contentId);
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+}
+
+PostJob* Provider::setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image)
+{
+    QUrl url = createUrl("content/uploadpreview/" + contentId + '/' + previewId);
+
+    PostFileData postRequest(url);
+    postRequest.addArgument("contentid", contentId);
+    postRequest.addArgument("previewid", previewId);
+    // FIXME mime type
+    postRequest.addFile(fileName, image, "application/octet-stream");
+
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+}
+
+PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& previewId)
+{
+    QUrl url = createUrl("content/deletepreview/" + contentId + '/' + previewId);
+    PostFileData postRequest(url);
+    postRequest.addArgument("contentid", contentId);
+    postRequest.addArgument("previewid", previewId);
+    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+}
+
 
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
@@ -355,7 +413,6 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
     postParameters.insert("vote", positiveVote ? "good" : "bad");
     return new PostJob(d->m_internals, createRequest("content/vote/" + contentId), postParameters);
 }
-
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
