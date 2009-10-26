@@ -56,6 +56,13 @@ bool QtInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& p
 }
 
 
-QList<QUrl> Attica::QtInternals::getDefaultProviderFiles() const {
+QList<QUrl> Attica::QtInternals::getDefaultProviderFiles() const
+{
     return QList<QUrl>();
+}
+
+
+QNetworkAccessManager* Attica::QtInternals::nam()
+{
+    return &m_qnam;
 }

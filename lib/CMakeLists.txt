@@ -1,6 +1,5 @@
 set(ocsclient_SRCS
    internals.cpp
-   kdeinternals.cpp
    qtinternals.cpp
    parser.cpp
    getjob.cpp
@@ -39,7 +38,8 @@ set(ocsclient_SRCS
 kde4_add_library(ocsclient SHARED ${ocsclient_SRCS})
 set_target_properties(ocsclient PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 
-target_link_libraries(ocsclient ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KABC_LIBS})
+# FIXME: Remove KDE4 Libraries
+target_link_libraries(ocsclient ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTGUI_LIBRARY} ${KDE4_KIO_LIBRARY})
 
 install(TARGETS ocsclient ${INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -59,3 +59,12 @@ install(FILES
     DESTINATION ${INCLUDE_INSTALL_DIR}/attica COMPONENT Devel
 )
 
+
+
+set(attica_kde_SRCS kdeinternals.cpp internals.cpp)
+kde4_add_plugin(attica_kde ${attica_kde_SRCS})
+
+target_link_libraries(attica_kde ${KDE4_KIO_LIBS} ${QT_QTMAIN_LIBRARY} ${QT_QTCORE_LIBRARY})
+
+# FIXME: Use a more sane destination
+install(TARGETS attica_kde DESTINATION "~")

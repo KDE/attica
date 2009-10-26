@@ -22,6 +22,7 @@
 #include "providermanager.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QPluginLoader>
 #include <QtCore/QSet>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QTimer>
@@ -30,7 +31,7 @@
 #include <QtXml/QXmlStreamReader>
 
 #include "internals.h"
-#include "kdeinternals.h"
+#include "qtinternals.h"
 
 
 using namespace Attica;
@@ -46,7 +47,7 @@ public:
     QHash<QUrl, QList<QString> > m_providerFiles;
 
     Private()
-        : m_internals(new KDEInternals)
+        : m_internals(0)
     {
     }
     ~Private()
@@ -55,9 +56,25 @@ public:
 };
 
 
+Internals* ProviderManager::loadInternals() {
+    QPluginLoader loader("attica_kde.so");
+    QObject* plugin = loader.instance();
+    if (plugin) {
+        Internals* kdeInternals = qobject_cast<Internals*>(plugin);
+        if (kdeInternals) {
+            qDebug() << "Using Attica with KDE support";
+            return kdeInternals;
+        }
+    }
+    qDebug() << "Using Attica without KDE support";
+    return new QtInternals;
+}
+
+
 ProviderManager::ProviderManager()
     : d(new Private)
 {
+    d->m_internals = QSharedPointer<Internals>(loadInternals());
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
 }
 

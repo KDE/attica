@@ -33,8 +33,11 @@ namespace KWallet {
 
 namespace Attica {
 
-class KDEInternals : public Attica::Internals
+class KDEInternals : public QObject, public Attica::Internals
 {
+    Q_OBJECT
+    Q_INTERFACES(Attica::Internals)
+
 public:
     KDEInternals();
     virtual QList<QUrl> getDefaultProviderFiles() const;

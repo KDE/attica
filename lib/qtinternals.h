@@ -38,6 +38,7 @@ public:
     virtual QNetworkReply* get(const QNetworkRequest& request);
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
+    virtual QNetworkAccessManager* nam();
 
 private:
     QNetworkAccessManager m_qnam;

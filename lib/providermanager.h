@@ -65,6 +65,7 @@ private:
     ProviderManager& operator=(const ProviderManager& other);
 
     void initNetworkAccesssManager();
+    Internals* loadInternals();
 
     void parseProviderFile(const QString& xmlString);
 

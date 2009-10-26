@@ -99,3 +99,9 @@ QList<QUrl> KDEInternals::getDefaultProviderFiles() const {
 QNetworkAccessManager* Attica::KDEInternals::nam() {
     return &m_qnam;
 }
+
+
+Q_EXPORT_PLUGIN2(attica_kde, Attica::KDEInternals)
+
+
+#include "kdeinternals.moc"

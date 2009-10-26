@@ -23,6 +23,7 @@
 #define ATTICA_INTERNALS_H
 
 #include <QtCore/QList>
+#include <QtCore/QtPlugin>
 
 
 class QByteArray;
@@ -49,6 +50,8 @@ public:
 };
 
 }
+
+Q_DECLARE_INTERFACE(Attica::Internals, "org.kde.Attica.Internals/1.0")
 
 
 #endif
