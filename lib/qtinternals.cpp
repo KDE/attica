@@ -46,12 +46,18 @@ QNetworkReply* QtInternals::get(const QNetworkRequest& request)
 
 bool QtInternals::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password)
 {
+    Q_UNUSED(baseUrl)
+    Q_UNUSED(user)
+    Q_UNUSED(password)
     return false;
 }
 
 
 bool QtInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& password)
 {
+    Q_UNUSED(baseUrl)
+    Q_UNUSED(user)
+    Q_UNUSED(password)
     return false;
 }
 
