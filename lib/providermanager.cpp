@@ -206,6 +206,7 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
     } else {
         qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever...";
     }
+    
     reply->abort();
 }
 

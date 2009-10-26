@@ -64,6 +64,9 @@ void ItemPostJob<T>::parse(const QString& xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
+    if (p.metadata().statusCode != 100) {
+        setError(p.metadata().statusCode);
+    }
 }
 
 template <class T>

@@ -31,10 +31,13 @@ using namespace Attica;
 class BaseJob::Private
 {
 public:
+    int m_error;
+    QString m_errorString;
     QSharedPointer<QNetworkAccessManager> m_nam;
     QNetworkReply* m_reply;
 
-    Private(QSharedPointer<QNetworkAccessManager> nam): m_nam(nam), m_reply(0)
+    Private(QSharedPointer<QNetworkAccessManager> nam)
+        : m_error(0), m_nam(nam), m_reply(0)
     {
     }
 };
@@ -52,15 +55,26 @@ BaseJob::~BaseJob()
 }
 
 
+int BaseJob::error() const {
+    return d->m_error;
+}
+
+
+QString BaseJob::errorString() const {
+    return d->m_errorString;
+}
+
+
 void BaseJob::dataFinished()
 {
-    qDebug() << "DataFinished";
-    QByteArray data = d->m_reply->readAll();
-    qDebug() << data;
-
-    qDebug() << "Before parse(data)";
-    parse(data);
-    qDebug() << "After parse(data)";
+    if (d->m_reply->error() == QNetworkReply::NoError) {
+        QByteArray data = d->m_reply->readAll();
+        qDebug() << data;
+        parse(data);
+    } else {
+        // FIXME: Use more fine-grained error messages
+        setError(1);
+    }
     emit finished(this);
 
     deleteLater();
@@ -83,6 +97,16 @@ void BaseJob::doWork()
 QNetworkAccessManager* BaseJob::nam()
 {
     return d->m_nam.data();
+}
+
+
+void BaseJob::setError(int errorCode) {
+    d->m_error = errorCode;
+}
+
+
+void BaseJob::setErrorString(const QString& errorText) {
+    d->m_errorString = errorText;
 }
 
 

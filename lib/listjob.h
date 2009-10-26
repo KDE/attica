@@ -34,6 +34,7 @@ struct ListJobMetadata
 {
     QString status;
     QString message;
+    int statusCode;
     int totalItems;
     int itemsPerPage;
 };

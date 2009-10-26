@@ -44,9 +44,8 @@ public:
 
     virtual ~BaseJob();
 
-// FIXME
-    int error() { return 0; }
-    QString errorString() { return QString(); }
+    int error() const;
+    QString errorString() const;
 
 public Q_SLOTS:
     void start();
@@ -61,6 +60,8 @@ protected:
     virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
     QNetworkAccessManager* nam();
+    void setError(int errorCode);
+    void setErrorString(const QString& errorString);
 
 private Q_SLOTS:
     void doWork();

@@ -100,6 +100,8 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
         } else if (xml.isStartElement()) {
             if (xml.name() == "status") {
                 m_metadata.status = xml.readElementText();
+            } else if (xml.name() == "statuscode") {
+                m_metadata.statusCode = xml.readElementText().toInt();
             } else if (xml.name() == "message") {
                 m_metadata.message = xml.readElementText();
             } else if (xml.name() == "totalitems") {

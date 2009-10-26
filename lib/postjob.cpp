@@ -66,67 +66,6 @@ QNetworkReply* PostJob::executeRequest()
 }
 
 
-/*QString PostJob::status() const
-{
-  return m_status;
-}
-
-QString PostJob::statusMessage() const
-{
-  return m_statusMessage;
-}*/
-
-/*void PostJob::slotJobResult( KJob *job )
-{
-  m_job = 0;
-
-  qDebug() << "RESPONSE" << m_responseData;
-
-  if ( job->error() ) {
-    setError( job->error() );
-    setErrorText( job->errorText() );
-  } else {
-    qDebug() << "No error ";
-    
-    QXmlStreamReader xml( m_responseData );
-    
-    while ( !xml.atEnd() ) {
-      xml.readNext();
-      
-      if ( xml.isStartElement() && xml.name() == "meta" ) {
-        while ( !xml.atEnd() ) {
-          xml.readNext();
-         
-          if ( xml.isStartElement() ) {
-            if ( xml.name() == "status" ) {
-              m_status = xml.readElementText();
-            } else if ( xml.name() == "message" ) {
-              m_statusMessage = xml.readElementText();
-            }
-          }
-          
-          if ( xml.isEndElement() && xml.name() == "meta" ) break;
-        }
-      }
-    }
-    
-    qDebug() << "STATUS:" << m_status;
-    
-    if ( m_status != "ok" ) {
-      setError( KJob::UserDefinedError );
-      setErrorText( m_status + ": " + m_statusMessage );
-    }
-  }
-  
-  emitResult();
-}
-
-void PostJob::slotJobData( KIO::Job *, const QByteArray &data )
-{
-  m_responseData.append( QString::fromUtf8( data.data(), data.size() + 1 ) );
-}*/
-
-
 void PostJob::parse(const QString& )
 {
 }
