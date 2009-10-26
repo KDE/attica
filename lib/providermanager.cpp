@@ -29,12 +29,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtXml/QXmlStreamReader>
 
-
-#define ATTICA_USE_KDE
-#ifdef ATTICA_USE_KDE
-#include <KIO/AccessManager>
-#include <KWallet/Wallet>
-#endif
+#include "internals.h"
+#include "kdeinternals.h"
 
 
 using namespace Attica;
@@ -45,19 +41,14 @@ uint qHash(const QUrl& key) {
 
 class ProviderManager::Private {
 public:
+    QSharedPointer<Internals> m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSharedPointer<QNetworkAccessManager> m_qnam;
-    KWallet::Wallet* m_wallet;
 
     Private()
-#ifndef ATTICA_USE_KDE
-        : m_qnam(new KIO::AccessManager(0)),
-          m_wallet(0)
-#else
-        : m_qnam(new QNetworkAccessManager),
-          m_wallet(0)
-#endif
+        : m_internals(new KDEInternals),
+          m_qnam(new QNetworkAccessManager)
     {
     }
     ~Private()
@@ -175,7 +166,6 @@ QList<QUrl> ProviderManager::providerFiles() const {
 
 void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 {
-    // FIXME: This is a KDE specific authentication only atm
     QUrl baseUrl;
     foreach (const QUrl& url, d->m_providers.keys()) {
         if (url.isParentOf(reply->url())) {
@@ -184,24 +174,12 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
         }
     }
     
+    QString user;
+    QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
-        QString networkWallet = KWallet::Wallet::NetworkWallet();
-        if (!KWallet::Wallet::keyDoesNotExist(networkWallet, "Attica", baseUrl.toString())) {
-            if (!d->m_wallet) {
-                d->m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
-                qDebug() << "ProviderManager::authenticate: Opening wallet failed";
-            }
-            if (d->m_wallet) {
-                d->m_wallet->setFolder("Attica");
-                QMap<QString, QString> entries;
-                d->m_wallet->readMap(baseUrl.toString(), entries);
-                auth->setUser(entries.value("user"));
-                auth->setPassword(entries.value("password"));
-                return;
-            }
-        } else {
-            // FIXME notify the app that uses attica that a wallet doesn't exist
-            qDebug() << "ProviderManager::authenticate: Wallet entry not found";
+        if (d->m_internals->loadCredentials(baseUrl, user, password)) {
+            auth->setUser(user);
+            auth->setPassword(password);
         }
     } else {
         qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever...";
