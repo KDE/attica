@@ -96,9 +96,9 @@ void BaseJob::doWork()
 }
 
 
-QNetworkAccessManager* BaseJob::nam()
+Internals* BaseJob::internals()
 {
-    return d->m_internals->nam();
+    return d->m_internals.data();
 }
 
 

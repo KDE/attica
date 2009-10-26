@@ -61,7 +61,7 @@ protected Q_SLOTS:
 protected:
     virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
-    QNetworkAccessManager* nam();
+    Internals* internals();
     void setError(int errorCode);
     void setErrorString(const QString& errorString);
 

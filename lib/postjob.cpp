@@ -21,12 +21,13 @@
 
 #include "postjob.h"
 
-#include <klocale.h>
-
 #include <QXmlStreamReader>
 #include <QDebug>
 
 #include <QtNetwork/QNetworkAccessManager>
+
+#include "internals.h"
+
 
 using namespace Attica;
 
@@ -59,9 +60,9 @@ PostJob::PostJob(const QSharedPointer<Internals>& internals, const QNetworkReque
 QNetworkReply* PostJob::executeRequest()
 {
     if (m_ioDevice) {
-        return nam()->post(m_request, m_ioDevice);
+        return internals()->post(m_request, m_ioDevice);
     } else {
-        return nam()->post(m_request, m_byteArray);
+        return internals()->post(m_request, m_byteArray);
     }
 }
 

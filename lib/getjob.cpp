@@ -37,7 +37,7 @@ GetJob::GetJob(const QSharedPointer<Internals>& internals, const QNetworkRequest
 
 QNetworkReply* GetJob::executeRequest()
 {
-    return nam()->get(m_request);
+    return internals()->get(m_request);
 }
 
 
