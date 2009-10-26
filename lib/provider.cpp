@@ -343,7 +343,7 @@ ItemPostJob<Content>* Provider::editContent(const Category& updatedCategory, con
 
     qDebug() << "Parameter map: " << pars;
 
-    return new ItemPostJob<Content>(d->m_qnam, createRequest(url), pars);
+    return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
 
 
@@ -364,7 +364,7 @@ PostJob* Provider::deleteContent(const QString& contentId)
     QUrl url = createUrl("content/delete/" + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument("contentid", contentId);
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload)
@@ -381,7 +381,7 @@ PostJob* Provider::deleteDownloadFile(const QString& contentId)
     QUrl url = createUrl("content/deletedownload/" + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument("contentid", contentId);
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image)
@@ -394,7 +394,7 @@ PostJob* Provider::setPreviewImage(const QString& contentId, const QString& prev
     // FIXME mime type
     postRequest.addFile(fileName, image, "application/octet-stream");
 
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& previewId)
@@ -403,7 +403,7 @@ PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& p
     PostFileData postRequest(url);
     postRequest.addArgument("contentid", contentId);
     postRequest.addArgument("previewid", previewId);
-    return new PostJob(d->m_qnam, postRequest.request(), postRequest.data());
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 
