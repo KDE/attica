@@ -195,6 +195,7 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
         if (d->m_internals->loadCredentials(baseUrl, user, password)) {
             auth->setUser(user);
             auth->setPassword(password);
+            return;
         }
     } else {
         qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever...";
