@@ -42,8 +42,6 @@ class ATTICA_EXPORT BaseJob : public QObject
 public:
     BaseJob(const QSharedPointer<Internals>& internals);
 
-    BaseJob(QNetworkReply* data, QIODevice* payload);
-
     virtual ~BaseJob();
 
     int error() const;
