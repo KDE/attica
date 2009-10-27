@@ -49,7 +49,7 @@ template <class T>
 void ListJob<T>::parse(const QString& xml)
 {
     typename T::Parser parser;
-    m_itemList = typename T::Parser().parseList(xml);
+    m_itemList = parser.parseList(xml);
     m_metadata = parser.metadata();
     if (m_metadata.statusCode != 100) {
         setError(m_metadata.statusCode);
