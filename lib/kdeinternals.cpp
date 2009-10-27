@@ -21,13 +21,16 @@
 
 #include "kdeinternals.h"
 
+#include <QtCore/QDebug>
+
+#include <KConfigGroup>
 #include <KWallet/Wallet>
 
 
 using namespace Attica;
 
 KDEInternals::KDEInternals()
-    : m_qnam(0), m_wallet(0)
+    : m_config(KSharedConfig::openConfig("atticarc")), m_qnam(0), m_wallet(0)
 {
 }
 
@@ -91,8 +94,14 @@ bool KDEInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& 
 
 
 QList<QUrl> KDEInternals::getDefaultProviderFiles() const {
-    // FIXME: Return KDE provider files
-    return QList<QUrl>();
+    KConfigGroup group(m_config, "General");
+    QStringList pathStrings = group.readPathEntry("providerFiles", QStringList("http://download.kde.org/ocs/providers.xml"));
+    QList<QUrl> paths;
+    foreach (const QString& pathString, pathStrings) {
+        paths.append(QUrl(pathString));
+    }
+    qDebug() << "Loaded paths from config:" << paths;
+    return paths;
 }
 
 
