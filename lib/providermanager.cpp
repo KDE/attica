@@ -202,6 +202,7 @@ QList<QUrl> ProviderManager::providerFiles() const {
 
 void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 {
+    qDebug() << "ProviderManager::authenticate";
     QUrl baseUrl;
     foreach (const QUrl& url, d->m_providers.keys()) {
         if (url.isParentOf(reply->url())) {
