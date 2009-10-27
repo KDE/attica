@@ -22,6 +22,7 @@
 #include "providermanager.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QPluginLoader>
 #include <QtCore/QSet>
 #include <QtCore/QSharedPointer>
@@ -91,9 +92,9 @@ void ProviderManager::clear() {
 
 
 void ProviderManager::init() {
-    QUrl url("http://api.opendesktop.dev.hive01.com/v1/");
-    d->m_providers.insert(url, Provider(d->m_internals, url, "OpenDesktop.org", QUrl()));
-    emit providersChanged();
+    foreach (const QUrl& url, d->m_internals->getDefaultProviderFiles()) {
+        addProviderFile(url);
+    }
 }
 
 ProviderManager::~ProviderManager()
@@ -101,20 +102,20 @@ ProviderManager::~ProviderManager()
     delete d;
 }
 
-void ProviderManager::addProviderFile(const QUrl& file)
+void ProviderManager::addProviderFile(const QUrl& url)
 {
     // TODO: use qnam::get to get the file and then parse it
     
-    // For local files:
-    /*
-    QFile file(localFile);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
-        return;
+    QString localFile = url.toLocalFile();
+    if (!localFile.isEmpty()) {
+        qDebug() << "ProviderManager::addProviderFile: opening local file " << url.toString();
+        QFile file(localFile);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
+            return;
+        }
+        addProviderFromXml(file.readAll());
     }
-    addProviderFromXml(file.readAll());
-    file.close();
-    */
 }
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
@@ -149,9 +150,12 @@ void ProviderManager::parseProviderFile(const QString& xmlString)
                     if (xml.name() == "icon") {
                         icon = QUrl(xml.readElementText());
                     }
-                }         
+                } else if (xml.isEndElement() && xml.name() == "provider") {
+                    break;
+                }
             }
             if (!baseUrl.isEmpty()) {
+                qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon));
                 emit providersChanged();
             }
