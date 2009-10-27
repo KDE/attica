@@ -24,6 +24,7 @@
 
 #include "internals.h"
 
+#include <KSharedConfig>
 #include <KIO/AccessManager>
 
 
@@ -49,6 +50,7 @@ public:
     virtual QNetworkAccessManager* nam();
 
 private:
+    KSharedConfigPtr m_config;
     // FIXME: Change to KIO::AccessManager
     QNetworkAccessManager m_qnam;
     KWallet::Wallet* m_wallet;
