@@ -131,20 +131,20 @@ void ProviderManager::addProviderFile(const QUrl& url)
 
 void ProviderManager::fileFinished(const QString& url) {
     QNetworkReply* reply = d->m_downloads.take(url);
-    parseProviderFile(reply->readAll());
+    parseProviderFile(reply->readAll(), url);
 }
 
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
 {
-    parseProviderFile(providerXml);
+    parseProviderFile(providerXml, QString());
 }
 
 void ProviderManager::removeProviderFile(const QUrl& file) {
     // FIXME: Implement
 }
 
-void ProviderManager::parseProviderFile(const QString& xmlString)
+void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
 {
     qDebug() << "parseProviderFile" << xmlString;
     QXmlStreamReader xml(xmlString);

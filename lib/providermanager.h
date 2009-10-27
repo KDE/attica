@@ -68,7 +68,7 @@ private:
     void initNetworkAccesssManager();
     Internals* loadInternals();
 
-    void parseProviderFile(const QString& xmlString);
+    void parseProviderFile(const QString& xmlString, const QString& url);
 
     class Private;
     Private* const d;
