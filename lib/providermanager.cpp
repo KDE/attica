@@ -25,6 +25,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QPluginLoader>
 #include <QtCore/QSet>
+#include <QtCore/QSignalMapper>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QTimer>
 #include <QtNetwork/QAuthenticator>
@@ -46,6 +47,8 @@ public:
     QSharedPointer<Internals> m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
+    QSignalMapper m_downloadMapping;
+    QHash<QString, QNetworkReply*> m_downloads;
 
     Private()
         : m_internals(0)
@@ -77,6 +80,7 @@ ProviderManager::ProviderManager()
 {
     d->m_internals = QSharedPointer<Internals>(loadInternals());
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }
 
 void ProviderManager::loadDefaultProviders()
@@ -115,8 +119,25 @@ void ProviderManager::addProviderFile(const QUrl& url)
             return;
         }
         addProviderFromXml(file.readAll());
+    } else {
+        if (!d->m_downloads.contains(url.toString())) {
+            QNetworkReply* reply = d->m_internals->get(QNetworkRequest(url));
+            connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
+            d->m_downloadMapping.setMapping(reply, url.toString());
+            d->m_downloads.insert(url.toString(), reply);
+        }
     }
 }
+
+
+void ProviderManager::fileFinished(const QString& url) {
+    qDebug() << "File finished" << url;
+    qDebug() << d->m_downloads.keys();
+    QNetworkReply* reply = d->m_downloads.take(url);
+    qDebug() << reply;
+    parseProviderFile(reply->readAll());
+}
+
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
 {

@@ -56,6 +56,7 @@ Q_SIGNALS:
     void providersChanged();
 
 private Q_SLOTS:
+    void fileFinished(const QString& url);
     void authenticate(QNetworkReply*, QAuthenticator*);
     void proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator);
     void init();
