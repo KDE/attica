@@ -112,7 +112,6 @@ void ProviderManager::addProviderFile(const QUrl& url)
     
     QString localFile = url.toLocalFile();
     if (!localFile.isEmpty()) {
-        qDebug() << "ProviderManager::addProviderFile: opening local file " << url.toString();
         QFile file(localFile);
         if (!file.open(QIODevice::ReadOnly)) {
             qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
@@ -131,10 +130,7 @@ void ProviderManager::addProviderFile(const QUrl& url)
 
 
 void ProviderManager::fileFinished(const QString& url) {
-    qDebug() << "File finished" << url;
-    qDebug() << d->m_downloads.keys();
     QNetworkReply* reply = d->m_downloads.take(url);
-    qDebug() << reply;
     parseProviderFile(reply->readAll());
 }
 
