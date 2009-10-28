@@ -36,7 +36,7 @@ class Parser {
 public:
     T parse(const QString& xml);
     typename T::List parseList(const QString& xml);
-    ListJobMetadata metadata() const;
+    JobMetadata metadata() const;
     virtual ~Parser();
 
 protected:
@@ -45,7 +45,7 @@ protected:
 
 private:
     void parseMetadataXml(QXmlStreamReader& xml);
-    ListJobMetadata m_metadata;
+    JobMetadata m_metadata;
 };
 
 }

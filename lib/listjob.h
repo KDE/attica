@@ -30,14 +30,6 @@ class QNetworkRequest;
 
 namespace Attica {
 
-struct ListJobMetadata
-{
-    QString status;
-    QString message;
-    int statusCode;
-    int totalItems;
-    int itemsPerPage;
-};
 
 template <class T>
 class ATTICA_EXPORT ListJob : public GetJob
@@ -45,14 +37,12 @@ class ATTICA_EXPORT ListJob : public GetJob
     public:
         ListJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
         typename T::List itemList() const;
-        ListJobMetadata metadata() const;
 
     protected:
         virtual void parse(const QString& xml);
 
     private:
         typename T::List m_itemList;
-        ListJobMetadata m_metadata;
 };
 
 }

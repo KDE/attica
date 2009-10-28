@@ -30,21 +30,19 @@ ItemJob<T>::ItemJob(const QSharedPointer<Internals>& internals, const QNetworkRe
 {
 }
 
-
 template <class T>
 void ItemJob<T>::parse(const QString& xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
+    setMetadata(p.metadata());
 }
-
 
 template <class T>
 T ItemJob<T>::result() const
 {
     return m_item;
 }
-
 
 
 template <class T>
@@ -64,9 +62,7 @@ void ItemPostJob<T>::parse(const QString& xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
-    if (p.metadata().statusCode != 100) {
-        setError(p.metadata().statusCode);
-    }
+    setMetadata(p.metadata());
 }
 
 template <class T>

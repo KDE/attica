@@ -35,6 +35,29 @@ namespace Attica {
 
 class Internals;
 
+    /**
+     *Status messages from the server
+     */
+    class JobMetadata
+    {
+    public:
+        JobMetadata();
+
+        /// The status of the job, for example "Ok"
+        QString statusString;
+        /// The status as int, for easier interpretation.
+        /// 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services 
+        int statusCode;
+        
+        /// An optional additional message from the server
+        QString message;
+        
+        /// The number of items returned by this job (only relevant for list jobs)
+        int totalItems;
+        /// The number of items per page the server was asked for
+        int itemsPerPage;
+    };
+
 class ATTICA_EXPORT BaseJob : public QObject
 {
     Q_OBJECT
@@ -44,9 +67,20 @@ public:
 
     virtual ~BaseJob();
 
-    int error() const;
-    QString errorString() const;
+    /**
+     * The status as int, for easier interpretation.
+     * 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
+     */
+    int statusCode() const;
 
+    /**
+     * The status of the job, for example "Ok"
+     */
+    QString statusString() const;
+    
+    JobMetadata metadata() const;
+    void setMetadata(const JobMetadata& data) const;
+    
 public Q_SLOTS:
     void start();
 

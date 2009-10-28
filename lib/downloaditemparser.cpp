@@ -20,15 +20,15 @@
 
 using namespace Attica;
 
-DownloadItem::Parser::Parser()
-{
 
+QStringList DownloadItem::Parser::xmlElement() const
+{
+    return QStringList("content");
 }
 
 
-DownloadItem DownloadItem::Parser::parse(const QString& xmlString)
+DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
 {
-    QXmlStreamReader xml( xmlString );
     DownloadItem item;
 
     while ( !xml.atEnd() ) {
@@ -41,5 +41,3 @@ DownloadItem DownloadItem::Parser::parse(const QString& xmlString)
     }
     return item;
 }
-
-

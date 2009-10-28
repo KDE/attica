@@ -28,22 +28,32 @@
 #include "internals.h"
 
 
+
+
 using namespace Attica;
+
+
+JobMetadata::JobMetadata()
+{
+    // values that make sense for single item jobs where these are not set usually
+    totalItems = 1;
+    itemsPerPage = 1;
+    statusCode = 0;
+}
+
 
 class BaseJob::Private
 {
 public:
-    int m_error;
-    QString m_errorString;
+    JobMetadata m_metadata;
     QSharedPointer<Internals> m_internals;
     QNetworkReply* m_reply;
 
     Private(QSharedPointer<Internals> internals)
-        : m_error(0), m_internals(internals), m_reply(0)
+        : m_internals(internals), m_reply(0)
     {
     }
 };
-
 
 BaseJob::BaseJob(const QSharedPointer<Internals>& internals)
     : d(new Private(internals))
@@ -56,26 +66,17 @@ BaseJob::~BaseJob()
     delete d;
 }
 
-
-int BaseJob::error() const {
-    return d->m_error;
-}
-
-
-QString BaseJob::errorString() const {
-    return d->m_errorString;
-}
-
-
 void BaseJob::dataFinished()
 {
     if (d->m_reply->error() == QNetworkReply::NoError) {
         QByteArray data = d->m_reply->readAll();
-        qDebug() << data;
+        //qDebug() << data;
         parse(data);
     } else {
         // FIXME: Use more fine-grained error messages
-        setError(1);
+        qWarning() << "Attica::BaseJob::dataFinished" << d->m_reply->readAll();
+        d->m_metadata.statusString = QLatin1String("Network reply error");
+        d->m_metadata.statusCode = -1;
     }
     emit finished(this);
 
@@ -102,14 +103,36 @@ Internals* BaseJob::internals()
 }
 
 
+JobMetadata BaseJob::metadata() const
+{
+    return d->m_metadata;
+}
+
+void BaseJob::setMetadata(const Attica::JobMetadata& data) const
+{
+    d->m_metadata = data;
+}
+
+
+int BaseJob::statusCode() const
+{
+    return d->m_metadata.statusCode;
+}
+
+/*
 void BaseJob::setError(int errorCode) {
-    d->m_error = errorCode;
+    d->m_metadata.statusCode = errorCode;
 }
+*/
 
-
+QString BaseJob::statusString() const
+{
+    return d->m_metadata.message;
+}
+/*
 void BaseJob::setErrorString(const QString& errorText) {
-    d->m_errorString = errorText;
+    d->m_metadata.message = errorText;
 }
-
+*/
 
 #include "atticabasejob.moc"

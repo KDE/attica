@@ -32,6 +32,7 @@ namespace Attica {
 class ATTICA_EXPORT DownloadItem
 {
 public:
+    typedef QList<DownloadItem> List;
     class Parser;
     
     /**

@@ -40,7 +40,6 @@
 #include "personparser.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
-#include "postjobstatusparser.h"
 
 using namespace Attica;
 
@@ -52,13 +51,13 @@ template class ListJob<Folder>;
 template class ListJob<Message>;
 template class ListJob<Person>;
 template class ListJob<KnowledgeBaseEntry>;
+template class ListJob<DownloadItem>;
 
 template class ItemJob<Content>;
 template class ItemJob<Event>;
 template class ItemJob<Message>;
 template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
-template class ItemJob<PostJobStatus>;
 
 template class ItemPostJob<Content>;
 

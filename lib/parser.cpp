@@ -99,7 +99,7 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
             break;
         } else if (xml.isStartElement()) {
             if (xml.name() == "status") {
-                m_metadata.status = xml.readElementText();
+                m_metadata.statusString = xml.readElementText();
             } else if (xml.name() == "statuscode") {
                 m_metadata.statusCode = xml.readElementText().toInt();
             } else if (xml.name() == "message") {
@@ -115,6 +115,6 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
 
 
 template <class T>
-ListJobMetadata Parser<T>::metadata() const {
+JobMetadata Parser<T>::metadata() const {
     return m_metadata;
 }

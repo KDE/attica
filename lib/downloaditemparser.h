@@ -23,16 +23,15 @@ USA.
 #define ATTICA_DOWNLOADITEMPARSER_H
 
 #include "downloaditem.h"
-
-#include "atticaclient_export.h"
+#include "parser.h"
 
 namespace Attica {
 
-class DownloadItem::Parser
+class DownloadItem::Parser : public Attica::Parser<DownloadItem>
 {
-    public:
-        Parser();
-        DownloadItem parse( const QString &xmlString );
+private:
+    DownloadItem parseXml(QXmlStreamReader& xml);
+    QStringList xmlElement() const;
 };
 
 }

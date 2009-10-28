@@ -34,7 +34,6 @@
 #include "postfiledata.h"
 #include "itemjob.h"
 #include "listjob.h"
-#include "postjobstatus.h"
 
 #include <QNetworkAccessManager>
 #include <QDebug>

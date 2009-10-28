@@ -40,18 +40,9 @@ typename T::List ListJob<T>::itemList() const
 }
 
 template <class T>
-ListJobMetadata ListJob<T>::metadata() const
-{
-    return m_metadata;
-}
-
-template <class T>
 void ListJob<T>::parse(const QString& xml)
 {
     typename T::Parser parser;
     m_itemList = parser.parseList(xml);
-    m_metadata = parser.metadata();
-    if (m_metadata.statusCode != 100) {
-        setError(m_metadata.statusCode);
-    }
+    setMetadata(parser.metadata());
 }
