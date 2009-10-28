@@ -69,3 +69,4 @@ template class Parser<Folder>;
 template class Parser<KnowledgeBaseEntry>;
 template class Parser<Message>;
 template class Parser<Person>;
+template class Parser<DownloadItem>;
