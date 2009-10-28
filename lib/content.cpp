@@ -186,3 +186,18 @@ QString Attica::Content::version() const
 {
     return attribute("version");
 }
+
+QString Attica::Content::author()
+{
+    return attribute("personid");
+}
+
+QString Attica::Content::license()
+{
+    return attribute("licensetype");
+}
+
+QString Attica::Content::previewPicture(const QString& number)
+{
+    return attribute("previewpic" + number);
+}

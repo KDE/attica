@@ -158,7 +158,10 @@ class ATTICA_EXPORT Content
     DownloadUrlDescription downloadUrlDescription(int number);
 
 
-    
+    QString previewPicture(const QString& number);
+    QString license();
+    QString author();
+
     /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.
      * If the attribute already exists it gets overwritten.
@@ -180,8 +183,6 @@ class ATTICA_EXPORT Content
      */
     QMap<QString,QString> attributes() const;
 
-
-    
     
     /**
      * Checks whether this Content has an id
