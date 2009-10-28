@@ -113,8 +113,7 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
     }
 }
 
-
 template <class T>
-JobMetadata Parser<T>::metadata() const {
+BaseJob::Metadata Parser<T>::metadata() const {
     return m_metadata;
 }

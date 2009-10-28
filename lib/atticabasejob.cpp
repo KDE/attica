@@ -33,7 +33,7 @@
 using namespace Attica;
 
 
-JobMetadata::JobMetadata()
+BaseJob::Metadata::Metadata()
 {
     // values that make sense for single item jobs where these are not set usually
     totalItems = 1;
@@ -41,11 +41,10 @@ JobMetadata::JobMetadata()
     statusCode = 0;
 }
 
-
 class BaseJob::Private
 {
 public:
-    JobMetadata m_metadata;
+    Metadata m_metadata;
     QSharedPointer<Internals> m_internals;
     QNetworkReply* m_reply;
 
@@ -103,12 +102,12 @@ Internals* BaseJob::internals()
 }
 
 
-JobMetadata BaseJob::metadata() const
+BaseJob::Metadata BaseJob::metadata() const
 {
     return d->m_metadata;
 }
 
-void BaseJob::setMetadata(const Attica::JobMetadata& data) const
+void BaseJob::setMetadata(const Attica::BaseJob::Metadata& data) const
 {
     d->m_metadata = data;
 }
