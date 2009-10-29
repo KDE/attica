@@ -46,7 +46,6 @@ install(FILES
     providermanager.h
     provider.h
     person.h
-    personjob.h
     category.h
     itemjob.h
     listjob.h
