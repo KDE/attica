@@ -29,7 +29,7 @@
 #include "internals.h"
 #include "knowledgebaseentry.h"
 #include "message.h"
-#include "personjob.h"
+#include "person.h"
 #include "postjob.h"
 #include "postfiledata.h"
 #include "itemjob.h"
@@ -123,13 +123,13 @@ PostJob* Provider::registerAccount(const QString& id, const QString& password, c
 }
 
 
-PersonJob* Provider::requestPerson(const QString& id)
+ItemJob<Person>* Provider::requestPerson(const QString& id)
 {
   QUrl url = createUrl( "person/data/" + id );
   return doRequestPerson( url );
 }
 
-PersonJob* Provider::requestPersonSelf()
+ItemJob<Person>* Provider::requestPersonSelf()
 {
   QUrl url = createUrl( "person/self" );
   return doRequestPerson( url );
@@ -522,9 +522,9 @@ QNetworkRequest Provider::createRequest(const QString& path)
 }
 
 
-PersonJob* Provider::doRequestPerson(const QUrl& url)
+ItemJob<Person>* Provider::doRequestPerson(const QUrl& url)
 {
-  return new PersonJob(d->m_internals, createRequest(url));
+  return new ItemJob<Person>(d->m_internals, createRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)

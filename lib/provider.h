@@ -51,7 +51,6 @@ class Folder;
 class KnowledgeBaseEntry;
 class Message;
 class Person;
-class PersonJob;
 class PostJob;
 class Provider;
 
@@ -83,8 +82,8 @@ class ATTICA_EXPORT Provider :public QObject
     // Person part of OCS
 
     PostJob* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);
-    PersonJob* requestPerson(const QString& id);
-    PersonJob* requestPersonSelf();
+    ItemJob<Person>* requestPerson(const QString& id);
+    ItemJob<Person>* requestPersonSelf();
     ListJob<Person>* requestPersonSearchByName(const QString& name);
     ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance, int page = 0, int pageSize = 100);
     PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
@@ -160,7 +159,7 @@ class ATTICA_EXPORT Provider :public QObject
     // Convenience overload
     QNetworkRequest createRequest(const QString& path);
 
-    PersonJob* doRequestPerson(const QUrl& url);
+    ItemJob<Person>* doRequestPerson(const QUrl& url);
     ListJob<Person>* doRequestPersonList(const QUrl& url);
     ListJob<Activity>* doRequestActivityList(const QUrl& url);
     ListJob<Folder>* doRequestFolderList(const QUrl& url);

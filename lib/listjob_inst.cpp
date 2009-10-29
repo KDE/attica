@@ -58,7 +58,7 @@ template class ItemJob<Event>;
 template class ItemJob<Message>;
 template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
-
+template class ItemJob<Person>;
 template class ItemPostJob<Content>;
 
 template class Parser<Activity>;
