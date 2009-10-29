@@ -35,6 +35,7 @@
 #include "itemjob.h"
 #include "listjob.h"
 
+#include <QtCore/QStringList>
 #include <QNetworkAccessManager>
 #include <QDebug>
 #include <QUrl>

@@ -23,10 +23,9 @@
 
 #include <QtCore/QDate>
 #include <QtCore/QList>
+#include <QtCore/QMap>
 #include <QtCore/QSharedDataPointer>
-#include <QtGui/QPixmap>
-
-#include <QUrl>
+#include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
 
@@ -67,9 +66,6 @@ class ATTICA_EXPORT Person
 
     void setAvatarUrl( const QUrl & );
     QUrl avatarUrl() const;
-
-    void setAvatar( const QPixmap & );
-    QPixmap avatar() const;
 
     void setHomepage( const QString & );
     QString homepage() const;
