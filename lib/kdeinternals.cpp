@@ -32,6 +32,10 @@ using namespace Attica;
 KDEInternals::KDEInternals()
     : m_config(KSharedConfig::openConfig("atticarc")), m_qnam(0), m_wallet(0)
 {
+    QString networkWallet = KWallet::Wallet::NetworkWallet();
+    m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
+    m_wallet->createFolder("Attica");
+    m_wallet->setFolder("Attica");
 }
 
 
@@ -52,15 +56,7 @@ QNetworkReply* KDEInternals::get(const QNetworkRequest& request) {
 
 
 bool KDEInternals::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) {
-    QString networkWallet = KWallet::Wallet::NetworkWallet();
     if (!m_wallet) {
-        m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
-    }
-    if (!m_wallet) {
-        return false;
-    }
-    m_wallet->createFolder("Attica");
-    if (!m_wallet->setFolder("Attica")) {
         return false;
     }
     QMap<QString, QString> entries;
@@ -72,14 +68,7 @@ bool KDEInternals::saveCredentials(const QUrl& baseUrl, const QString& user, con
 
 
 bool KDEInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& password) {
-    QString networkWallet = KWallet::Wallet::NetworkWallet();
-    if (KWallet::Wallet::keyDoesNotExist(networkWallet, "Attica", baseUrl.toString())) {
-        return false;
-    }
     if (!m_wallet) {
-        m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
-    }
-    if (!m_wallet || !m_wallet->setFolder("Attica")) {
         return false;
     }
     QMap<QString, QString> entries;
