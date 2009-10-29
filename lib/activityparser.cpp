@@ -30,6 +30,7 @@ using namespace Attica;
 Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
 {
     Activity activity;
+    Person person;
     
     while (!xml.atEnd()) {
         xml.readNext();
@@ -38,7 +39,13 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
             if (xml.name() == "id") {
                 activity.setId(xml.readElementText());
             } else if (xml.name() == "personid") {
-                activity.setUser(xml.readElementText());
+                person.setId(xml.readElementText());
+            } else if (xml.name() == "avatarpic") {
+                person.setAvatarUrl(xml.readElementText());
+            } else if (xml.name() == "firstname") {
+                person.setFirstName(xml.readElementText());
+            } else if (xml.name() == "lastname") {
+                person.setLastName(xml.readElementText());
             } else if (xml.name() == "timestamp") {
                 QString timestampString = xml.readElementText();
                 timestampString.remove(QRegExp("\\+.*$"));
@@ -54,6 +61,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
         }
     }
 
+    activity.setAssociatedPerson(person);
     return activity;
 }
 

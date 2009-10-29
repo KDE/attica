@@ -29,7 +29,7 @@ using namespace Attica;
 class Activity::Private : public QSharedData {
     public:
         QString m_id;
-        QString m_user;
+        Person m_associatedPerson;
         QDateTime m_timestamp;
         QString m_message;
         QUrl m_link;
@@ -65,14 +65,14 @@ QString Activity::id() const
     return d->m_id;
 }
 
-void Activity::setUser( const QString &u )
+void Activity::setAssociatedPerson(const Person& associatedPerson)
 {
-  d->m_user = u;
+    d->m_associatedPerson = associatedPerson;
 }
 
-QString Activity::user() const
+Person Activity::associatedPerson() const
 {
-  return d->m_user;
+    return d->m_associatedPerson;
 }
 
 void Activity::setTimestamp( const QDateTime &date )

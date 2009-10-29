@@ -26,6 +26,7 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
+#include "person.h"
 
 
 class QDateTime;
@@ -79,16 +80,16 @@ class ATTICA_EXPORT Activity
     QString id() const;
 
     /**
-     * Sets the id of the user bound to the Activity.
-     * @param id the new user id
+     * Sets the user bound to the Activity.
+     * @param id the new user
      */
-    void setUser(const QString& id);
+    void setAssociatedPerson(const Person& associatedPerson);
 
     /**
-     * Gets the id of the user bound to the Activity.
-     * @return the user id
+     * Gets the user bound to the Activity.
+     * @return the user
      */
-    QString user() const;
+    Person associatedPerson() const;
 
     /**
      * Sets the timestamp the Activity has been published.
