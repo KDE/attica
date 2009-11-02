@@ -70,7 +70,7 @@ void BaseJob::dataFinished()
     if (d->m_reply->error() == QNetworkReply::NoError) {
         QByteArray data = d->m_reply->readAll();
         //qDebug() << data;
-        parse(data);
+        parse(QString::fromUtf8(data.constData()));
     } else {
         // FIXME: Use more fine-grained error messages
         qWarning() << "Attica::BaseJob::dataFinished" << d->m_reply->readAll();
