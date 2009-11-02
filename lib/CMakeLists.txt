@@ -41,17 +41,18 @@ target_link_libraries(ocsclient ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${Q
 install(TARGETS ocsclient ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
+    atticabasejob.h
     atticaclient_export.h
     content.h
-    providermanager.h
-    provider.h
-    person.h
     category.h
+    downloaditem.h
+    getjob.h
     itemjob.h
     listjob.h
-    getjob.h
+    person.h
     postjob.h
-    atticabasejob.h
+    providermanager.h
+    provider.h
     DESTINATION ${INCLUDE_INSTALL_DIR}/attica COMPONENT Devel
 )
 
