@@ -28,6 +28,7 @@
 #include <QtCore/QSignalMapper>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QTimer>
+#include <QtCore/QProcess>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkReply>
 #include <QtXml/QXmlStreamReader>
@@ -61,13 +62,35 @@ public:
 
 
 Internals* ProviderManager::loadInternals() {
-    QPluginLoader loader("attica_kde.so");
-    QObject* plugin = loader.instance();
-    if (plugin) {
-        Internals* kdeInternals = qobject_cast<Internals*>(plugin);
-        if (kdeInternals) {
-            qDebug() << "Using Attica with KDE support";
-            return kdeInternals;
+
+    QString program("kde4-config");
+    QStringList arguments;
+    arguments << "--path" << "lib";
+    
+    QProcess process;
+    process.start(program, arguments);
+    process.waitForFinished();
+
+    /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
+
+    QStringList paths = QString(process.readAllStandardOutput()).trimmed().split(':');
+    qDebug() << "Pfade: " << paths;
+
+    QString pluginName("attica_kde.so");
+    
+    foreach(QString path, paths) {
+        QString libraryPath(path + '/' + pluginName);
+        qDebug() << "trying to load " << libraryPath;
+        if (QFile::exists(libraryPath)) {
+            QPluginLoader loader(libraryPath);
+            QObject* plugin = loader.instance();
+            if (plugin) {
+                Internals* kdeInternals = qobject_cast<Internals*>(plugin);
+                if (kdeInternals) {
+                    qDebug() << "Using Attica with KDE support";
+                    return kdeInternals;
+                }
+            }
         }
     }
     qDebug() << "Using Attica without KDE support";

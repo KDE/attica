@@ -64,4 +64,4 @@ kde4_add_plugin(attica_kde ${attica_kde_SRCS})
 target_link_libraries(attica_kde ${KDE4_KIO_LIBS} ${QT_QTMAIN_LIBRARY} ${QT_QTCORE_LIBRARY})
 
 # FIXME: Use a more sane destination
-install(TARGETS attica_kde DESTINATION "~")
+install(TARGETS attica_kde  EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
