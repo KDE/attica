@@ -46,7 +46,7 @@ PostFileData::PostFileData(const QUrl& url)
     :d(new PostFileDataPrivate)
 {
     d->url = url;
-    qsrand(QTime::currentTime());
+    qsrand(QTime::currentTime().secsTo(QTime(0,0,0)));
     d->boundary = "----------" + randomString(42 + 13).toAscii();
 }
 
