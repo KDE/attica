@@ -68,14 +68,19 @@ install(TARGETS attica ARCHIVE DESTINATION ${LIB_DESTINATION}
                                RUNTIME DESTINATION bin)
 
 install(FILES
+    activity.h
     atticabasejob.h
     atticaclient_export.h
     content.h
     category.h
     downloaditem.h
+    event.h
+    folder.h
     getjob.h
     itemjob.h
+    knowledgebaseentry.h
     listjob.h
+    message.h
     person.h
     postjob.h
     providermanager.h
