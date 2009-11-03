@@ -22,7 +22,7 @@
 #include <QtCore/QtGlobal>
 
 #ifndef ATTICA_EXPORT
-# if defined(MAKE_OCSCLIENT_LIB)
+# if defined(MAKE_ATTICA_LIB)
    /* We are building this library */
 #  define ATTICA_EXPORT Q_DECL_EXPORT
 # else

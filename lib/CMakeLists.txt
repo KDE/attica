@@ -9,8 +9,7 @@ cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-set (LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
+set (LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" CACHE STRING "Library directory name" FORCE)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 set(CMAKE_INSTALL_RPATH "${LIB_DESTINATION}" )
@@ -57,11 +56,10 @@ add_library(attica SHARED ${ocsclient_SRCS})
 set_target_properties(attica PROPERTIES
     VERSION ${ATTICA_VERSION_STRING}
     SOVERSION ${ATTICA_VERSION_MAJOR}
+    LINK_INTERFACE_LIBRARIES ""
+    DEFINE_SYMBOL MAKE_ATTICA_LIB
 )
 
-
-
-# FIXME: Remove KDE4 Libraries
 target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTGUI_LIBRARY})
 
 
