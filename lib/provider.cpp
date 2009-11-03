@@ -40,7 +40,6 @@
 #include <QDebug>
 #include <QUrl>
 #include <QNetworkReply>
-#include <KDebug>
 #include <QtCore/QFile>
 
 

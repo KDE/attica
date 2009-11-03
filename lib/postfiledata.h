@@ -48,6 +48,7 @@ class PostFileData
         
     private:
         void finish();
+        QString randomString(int length);
         PostFileDataPrivate* d;
         Q_DISABLE_COPY(PostFileData)
 };

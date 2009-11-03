@@ -1,8 +1,11 @@
 /*
     This file is part of KDE.
     
+    Copyright (c) 1999 Matthias Kalle Dalheimer <kalle@kde.org>
+    Copyright (c) 2000 Charles Samuels <charles@kde.org>
+    Copyright (c) 2005 Joseph Wenninger <kde@jowenn.at>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
@@ -23,9 +26,7 @@
 #include "postfiledata.h"
 
 #include <QDebug>
-
-// FIXME qt only
-#include <KRandom>
+#include <QDateTime>
 
 namespace Attica {
 class PostFileDataPrivate {
@@ -45,8 +46,8 @@ PostFileData::PostFileData(const QUrl& url)
     :d(new PostFileDataPrivate)
 {
     d->url = url;
-    // FIXME qt only
-    d->boundary = "----------" + KRandom::randomString(42 + 13).toAscii();
+    qsrand(QTime::currentTime());
+    d->boundary = "----------" + randomString(42 + 13).toAscii();
 }
 
 PostFileData::~PostFileData()
@@ -54,6 +55,23 @@ PostFileData::~PostFileData()
     delete d;
 }
 
+QString PostFileData::randomString(int length)
+{
+   if (length <=0 ) return QString();
+
+   QString str; str.resize( length );
+   int i = 0;
+   while (length--)
+   {
+      int r=qrand() % 62;
+      r+=48;
+      if (r>57) r+=7;
+      if (r>90) r+=6;
+      str[i++] =  char(r);
+   }
+   return str;
+}
+   
 void PostFileData::addArgument(const QString& key, const QString& value)
 {
     if (d->finished) {
