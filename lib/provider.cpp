@@ -152,8 +152,6 @@ ListJob<Person>* Provider::requestPersonSearchByLocation(qreal latitude, qreal l
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
   
-  qDebug() << "Location-based search:" << latitude << longitude << distance;
-  qDebug() << "URL:" << url;
   return doRequestPersonList( url );
 }
 
@@ -162,7 +160,7 @@ ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageS
   QUrl url = createUrl( "friend/data/" + id );
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
-  qDebug() << "URL:" << url;
+
   return doRequestPersonList( url );
 }
 
@@ -171,7 +169,7 @@ ListJob<Person>* Provider::requestSentInvitations(int page, int pageSize)
   QUrl url = createUrl("friend/sentinvitations");
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
-  qDebug() << "URL:" << url;
+
   return doRequestPersonList(url);
 }
 
@@ -180,7 +178,7 @@ ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
   QUrl url = createUrl("friend/receivedinvitations");
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
-  qDebug() << "URL:" << url;
+
   return doRequestPersonList(url);
 }
 

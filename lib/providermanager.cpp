@@ -169,7 +169,6 @@ void ProviderManager::removeProviderFile(const QUrl& file) {
 
 void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
 {
-    qDebug() << "parseProviderFile" << xmlString;
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == "provider") {
@@ -179,10 +178,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
                 {
-                    qDebug() << "parseProviderFile" << xml.name();
                     if (xml.name() == "location") {
                         baseUrl = xml.readElementText();
-                        qDebug() << "reading provider with URL: " << baseUrl;
                     }
                     if (xml.name() == "name") {
                         name = xml.readElementText();
