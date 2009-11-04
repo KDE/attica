@@ -21,10 +21,11 @@
 
 #include "metadata.h"
 
+#include <QtCore/QSharedData>
 
 using namespace Attica;
 
-class Metadata::Private
+class Metadata::Private :public QSharedData
 {
 public:
     /// The status of the job, for example "Ok"
@@ -56,8 +57,19 @@ Metadata::Metadata()
 
 Metadata::~Metadata()
 {
-    delete d;
 }
+
+Metadata::Metadata(const Attica::Metadata& other)
+    :d(other.d)
+{
+}
+
+Metadata& Metadata::operator=(const Attica::Metadata& other)
+{
+    d = other.d;
+    return *this;
+}
+
 
 QString Metadata::message()
 {

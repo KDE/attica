@@ -23,7 +23,10 @@
 
 #include <QtCore/QString>
 
+#include <QSharedDataPointer>
+
 #include "atticaclient_export.h"
+
 
 namespace Attica {
     class BaseJob;
@@ -35,7 +38,9 @@ class ATTICA_EXPORT Metadata
 {
 public:
     Metadata();
+    Metadata(const Metadata& other);
     ~Metadata();
+    Metadata& operator=(const Metadata& other);
     
     /**
      * The status as int, for easier interpretation.
@@ -64,7 +69,7 @@ public:
 
     private:
         class Private;
-        Private* d;
+        QSharedDataPointer<Private> d;
 
         friend class Attica::BaseJob;
     };
