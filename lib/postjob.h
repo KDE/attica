@@ -31,23 +31,17 @@
 typedef QMap<QString, QString> StringMap;
 
 namespace Attica {
+    class Provider;
 
-class ATTICA_EXPORT PostJob : public Attica::BaseJob
+class ATTICA_EXPORT PostJob : public BaseJob
 {
     Q_OBJECT
 
-public:
+protected:
     PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, QIODevice* data);
     PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
     PostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const QByteArray& byteArray);
-    
-/*    QString status() const;
-    QString statusMessage() const;
 
-protected Q_SLOTS:
-    void slotJobResult( KJob *job );
-    void slotJobData( KIO::Job *, const QByteArray & );
-*/
 private:
     virtual QNetworkReply* executeRequest();
     virtual void parse(const QString&);
@@ -60,6 +54,8 @@ private:
   
     QString m_status;
     QString m_statusMessage;
+
+    friend class Attica::Provider;
 };
 
 }

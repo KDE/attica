@@ -39,6 +39,7 @@ set(ocsclient_SRCS
    folderparser.cpp
    message.cpp
    messageparser.cpp
+   metadata.cpp
    category.cpp
    categoryparser.cpp
    content.cpp
@@ -81,6 +82,7 @@ install(FILES
     knowledgebaseentry.h
     listjob.h
     message.h
+    metadata.h
     person.h
     postjob.h
     providermanager.h

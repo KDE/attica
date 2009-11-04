@@ -33,17 +33,19 @@ class QDateTime;
 
 namespace Attica {
 
-    struct DownloadUrlDescription {
+    // FIXME make class, d-ptr
+struct ATTICA_EXPORT DownloadUrlDescription {
         bool isDownloadtypLink;
+        bool hasPrice;
         QString category;
         QString name;
         QString link;
         QString distributionType;
-        bool hasPrice;
         QString priceReason;
         QString priceAmount;
     };
 
+    
 /**
  * Represents a single content
  */
@@ -155,7 +157,7 @@ class ATTICA_EXPORT Content
     QString changelog() const;
     QString version() const;
     QString depend() const;
-    DownloadUrlDescription downloadUrlDescription(int number);
+    DownloadUrlDescription downloadUrlDescription(int number) const;
 
 
     QString previewPicture(const QString& number = QLatin1String("1")) const;

@@ -28,18 +28,7 @@
 #include "internals.h"
 
 
-
-
 using namespace Attica;
-
-
-BaseJob::Metadata::Metadata()
-{
-    // values that make sense for single item jobs where these are not set usually
-    totalItems = 1;
-    itemsPerPage = 1;
-    statusCode = 0;
-}
 
 class BaseJob::Private
 {
@@ -74,8 +63,8 @@ void BaseJob::dataFinished()
     } else {
         // FIXME: Use more fine-grained error messages
         qWarning() << "Attica::BaseJob::dataFinished" << d->m_reply->readAll();
-        d->m_metadata.statusString = QLatin1String("Network reply error");
-        d->m_metadata.statusCode = -1;
+        d->m_metadata.setStatusString("Network reply error");
+        d->m_metadata.setStatusCode(-1);
     }
     emit finished(this);
 
@@ -102,36 +91,14 @@ Internals* BaseJob::internals()
 }
 
 
-BaseJob::Metadata BaseJob::metadata() const
+Metadata BaseJob::metadata() const
 {
     return d->m_metadata;
 }
 
-void BaseJob::setMetadata(const Attica::BaseJob::Metadata& data) const
+void BaseJob::setMetadata(const Attica::Metadata& data) const
 {
     d->m_metadata = data;
 }
-
-
-int BaseJob::statusCode() const
-{
-    return d->m_metadata.statusCode;
-}
-
-/*
-void BaseJob::setError(int errorCode) {
-    d->m_metadata.statusCode = errorCode;
-}
-*/
-
-QString BaseJob::statusString() const
-{
-    return d->m_metadata.message;
-}
-/*
-void BaseJob::setErrorString(const QString& errorText) {
-    d->m_metadata.message = errorText;
-}
-*/
 
 #include "atticabasejob.moc"

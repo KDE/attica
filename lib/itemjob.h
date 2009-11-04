@@ -26,17 +26,19 @@
 #include "postjob.h"
 
 namespace Attica {
+    class Provider;
 
 template <class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
-    ItemJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
     T result() const;
 
 private:
+    ItemJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
     virtual void parse(const QString& xml);
     T m_item;
+    friend class Attica::Provider;
 };
 
 
@@ -44,14 +46,16 @@ template <class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
 public:
-    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, QIODevice * data);
-    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
-
     T result() const;
 
 private:
+    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, QIODevice * data);
+    ItemPostJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+
     virtual void parse(const QString& xml);
     T m_item;
+
+    friend class Attica::Provider;
 };
 
 }

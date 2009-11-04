@@ -162,7 +162,7 @@ QString Attica::Content::depend() const
     return attribute("depend");
 }
 
-Attica::DownloadUrlDescription Attica::Content::downloadUrlDescription(int number)
+Attica::DownloadUrlDescription Attica::Content::downloadUrlDescription(int number) const
 {
     QString num(QString::number(number));
     DownloadUrlDescription desc;

@@ -26,58 +26,21 @@
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "atticaclient_export.h"
-
+#include "metadata.h"
 
 class QNetworkReply;
 class QIODevice;
 
 namespace Attica {
-
-class Internals;
+    class Internals;
 
 class ATTICA_EXPORT BaseJob : public QObject
 {
     Q_OBJECT
 
 public:
-    /**
-     *Status messages from the server
-     */
-    class Metadata
-    {
-    public:
-        Metadata();
-
-        /// The status of the job, for example "Ok"
-        QString statusString;
-        /// The status as int, for easier interpretation.
-        /// 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
-        int statusCode;
-
-        /// An optional additional message from the server
-        QString message;
-
-        /// The number of items returned by this job (only relevant for list jobs)
-        int totalItems;
-        /// The number of items per page the server was asked for
-        int itemsPerPage;
-    };
-    
-    BaseJob(const QSharedPointer<Internals>& internals);
-
     virtual ~BaseJob();
 
-    /**
-     * The status as int, for easier interpretation.
-     * 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
-     */
-    int statusCode() const;
-
-    /**
-     * The status of the job, for example "Ok"
-     */
-    QString statusString() const;
-    
     Metadata metadata() const;
     void setMetadata(const Metadata& data) const;
     
@@ -91,6 +54,8 @@ protected Q_SLOTS:
     void dataFinished();
 
 protected:
+    BaseJob(const QSharedPointer<Internals>& internals);
+
     virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
     Internals* internals();

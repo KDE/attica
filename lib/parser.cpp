@@ -99,21 +99,21 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
             break;
         } else if (xml.isStartElement()) {
             if (xml.name() == "status") {
-                m_metadata.statusString = xml.readElementText();
+                m_metadata.setStatusString(xml.readElementText());
             } else if (xml.name() == "statuscode") {
-                m_metadata.statusCode = xml.readElementText().toInt();
+                m_metadata.setStatusCode(xml.readElementText().toInt());
             } else if (xml.name() == "message") {
-                m_metadata.message = xml.readElementText();
+                m_metadata.setMessage(xml.readElementText());
             } else if (xml.name() == "totalitems") {
-                m_metadata.totalItems = xml.readElementText().toInt();
+                m_metadata.setTotalItems(xml.readElementText().toInt());
             } else if (xml.name() == "itemsperpage") {
-                m_metadata.itemsPerPage = xml.readElementText().toInt();
+                m_metadata.setItemsPerPage(xml.readElementText().toInt());
             }
         }
     }
 }
 
 template <class T>
-BaseJob::Metadata Parser<T>::metadata() const {
+Metadata Parser<T>::metadata() const {
     return m_metadata;
 }
