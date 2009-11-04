@@ -59,11 +59,11 @@ public:
     ~DownloadItem();
     
     void setUrl(const QUrl& url);
-    QUrl url();
+    QUrl url() const;
 
 private:
     class Private;
-    QExplicitlySharedDataPointer<Private> d;
+    Private* d;
 };
 
 }

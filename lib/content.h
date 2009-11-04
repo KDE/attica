@@ -158,9 +158,9 @@ class ATTICA_EXPORT Content
     DownloadUrlDescription downloadUrlDescription(int number);
 
 
-    QString previewPicture(const QString& number = QLatin1String("1"));
-    QString license();
-    QString author();
+    QString previewPicture(const QString& number = QLatin1String("1")) const;
+    QString license() const;
+    QString author() const;
 
     /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.

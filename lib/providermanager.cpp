@@ -78,7 +78,7 @@ Internals* ProviderManager::loadInternals() {
 
     QString pluginName("attica_kde.so");
     
-    foreach(QString path, paths) {
+    foreach(const QString& path, paths) {
         QString libraryPath(path + '/' + pluginName);
         qDebug() << "trying to load " << libraryPath;
         if (QFile::exists(libraryPath)) {

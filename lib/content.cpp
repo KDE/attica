@@ -187,17 +187,17 @@ QString Attica::Content::version() const
     return attribute("version");
 }
 
-QString Attica::Content::author()
+QString Attica::Content::author() const
 {
     return attribute("personid");
 }
 
-QString Attica::Content::license()
+QString Attica::Content::license() const
 {
     return attribute("licensetype");
 }
 
-QString Attica::Content::previewPicture(const QString& number)
+QString Attica::Content::previewPicture(const QString& number) const
 {
     return attribute("previewpic" + number);
 }

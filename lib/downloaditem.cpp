@@ -54,7 +54,7 @@ void DownloadItem::setUrl(const QUrl& url)
     d->m_url = url;
 }
 
-QUrl DownloadItem::url()
+QUrl DownloadItem::url() const
 {
     return d->m_url;
 }
