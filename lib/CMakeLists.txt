@@ -103,13 +103,13 @@ endif(NOT WIN32)
 find_package(KDE4)
 
 if (DATA_INSTALL_DIR)
-    set(CMAKE_MODULE_PATH ${DATA_INSTALL_DIR}/cmake/modules)
+    set(CMAKE_ATTICA_INSTALL_DIR ${DATA_INSTALL_DIR}/cmake/modules)
 else (DATA_INSTALL_DIR)
-    set(CMAKE_MODULE_PATH ${CMAKE_ROOT}/Modules)
+    set(CMAKE_ATTICA_INSTALL_DIR ${CMAKE_ROOT}/Modules)
 endif (DATA_INSTALL_DIR)
 
 install(FILES cmake/FindAttica.cmake
-        DESTINATION ${CMAKE_MODULE_PATH}
+        DESTINATION ${CMAKE_ATTICA_INSTALL_DIR}
 )
 
 ################# KDE PLUGIN #################
