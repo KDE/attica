@@ -34,6 +34,7 @@
 #include "category.h"
 #include "itemjob.h"
 #include "listjob.h"
+#include "message.h"
 
 class QDate;
 class QFile;
@@ -51,7 +52,6 @@ class DownloadItem;
 class Event;
 class Folder;
 class KnowledgeBaseEntry;
-class Message;
 class Person;
 class PostJob;
 class Provider;
@@ -105,6 +105,7 @@ class ATTICA_EXPORT Provider :public QObject
 
     ListJob<Folder>* requestFolders();
     ListJob<Message>* requestMessages(const Folder& folder);
+    ListJob<Message>* requestMessages(const Folder& folder, Message::Status status);
     ItemJob<Message>* requestMessage(const Folder& folder, const QString& id);
     PostJob* postMessage(const Message& message);
 

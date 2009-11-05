@@ -246,6 +246,14 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder)
 }
 
 
+ListJob<Message>* Provider::requestMessages(const Folder& folder, Message::Status status)
+{
+    QUrl url = createUrl("message/" + folder.id());
+    url.addQueryItem("status", QString::number(status));
+    return doRequestMessageList(url);
+}
+
+
 ItemJob<Message>* Provider::requestMessage(const Folder& folder, const QString& id)
 {
     return new ItemJob<Message>(d->m_internals, createRequest("message/" + folder.id() + '/' + id));
