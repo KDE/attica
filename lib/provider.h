@@ -37,7 +37,6 @@
 #include "message.h"
 
 class QDate;
-class QFile;
 class QUrl;
 
 namespace Attica {

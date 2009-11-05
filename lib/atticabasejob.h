@@ -31,7 +31,6 @@
 #include "metadata.h"
 
 class QNetworkReply;
-class QIODevice;
 
 namespace Attica {
     class Internals;
