@@ -164,22 +164,22 @@ QString Attica::Content::depend() const
     return attribute("depend");
 }
 
-Attica::DownloadUrlDescription Attica::Content::downloadUrlDescription(int number) const
+Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) const
 {
     QString num(QString::number(number));
-    DownloadUrlDescription desc;
+    DownloadDescription desc;
     
-    desc.isDownloadtypLink = true;
+    desc.setDownloadtypLink(true);
     if (number == 1 && attribute("downloadtyp1") == "0") {
-        desc.isDownloadtypLink = false;
+        desc.setDownloadtypLink(false);
     }
 
-    desc.distributionType = attribute("downloaddistributiontype" + num);
-    desc.name = name();
-    desc.hasPrice = attribute("downloadbuy" + num) == "1";
-    desc.link = attribute("downloadlink" + num);
-    desc.priceReason = attribute("downloadbuyreason" + num) == "1";
-    desc.priceAmount = attribute("downloadbuyprice" + num) == "1";
+    desc.setDistributionType(attribute("downloaddistributiontype" + num));
+    desc.setName(name());
+    desc.setHasPrice(attribute("downloadbuy" + num) == "1");
+    desc.setLink(attribute("downloadlink" + num));
+    desc.setPriceReason(attribute("downloadbuyreason"));
+    desc.setPriceAmount(attribute("downloadbuyprice"));
     
     return desc;
 }

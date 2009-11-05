@@ -25,6 +25,7 @@ set(ocsclient_SRCS
    atticabasejob.cpp
    itemjob.cpp
    listjob_inst.cpp
+   downloaddescription.cpp
    eventparser.cpp
    event.cpp
    activity.cpp
@@ -74,6 +75,7 @@ install(FILES
     atticaclient_export.h
     content.h
     category.h
+    downloaddescription.h
     downloaditem.h
     event.h
     folder.h

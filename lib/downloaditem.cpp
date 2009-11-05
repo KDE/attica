@@ -32,7 +32,6 @@ public:
     QUrl m_url;
 };
 
-
 DownloadItem::DownloadItem()
     :d(new Private)
 {

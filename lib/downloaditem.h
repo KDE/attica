@@ -66,7 +66,7 @@ public:
 
 private:
     class Private;
-    Private* d;
+    QSharedDataPointer<Private> d;
 };
 
 }
