@@ -30,6 +30,8 @@ using namespace Attica;
 class Metadata::Private :public QSharedData
 {
 public:
+    Error error;
+
     /// The status of the job, for example "Ok"
     QString statusString;
     /// The status as int, for easier interpretation.
@@ -70,6 +72,18 @@ Metadata& Metadata::operator=(const Attica::Metadata& other)
 {
     d = other.d;
     return *this;
+}
+
+
+Metadata::Error Metadata::error() const
+{
+    return d->error;
+}
+
+
+void Metadata::setError(Metadata::Error error)
+{
+    d->error = error;
 }
 
 

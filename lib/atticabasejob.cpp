@@ -62,11 +62,15 @@ void BaseJob::dataFinished()
         QByteArray data = d->m_reply->readAll();
         //qDebug() << data;
         parse(QString::fromUtf8(data.constData()));
+        if (d->m_metadata.statusCode() == 100) {
+            d->m_metadata.setError(Metadata::NoError);
+        } else {
+            d->m_metadata.setError(Metadata::OcsError);
+        }
     } else {
-        // FIXME: Use more fine-grained error messages
-        qWarning() << "Attica::BaseJob::dataFinished" << d->m_reply->readAll();
-        d->m_metadata.setStatusString("Network reply error");
-        d->m_metadata.setStatusCode(-1);
+        d->m_metadata.setError(Metadata::NetworkError);
+        d->m_metadata.setStatusCode(d->m_reply->error());
+        d->m_metadata.setStatusString("Network error");
     }
     emit finished(this);
 

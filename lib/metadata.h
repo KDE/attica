@@ -43,7 +43,16 @@ public:
     Metadata(const Metadata& other);
     ~Metadata();
     Metadata& operator=(const Metadata& other);
-    
+
+    enum Error {
+        NoError = 0,
+        NetworkError,
+        OcsError
+    };
+
+    Error error() const;
+    void setError(Error error);
+
     /**
      * The status as int, for easier interpretation.
      * 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
