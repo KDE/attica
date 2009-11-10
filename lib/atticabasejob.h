@@ -43,7 +43,6 @@ public:
     virtual ~BaseJob();
 
     Metadata metadata() const;
-    void setMetadata(const Metadata& data) const;
     
 public Q_SLOTS:
     void start();
@@ -56,6 +55,7 @@ protected Q_SLOTS:
 
 protected:
     BaseJob(const QSharedPointer<Internals>& internals);
+    void setMetadata(const Metadata& data) const;
 
     virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
