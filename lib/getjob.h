@@ -36,12 +36,11 @@ class ATTICA_EXPORT GetJob : public Attica::BaseJob
 {
     Q_OBJECT
 
-public:
+protected:
     GetJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
     
 private:
     virtual QNetworkReply* executeRequest();
-
     const QNetworkRequest m_request;
 };
 

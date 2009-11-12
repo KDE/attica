@@ -31,20 +31,21 @@
 class QNetworkRequest;
 
 namespace Attica {
-
+    class Provider;
 
 template <class T>
 class ATTICA_EXPORT ListJob : public GetJob
 {
     public:
-        ListJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
         typename T::List itemList() const;
 
     protected:
         virtual void parse(const QString& xml);
 
     private:
+        ListJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request);
         typename T::List m_itemList;
+        friend class Attica::Provider;
 };
 
 }

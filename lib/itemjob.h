@@ -56,7 +56,6 @@ private:
 
     virtual void parse(const QString& xml);
     T m_item;
-
     friend class Attica::Provider;
 };
 
