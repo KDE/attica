@@ -24,7 +24,7 @@
 #include "contentparser.h"
 
 #include <QtCore/QDateTime>
-
+#include <QDebug>
 
 using namespace Attica;
 
@@ -45,9 +45,13 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == "downloads") {
                 content.setDownloads( xml.readElementText().toInt());
             } else if (xml.name() == "created") {
-                content.setCreated( QDateTime::fromString( xml.readElementText(), Qt::ISODate));
+                // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
+                QString dateString = xml.readElementText().left(19);
+                content.setCreated( QDateTime::fromString( dateString, Qt::ISODate));
             } else if (xml.name() == "updated") {
-                content.setUpdated( QDateTime::fromString( xml.readElementText(), Qt::ISODate));
+                // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
+                QString dateString = xml.readElementText().left(19);
+                content.setUpdated( QDateTime::fromString( dateString, Qt::ISODate));
             } else {
                 content.addAttribute(xml.name().toString(), xml.readElementText());
             }
@@ -56,6 +60,11 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
         if (xml.isEndElement() && xml.name() == "content") {
             break;
         }
+    }
+
+    // in case the server only sets creation date, use that as updated also
+    if (content.updated().isNull()) {
+        content.setUpdated(content.created());
     }
 
     return content;
