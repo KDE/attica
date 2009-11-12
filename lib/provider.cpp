@@ -149,7 +149,9 @@ ListJob<Person>* Provider::requestPersonSearchByLocation(qreal latitude, qreal l
   QUrl url = createUrl( "person/data" );
   url.addQueryItem("latitude", QString::number(latitude));
   url.addQueryItem("longitude", QString::number(longitude));
-  url.addQueryItem("distance", QString::number(distance));
+  if (distance > 0.0) {
+    url.addQueryItem("distance", QString::number(distance));
+  }
   url.addQueryItem("page", QString::number(page));
   url.addQueryItem("pagesize", QString::number(pageSize));
   

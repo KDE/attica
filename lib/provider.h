@@ -86,7 +86,7 @@ class ATTICA_EXPORT Provider :public QObject
     ItemJob<Person>* requestPerson(const QString& id);
     ItemJob<Person>* requestPersonSelf();
     ListJob<Person>* requestPersonSearchByName(const QString& name);
-    ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance, int page = 0, int pageSize = 20);
+    ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
     PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
 
     // Friend part of OCS
