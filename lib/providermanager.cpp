@@ -36,8 +36,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtXml/QXmlStreamReader>
 
-#include "internals.h"
-#include "qtinternals.h"
+#include "platformdependent.h"
+#include "qtplatformdependent.h"
 
 
 using namespace Attica;
@@ -48,7 +48,7 @@ uint qHash(const QUrl& key) {
 
 class ProviderManager::Private {
 public:
-    QSharedPointer<Internals> m_internals;
+    QSharedPointer<PlatformDependent> m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSignalMapper m_downloadMapping;
@@ -64,7 +64,7 @@ public:
 };
 
 
-Internals* ProviderManager::loadInternals() {
+PlatformDependent* ProviderManager::loadPlatformDependent() {
 
     QString program("kde4-config");
     QStringList arguments;
@@ -88,7 +88,7 @@ Internals* ProviderManager::loadInternals() {
             QPluginLoader loader(libraryPath);
             QObject* plugin = loader.instance();
             if (plugin) {
-                Internals* kdeInternals = qobject_cast<Internals*>(plugin);
+                PlatformDependent* kdeInternals = qobject_cast<PlatformDependent*>(plugin);
                 if (kdeInternals) {
                     qDebug() << "Using Attica with KDE support";
                     return kdeInternals;
@@ -97,14 +97,14 @@ Internals* ProviderManager::loadInternals() {
         }
     }
     qDebug() << "Using Attica without KDE support";
-    return new QtInternals;
+    return new QtPlatformDependent;
 }
 
 
 ProviderManager::ProviderManager()
     : d(new Private)
 {
-    d->m_internals = QSharedPointer<Internals>(loadInternals());
+    d->m_internals = QSharedPointer<PlatformDependent>(loadPlatformDependent());
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
     connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }

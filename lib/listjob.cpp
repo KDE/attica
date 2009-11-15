@@ -30,7 +30,7 @@ using namespace Attica;
 
 
 template <class T>
-ListJob<T>::ListJob(const QSharedPointer<Internals>& internals, const QNetworkRequest& request)
+ListJob<T>::ListJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request)
     : GetJob(internals, request)
 {
 }

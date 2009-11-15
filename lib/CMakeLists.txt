@@ -18,8 +18,8 @@ find_package(Qt4 REQUIRED)
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
 set(ocsclient_SRCS
-   internals.cpp
-   qtinternals.cpp
+   platformdependent.cpp
+   qtplatformdependent.cpp
    parser.cpp
    getjob.cpp
    atticabasejob.cpp
@@ -129,8 +129,8 @@ if (KDE4_FOUND)
     include(MacroOptionalAddSubdirectory)
 
     set(attica_kde_SRCS
-        kdeinternals.cpp
-        internals.cpp
+        kdeplatformdependent.cpp
+        platformdependent.cpp
     )
 
     kde4_add_plugin(attica_kde ${attica_kde_SRCS})

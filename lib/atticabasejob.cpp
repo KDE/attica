@@ -36,16 +36,16 @@ class BaseJob::Private
 {
 public:
     Metadata m_metadata;
-    QSharedPointer<Internals> m_internals;
+    QSharedPointer<PlatformDependent> m_internals;
     QNetworkReply* m_reply;
 
-    Private(QSharedPointer<Internals> internals)
+    Private(QSharedPointer<PlatformDependent> internals)
         : m_internals(internals), m_reply(0)
     {
     }
 };
 
-BaseJob::BaseJob(const QSharedPointer<Internals>& internals)
+BaseJob::BaseJob(const QSharedPointer<PlatformDependent>& internals)
     : d(new Private(internals))
 {
 }
@@ -91,7 +91,7 @@ void BaseJob::doWork()
 }
 
 
-Internals* BaseJob::internals()
+PlatformDependent* BaseJob::internals()
 {
     return d->m_internals.data();
 }

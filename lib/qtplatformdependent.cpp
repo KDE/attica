@@ -21,32 +21,32 @@
 
 */
 
-#include "qtinternals.h"
+#include "qtplatformdependent.h"
 
 #include <QtCore/QUrl>
 
 
 using namespace Attica;
 
-QNetworkReply* QtInternals::post(const QNetworkRequest& request, const QByteArray& data)
+QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, const QByteArray& data)
 {
     return m_qnam.post(request, data);
 }
 
 
-QNetworkReply* QtInternals::post(const QNetworkRequest& request, QIODevice* data)
+QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, QIODevice* data)
 {
     return m_qnam.post(request, data);
 }
 
 
-QNetworkReply* QtInternals::get(const QNetworkRequest& request)
+QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 {
     return m_qnam.get(request);
 }
 
 
-bool QtInternals::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password)
+bool QtPlatformDependent::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password)
 {
     Q_UNUSED(baseUrl)
     Q_UNUSED(user)
@@ -55,7 +55,7 @@ bool QtInternals::saveCredentials(const QUrl& baseUrl, const QString& user, cons
 }
 
 
-bool QtInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& password)
+bool QtPlatformDependent::loadCredentials(const QUrl& baseUrl, QString& user, QString& password)
 {
     Q_UNUSED(baseUrl)
     Q_UNUSED(user)
@@ -64,13 +64,13 @@ bool QtInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& p
 }
 
 
-QList<QUrl> Attica::QtInternals::getDefaultProviderFiles() const
+QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
 {
     return QList<QUrl>();
 }
 
 
-QNetworkAccessManager* Attica::QtInternals::nam()
+QNetworkAccessManager* Attica::QtPlatformDependent::nam()
 {
     return &m_qnam;
 }

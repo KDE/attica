@@ -21,7 +21,7 @@
 
 */
 
-#include "kdeinternals.h"
+#include "kdeplatformdependent.h"
 
 #include <QtCore/QDebug>
 
@@ -31,7 +31,7 @@
 
 using namespace Attica;
 
-KDEInternals::KDEInternals()
+KdePlatformDependent::KdePlatformDependent()
     : m_config(KSharedConfig::openConfig("atticarc")), m_qnam(0), m_wallet(0)
 {
     QString networkWallet = KWallet::Wallet::NetworkWallet();
@@ -41,23 +41,23 @@ KDEInternals::KDEInternals()
 }
 
 
-QNetworkReply* KDEInternals::post(const QNetworkRequest& request, const QByteArray& data)
+QNetworkReply* KdePlatformDependent::post(const QNetworkRequest& request, const QByteArray& data)
 {
     return m_qnam.post(request, data);
 }
 
 
-QNetworkReply* KDEInternals::post(const QNetworkRequest& request, QIODevice* data) {
+QNetworkReply* KdePlatformDependent::post(const QNetworkRequest& request, QIODevice* data) {
     return m_qnam.post(request, data);
 }
 
 
-QNetworkReply* KDEInternals::get(const QNetworkRequest& request) {
+QNetworkReply* KdePlatformDependent::get(const QNetworkRequest& request) {
     return m_qnam.get(request);
 }
 
 
-bool KDEInternals::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) {
+bool KdePlatformDependent::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) {
     if (!m_wallet) {
         return false;
     }
@@ -69,7 +69,7 @@ bool KDEInternals::saveCredentials(const QUrl& baseUrl, const QString& user, con
 }
 
 
-bool KDEInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& password) {
+bool KdePlatformDependent::loadCredentials(const QUrl& baseUrl, QString& user, QString& password) {
     if (!m_wallet) {
         return false;
     }
@@ -84,7 +84,7 @@ bool KDEInternals::loadCredentials(const QUrl& baseUrl, QString& user, QString& 
 }
 
 
-QList<QUrl> KDEInternals::getDefaultProviderFiles() const {
+QList<QUrl> KdePlatformDependent::getDefaultProviderFiles() const {
     KConfigGroup group(m_config, "General");
     QStringList pathStrings = group.readPathEntry("providerFiles", QStringList("http://download.kde.org/ocs/providers.xml"));
     QList<QUrl> paths;
@@ -96,12 +96,12 @@ QList<QUrl> KDEInternals::getDefaultProviderFiles() const {
 }
 
 
-QNetworkAccessManager* Attica::KDEInternals::nam() {
+QNetworkAccessManager* Attica::KdePlatformDependent::nam() {
     return &m_qnam;
 }
 
 
-Q_EXPORT_PLUGIN2(attica_kde, Attica::KDEInternals)
+Q_EXPORT_PLUGIN2(attica_kde, Attica::KdePlatformDependent)
 
 
-#include "kdeinternals.moc"
+#include "kdeplatformdependent.moc"

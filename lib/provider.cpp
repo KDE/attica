@@ -52,13 +52,13 @@ class Provider::Private : public QSharedData {
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
-    QSharedPointer<Internals> m_internals;
+    QSharedPointer<PlatformDependent> m_internals;
 
     Private(const Private& other)
       : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name), m_internals(other.m_internals)
     {
     }
-    Private(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+    Private(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
       : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
     {
     }
@@ -69,7 +69,7 @@ class Provider::Private : public QSharedData {
 
 
 Provider::Provider()
-  : d(new Private(QSharedPointer<Internals>(0), QUrl(), QString(), QUrl()))
+  : d(new Private(QSharedPointer<PlatformDependent>(0), QUrl(), QString(), QUrl()))
 {
 }
 
@@ -78,7 +78,7 @@ Provider::Provider(const Provider& other)
 {
 }
 
-Provider::Provider(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+Provider::Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
   : d(new Private(internals, baseUrl, name, icon))
 {
 }

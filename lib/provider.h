@@ -41,7 +41,7 @@ class QUrl;
 
 namespace Attica {
 
-class Internals;
+class PlatformDependent;
 
 class PostJobStatus;
 
@@ -172,7 +172,7 @@ class ATTICA_EXPORT Provider :public QObject
     QExplicitlySharedDataPointer<Private> d;
     
     // FIXME use baseUrl as id
-    Provider(const QSharedPointer<Internals>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
+    Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
     friend class ProviderManager;

@@ -21,44 +21,39 @@
 
 */
 
-#ifndef ATTICA_KDEINTERNALS_H
-#define ATTICA_KDEINTERNALS_H
+#ifndef ATTICA_PLATFORMDEPENDENT_H
+#define ATTICA_PLATFORMDEPENDENT_H
 
-#include "internals.h"
-
-#include <KSharedConfig>
-#include <KIO/AccessManager>
+#include <QtCore/QList>
+#include <QtCore/QtPlugin>
 
 
-namespace KWallet {
-    class Wallet;
-}
+class QByteArray;
+class QIODevice;
+class QNetworkAccessManager;
+class QNetworkReply;
+class QNetworkRequest;
+class QString;
+class QUrl;
 
 namespace Attica {
 
-class KDEInternals : public QObject, public Attica::Internals
+class PlatformDependent
 {
-    Q_OBJECT
-    Q_INTERFACES(Attica::Internals)
-
 public:
-    KDEInternals();
-    virtual QList<QUrl> getDefaultProviderFiles() const;
-    virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
-    virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
-    virtual QNetworkReply* get(const QNetworkRequest& request);
-    virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
-    virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
-    virtual QNetworkAccessManager* nam();
-
-private:
-    KSharedConfigPtr m_config;
-    // FIXME: Change to KIO::AccessManager
-    QNetworkAccessManager m_qnam;
-    KWallet::Wallet* m_wallet;
+    virtual ~PlatformDependent();
+    virtual QList<QUrl> getDefaultProviderFiles() const = 0;
+    virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
+    virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) = 0;
+    virtual QNetworkReply* get(const QNetworkRequest& request) = 0;
+    virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data) = 0;
+    virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data) = 0;
+    virtual QNetworkAccessManager* nam() = 0;
 };
 
 }
+
+Q_DECLARE_INTERFACE(Attica::PlatformDependent, "org.kde.Attica.Internals/1.0")
 
 
 #endif

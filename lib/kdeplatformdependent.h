@@ -21,27 +21,41 @@
 
 */
 
-#ifndef ATTICA_GETJOB_H
-#define ATTICA_GETJOB_H
+#ifndef ATTICA_KDEPLATFORMDEPENDENT_H
+#define ATTICA_KDEPLATFORMDEPENDENT_H
 
-#include <QtNetwork/QNetworkRequest>
+#include "platformdependent.h"
 
-#include "atticaclient_export.h"
-#include "atticabasejob.h"
+#include <KSharedConfig>
+#include <KIO/AccessManager>
 
+
+namespace KWallet {
+    class Wallet;
+}
 
 namespace Attica {
 
-class ATTICA_EXPORT GetJob : public Attica::BaseJob
+class KdePlatformDependent : public QObject, public Attica::PlatformDependent
 {
     Q_OBJECT
+    Q_INTERFACES(Attica::PlatformDependent)
 
-protected:
-    GetJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request);
-    
+public:
+    KdePlatformDependent();
+    virtual QList<QUrl> getDefaultProviderFiles() const;
+    virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
+    virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
+    virtual QNetworkReply* get(const QNetworkRequest& request);
+    virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
+    virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
+    virtual QNetworkAccessManager* nam();
+
 private:
-    virtual QNetworkReply* executeRequest();
-    const QNetworkRequest m_request;
+    KSharedConfigPtr m_config;
+    // FIXME: Change to KIO::AccessManager
+    QNetworkAccessManager m_qnam;
+    KWallet::Wallet* m_wallet;
 };
 
 }

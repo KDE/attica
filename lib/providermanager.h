@@ -69,7 +69,7 @@ private:
     ProviderManager& operator=(const ProviderManager& other);
 
     void initNetworkAccesssManager();
-    Internals* loadInternals();
+    PlatformDependent* loadPlatformDependent();
 
     void parseProviderFile(const QString& xmlString, const QString& url);
 

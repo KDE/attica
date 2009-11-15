@@ -21,11 +21,32 @@
 
 */
 
-#include "internals.h"
+#ifndef ATTICA_QTPLATFORMDEPENDENT_H
+#define ATTICA_QTPLATFORMDEPENDENT_H
+
+#include "platformdependent.h"
+
+#include <QtNetwork/QNetworkAccessManager>
 
 
-using namespace Attica;
+namespace Attica {
 
-Internals::~Internals()
+class QtPlatformDependent : public Attica::PlatformDependent
 {
+public:
+    virtual QList<QUrl> getDefaultProviderFiles() const;
+    virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
+    virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
+    virtual QNetworkReply* get(const QNetworkRequest& request);
+    virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
+    virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
+    virtual QNetworkAccessManager* nam();
+
+private:
+    QNetworkAccessManager m_qnam;
+};
+
 }
+
+
+#endif

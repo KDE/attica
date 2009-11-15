@@ -33,7 +33,7 @@
 class QNetworkReply;
 
 namespace Attica {
-    class Internals;
+    class PlatformDependent;
 
 class ATTICA_EXPORT BaseJob : public QObject
 {
@@ -54,12 +54,12 @@ protected Q_SLOTS:
     void dataFinished();
 
 protected:
-    BaseJob(const QSharedPointer<Internals>& internals);
+    BaseJob(const QSharedPointer<PlatformDependent>& internals);
     void setMetadata(const Metadata& data) const;
 
     virtual QNetworkReply* executeRequest() = 0;
     virtual void parse(const QString& xml) = 0;
-    Internals* internals();
+    PlatformDependent* internals();
     void setError(int errorCode);
     void setErrorString(const QString& errorString);
 
