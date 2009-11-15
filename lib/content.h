@@ -149,6 +149,7 @@ class ATTICA_EXPORT Content
     DownloadDescription downloadUrlDescription(int number) const;
 
     QString previewPicture(const QString& number = QLatin1String("1")) const;
+    QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;
     QString license() const;
     QString author() const;
 

@@ -88,10 +88,10 @@ PlatformDependent* ProviderManager::loadPlatformDependent() {
             QPluginLoader loader(libraryPath);
             QObject* plugin = loader.instance();
             if (plugin) {
-                PlatformDependent* kdeInternals = qobject_cast<PlatformDependent*>(plugin);
-                if (kdeInternals) {
+                PlatformDependent* platformDependent = qobject_cast<PlatformDependent*>(plugin);
+                if (platformDependent) {
                     qDebug() << "Using Attica with KDE support";
-                    return kdeInternals;
+                    return platformDependent;
                 }
             }
         }
@@ -172,6 +172,7 @@ void ProviderManager::removeProviderFile(const QUrl& file) {
 
 void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
 {
+    qDebug() << "parse file: " << xmlString << url;
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == "provider") {
@@ -207,7 +208,6 @@ Provider ProviderManager::providerByUrl(const QUrl& url) const {
     return d->m_providers.value(url);
 }
 
-
 QList<Provider> ProviderManager::providers() const {
     return d->m_providers.values();
 }
@@ -233,7 +233,7 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
             break;
         }
     }
-    
+
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
@@ -243,9 +243,11 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
             return;
         }
     } else {
-        qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever...";
+        qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever..." << reply->url().toString();
     }
-    
+
+    qDebug() << "ProviderManager::authenticate: No authentication credentials provided, aborting." << reply->url().toString();
+    emit authenticationCredentialsMissing(d->m_providers.value(baseUrl));
     reply->abort();
 }
 

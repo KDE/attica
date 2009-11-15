@@ -203,3 +203,8 @@ QString Attica::Content::previewPicture(const QString& number) const
 {
     return attribute("previewpic" + number);
 }
+
+QString Attica::Content::smallPreviewPicture(const QString& number) const
+{
+    return attribute("smallpreviewpic" + number);
+}

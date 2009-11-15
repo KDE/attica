@@ -35,9 +35,12 @@ KdePlatformDependent::KdePlatformDependent()
     : m_config(KSharedConfig::openConfig("atticarc")), m_qnam(0), m_wallet(0)
 {
     QString networkWallet = KWallet::Wallet::NetworkWallet();
-    m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
-    m_wallet->createFolder("Attica");
-    m_wallet->setFolder("Attica");
+    // if the folder doesn't exist, don't try to open the wallet
+    if (!KWallet::Wallet::folderDoesNotExist(networkWallet, "Attica")) {
+        m_wallet = KWallet::Wallet::openWallet(networkWallet, 0);
+        m_wallet->createFolder("Attica");
+        m_wallet->setFolder("Attica");
+    }
 }
 
 

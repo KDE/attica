@@ -55,8 +55,11 @@ public:
     bool contains(const QString& provider) const;
     Provider providerByUrl(const QUrl& url) const;
 
+    // TODO void setAuthentication(const QString& user, const QString& password);
+
 Q_SIGNALS:
     void providersChanged();
+    void authenticationCredentialsMissing(const Provider& provider);
 
 private Q_SLOTS:
     void fileFinished(const QString& url);
