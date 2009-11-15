@@ -27,7 +27,7 @@
 #include <QtCore/QTimer>
 #include <QtNetwork/QNetworkReply>
 
-#include "internals.h"
+#include "platformdependent.h"
 
 
 using namespace Attica;
