@@ -80,6 +80,8 @@ class ATTICA_EXPORT Provider :public QObject
         Downloads
     };
 
+    PostJob* checkLogin(const QString& user, const QString& password);
+
     // Person part of OCS
 
     PostJob* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);

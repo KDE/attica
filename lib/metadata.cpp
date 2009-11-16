@@ -46,11 +46,13 @@ public:
     /// The number of items per page the server was asked for
     int itemsPerPage;
 
-    Private() {
-        // values that make sense for single item jobs where these are not set usually
-        totalItems = 1;
-        itemsPerPage = 1;
-        statusCode = 0;
+    Private()
+        // values that make sense for single item jobs
+        :error(NoError)
+        ,totalItems(1)
+        ,itemsPerPage(1)
+        ,statusCode(0)
+    {
     }
 };
 

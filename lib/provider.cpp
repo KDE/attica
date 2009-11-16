@@ -111,6 +111,16 @@ QString Provider::name() const
 }
 
 
+PostJob* Provider::checkLogin(const QString& user, const QString& password)
+{
+    QMap<QString, QString> postParameters;
+
+    postParameters.insert("login", user);
+    postParameters.insert("password", password);
+
+    return new PostJob(d->m_internals, createRequest("person/check"), postParameters);
+}
+
 PostJob* Provider::registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName)
 {
     QMap<QString, QString> postParameters;

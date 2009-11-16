@@ -60,7 +60,7 @@ void BaseJob::dataFinished()
 {
     if (d->m_reply->error() == QNetworkReply::NoError) {
         QByteArray data = d->m_reply->readAll();
-        //qDebug() << data;
+        qDebug() << data;
         parse(QString::fromUtf8(data.constData()));
         if (d->m_metadata.statusCode() == 100) {
             d->m_metadata.setError(Metadata::NoError);

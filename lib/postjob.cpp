@@ -69,8 +69,38 @@ QNetworkReply* PostJob::executeRequest()
 }
 
 
-void PostJob::parse(const QString& )
+void PostJob::parse(const QString& xmlString)
 {
+    QXmlStreamReader xml( xmlString );
+    Metadata data;
+    while (!xml.atEnd()) {
+        xml.readNext();
+
+        if (xml.isStartElement()) {
+            if (xml.name() == "meta") {
+                while ( !xml.atEnd() ) {
+                    xml.readNext();
+                    if (xml.isEndElement() && xml.name() == "meta") {
+                        break;
+                    } else if (xml.isStartElement()) {
+                        if (xml.name() == "status") {
+                            data.setStatusString(xml.readElementText());
+                        } else if (xml.name() == "statuscode") {
+                            data.setStatusCode(xml.readElementText().toInt());
+                        } else if (xml.name() == "message") {
+                            data.setMessage(xml.readElementText());
+                        } else if (xml.name() == "totalitems") {
+                            data.setTotalItems(xml.readElementText().toInt());
+                        } else if (xml.name() == "itemsperpage") {
+                            data.setItemsPerPage(xml.readElementText().toInt());
+                        }
+                    }
+                }
+            }
+        }
+    }
+    setMetadata(data);
+    
 }
 
 
