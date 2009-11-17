@@ -10,7 +10,6 @@ find_package(Qt4 REQUIRED)
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
 set(ocsclient_SRCS
-   platformdependent.cpp
    qtplatformdependent.cpp
    parser.cpp
    getjob.cpp
@@ -94,6 +93,7 @@ if(NOT WIN32)
     )
 endif(NOT WIN32)
 
+# if we have kde4, install into the cmake/modules dir of kde, otherwise the system dir
 find_package(KDE4)
 
 if (DATA_INSTALL_DIR)
@@ -106,26 +106,4 @@ install(FILES cmake/FindAttica.cmake
         DESTINATION ${CMAKE_ATTICA_INSTALL_DIR}
 )
 
-################# KDE PLUGIN #################
 
-if (NOT KDE4_FOUND)
-    message("** No KDE4 found, building attica without KDE4 plugin.")
-endif (NOT KDE4_FOUND)
-if (KDE4_FOUND)
-    message("** KDE4 found, building attica with KDE4 plugin.")
-
-    include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
-
-    include(KDE4Defaults)
-    include(MacroLibrary)
-    include(MacroOptionalAddSubdirectory)
-
-    set(attica_kde_SRCS
-        kdeplatformdependent.cpp
-        platformdependent.cpp
-    )
-
-    kde4_add_plugin(attica_kde ${attica_kde_SRCS})
-    target_link_libraries(attica_kde ${KDE4_KIO_LIBS} ${QT_QTMAIN_LIBRARY} ${QT_QTCORE_LIBRARY})
-    install(TARGETS attica_kde  EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
-endif (KDE4_FOUND)
