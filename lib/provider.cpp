@@ -53,15 +53,30 @@ class Provider::Private : public QSharedData {
     QUrl m_icon;
     QString m_name;
     QSharedPointer<PlatformDependent> m_internals;
+    QString m_credentialsUserName;
+    QString m_credentialsPassword;
 
     Private(const Private& other)
-      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name), m_internals(other.m_internals)
+      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
+      , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
+      , m_credentialsPassword(other.m_credentialsPassword)
     {
     }
+
     Private(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
       : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
     {
+        if (m_baseUrl.isEmpty()) {
+            return;
+        }
+        QString user;
+        QString pass;
+        if (m_internals->loadCredentials(m_baseUrl, user, pass)) {
+            m_credentialsUserName = user;
+            m_credentialsPassword = pass;
+        }
     }
+
     ~Private()
     {
     }
@@ -527,6 +542,10 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 QUrl Provider::createUrl(const QString& path)
 {
     QUrl url(d->m_baseUrl.toString() + path);
+    if (!d->m_credentialsUserName.isEmpty()) {
+        url.setUserName(d->m_credentialsUserName);
+        url.setPassword(d->m_credentialsPassword);
+    }
     return url;
 }
 
