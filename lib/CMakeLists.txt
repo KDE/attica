@@ -93,17 +93,3 @@ if(NOT WIN32)
     )
 endif(NOT WIN32)
 
-# if we have kde4, install into the cmake/modules dir of kde, otherwise the system dir
-find_package(KDE4)
-
-if (DATA_INSTALL_DIR)
-    set(CMAKE_ATTICA_INSTALL_DIR ${DATA_INSTALL_DIR}/cmake/modules)
-else (DATA_INSTALL_DIR)
-    set(CMAKE_ATTICA_INSTALL_DIR ${CMAKE_ROOT}/Modules)
-endif (DATA_INSTALL_DIR)
-
-install(FILES cmake/FindAttica.cmake
-        DESTINATION ${CMAKE_ATTICA_INSTALL_DIR}
-)
-
-
