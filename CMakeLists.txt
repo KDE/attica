@@ -8,5 +8,4 @@ set(ATTICA_VERSION_STRING "${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}.${ATT
 cmake_minimum_required(VERSION 2.6)
 
 add_subdirectory(lib)
-add_subdirectory(kdeplugin)
 
