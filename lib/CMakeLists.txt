@@ -78,6 +78,8 @@ install(FILES
     message.h
     metadata.h
     person.h
+    #interface for external platform plugins
+    platformdependent.h
     postjob.h
     providermanager.h
     provider.h
