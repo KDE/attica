@@ -30,6 +30,7 @@
 
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
+#include <qurl.h>
 
 class QDateTime;
 
@@ -141,7 +142,15 @@ class ATTICA_EXPORT Content
      */
     QDateTime updated() const;
 
+    /**
+     * A description of this content.
+     */
     QString description() const;
+
+    /**
+     * A webpage with the detailed description of this content.
+     */
+    QUrl detailpage() const;
 
     QString changelog() const;
     QString version() const;

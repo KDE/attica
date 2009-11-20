@@ -153,6 +153,11 @@ QString Content::description() const
     return attribute("description");
 }
 
+QUrl Content::detailpage() const
+{
+    return attribute("detailpage");
+}
+
 QString Attica::Content::changelog() const
 {
     return attribute("changelog");
