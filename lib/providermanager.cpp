@@ -53,9 +53,11 @@ public:
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSignalMapper m_downloadMapping;
     QHash<QString, QNetworkReply*> m_downloads;
+    bool m_authenticationSuppressed;
 
     Private()
         : m_internals(0)
+        , m_authenticationSuppressed(false)
     {
     }
     ~Private()
@@ -114,6 +116,10 @@ void ProviderManager::loadDefaultProviders()
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
+void ProviderManager::setAuthenticationSuppressed(bool suppressed)
+{
+    d->m_authenticationSuppressed = suppressed;
+}
 
 void ProviderManager::clear() {
     d->m_providerFiles.clear();
@@ -166,9 +172,6 @@ void ProviderManager::addProviderFromXml(const QString& providerXml)
     parseProviderFile(providerXml, QString());
 }
 
-void ProviderManager::removeProviderFile(const QUrl& file) {
-    // FIXME: Implement
-}
 
 void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
 {
@@ -197,7 +200,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             if (!baseUrl.isEmpty()) {
                 qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon));
-                emit providersChanged();
+                emit providerAdded(d->m_providers.value(baseUrl));
             }
         }
     }
@@ -224,7 +227,6 @@ QList<QUrl> ProviderManager::providerFiles() const {
 
 void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 {
-    qDebug() << "ProviderManager::authenticate";
     QUrl baseUrl;
     foreach (const QUrl& url, d->m_providers.keys()) {
         if (url.isParentOf(reply->url())) {
@@ -233,16 +235,24 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
         }
     }
 
+    qDebug() << "ProviderManager::authenticate" << baseUrl;
+
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
         if (d->m_internals->loadCredentials(baseUrl, user, password)) {
+            qDebug() << "ProviderManager::authenticate: loading authentication";
             auth->setUser(user);
             auth->setPassword(password);
             return;
         }
-    } else {
-        qDebug() << "ProviderManager::authenticate: We already authenticated once, not trying forever..." << reply->url().toString();
+    }
+
+    if (!d->m_authenticationSuppressed && d->m_internals->askForCredentials(baseUrl, user, password)) {
+        qDebug() << "ProviderManager::authenticate: asking internals for new credentials";
+        //auth->setUser(user);
+        //auth->setPassword(password);
+        return;
     }
 
     qDebug() << "ProviderManager::authenticate: No authentication credentials provided, aborting." << reply->url().toString();
@@ -253,10 +263,6 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
 
 void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator)
 {
-#ifdef ATTICA_USE_KDE
-    // FIXME
-#endif
-
 }
 
 

@@ -63,6 +63,10 @@ bool QtPlatformDependent::loadCredentials(const QUrl& baseUrl, QString& user, QS
     return false;
 }
 
+bool Attica::QtPlatformDependent::askForCredentials(const QUrl& baseUrl, QString& user, QString& password)
+{
+    return false;
+}
 
 QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
 {

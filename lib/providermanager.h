@@ -45,20 +45,22 @@ public:
      */
     void loadDefaultProviders();
 
+    /**
+     * Suppresses the authentication, so that the application can take care of authenticating itself
+     */
+    void setAuthenticationSuppressed(bool suppressed);
+
     void clear();
     void addProviderFromXml(const QString& providerXml);
     void addProviderFile(const QUrl& file);
-    void removeProviderFile(const QUrl& file);
     QList<QUrl> providerFiles() const;
 
     QList<Provider> providers() const;
     bool contains(const QString& provider) const;
     Provider providerByUrl(const QUrl& url) const;
 
-    // TODO void setAuthentication(const QString& user, const QString& password);
-
 Q_SIGNALS:
-    void providersChanged();
+    void providerAdded(const Attica::Provider& provider);
     void authenticationCredentialsMissing(const Provider& provider);
 
 private Q_SLOTS:
