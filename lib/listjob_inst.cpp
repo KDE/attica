@@ -25,6 +25,8 @@
 #include "itemjob.cpp"
 #include "parser.cpp"
 
+#include "accountbalance.h"
+#include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
 #include "category.h"
@@ -62,6 +64,7 @@ template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
 template class ItemJob<Person>;
 template class ItemPostJob<Content>;
+template class ItemJob<AccountBalance>;
 
 template class Parser<Activity>;
 template class Parser<Category>;
@@ -72,3 +75,5 @@ template class Parser<KnowledgeBaseEntry>;
 template class Parser<Message>;
 template class Parser<Person>;
 template class Parser<DownloadItem>;
+template class Parser<AccountBalance>;
+

@@ -20,6 +20,7 @@ set(ocsclient_SRCS
    downloaddescription.cpp
    eventparser.cpp
    event.cpp
+   accountbalance.cpp
    activity.cpp
    activityparser.cpp
    person.cpp
@@ -63,6 +64,7 @@ install(TARGETS attica ARCHIVE DESTINATION ${LIB_DESTINATION}
 
 install(FILES
     activity.h
+    accountbalance.h
     atticabasejob.h
     atticaclient_export.h
     content.h

@@ -54,6 +54,7 @@ class KnowledgeBaseEntry;
 class Person;
 class PostJob;
 class Provider;
+class AccountBalance;
 
 
 /**
@@ -87,6 +88,7 @@ class ATTICA_EXPORT Provider :public QObject
     PostJob* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);
     ItemJob<Person>* requestPerson(const QString& id);
     ItemJob<Person>* requestPersonSelf();
+    ItemJob<AccountBalance>* requestAccountBalance();
     ListJob<Person>* requestPersonSearchByName(const QString& name);
     ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
     PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
@@ -164,6 +166,7 @@ class ATTICA_EXPORT Provider :public QObject
     QNetworkRequest createRequest(const QString& path);
 
     ItemJob<Person>* doRequestPerson(const QUrl& url);
+    ItemJob<AccountBalance>* doRequestAccountBalance(const QUrl& url);
     ListJob<Person>* doRequestPersonList(const QUrl& url);
     ListJob<Activity>* doRequestActivityList(const QUrl& url);
     ListJob<Folder>* doRequestFolderList(const QUrl& url);

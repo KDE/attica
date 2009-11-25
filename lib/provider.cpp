@@ -23,6 +23,7 @@
 
 #include "provider.h"
 
+#include "accountbalance.h"
 #include "activity.h"
 #include "content.h"
 #include "downloaditem.h"
@@ -160,6 +161,12 @@ ItemJob<Person>* Provider::requestPersonSelf()
 {
   QUrl url = createUrl( "person/self" );
   return doRequestPerson( url );
+}
+
+ItemJob<AccountBalance>* Provider::requestAccountBalance()
+{
+  QUrl url = createUrl( "person/balance" );
+  return doRequestAccountBalance( url );
 }
 
 ListJob<Person>* Provider::requestPersonSearchByName(const QString& name)
@@ -564,6 +571,11 @@ QNetworkRequest Provider::createRequest(const QString& path)
 ItemJob<Person>* Provider::doRequestPerson(const QUrl& url)
 {
   return new ItemJob<Person>(d->m_internals, createRequest(url));
+}
+
+ItemJob<AccountBalance>* Provider::doRequestAccountBalance(const QUrl& url)
+{
+  return new ItemJob<AccountBalance>(d->m_internals, createRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
