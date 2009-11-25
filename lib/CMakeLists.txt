@@ -21,6 +21,7 @@ set(ocsclient_SRCS
    eventparser.cpp
    event.cpp
    accountbalance.cpp
+   accountbalanceparser.cpp
    activity.cpp
    activityparser.cpp
    person.cpp
