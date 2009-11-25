@@ -566,7 +566,16 @@ QUrl Provider::createUrl(const QString& path)
 QNetworkRequest Provider::createRequest(const QUrl& url)
 {
     qDebug() << "request with url: " << url.toString() << url.userName();
-    return QNetworkRequest(url);
+    QNetworkRequest request(url);
+
+    if (!d->m_credentialsUserName.isEmpty()) {
+        QString concatenated = d->m_credentialsUserName + ":" + d->m_credentialsPassword;
+        QByteArray data = concatenated.toLocal8Bit().toBase64();
+        QString headerData = "Basic " + data;
+        request.setRawHeader("Authorization", headerData.toLocal8Bit());
+    }
+
+    return request;
 }
 
 
