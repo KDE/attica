@@ -387,7 +387,6 @@ ItemPostJob<Content>* Provider::editContent(const Category& updatedCategory, con
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
 
-
 /*
 PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
 {
@@ -447,12 +446,19 @@ PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& p
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
-
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
     StringMap postParameters;
     postParameters.insert("vote", positiveVote ? "good" : "bad");
     return new PostJob(d->m_internals, createRequest("content/vote/" + contentId), postParameters);
+}
+
+PostJob* Provider::becomeFan(const QString& contentId)
+{
+    QUrl url = createUrl("fan/add/" + contentId);
+    PostFileData postRequest(url);
+    postRequest.addArgument("contentid", contentId);
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
@@ -548,6 +554,7 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 
 QUrl Provider::createUrl(const QString& path)
 {
+    qDebug() << "create url" << path << " user: " << d->m_credentialsUserName;
     QUrl url(d->m_baseUrl.toString() + path);
     if (!d->m_credentialsUserName.isEmpty()) {
         url.setUserName(d->m_credentialsUserName);
@@ -558,6 +565,7 @@ QUrl Provider::createUrl(const QString& path)
 
 QNetworkRequest Provider::createRequest(const QUrl& url)
 {
+    qDebug() << "request with url: " << url.toString() << url.userName();
     return QNetworkRequest(url);
 }
 

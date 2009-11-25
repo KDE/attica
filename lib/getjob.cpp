@@ -25,6 +25,8 @@
 
 #include <QtNetwork/QNetworkAccessManager>
 
+#include <QtCore/QDebug>
+
 #include "platformdependent.h"
 
 
@@ -39,6 +41,8 @@ GetJob::GetJob(const QSharedPointer<PlatformDependent>& internals, const QNetwor
 
 QNetworkReply* GetJob::executeRequest()
 {
+    qDebug() << "GetJob::executeRequest: user: " << m_request.url().userName() << m_request.url().password();
+
     return internals()->get(m_request);
 }
 

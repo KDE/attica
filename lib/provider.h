@@ -129,7 +129,6 @@ class ATTICA_EXPORT Provider :public QObject
 
     ItemJob<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));
 
-    // TODO is positiveVote a good name?
     PostJob* voteForContent(const QString& contentId, bool positiveVote);
 
     ItemPostJob<Content>* addNewContent(const Category& category, const Content& newContent);
@@ -158,6 +157,10 @@ class ATTICA_EXPORT Provider :public QObject
 
     ItemJob<Event>* requestEvent(const QString& id);
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
+
+    // Fan part of OCS
+
+    PostJob* becomeFan(const QString& contentId);
 
   protected:
     QUrl createUrl(const QString& path);
