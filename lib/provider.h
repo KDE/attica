@@ -58,8 +58,12 @@ class AccountBalance;
 
 
 /**
-  Open Collaboration Services API.
-*/
+ * The Provider class represents one Open Collaboration Service provider.
+ * Use the ProviderManager to instanciate a Provider.
+ *
+ * Accessing funtions of the Provider returns a Job class that
+ * takes care of accessing the server and parsing the result.
+ */
 class ATTICA_EXPORT Provider :public QObject
 {
     Q_OBJECT

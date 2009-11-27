@@ -131,6 +131,9 @@ void ProviderManager::init() {
     foreach (const QUrl& url, d->m_internals->getDefaultProviderFiles()) {
         addProviderFile(url);
     }
+    if (d->m_downloads.isEmpty()) {
+        emit defaultProvidersLoaded();
+    }
 }
 
 ProviderManager::~ProviderManager()
@@ -140,8 +143,6 @@ ProviderManager::~ProviderManager()
 
 void ProviderManager::addProviderFile(const QUrl& url)
 {
-    // TODO: use qnam::get to get the file and then parse it
-    
     QString localFile = url.toLocalFile();
     if (!localFile.isEmpty()) {
         QFile file(localFile);
@@ -160,12 +161,11 @@ void ProviderManager::addProviderFile(const QUrl& url)
     }
 }
 
-
-void ProviderManager::fileFinished(const QString& url) {
+void ProviderManager::fileFinished(const QString& url)
+{
     QNetworkReply* reply = d->m_downloads.take(url);
     parseProviderFile(reply->readAll(), url);
 }
-
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
 {
@@ -203,6 +203,10 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }
+    }
+
+    if (d->m_downloads.isEmpty()) {
+        emit defaultProvidersLoaded();
     }
 }
 

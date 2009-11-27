@@ -32,6 +32,24 @@
 
 namespace Attica {
 
+
+/**
+ * Attica ProviderManager
+ *
+ * This class is the primary access to Attica's functions.
+ * Use the ProviderManager to load Open Collaboration Service providers,
+ * either the default system ones, or from XML or custom locations.
+ *
+ * \section providerfiles Provider Files
+ * Provider files are defined here:
+ * http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
+ *
+ * <pre>
+   provider file example
+ * </pre>
+ *
+ * Once you have loaded a Provider, use its functions to access the service.
+ */
 class ATTICA_EXPORT ProviderManager : public QObject
 {
     Q_OBJECT
@@ -50,7 +68,14 @@ public:
      */
     void setAuthenticationSuppressed(bool suppressed);
 
+    /**
+     * Remove all providers that have been loaded
+     */
     void clear();
+
+    /**
+     * Parse a xml file containing a provider description
+     */
     void addProviderFromXml(const QString& providerXml);
     void addProviderFile(const QUrl& file);
     QList<QUrl> providerFiles() const;
@@ -61,6 +86,7 @@ public:
 
 Q_SIGNALS:
     void providerAdded(const Attica::Provider& provider);
+    void defaultProvidersLoaded();
     void authenticationCredentialsMissing(const Provider& provider);
 
 private Q_SLOTS:
