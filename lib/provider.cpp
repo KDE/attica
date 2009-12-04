@@ -565,7 +565,6 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 
 QUrl Provider::createUrl(const QString& path)
 {
-    qDebug() << "create url" << path << " user: " << d->m_credentialsUserName;
     QUrl url(d->m_baseUrl.toString() + path);
     if (!d->m_credentialsUserName.isEmpty()) {
         url.setUserName(d->m_credentialsUserName);
@@ -576,7 +575,6 @@ QUrl Provider::createUrl(const QString& path)
 
 QNetworkRequest Provider::createRequest(const QUrl& url)
 {
-    qDebug() << "request with url: " << url.toString() << url.userName();
     QNetworkRequest request(url);
 
     if (!d->m_credentialsUserName.isEmpty()) {
