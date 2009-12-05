@@ -74,6 +74,7 @@ void BaseJob::dataFinished()
     }
     emit finished(this);
 
+    d->m_reply->deleteLater();
     deleteLater();
 }
 

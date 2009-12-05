@@ -165,6 +165,7 @@ void ProviderManager::fileFinished(const QString& url)
 {
     QNetworkReply* reply = d->m_downloads.take(url);
     parseProviderFile(reply->readAll(), url);
+    reply->deleteLater();
 }
 
 void ProviderManager::addProviderFromXml(const QString& providerXml)
