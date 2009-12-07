@@ -173,7 +173,6 @@ void ProviderManager::addProviderFromXml(const QString& providerXml)
     parseProviderFile(providerXml, QString());
 }
 
-
 void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
 {
     QXmlStreamReader xml(xmlString);
@@ -245,11 +244,13 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
-        if (d->m_internals->loadCredentials(baseUrl, user, password)) {
-            qDebug() << "ProviderManager::authenticate: loading authentication";
-            auth->setUser(user);
-            auth->setPassword(password);
-            return;
+        if (d->m_internals->hasCredentials(baseUrl)) {
+            if (d->m_internals->loadCredentials(baseUrl, user, password)) {
+                qDebug() << "ProviderManager::authenticate: loading authentication";
+                auth->setUser(user);
+                auth->setPassword(password);
+                return;
+            }
         }
     }
 

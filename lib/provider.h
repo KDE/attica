@@ -64,10 +64,8 @@ class AccountBalance;
  * Accessing funtions of the Provider returns a Job class that
  * takes care of accessing the server and parsing the result.
  */
-class ATTICA_EXPORT Provider :public QObject
+class ATTICA_EXPORT Provider
 {
-    Q_OBJECT
-
   public:
     Provider();
     Provider(const Provider& other);
@@ -85,6 +83,10 @@ class ATTICA_EXPORT Provider :public QObject
         Downloads
     };
 
+    bool hasCredentials();
+    bool loadCredentials(QString& user, QString& password);
+    bool saveCredentials(const QString& user, const QString& password);
+    
     PostJob* checkLogin(const QString& user, const QString& password);
 
     // Person part of OCS

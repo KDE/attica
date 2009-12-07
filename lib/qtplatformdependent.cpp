@@ -46,6 +46,12 @@ QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 }
 
 
+bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl)
+{
+    return false;
+}
+
+
 bool QtPlatformDependent::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password)
 {
     Q_UNUSED(baseUrl)

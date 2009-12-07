@@ -38,6 +38,7 @@ public:
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
     virtual QNetworkReply* get(const QNetworkRequest& request);
+    virtual bool hasCredentials(const QUrl& baseUrl);
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password);

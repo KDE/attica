@@ -83,7 +83,7 @@ class Provider::Private : public QSharedData {
         }
         QString user;
         QString pass;
-        if (m_internals->loadCredentials(m_baseUrl, user, pass)) {
+        if (m_internals->hasCredentials(m_baseUrl) && m_internals->loadCredentials(m_baseUrl, user, pass)) {
             m_credentialsUserName = user;
             m_credentialsPassword = pass;
         }
@@ -101,7 +101,7 @@ Provider::Provider()
 }
 
 Provider::Provider(const Provider& other)
-  : QObject(), d(other.d)
+  : d(other.d)
 {
 }
 
@@ -137,6 +137,20 @@ QString Provider::name() const
     return d->m_name;
 }
 
+bool Provider::hasCredentials()
+{
+    return d->m_internals->hasCredentials(d->m_baseUrl);
+}
+
+bool Provider::loadCredentials(QString& user, QString& password)
+{
+    return d->m_internals->loadCredentials(d->m_baseUrl, user, password);
+}
+
+bool Provider::saveCredentials(const QString& user, const QString& password)
+{
+    return d->m_internals->saveCredentials(d->m_baseUrl, user, password);
+}
 
 PostJob* Provider::checkLogin(const QString& user, const QString& password)
 {
@@ -623,6 +637,3 @@ ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
     return new ListJob<Message>(d->m_internals, createRequest(url));
 }
-
-
-#include "provider.moc"

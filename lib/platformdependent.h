@@ -43,6 +43,7 @@ class PlatformDependent
 public:
     virtual ~PlatformDependent() {}
     virtual QList<QUrl> getDefaultProviderFiles() const = 0;
+    virtual bool hasCredentials(const QUrl& baseUrl) = 0;
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) = 0;
