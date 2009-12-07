@@ -10,6 +10,8 @@ set(CMAKE_INSTALL_RPATH "${LIB_DESTINATION}" )
 find_package(Qt4 REQUIRED)
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
+configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+
 set(ocsclient_SRCS
    qtplatformdependent.cpp
    parser.cpp
@@ -86,6 +88,7 @@ install(FILES
     postjob.h
     providermanager.h
     provider.h
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
     DESTINATION include/attica COMPONENT Devel
 )
 
