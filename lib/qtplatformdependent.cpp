@@ -46,7 +46,7 @@ QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 }
 
 
-bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl)
+bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl) const
 {
     return false;
 }
