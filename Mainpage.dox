@@ -1,0 +1,11 @@
+/** @mainpage The LibAttica API Reference
+
+Attica is a Qt library that implements the Open Collaboration Services API version 1.4.
+The REST API is defined here:
+ http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
+
+*/
+// DOXYGEN_VERSION=4.0
+// DOXYGEN_NAME=attica
+// DOXYGEN_ENABLE=YES
+// DOXYGEN_SET_RECURSIVE = YES
