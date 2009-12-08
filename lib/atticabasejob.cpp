@@ -84,13 +84,18 @@ void BaseJob::start()
     QTimer::singleShot(0, this, SLOT(doWork()));
 }
 
-
 void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
 }
 
+void BaseJob::abort()
+{
+    if (d->m_reply) {
+        d->m_reply->abort();
+    }
+}
 
 PlatformDependent* BaseJob::internals()
 {

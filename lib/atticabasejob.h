@@ -46,6 +46,7 @@ public:
     
 public Q_SLOTS:
     void start();
+    void abort();
 
 Q_SIGNALS:
     void finished(Attica::BaseJob* job);
