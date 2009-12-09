@@ -58,7 +58,7 @@ set_target_properties(attica PROPERTIES
     DEFINE_SYMBOL MAKE_ATTICA_LIB
 )
 
-target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 
 
 install(TARGETS attica ARCHIVE DESTINATION ${LIB_DESTINATION}
