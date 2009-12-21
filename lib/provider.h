@@ -84,6 +84,7 @@ class ATTICA_EXPORT Provider
     };
 
     bool hasCredentials();
+    bool hasCredentials() const;
     bool loadCredentials(QString& user, QString& password);
     bool saveCredentials(const QString& user, const QString& password);
     
