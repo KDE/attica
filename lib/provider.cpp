@@ -139,7 +139,7 @@ QString Provider::name() const
 
 bool Provider::hasCredentials()
 {
-    return hasCredentials();
+    return d->m_internals->hasCredentials(d->m_baseUrl);
 }
 
 bool Provider::hasCredentials() const
