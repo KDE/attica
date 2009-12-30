@@ -26,6 +26,7 @@
 
 #include "platformdependent.h"
 
+#include <QtCore/QHash>
 #include <QtNetwork/QNetworkAccessManager>
 
 
@@ -46,6 +47,7 @@ public:
 
 private:
     QNetworkAccessManager m_qnam;
+    QHash<QString, QPair <QString, QString> > m_passwords;
 };
 
 }

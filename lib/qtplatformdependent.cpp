@@ -48,25 +48,26 @@ QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 
 bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl) const
 {
-    return false;
+    return !m_passwords.contains(baseUrl.toString());
 }
 
 
 bool QtPlatformDependent::saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password)
 {
-    Q_UNUSED(baseUrl)
-    Q_UNUSED(user)
-    Q_UNUSED(password)
-    return false;
+    m_passwords[baseUrl.toString()] = QPair<QString, QString> (user, password);
+    return true;
 }
 
 
 bool QtPlatformDependent::loadCredentials(const QUrl& baseUrl, QString& user, QString& password)
 {
-    Q_UNUSED(baseUrl)
-    Q_UNUSED(user)
-    Q_UNUSED(password)
-    return false;
+    if (!hasCredentials(baseUrl)) {
+        return false;
+    }
+    QPair<QString, QString> userPass = m_passwords.value(baseUrl.toString());
+    user = userPass.first;
+    password = userPass.second;
+    return true;
 }
 
 bool Attica::QtPlatformDependent::askForCredentials(const QUrl& baseUrl, QString& user, QString& password)
