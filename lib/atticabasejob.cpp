@@ -94,7 +94,9 @@ void BaseJob::abort()
 {
     if (d->m_reply) {
         d->m_reply->abort();
+        d->m_reply->deleteLater();
     }
+    deleteLater();
 }
 
 PlatformDependent* BaseJob::internals()
