@@ -42,9 +42,11 @@
 
 using namespace Attica;
 
+#if QT_VERSION < 0x040700
 uint qHash(const QUrl& key) {
     return qHash(key.toString());
 }
+#endif
 
 class ProviderManager::Private {
 public:
