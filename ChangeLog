@@ -1,0 +1,8 @@
+0.1.2
+ - Don't define qHash for QUrl in Qt 4.7
+ - fix memlead for aborted requests
+ - qt platform plugin implements basic password/user name handling
+ - copying file: lesser gpl 2.1
+ - don't link qtgui without reason
+ - make hasCredentials const (new function)
+
