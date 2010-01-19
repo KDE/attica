@@ -10,6 +10,11 @@ set(CMAKE_INSTALL_RPATH "${LIB_DESTINATION}" )
 find_package(Qt4 REQUIRED)
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
+# mingw can't handle exported explicit template instantiations in a DLL
+if (MINGW)
+  set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols ${CMAKE_SHARED_LINKER_FLAGS}")
+endif (MINGW)
+
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
 set(ocsclient_SRCS
