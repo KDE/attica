@@ -49,9 +49,9 @@ public:
     Private()
         // values that make sense for single item jobs
         :error(NoError)
+        ,statusCode(0)
         ,totalItems(1)
         ,itemsPerPage(1)
-        ,statusCode(0)
     {
     }
 };
