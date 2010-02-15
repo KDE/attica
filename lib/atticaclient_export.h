@@ -25,7 +25,7 @@
 #include <QtCore/QtGlobal>
 
 #ifndef ATTICA_EXPORT
-# if defined(MAKE_ATTICA_LIB)
+# if defined(ATTICA_LIB_MAKEDLL)
    /* We are building this library */
 #  define ATTICA_EXPORT Q_DECL_EXPORT
 # else
