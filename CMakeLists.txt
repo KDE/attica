@@ -7,5 +7,7 @@ set(CMAKE_LIBATTICA_VERSION_STRING "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIB
 
 cmake_minimum_required(VERSION 2.6)
 
+set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
+
 add_subdirectory(lib)
 
