@@ -59,8 +59,9 @@
 
 using namespace Attica;
 
-class Provider::Private : public QSharedData {
-  public:
+class Provider::Private : public QSharedData
+{
+public:
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
@@ -69,14 +70,14 @@ class Provider::Private : public QSharedData {
     QString m_credentialsPassword;
 
     Private(const Private& other)
-      : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
-      , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
-      , m_credentialsPassword(other.m_credentialsPassword)
+        : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
+        , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
+        , m_credentialsPassword(other.m_credentialsPassword)
     {
     }
 
     Private(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-      : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
+        : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
     {
         if (m_baseUrl.isEmpty()) {
             return;
@@ -96,22 +97,22 @@ class Provider::Private : public QSharedData {
 
 
 Provider::Provider()
-  : d(new Private(QSharedPointer<PlatformDependent>(0), QUrl(), QString(), QUrl()))
+    : d(new Private(QSharedPointer<PlatformDependent>(0), QUrl(), QString(), QUrl()))
 {
 }
 
 Provider::Provider(const Provider& other)
-  : d(other.d)
+    : d(other.d)
 {
 }
 
 Provider::Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-  : d(new Private(internals, baseUrl, name, icon))
+    : d(new Private(internals, baseUrl, name, icon))
 {
 }
 
 Provider& Provider::operator=(const Attica::Provider & other)
-{
+                             {
     d = other.d;
     return *this;
 }
@@ -183,68 +184,68 @@ PostJob* Provider::registerAccount(const QString& id, const QString& password, c
 
 ItemJob<Person>* Provider::requestPerson(const QString& id)
 {
-  QUrl url = createUrl( "person/data/" + id );
-  return doRequestPerson( url );
+    QUrl url = createUrl( "person/data/" + id );
+    return doRequestPerson( url );
 }
 
 ItemJob<Person>* Provider::requestPersonSelf()
 {
-  QUrl url = createUrl( "person/self" );
-  return doRequestPerson( url );
+    QUrl url = createUrl( "person/self" );
+    return doRequestPerson( url );
 }
 
 ItemJob<AccountBalance>* Provider::requestAccountBalance()
 {
-  QUrl url = createUrl( "person/balance" );
-  return doRequestAccountBalance( url );
+    QUrl url = createUrl( "person/balance" );
+    return doRequestAccountBalance( url );
 }
 
 ListJob<Person>* Provider::requestPersonSearchByName(const QString& name)
 {
-  QUrl url = createUrl( "person/data");
-  url.addQueryItem("name", name);
-  return doRequestPersonList( url );
+    QUrl url = createUrl( "person/data");
+    url.addQueryItem("name", name);
+    return doRequestPersonList( url );
 }
 
 ListJob<Person>* Provider::requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance, int page, int pageSize)
 {
-  QUrl url = createUrl( "person/data" );
-  url.addQueryItem("latitude", QString::number(latitude));
-  url.addQueryItem("longitude", QString::number(longitude));
-  if (distance > 0.0) {
-    url.addQueryItem("distance", QString::number(distance));
-  }
-  url.addQueryItem("page", QString::number(page));
-  url.addQueryItem("pagesize", QString::number(pageSize));
-  
-  return doRequestPersonList( url );
+    QUrl url = createUrl( "person/data" );
+    url.addQueryItem("latitude", QString::number(latitude));
+    url.addQueryItem("longitude", QString::number(longitude));
+    if (distance > 0.0) {
+        url.addQueryItem("distance", QString::number(distance));
+    }
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
+
+    return doRequestPersonList( url );
 }
 
 ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageSize)
 {
-  QUrl url = createUrl( "friend/data/" + id );
-  url.addQueryItem("page", QString::number(page));
-  url.addQueryItem("pagesize", QString::number(pageSize));
+    QUrl url = createUrl( "friend/data/" + id );
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
 
-  return doRequestPersonList( url );
+    return doRequestPersonList( url );
 }
 
 ListJob<Person>* Provider::requestSentInvitations(int page, int pageSize)
 {
-  QUrl url = createUrl("friend/sentinvitations");
-  url.addQueryItem("page", QString::number(page));
-  url.addQueryItem("pagesize", QString::number(pageSize));
+    QUrl url = createUrl("friend/sentinvitations");
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
 
-  return doRequestPersonList(url);
+    return doRequestPersonList(url);
 }
 
 ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
 {
-  QUrl url = createUrl("friend/receivedinvitations");
-  url.addQueryItem("page", QString::number(page));
-  url.addQueryItem("pagesize", QString::number(pageSize));
+    QUrl url = createUrl("friend/receivedinvitations");
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
 
-  return doRequestPersonList(url);
+    return doRequestPersonList(url);
 }
 
 ListJob<Activity>* Provider::requestActivities()
@@ -301,12 +302,12 @@ PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& 
 
 ListJob<Folder>* Provider::requestFolders()
 {
-  return doRequestFolderList( createUrl( "message" ) );
+    return doRequestFolderList( createUrl( "message" ) );
 }
 
 ListJob<Message>* Provider::requestMessages(const Folder& folder)
 {
-  return doRequestMessageList( createUrl( "message/" + folder.id() ) );
+    return doRequestMessageList( createUrl( "message/" + folder.id() ) );
 }
 
 
@@ -335,9 +336,9 @@ PostJob* Provider::postMessage( const Message &message )
 
 ListJob<Category>* Provider::requestCategories()
 {
-  QUrl url = createUrl( "content/categories" );
-  ListJob<Category> *job = new ListJob<Category>(d->m_internals, createRequest(url));
-  return job;
+    QUrl url = createUrl( "content/categories" );
+    ListJob<Category> *job = new ListJob<Category>(d->m_internals, createRequest(url));
+    return job;
 }
 
 
@@ -348,51 +349,51 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
 
 ListJob<Content>* Provider::searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
-  QUrl url = createUrl( "content/data" );
+    QUrl url = createUrl( "content/data" );
 
-  QStringList categoryIds;
-  foreach( const Category &category, categories ) {
-    categoryIds.append( category.id() );
-  }
-  url.addQueryItem( "categories", categoryIds.join( "x" ) );
+    QStringList categoryIds;
+    foreach( const Category &category, categories ) {
+        categoryIds.append( category.id() );
+    }
+    url.addQueryItem( "categories", categoryIds.join( "x" ) );
 
-  if (!person.isEmpty()) {
-    url.addQueryItem( "user", person );
-  }
+    if (!person.isEmpty()) {
+        url.addQueryItem( "user", person );
+    }
 
-  url.addQueryItem( "search", search );
-  QString sortModeString;
-  switch ( sortMode ) {
+    url.addQueryItem( "search", search );
+    QString sortModeString;
+    switch ( sortMode ) {
     case Newest:
-      sortModeString = "new";
-      break;
+        sortModeString = "new";
+        break;
     case Alphabetical:
-      sortModeString = "alpha";
-      break;
+        sortModeString = "alpha";
+        break;
     case Rating:
-      sortModeString = "high";
-      break;
+        sortModeString = "high";
+        break;
     case Downloads:
-      sortModeString = "down";
-      break;
-  }
+        sortModeString = "down";
+        break;
+    }
 
-  if ( !sortModeString.isEmpty() ) {
-    url.addQueryItem( "sortmode", sortModeString );
-  }
+    if ( !sortModeString.isEmpty() ) {
+        url.addQueryItem( "sortmode", sortModeString );
+    }
 
-  url.addQueryItem( "page", QString::number(page) );
-  url.addQueryItem( "pagesize", QString::number(pageSize) );
-  
-  ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
-  return job;
+    url.addQueryItem( "page", QString::number(page) );
+    url.addQueryItem( "pagesize", QString::number(pageSize) );
+
+    ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
+    return job;
 }
 
 ItemJob<Content>* Provider::requestContent(const QString& id)
 {
-  QUrl url = createUrl( "content/data/" + id );
-  ItemJob<Content> *job = new ItemJob<Content>(d->m_internals, createRequest(url));
-  return job;
+    QUrl url = createUrl( "content/data/" + id );
+    ItemJob<Content> *job = new ItemJob<Content>(d->m_internals, createRequest(url));
+    return job;
 }
 
 ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Content& cont)
@@ -517,37 +518,37 @@ ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& 
 
 ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& content, const QString& search, Provider::SortMode sortMode, int page, int pageSize)
 {
-  QUrl url = createUrl( "knowledgebase/data" );
-  if (content.isValid()) {
-      url.addQueryItem("content", content.id());
-  }
+    QUrl url = createUrl( "knowledgebase/data" );
+    if (content.isValid()) {
+        url.addQueryItem("content", content.id());
+    }
 
-  url.addQueryItem( "search", search );
-  QString sortModeString;
-  switch ( sortMode ) {
+    url.addQueryItem( "search", search );
+    QString sortModeString;
+    switch ( sortMode ) {
     case Newest:
-      sortModeString = "new";
-      break;
+        sortModeString = "new";
+        break;
     case Alphabetical:
-      sortModeString = "alpha";
-      break;
+        sortModeString = "alpha";
+        break;
     case Rating:
-      sortModeString = "high";
-      break;
-    //FIXME: knowledge base doesn't have downloads
+        sortModeString = "high";
+        break;
+        //FIXME: knowledge base doesn't have downloads
     case Downloads:
-      sortModeString = "new";
-      break;
-  }
-  if ( !sortModeString.isEmpty() ) {
-    url.addQueryItem( "sortmode", sortModeString );
-  }
+        sortModeString = "new";
+        break;
+    }
+    if ( !sortModeString.isEmpty() ) {
+        url.addQueryItem( "sortmode", sortModeString );
+    }
 
-  url.addQueryItem( "page", QString::number(page) );
-  url.addQueryItem( "pagesize", QString::number(pageSize) );
+    url.addQueryItem( "page", QString::number(page) );
+    url.addQueryItem( "pagesize", QString::number(pageSize) );
 
-  ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
-  return job;
+    ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
+    return job;
 }
 
 ItemJob<Event>* Provider::requestEvent(const QString& id)
@@ -558,38 +559,38 @@ ItemJob<Event>* Provider::requestEvent(const QString& id)
 
 ListJob<Event>* Provider::requestEvent(const QString& country, const QString& search, const QDate& startAt, Provider::SortMode mode, int page, int pageSize)
 {
-  QUrl url = createUrl("event/data");
+    QUrl url = createUrl("event/data");
 
-  if (!search.isEmpty()) {
-      url.addQueryItem("search", search);
-  }
+    if (!search.isEmpty()) {
+        url.addQueryItem("search", search);
+    }
 
-  QString sortModeString;
-  switch (mode) {
+    QString sortModeString;
+    switch (mode) {
     case Newest:
-      sortModeString = "new";
-      break;
+        sortModeString = "new";
+        break;
     case Alphabetical:
-      sortModeString = "alpha";
-      break;
+        sortModeString = "alpha";
+        break;
     default:
         break;
-  }
-  if (!sortModeString.isEmpty()) {
-    url.addQueryItem("sortmode", sortModeString);
-  }
-  
-  if (!country.isEmpty()) {
-    url.addQueryItem("country", country);
-  }
-  
-  url.addQueryItem("startat", startAt.toString(Qt::ISODate));
+    }
+    if (!sortModeString.isEmpty()) {
+        url.addQueryItem("sortmode", sortModeString);
+    }
 
-  url.addQueryItem("page", QString::number(page));
-  url.addQueryItem("pagesize", QString::number(pageSize));
+    if (!country.isEmpty()) {
+        url.addQueryItem("country", country);
+    }
 
-  ListJob<Event>* job = new ListJob<Event>(d->m_internals, createRequest(url));
-  return job;
+    url.addQueryItem("startat", startAt.toString(Qt::ISODate));
+
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
+
+    ListJob<Event>* job = new ListJob<Event>(d->m_internals, createRequest(url));
+    return job;
 }
 
 QUrl Provider::createUrl(const QString& path)
@@ -625,12 +626,12 @@ QNetworkRequest Provider::createRequest(const QString& path)
 
 ItemJob<Person>* Provider::doRequestPerson(const QUrl& url)
 {
-  return new ItemJob<Person>(d->m_internals, createRequest(url));
+    return new ItemJob<Person>(d->m_internals, createRequest(url));
 }
 
 ItemJob<AccountBalance>* Provider::doRequestAccountBalance(const QUrl& url)
 {
-  return new ItemJob<AccountBalance>(d->m_internals, createRequest(url));
+    return new ItemJob<AccountBalance>(d->m_internals, createRequest(url));
 }
 
 ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
