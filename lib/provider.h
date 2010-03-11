@@ -131,7 +131,32 @@ class ATTICA_EXPORT Provider
      * @return the categories of the server
      */
     ListJob<Category>* requestCategories();
+
+    /**
+      Request a list of Contents.
+      Note that @p categories is not optional. If left empty, no results will be returned.
+      An empty search string @p search returns the top n items.
+      @param categories categories to search in
+      @param search optional search string (in name/description of the content)
+      @param mode sorting mode
+      @param page request nth page in the list of results
+      @param pageSize requested size of pages when calculating the list of results
+      @return list job for the search results
+      */
     ListJob<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 1, uint pageSize = 10);
+
+    /**
+      Request a list of Contents.
+      Like @see searchContents, but only contents created by one person.
+      @param person the person-id that created the contents.
+     */
+    ListJob<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 1, uint pageSize = 10);
+
+    /**
+      Retrieve a single content.
+      @param contentId the id of the content
+      @return job that retrieves the content object
+     */
     ItemJob<Content>* requestContent(const QString& contentId);
 
     ItemJob<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));

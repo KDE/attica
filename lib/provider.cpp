@@ -340,9 +340,14 @@ ListJob<Category>* Provider::requestCategories()
   return job;
 }
 
+
 ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
+    return searchContentsByPerson(categories, QString(), search, sortMode, page, pageSize);
+}
 
+ListJob<Content>* Provider::searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search, SortMode sortMode, uint page, uint pageSize)
+{
   QUrl url = createUrl( "content/data" );
 
   QStringList categoryIds;
@@ -350,7 +355,11 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
     categoryIds.append( category.id() );
   }
   url.addQueryItem( "categories", categoryIds.join( "x" ) );
-  
+
+  if (!person.isEmpty()) {
+    url.addQueryItem( "user", person );
+  }
+
   url.addQueryItem( "search", search );
   QString sortModeString;
   switch ( sortMode ) {
@@ -367,14 +376,15 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
       sortModeString = "down";
       break;
   }
+
   if ( !sortModeString.isEmpty() ) {
     url.addQueryItem( "sortmode", sortModeString );
   }
+
   url.addQueryItem( "page", QString::number(page) );
   url.addQueryItem( "pagesize", QString::number(pageSize) );
   
-    ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
-
+  ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
   return job;
 }
 
