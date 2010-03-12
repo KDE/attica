@@ -39,6 +39,8 @@
 #include "folderparser.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
+#include "license.h"
+#include "licenseparser.h"
 #include "message.h"
 #include "messageparser.h"
 #include "person.h"
@@ -341,6 +343,12 @@ ListJob<Category>* Provider::requestCategories()
     return job;
 }
 
+ListJob< License >* Provider::requestLicenses()
+{
+    QUrl url = createUrl( "content/licenses" );
+    ListJob<License> *job = new ListJob<License>(d->m_internals, createRequest(url));
+    return job;
+}
 
 ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {

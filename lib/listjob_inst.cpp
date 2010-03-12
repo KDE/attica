@@ -38,6 +38,8 @@
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "license.h"
+#include "licenseparser.h"
 #include "message.h"
 #include "messageparser.h"
 #include "person.h"
@@ -52,6 +54,7 @@ template class ListJob<Category>;
 template class ListJob<Content>;
 template class ListJob<Event>;
 template class ListJob<Folder>;
+template class ListJob<License>;
 template class ListJob<Message>;
 template class ListJob<Person>;
 template class ListJob<KnowledgeBaseEntry>;
@@ -72,6 +75,7 @@ template class Parser<Content>;
 template class Parser<Event>;
 template class Parser<Folder>;
 template class Parser<KnowledgeBaseEntry>;
+template class Parser<License>;
 template class Parser<Message>;
 template class Parser<Person>;
 template class Parser<DownloadItem>;

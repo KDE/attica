@@ -31,6 +31,8 @@ set(ocsclient_SRCS
    accountbalanceparser.cpp
    activity.cpp
    activityparser.cpp
+   license.cpp
+   licenseparser.cpp
    person.cpp
    personparser.cpp
    provider.cpp
@@ -85,6 +87,7 @@ install(FILES
     itemjob.h
     knowledgebaseentry.h
     listjob.h
+    license.h
     message.h
     metadata.h
     person.h

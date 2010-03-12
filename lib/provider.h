@@ -35,7 +35,7 @@
 #include "itemjob.h"
 #include "listjob.h"
 #include "message.h"
-
+         
 class QDate;
 class QUrl;
 
@@ -51,6 +51,7 @@ class DownloadItem;
 class Event;
 class Folder;
 class KnowledgeBaseEntry;
+class License;
 class Person;
 class PostJob;
 class Provider;
@@ -131,7 +132,13 @@ class ATTICA_EXPORT Provider
      * @return the categories of the server
      */
     ListJob<Category>* requestCategories();
-
+    
+    /** 
+    * Get a list of licenses (such as GPL)
+    * @return the licenses available from the server
+    */
+    ListJob<License>* requestLicenses();
+    
     /**
       Request a list of Contents.
       Note that @p categories is not optional. If left empty, no results will be returned.
