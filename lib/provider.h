@@ -143,14 +143,14 @@ class ATTICA_EXPORT Provider
       @param pageSize requested size of pages when calculating the list of results
       @return list job for the search results
       */
-    ListJob<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 1, uint pageSize = 10);
+    ListJob<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Request a list of Contents.
       Like @see searchContents, but only contents created by one person.
       @param person the person-id that created the contents.
      */
-    ListJob<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 1, uint pageSize = 10);
+    ListJob<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Retrieve a single content.
