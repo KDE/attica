@@ -6,3 +6,8 @@
  - don't link qtgui without reason
  - make hasCredentials const (new function)
 
+0.1.3
+ - Add possibility to get Licenses from server
+ - Add search for contents by username
+ - Fix qt-only hasCredentials
+ - Win and Mac compile/link fixes
