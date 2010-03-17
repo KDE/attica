@@ -48,7 +48,7 @@ QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 
 bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl) const
 {
-    return !m_passwords.contains(baseUrl.toString());
+    return m_passwords.contains(baseUrl.toString());
 }
 
 
