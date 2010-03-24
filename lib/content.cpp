@@ -200,8 +200,8 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
         desc.setDownloadtypLink(false);
     }
     desc.setId(number);
-    desc.setDistributionType(attribute("downloaddistributiontype" + num));
     desc.setName(attribute("downloadname" + num));
+    desc.setDistributionType(attribute("downloadtype" + num));
     desc.setHasPrice(attribute("downloadbuy" + num) == "1");
     desc.setLink(attribute("downloadlink" + num));
     // desc.setPriceReason(attribute("downloadreason" + num));
