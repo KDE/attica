@@ -113,7 +113,7 @@ class ATTICA_EXPORT Content
     void setDownloads(int downloads);
     
     /**
-     * Gets the number of downloads for the Content.
+     * Gets the number of downloads for the Content (how often this has been downloaded from the server).
      * @return the number of downloads
      */
     int downloads() const;
@@ -155,7 +155,18 @@ class ATTICA_EXPORT Content
     QString changelog() const;
     QString version() const;
     QString depend() const;
+
+    /**
+      Get the details about a download (a content can have multiple links, eg for different distros).
+      This is not very helpful if we don't know the allowed numbers.
+      */
     DownloadDescription downloadUrlDescription(int number) const;
+
+    /**
+      Get all possible downloads.
+      This is slow searching through lots of strings, so beware and don't call it too often.
+      */
+    QList<DownloadDescription> downloadUrlDescriptions() const;
 
     QString previewPicture(const QString& number = QLatin1String("1")) const;
     QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;

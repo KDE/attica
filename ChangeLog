@@ -9,5 +9,7 @@
 0.1.3
  - Add possibility to get Licenses from server
  - Add search for contents by username
+ - Add convenience function to get list of download links and fix some related strings
  - Fix qt-only hasCredentials
  - Win and Mac compile/link fixes
+

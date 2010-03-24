@@ -25,7 +25,6 @@
 
 #include <QtCore/QDateTime>
 
-
 using namespace Attica;
 
 class Content::Private : public QSharedData {
@@ -169,6 +168,28 @@ QString Attica::Content::depend() const
     return attribute("depend");
 }
 
+QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() const
+{
+    QList<Attica::DownloadDescription> descriptions;
+    QMap<QString,QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
+    while (iter != d->m_extendedAttributes.constEnd()) {
+        QString key = iter.key();
+        if (key.startsWith("downloadname")) {
+            bool ok;
+            // remove "downloadlink", get the rest as number
+            int num = key.right(key.size() - 12).toInt(&ok);
+            if (ok) {
+                // check if the download actually has a name
+                if (!iter.value().isEmpty()) {
+                    descriptions.append(downloadUrlDescription(num));
+                }
+            }
+        }
+        ++iter;
+    }
+    return descriptions;
+}
+
 Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) const
 {
     QString num(QString::number(number));
@@ -178,14 +199,12 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     if (number == 1 && attribute("downloadtyp1") == "0") {
         desc.setDownloadtypLink(false);
     }
-
     desc.setDistributionType(attribute("downloaddistributiontype" + num));
-    desc.setName(name());
+    desc.setName(attribute("downloadname" + num));
     desc.setHasPrice(attribute("downloadbuy" + num) == "1");
     desc.setLink(attribute("downloadlink" + num));
-    desc.setPriceReason(attribute("downloadbuyreason"));
-    desc.setPriceAmount(attribute("downloadbuyprice"));
-    
+    // desc.setPriceReason(attribute("downloadreason" + num));
+    desc.setPriceAmount(attribute("downloadprice" + num));
     return desc;
 }
 
