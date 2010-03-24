@@ -41,7 +41,12 @@ public:
     
     DownloadDescription& operator=(const DownloadDescription& other);
     ~DownloadDescription();
-    
+
+    /**
+      The id of the description - as one Content can have multiple download descriptions associated.
+      This will simply be 1, 2, ...
+      */
+    int id();
     bool isDownloadtypLink();
     bool hasPrice();
     QString category();
@@ -51,6 +56,7 @@ public:
     QString priceReason();
     QString priceAmount();
     
+    void setId(int id);
     void setDownloadtypLink(bool isLink);
     void setHasPrice(bool hasPrice);
     void setCategory(const QString& category);
@@ -59,7 +65,7 @@ public:
     void setDistributionType(const QString& distributionType);
     void setPriceReason(const QString& priceReason);
     void setPriceAmount(const QString& priceAmount);
-    
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

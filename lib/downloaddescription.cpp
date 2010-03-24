@@ -29,6 +29,7 @@ namespace Attica {
 class DownloadDescription::Private :public QSharedData
 {
 public:
+    int id;
     bool isDownloadtypLink;
     bool hasPrice;
     QString category;
@@ -66,6 +67,16 @@ DownloadDescription::~DownloadDescription()
 QString Attica::DownloadDescription::category()
 {
     return d->category;
+}
+
+int DownloadDescription::id()
+{
+    return d->id;
+}
+
+void DownloadDescription::setId(int id)
+{
+    d->id = id;
 }
 
 void DownloadDescription::setCategory(const QString& category)
