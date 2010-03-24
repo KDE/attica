@@ -199,6 +199,7 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     if (number == 1 && attribute("downloadtyp1") == "0") {
         desc.setDownloadtypLink(false);
     }
+    desc.setId(number);
     desc.setDistributionType(attribute("downloaddistributiontype" + num));
     desc.setName(attribute("downloadname" + num));
     desc.setHasPrice(attribute("downloadbuy" + num) == "1");
