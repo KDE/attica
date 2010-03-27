@@ -23,7 +23,7 @@
 
 #include "parser.h"
 #include <QStringList>
-
+#include <QDebug>
 
 using namespace Attica;
 
@@ -52,6 +52,10 @@ T Parser<T>::parse(const QString& xmlString)
                 item = parseXml(xml);
             }
         }
+    }
+    if (xml.hasError()) {
+        // TODO: error handling in metadata?
+        qWarning() << "XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
     }
 
     return item;
@@ -87,6 +91,11 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
             }
         }
     }
+    if (xml.hasError()) {
+        // TODO: error handling in metadata?
+        qWarning() << "XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
+    }
+
 
     return items;
 }
@@ -113,6 +122,11 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
             }
         }
     }
+    if (xml.hasError()) {
+        // TODO: error handling in metadata?
+        qWarning() << "XML Error: " << xml.errorString();
+    }
+
 }
 
 template <class T>
