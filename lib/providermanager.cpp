@@ -115,7 +115,7 @@ ProviderManager::ProviderManager()
 
 void ProviderManager::loadDefaultProviders()
 {
-    QTimer::singleShot(0, this, SLOT(init()));
+    QTimer::singleShot(0, this, SLOT(slotLoadDefaultProvidersInternal()));
 }
 
 void ProviderManager::setAuthenticationSuppressed(bool suppressed)
@@ -128,8 +128,7 @@ void ProviderManager::clear() {
     d->m_providers.clear();
 }
 
-
-void ProviderManager::init() {
+void ProviderManager::slotLoadDefaultProvidersInternal() {
     foreach (const QUrl& url, d->m_internals->getDefaultProviderFiles()) {
         addProviderFile(url);
     }
