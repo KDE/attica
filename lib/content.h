@@ -27,10 +27,10 @@
 #include <QtCore/QString>
 #include <QtCore/QMap>
 #include <QtCore/QSharedDataPointer>
+#include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
-#include <qurl.h>
 
 class QDateTime;
 

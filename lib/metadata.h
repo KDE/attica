@@ -25,7 +25,7 @@
 
 #include <QtCore/QString>
 
-#include <QSharedDataPointer>
+#include <QtCore/QSharedDataPointer>
 
 #include "atticaclient_export.h"
 

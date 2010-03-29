@@ -28,7 +28,7 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>
 
-#include <QUrl>
+#include <QtCore/QUrl>
 
 
 namespace Attica

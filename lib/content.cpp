@@ -174,7 +174,7 @@ QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() co
     QMap<QString,QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
     while (iter != d->m_extendedAttributes.constEnd()) {
         QString key = iter.key();
-        if (key.startsWith("downloadname")) {
+        if (key.startsWith(QLatin1String("downloadname"))) {
             bool ok;
             // remove "downloadlink", get the rest as number
             int num = key.right(key.size() - 12).toInt(&ok);
