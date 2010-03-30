@@ -67,7 +67,7 @@ public:
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
-    QSharedPointer<PlatformDependent> m_internals;
+    PlatformDependent* m_internals;
     QString m_credentialsUserName;
     QString m_credentialsPassword;
 
@@ -78,7 +78,7 @@ public:
     {
     }
 
-    Private(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+    Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
         : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
     {
         if (m_baseUrl.isEmpty()) {
@@ -99,7 +99,7 @@ public:
 
 
 Provider::Provider()
-    : d(new Private(QSharedPointer<PlatformDependent>(0), QUrl(), QString(), QUrl()))
+    : d(new Private(0, QUrl(), QString(), QUrl()))
 {
 }
 
@@ -108,7 +108,7 @@ Provider::Provider(const Provider& other)
 {
 }
 
-Provider::Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
     : d(new Private(internals, baseUrl, name, icon))
 {
 }
@@ -508,6 +508,16 @@ PostJob* Provider::becomeFan(const QString& contentId)
     PostFileData postRequest(url);
     postRequest.addArgument("contentid", contentId);
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
+}
+
+ListJob<Person>* Provider::requestFans(const QString& contentId, uint page, uint pageSize)
+{
+    QUrl url = createUrl( "fan/data/" + contentId );
+    url.addQueryItem( "contentid", contentId );
+    url.addQueryItem( "page", QString::number(page) );
+    url.addQueryItem( "pagesize", QString::number(pageSize) );
+    ListJob<Person> *job = new ListJob<Person>(d->m_internals, createRequest(url));
+    return job;
 }
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)

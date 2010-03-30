@@ -200,6 +200,7 @@ class ATTICA_EXPORT Provider
     // Fan part of OCS
 
     PostJob* becomeFan(const QString& contentId);
+    ListJob<Person>* requestFans(const QString& contentId, uint page = 0, uint pageSize = 10);
 
   protected:
     QUrl createUrl(const QString& path);
@@ -218,8 +219,11 @@ class ATTICA_EXPORT Provider
     class Private;
     QExplicitlySharedDataPointer<Private> d;
     
-    // FIXME use baseUrl as id
+    // old constructor: used to pass internals as QSharedPointer, but changed to pointer
+    // deleting the root objects of plugins is evil (see QPluginLoaded docs)
     Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
+    // FIXME use baseUrl as id
+    Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
 
     // TODO remove
     friend class ProviderManager;

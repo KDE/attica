@@ -38,6 +38,7 @@ public:
 
 private:
     ItemJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request);
+    ItemJob(PlatformDependent*, const QNetworkRequest& request);
     virtual void parse(const QString& xml);
     T m_item;
     friend class Attica::Provider;
@@ -53,6 +54,8 @@ public:
 private:
     ItemPostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, QIODevice * data);
     ItemPostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+    ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice * data);
+    ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
 
     virtual void parse(const QString& xml);
     T m_item;

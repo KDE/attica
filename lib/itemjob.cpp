@@ -27,7 +27,7 @@
 using namespace Attica;
 
 template <class T>
-ItemJob<T>::ItemJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request)
+ItemJob<T>::ItemJob(PlatformDependent* internals, const QNetworkRequest& request)
     : GetJob(internals, request)
 {
 }
@@ -48,13 +48,13 @@ T ItemJob<T>::result() const
 
 
 template <class T>
-ItemPostJob<T>::ItemPostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, QIODevice* data)
+ItemPostJob<T>::ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* data)
     : PostJob(internals, request, data)
 {
 }
 
 template <class T>
-ItemPostJob<T>::ItemPostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, const StringMap& parameters)
+ItemPostJob<T>::ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters)
     : PostJob(internals, request, parameters)
 {
 }

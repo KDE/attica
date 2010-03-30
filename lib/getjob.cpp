@@ -31,7 +31,7 @@
 using namespace Attica;
 
 
-GetJob::GetJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request)
+GetJob::GetJob(PlatformDependent* internals, const QNetworkRequest& request)
     : BaseJob(internals), m_request(request)
 {
 }

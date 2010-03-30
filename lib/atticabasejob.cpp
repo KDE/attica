@@ -36,16 +36,16 @@ class BaseJob::Private
 {
 public:
     Metadata m_metadata;
-    QSharedPointer<PlatformDependent> m_internals;
+    PlatformDependent* m_internals;
     QNetworkReply* m_reply;
 
-    Private(QSharedPointer<PlatformDependent> internals)
+    Private(PlatformDependent* internals)
         : m_internals(internals), m_reply(0)
     {
     }
 };
 
-BaseJob::BaseJob(const QSharedPointer<PlatformDependent>& internals)
+BaseJob::BaseJob(PlatformDependent* internals)
     : d(new Private(internals))
 {
 }
@@ -88,6 +88,7 @@ void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
+    //qDebug() << d->m_reply->url().toString();
 }
 
 void BaseJob::abort()
@@ -101,7 +102,7 @@ void BaseJob::abort()
 
 PlatformDependent* BaseJob::internals()
 {
-    return d->m_internals.data();
+    return d->m_internals;
 }
 
 

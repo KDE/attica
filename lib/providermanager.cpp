@@ -50,11 +50,12 @@ uint qHash(const QUrl& key) {
 
 class ProviderManager::Private {
 public:
-    QSharedPointer<PlatformDependent> m_internals;
+    PlatformDependent* m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSignalMapper m_downloadMapping;
     QHash<QString, QNetworkReply*> m_downloads;
+    QPluginLoader m_pluginLoader;
     bool m_authenticationSuppressed;
 
     Private()
@@ -64,6 +65,7 @@ public:
     }
     ~Private()
     {
+        // do not delete m_internals: it is the root component of a plugin!
     }
 };
 
@@ -87,10 +89,10 @@ PlatformDependent* ProviderManager::loadPlatformDependent() {
     
     foreach(const QString& path, paths) {
         QString libraryPath(path + '/' + pluginName);
-        qDebug() << "trying to load " << libraryPath;
+        qDebug() << "Trying to load " << libraryPath;
         if (QFile::exists(libraryPath)) {
-            QPluginLoader loader(libraryPath);
-            QObject* plugin = loader.instance();
+            d->m_pluginLoader.setFileName(libraryPath);
+            QObject* plugin = d->m_pluginLoader.instance();
             if (plugin) {
                 PlatformDependent* platformDependent = qobject_cast<PlatformDependent*>(plugin);
                 if (platformDependent) {
@@ -108,7 +110,7 @@ PlatformDependent* ProviderManager::loadPlatformDependent() {
 ProviderManager::ProviderManager()
     : d(new Private)
 {
-    d->m_internals = QSharedPointer<PlatformDependent>(loadPlatformDependent());
+    d->m_internals = loadPlatformDependent();
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
     connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }

@@ -56,6 +56,8 @@ protected Q_SLOTS:
 
 protected:
     BaseJob(const QSharedPointer<PlatformDependent>& internals);
+    BaseJob(PlatformDependent* internals);
+
     void setMetadata(const Metadata& data) const;
 
     virtual QNetworkReply* executeRequest() = 0;
