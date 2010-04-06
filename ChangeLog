@@ -12,4 +12,5 @@
  - Add convenience function to get list of download links and fix some related strings
  - Fix qt-only hasCredentials
  - Win and Mac compile/link fixes
+ - Fix crash when multiple apps would use attica simultaneously: do not delete root component of qtplugins
 

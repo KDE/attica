@@ -130,7 +130,8 @@ void ProviderManager::clear() {
     d->m_providers.clear();
 }
 
-void ProviderManager::slotLoadDefaultProvidersInternal() {
+void ProviderManager::slotLoadDefaultProvidersInternal()
+{
     foreach (const QUrl& url, d->m_internals->getDefaultProviderFiles()) {
         addProviderFile(url);
     }
