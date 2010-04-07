@@ -6,7 +6,7 @@ includedir=${CMAKE_INSTALL_PREFIX}/include
 Name: libattica
 Description: Qt library to access Open Collaboration Services
 #Requires:
-Version: ${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}.${ATTICA_VERSION_PATCH}
+Version: ${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}
 Libs: -L${LIB_DESTINATION} -lattica
 Cflags: -I${CMAKE_INSTALL_PREFIX}/include
 
