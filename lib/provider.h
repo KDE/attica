@@ -85,10 +85,39 @@ class ATTICA_EXPORT Provider
     };
 
     bool hasCredentials();
+    
+    /**
+      Test if the provider has user name/password available.
+      This does not yet open kwallet in case the KDE plugin is used.
+      @return true if the provider has login information
+    */
     bool hasCredentials() const;
+    
+    /**
+      Load user name and password from the store.
+      Attica will remember the loaded values and use them from this point on.
+      @param user reference that returns the user name
+      @param password reference that returns the password
+      @return if credentials could be loaded
+    */
     bool loadCredentials(QString& user, QString& password);
+    
+    /**
+      Sets (and remembers) user name and password for this provider.
+      To remove the data an empty username should be passed.
+      @param user the user (login) name
+      @param password the password
+      @return if credentials could be saved
+    */
     bool saveCredentials(const QString& user, const QString& password);
     
+    /**
+      Test if the server accepts the login/password.
+      This function does not actually set the credentials. Use saveCredentials for that purpose.
+      @param user the user (login) name
+      @param password the password
+      @return the job that will contain the success of the login as metadata
+    */
     PostJob* checkLogin(const QString& user, const QString& password);
 
     // Person part of OCS
