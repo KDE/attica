@@ -28,6 +28,20 @@
 
 using namespace Attica;
 
+// TODO actually save and restore providers!
+QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
+{
+    return QList<QUrl>();
+}
+
+void QtPlatformDependent::addDefaultProviderFile(const QUrl&)
+{
+}
+
+void QtPlatformDependent::removeDefaultProviderFile(const QUrl&)
+{
+}
+
 QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, const QByteArray& data)
 {
     return m_qnam.post(request, data);
@@ -74,12 +88,6 @@ bool Attica::QtPlatformDependent::askForCredentials(const QUrl& baseUrl, QString
 {
     return false;
 }
-
-QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
-{
-    return QList<QUrl>();
-}
-
 
 QNetworkAccessManager* Attica::QtPlatformDependent::nam()
 {

@@ -43,6 +43,9 @@ class PlatformDependent
 public:
     virtual ~PlatformDependent() {}
     virtual QList<QUrl> getDefaultProviderFiles() const = 0;
+    virtual void addDefaultProviderFile(const QUrl& url) = 0;
+    virtual void removeDefaultProviderFile(const QUrl& url) = 0;
+    
     virtual bool hasCredentials(const QUrl& baseUrl) const = 0;
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
@@ -55,7 +58,7 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(Attica::PlatformDependent, "org.kde.Attica.Internals/1.0")
+Q_DECLARE_INTERFACE(Attica::PlatformDependent, "org.kde.Attica.Internals/1.1")
 
 
 #endif

@@ -62,14 +62,52 @@ public:
      * Load available providers from configuration
      */
     void loadDefaultProviders();
-
+    
+    /**
+     * The list of provider files that get loaded by loadDefaultProviders.
+     * Each of these files can contain multiple providers.
+     * @return list of provider file urls
+     */
+    QList<QUrl> defaultProviderFiles();
+    
+    /**
+    * Add a provider file to the default providers (xml that contains provider descriptions).
+      Provider files contain information about each provider:
+     <pre>
+     <providers>
+     <provider>
+        <id>opendesktop</id>
+        <location>https://api.opendesktop.org/v1/</location>
+        <name>openDesktop.org</name>
+        <icon></icon>
+        <termsofuse>https://opendesktop.org/terms/</termsofuse>
+        <register>https://opendesktop.org/usermanager/new.php</register>
+        <services>
+            <person ocsversion="1.3" />
+            <friend ocsversion="1.3" />
+            <message ocsversion="1.3" />
+            <activity ocsversion="1.3" />
+            <content ocsversion="1.3" />
+            <fan ocsversion="1.3" />
+            <knowledgebase ocsversion="1.3" />
+            <event ocsversion="1.3" />
+        </services>
+     </provider>
+     </providers>
+     </pre>
+    * @param url the url of the provider file
+    */
+    void addProviderFileToDefaultProviders(const QUrl& url);
+    
+    void removeProviderFileFromDefaultProviders(const QUrl& url);
+    
     /**
      * Suppresses the authentication, so that the application can take care of authenticating itself
      */
     void setAuthenticationSuppressed(bool suppressed);
 
     /**
-     * Remove all providers that have been loaded
+     * Remove all providers and provider files that have been loaded
      */
     void clear();
 

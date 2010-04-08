@@ -125,7 +125,8 @@ void ProviderManager::setAuthenticationSuppressed(bool suppressed)
     d->m_authenticationSuppressed = suppressed;
 }
 
-void ProviderManager::clear() {
+void ProviderManager::clear()
+{
     d->m_providerFiles.clear();
     d->m_providers.clear();
 }
@@ -140,9 +141,25 @@ void ProviderManager::slotLoadDefaultProvidersInternal()
     }
 }
 
+QList<QUrl> ProviderManager::defaultProviderFiles()
+{
+    return d->m_internals->getDefaultProviderFiles();
+}
+
 ProviderManager::~ProviderManager()
 {
     delete d;
+}
+
+void ProviderManager::addProviderFileToDefaultProviders(const QUrl& url)
+{
+    d->m_internals->addDefaultProviderFile(url);
+    addProviderFile(url);
+}
+
+void ProviderManager::removeProviderFileFromDefaultProviders(const QUrl& url)
+{
+    d->m_internals->removeDefaultProviderFile(url);
 }
 
 void ProviderManager::addProviderFile(const QUrl& url)

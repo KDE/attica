@@ -36,6 +36,9 @@ class QtPlatformDependent : public Attica::PlatformDependent
 {
 public:
     virtual QList<QUrl> getDefaultProviderFiles() const;
+    virtual void addDefaultProviderFile(const QUrl& url);
+    virtual void removeDefaultProviderFile(const QUrl& url);
+    
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
     virtual QNetworkReply* get(const QNetworkRequest& request);
