@@ -67,19 +67,53 @@ public:
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
-    PlatformDependent* m_internals;
     QString m_credentialsUserName;
     QString m_credentialsPassword;
-
+    QString m_personVersion;
+    QString m_friendVersion;
+    QString m_messageVersion;
+    QString m_activityVersion;
+    QString m_contentVersion;
+    QString m_fanVersion;
+    QString m_knowledgebaseVersion;
+    QString m_eventVersion;
+    QString m_commentVersion;
+    PlatformDependent* m_internals;
+    
+    Private()
+        :m_internals(0)
+    {}
+    
     Private(const Private& other)
         : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
         , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
         , m_credentialsPassword(other.m_credentialsPassword)
+        , m_personVersion(other.m_personVersion)
+        , m_friendVersion(other.m_friendVersion)
+        , m_messageVersion(other.m_messageVersion)
+        , m_activityVersion(other.m_activityVersion)
+        , m_contentVersion(other.m_contentVersion)
+        , m_fanVersion(other.m_fanVersion)
+        , m_knowledgebaseVersion(other.m_knowledgebaseVersion)
+        , m_eventVersion(other.m_eventVersion)
+        , m_commentVersion(other.m_commentVersion)
     {
     }
 
-    Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
+Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
+        const QString& person, const QString& friendV, const QString& message,
+        const QString& activity, const QString& content, const QString& fan,
+        const QString& knowledgebase, const QString& event, const QString& comment)
         : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
+        , m_personVersion(person)
+        , m_friendVersion(friendV)
+        , m_messageVersion(message)
+        , m_activityVersion(activity)
+        , m_contentVersion(content)
+        , m_fanVersion(fan)
+        , m_knowledgebaseVersion(knowledgebase)
+        , m_eventVersion(event)
+        , m_commentVersion(comment)
     {
         if (m_baseUrl.isEmpty()) {
             return;
@@ -99,7 +133,7 @@ public:
 
 
 Provider::Provider()
-    : d(new Private(0, QUrl(), QString(), QUrl()))
+    : d(new Private)
 {
 }
 
@@ -108,8 +142,11 @@ Provider::Provider(const Provider& other)
 {
 }
 
-Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon)
-    : d(new Private(internals, baseUrl, name, icon))
+Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
+                   const QString& person, const QString& friendV, const QString& message,
+                   const QString& activity, const QString& content, const QString& fan,
+                   const QString& knowledgebase, const QString& event, const QString& comment)
+    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, activity, content, fan, knowledgebase, event, comment))
 {
 }
 
@@ -134,6 +171,11 @@ bool Provider::isValid() const
     return d->m_baseUrl.isValid();
 }
 
+bool Provider::isEnabled() const
+{
+    //TODO
+    return true;
+}
 
 QString Provider::name() const
 {
@@ -635,12 +677,10 @@ QNetworkRequest Provider::createRequest(const QUrl& url)
     return request;
 }
 
-
 QNetworkRequest Provider::createRequest(const QString& path)
 {
     return createRequest(createUrl(path));
 }
-
 
 ItemJob<Person>* Provider::doRequestPerson(const QUrl& url)
 {
@@ -670,4 +710,70 @@ ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
     return new ListJob<Message>(d->m_internals, createRequest(url));
+}
+
+QString Provider::activityServiceVersion() const
+{
+    return d->m_activityVersion;
+}
+QString Provider::commentServiceVersion() const
+{
+    return d->m_commentVersion;
+}
+QString Provider::contentServiceVersion() const
+{
+    return d->m_contentVersion;
+}
+QString Provider::fanServiceVersion() const
+{
+    return d->m_fanVersion;
+}
+QString Provider::friendServiceVersion() const
+{
+    return d->m_friendVersion;
+}
+QString Provider::knowledgebaseServiceVersion() const
+{
+    return d->m_knowledgebaseVersion;
+}
+QString Provider::messageServiceVersion() const
+{
+    return d->m_messageVersion;
+}
+QString Provider::personServiceVersion() const
+{
+    return d->m_personVersion;
+}
+
+bool Provider::hasActivityService() const
+{
+    return !d->m_activityVersion.isEmpty();
+}
+bool Provider::hasCommentService() const
+{
+    return !d->m_commentVersion.isEmpty();
+}
+bool Provider::hasContentService() const
+{
+    return !d->m_contentVersion.isEmpty();
+}
+bool Provider::hasFanService() const
+{
+    return !d->m_fanVersion.isEmpty();
+}
+bool Provider::hasFriendService() const
+{
+    return !d->m_friendVersion.isEmpty();
+}
+bool Provider::hasKnowledgebaseService() const
+{
+    return !d->m_knowledgebaseVersion.isEmpty();
+}
+bool Provider::hasMessageService() const
+{
+    return !d->m_messageVersion.isEmpty();
+}
+bool Provider::hasPersonService() const
+{
+    return !d->m_personVersion.isEmpty();
 }

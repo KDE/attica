@@ -202,17 +202,43 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             QString baseUrl;
             QString name;
             QUrl icon;
+            QString person;
+            QString friendV;
+            QString message;
+            QString activity;
+            QString content;
+            QString fan;
+            QString knowledgebase;
+            QString event;
+            QString comment;
+            
             while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
                 {
                     if (xml.name() == "location") {
                         baseUrl = xml.readElementText();
-                    }
-                    if (xml.name() == "name") {
+                    } else if (xml.name() == "name") {
                         name = xml.readElementText();
-                    }
-                    if (xml.name() == "icon") {
+                    } else if (xml.name() == "icon") {
                         icon = QUrl(xml.readElementText());
+                    } else if (xml.name() == "person") {
+                        person = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "friend") {
+                        friendV = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "message") {
+                        message = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "activity") {
+                        activity = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "content") {
+                        content = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "fan") {
+                        fan = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "knowledgebase") {
+                        knowledgebase = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "event") {
+                        event = xml.attributes().value("ocsversion").toString();
+                    } else if (xml.name() == "comment") {
+                        comment = xml.attributes().value("ocsversion").toString();
                     }
                 } else if (xml.isEndElement() && xml.name() == "provider") {
                     break;
@@ -220,7 +246,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             }
             if (!baseUrl.isEmpty()) {
                 qDebug() << "Adding provider" << baseUrl;
-                d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon));
+                d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon,
+                    person, friendV, message, activity, content, fan, knowledgebase, event, comment));
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }

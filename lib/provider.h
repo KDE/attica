@@ -64,6 +64,30 @@ class AccountBalance;
  *
  * Accessing functions of the Provider returns a Job class that
  * takes care of accessing the server and parsing the result.
+ *
+ * Provider files are xml of the form:
+ <pre>
+ <provider>
+ <id>opendesktop</id>
+ <location>https://api.opendesktop.org/v1/</location>
+ <name>openDesktop.org</name>
+ <icon></icon>
+ <termsofuse>https://opendesktop.org/terms/</termsofuse>
+ <register>https://opendesktop.org/usermanager/new.php</register>
+ <services>
+   <person ocsversion="1.3" />
+   <friend ocsversion="1.3" />
+   <message ocsversion="1.3" />
+   <activity ocsversion="1.3" />
+   <content ocsversion="1.3" />
+   <fan ocsversion="1.3" />
+   <knowledgebase ocsversion="1.3" />
+   <event ocsversion="1.3" />
+   <comment ocsversion="1.2" />
+ </services>
+</provider>
+ </pre>
+ * The server provides the services specified in the services section, not necessarily all of them. 
  */
 class ATTICA_EXPORT Provider
 {
@@ -73,8 +97,26 @@ class ATTICA_EXPORT Provider
     Provider& operator=(const Provider& other);
     ~Provider();
 
+    /**
+    Returns true if the provider has been set up and can be used.
+    */
     bool isValid() const;
+    
+    /**
+    Test if the provider is enabled by the settings.
+    The application can choose to ignore this, but the user settings should be respected.
+    */
+    bool isEnabled() const;
+    
+    /**
+    A url that identifies this provider.
+    This should be used as identifier when refering to this provider but you don't want to use the full provider object.
+    */
     QUrl baseUrl() const;
+    
+    /**
+    A name for the provider that can be displayed to the user
+    */
     QString name() const;
 
     enum SortMode {
@@ -84,14 +126,86 @@ class ATTICA_EXPORT Provider
         Downloads
     };
 
-    bool hasCredentials();
+    /**
+    Test if the server supports the person part of the API
+    */
+    bool hasPersonService() const;
+    /**
+    Version of the person part of the API
+    */
+    QString personServiceVersion() const;
     
+    /**
+    Test if the server supports the friend part of the API
+    */
+    bool hasFriendService() const;
+    
+    /**
+    Version of the friend part of the API
+    */
+    QString friendServiceVersion() const;
+    
+    /**
+    Test if the server supports the message part of the API
+    */
+    bool hasMessageService() const;
+    /**
+    Version of the message part of the API
+    */
+    QString messageServiceVersion() const;
+    
+    /**
+    Test if the server supports the activity part of the API
+    */
+    bool hasActivityService() const;
+    /**
+    Version of the activity part of the API
+    */
+    QString activityServiceVersion() const;
+    
+    /**
+    Test if the server supports the content part of the API
+    */
+    bool hasContentService() const;
+    /**
+    Version of the content part of the API
+    */
+    QString contentServiceVersion() const;
+    
+    /**
+    Test if the server supports the fan part of the API
+    */
+    bool hasFanService() const;
+    /**
+    Version of the fan part of the API
+    */
+    QString fanServiceVersion() const;
+    
+    /**
+    Test if the server supports the knowledgebase part of the API
+    */
+    bool hasKnowledgebaseService() const;
+    /**
+    Version of the knowledgebase part of the API
+    */
+    QString knowledgebaseServiceVersion() const;
+    
+    /**
+    Test if the server supports the comments part of the API
+    */
+    bool hasCommentService() const;
+    /**
+    Version of the comments part of the API
+    */
+    QString commentServiceVersion() const;
+
     /**
       Test if the provider has user name/password available.
       This does not yet open kwallet in case the KDE plugin is used.
       @return true if the provider has login information
     */
     bool hasCredentials() const;
+    bool hasCredentials();
     
     /**
       Load user name and password from the store.
@@ -251,11 +365,13 @@ class ATTICA_EXPORT Provider
     // old constructor: used to pass internals as QSharedPointer, but changed to pointer
     // deleting the root objects of plugins is evil (see QPluginLoaded docs)
     Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
-    // FIXME use baseUrl as id
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
-
-    // TODO remove
-    friend class ProviderManager;
+    Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
+             const QString& person, const QString& friendV, const QString& message,
+             const QString& activity, const QString& content, const QString& fan,
+             const QString& knowledgebase, const QString& event, const QString& comment);
+    
+friend class ProviderManager;
 };
 }
 
