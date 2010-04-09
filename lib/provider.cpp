@@ -173,8 +173,12 @@ bool Provider::isValid() const
 
 bool Provider::isEnabled() const
 {
-    //TODO
-    return true;
+    return d->m_internals->isEnabled(d->m_baseUrl);
+}
+
+void Provider::setEnabled(bool enabled)
+{
+    d->m_internals->enableProvider(d->m_baseUrl, enabled);
 }
 
 QString Provider::name() const

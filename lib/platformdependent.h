@@ -35,6 +35,7 @@ class QNetworkReply;
 class QNetworkRequest;
 class QString;
 class QUrl;
+class QStringList;
 
 namespace Attica {
 
@@ -45,6 +46,12 @@ public:
     virtual QList<QUrl> getDefaultProviderFiles() const = 0;
     virtual void addDefaultProviderFile(const QUrl& url) = 0;
     virtual void removeDefaultProviderFile(const QUrl& url) = 0;
+    
+    /**
+     * Providers are enabled by default. Use this call to disable or enable them later.
+     */
+    virtual void enableProvider(const QUrl& baseUrl, bool enabled) const = 0;
+    virtual bool isEnabled(const QUrl& baseUrl) const  = 0;
     
     virtual bool hasCredentials(const QUrl& baseUrl) const = 0;
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
@@ -58,7 +65,7 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(Attica::PlatformDependent, "org.kde.Attica.Internals/1.1")
+Q_DECLARE_INTERFACE(Attica::PlatformDependent, "org.kde.Attica.Internals/1.2")
 
 
 #endif

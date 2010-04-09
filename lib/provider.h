@@ -107,6 +107,7 @@ class ATTICA_EXPORT Provider
     The application can choose to ignore this, but the user settings should be respected.
     */
     bool isEnabled() const;
+    void setEnabled(bool enabled);
     
     /**
     A url that identifies this provider.
