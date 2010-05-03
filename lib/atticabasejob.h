@@ -55,7 +55,6 @@ protected Q_SLOTS:
     void dataFinished();
 
 protected:
-    BaseJob(const QSharedPointer<PlatformDependent>& internals);
     BaseJob(PlatformDependent* internals);
 
     void setMetadata(const Metadata& data) const;

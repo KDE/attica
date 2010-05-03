@@ -363,9 +363,6 @@ class ATTICA_EXPORT Provider
     class Private;
     QExplicitlySharedDataPointer<Private> d;
     
-    // old constructor: used to pass internals as QSharedPointer, but changed to pointer
-    // deleting the root objects of plugins is evil (see QPluginLoaded docs)
-    Provider(const QSharedPointer<PlatformDependent>& internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
              const QString& person, const QString& friendV, const QString& message,

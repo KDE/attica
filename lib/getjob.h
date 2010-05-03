@@ -37,7 +37,6 @@ class ATTICA_EXPORT GetJob : public Attica::BaseJob
     Q_OBJECT
 
 protected:
-    GetJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request);
     GetJob(PlatformDependent* internals, const QNetworkRequest& request);
     
 private:

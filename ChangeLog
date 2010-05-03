@@ -14,3 +14,7 @@
  - Win and Mac compile/link fixes
  - Fix crash when multiple apps would use attica simultaneously: do not delete root component of qtplugins
 
+0.1.4
+ - Add functions to check for provider capabilities
+ - Remove function decls without body introduced in 0.1.3
+

@@ -29,7 +29,6 @@
 #include <QtCore/QPluginLoader>
 #include <QtCore/QSet>
 #include <QtCore/QSignalMapper>
-#include <QtCore/QSharedPointer>
 #include <QtCore/QTimer>
 #include <QtCore/QProcess>
 #include <QtNetwork/QAuthenticator>

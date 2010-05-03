@@ -43,7 +43,6 @@ class ATTICA_EXPORT ListJob : public GetJob
         virtual void parse(const QString& xml);
 
     private:
-        ListJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request);
         ListJob(PlatformDependent* internals, const QNetworkRequest& request);
         typename T::List m_itemList;
         friend class Attica::Provider;

@@ -40,10 +40,6 @@ class ATTICA_EXPORT PostJob : public BaseJob
     Q_OBJECT
 
 protected:
-    PostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, QIODevice* data);
-    PostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
-    PostJob(const QSharedPointer<PlatformDependent>& internals, const QNetworkRequest& request, const QByteArray& byteArray);
-
     PostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* data);
     PostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
     PostJob(PlatformDependent* internals, const QNetworkRequest& request, const QByteArray& byteArray);
