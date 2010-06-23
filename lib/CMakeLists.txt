@@ -110,3 +110,8 @@ if(NOT WIN32)
     )
 endif(NOT WIN32)
 
+# Add the optional subdirectory with unit tests
+if (ATTICA_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif (ATTICA_ENABLE_TESTS)
+
