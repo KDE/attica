@@ -7,6 +7,12 @@ set(CMAKE_LIBATTICA_VERSION_STRING "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIB
 
 cmake_minimum_required(VERSION 2.6)
 
+# Enable unit testing
+option(ATTICA_ENABLE_TESTS "Enable tests")
+if (ATTICA_ENABLE_TESTS)
+    enable_testing()
+endif (ATTICA_ENABLE_TESTS)
+
 set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
 
 add_subdirectory(lib)
