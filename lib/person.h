@@ -75,11 +75,6 @@ class ATTICA_EXPORT Person
     void setCity( const QString & );
     QString city() const;
 
-    void setAttribute( const QString &key, const QString &value);
-    QString attribute( const QString &key ) const;
-    QDate attributeChanged( const QString &key ) const;
-
-
     void addExtendedAttribute( const QString &key, const QString &value );
     QString extendedAttribute( const QString &key ) const;
 
@@ -88,8 +83,6 @@ class ATTICA_EXPORT Person
     bool isValid() const;
 
   private:
-    void setAttributeChanged( const QString &key, const QDate &time );
-
     class Private;
     QSharedDataPointer<Private> d;
 };
