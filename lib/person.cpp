@@ -39,7 +39,9 @@ class Person::Private : public QSharedData {
         QString m_homepage;
         QString m_city;
 
-        QMap<QString,QString> m_extendedAttributes;
+        QMap<QString, QString> m_attributes;
+        QMap<QString, QDate> m_attributesChanged;
+        QMap<QString, QString> m_extendedAttributes;
 
         Private()
             : m_latitude(0), m_longitude(0)
@@ -167,6 +169,26 @@ void Person::setCity( const QString &h )
 QString Person::city() const
 {
   return d->m_city;
+}
+
+void Person::setAttribute( const QString &key, const QString &value )
+{
+    d->m_attributes[key] = value;
+}
+
+QString Person::attribute( const QString &key ) const
+{
+    return d->m_attributes[key];
+}
+
+void Person::setAttributeChanged( const QString &key, const QDate &time )
+{
+    d->m_attributesChanged[key] = time;
+}
+
+QDate Person::attributeChanged( const QString &key ) const
+{
+    return d->m_attributesChanged[key];
 }
 
 void Person::addExtendedAttribute( const QString &key, const QString &value )

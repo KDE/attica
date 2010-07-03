@@ -29,6 +29,8 @@
 #include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
+#include "attributes.h"
+#include "attributesparser.h"
 #include "category.h"
 #include "categoryparser.h"
 #include "content.h"
@@ -38,46 +40,49 @@
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "knowledgebaseentry.h"
+#include "knowledgebaseentryparser.h"
 #include "license.h"
 #include "licenseparser.h"
 #include "message.h"
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
-#include "knowledgebaseentry.h"
-#include "knowledgebaseentryparser.h"
+
 
 using namespace Attica;
 
 template class ListJob<Activity>;
 template class ListJob<Category>;
 template class ListJob<Content>;
+template class ListJob<DownloadItem>;
 template class ListJob<Event>;
 template class ListJob<Folder>;
+template class ListJob<KnowledgeBaseEntry>;
 template class ListJob<License>;
 template class ListJob<Message>;
 template class ListJob<Person>;
-template class ListJob<KnowledgeBaseEntry>;
-template class ListJob<DownloadItem>;
 
+template class ItemJob<AccountBalance>;
+template class ItemJob<Attributes>;
 template class ItemJob<Content>;
-template class ItemJob<Event>;
-template class ItemJob<Message>;
-template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<DownloadItem>;
+template class ItemJob<Event>;
+template class ItemJob<KnowledgeBaseEntry>;
+template class ItemJob<Message>;
 template class ItemJob<Person>;
 template class ItemPostJob<Content>;
-template class ItemJob<AccountBalance>;
 
+template class Parser<AccountBalance>;
 template class Parser<Activity>;
+template class Parser<Attributes>;
 template class Parser<Category>;
 template class Parser<Content>;
+template class Parser<DownloadItem>;
 template class Parser<Event>;
 template class Parser<Folder>;
 template class Parser<KnowledgeBaseEntry>;
 template class Parser<License>;
 template class Parser<Message>;
 template class Parser<Person>;
-template class Parser<DownloadItem>;
-template class Parser<AccountBalance>;
 

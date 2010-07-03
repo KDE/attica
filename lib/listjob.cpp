@@ -48,3 +48,4 @@ void ListJob<T>::parse(const QString& xml)
     m_itemList = parser.parseList(xml);
     setMetadata(parser.metadata());
 }
+

@@ -7,5 +7,6 @@ macro(ATTICA_TESTS)
     endforeach(_testname)
 endmacro(ATTICA_TESTS)
 
-ATTICA_TESTS(persontest)
+ATTICA_TESTS(persontest
+             attributestest)
 

@@ -27,6 +27,8 @@
 #include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
+#include "attributes.h"
+#include "attributesparser.h"
 #include "category.h"
 #include "categoryparser.h"
 #include "content.h"
@@ -654,6 +656,26 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
     url.addQueryItem("pagesize", QString::number(pageSize));
 
     ListJob<Event>* job = new ListJob<Event>(d->m_internals, createRequest(url));
+    return job;
+}
+
+
+PostJob* Provider::setAttributes(const QStringList& keys, const QStringList& values)
+{
+    Q_ASSERT(keys.size() == values.size());
+    
+    QUrl url = createUrl("person/attributes/set/");
+    PostFileData postRequest(url);
+
+    for (int i=0; i<keys.size(); i++) {
+        postRequest.addArgument(keys[i], values[i]); //I'm not good with XML, what is this?
+    }
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
+}
+
+ItemJob<Attributes>* Provider::requestAttributes(const QString& key)
+{
+    ItemJob<Attributes>* job = new ItemJob<Attributes>(d->m_internals, createRequest("person/attributes/search/" + key));
     return job;
 }
 

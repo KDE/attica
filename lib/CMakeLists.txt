@@ -18,40 +18,42 @@ endif (MINGW)
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
 set(ocsclient_SRCS
-   qtplatformdependent.cpp
-   parser.cpp
-   getjob.cpp
-   atticabasejob.cpp
-   itemjob.cpp
-   listjob_inst.cpp
-   downloaddescription.cpp
-   eventparser.cpp
-   event.cpp
    accountbalance.cpp
    accountbalanceparser.cpp
    activity.cpp
    activityparser.cpp
-   license.cpp
-   licenseparser.cpp
-   person.cpp
-   personparser.cpp
-   provider.cpp
-   providermanager.cpp
-   postjob.cpp
-   postfiledata.cpp
-   folder.cpp
-   folderparser.cpp
-   message.cpp
-   messageparser.cpp
-   metadata.cpp
+   atticabasejob.cpp
+   attributes.cpp
+   attributesparser.cpp
    category.cpp
    categoryparser.cpp
    content.cpp
    contentparser.cpp
+   downloaddescription.cpp
    downloaditem.cpp
    downloaditemparser.cpp
+   event.cpp
+   eventparser.cpp
+   folder.cpp
+   folderparser.cpp
+   getjob.cpp
+   itemjob.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
+   license.cpp
+   licenseparser.cpp
+   listjob_inst.cpp
+   message.cpp
+   messageparser.cpp
+   metadata.cpp
+   parser.cpp
+   person.cpp
+   personparser.cpp
+   postfiledata.cpp
+   postjob.cpp
+   provider.cpp
+   providermanager.cpp
+   qtplatformdependent.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})

@@ -45,7 +45,9 @@ class PlatformDependent;
 
 class PostJobStatus;
 
+class AccountBalance;
 class Activity;
+class Attributes;
 class Content;
 class DownloadItem;
 class Event;
@@ -55,7 +57,6 @@ class License;
 class Person;
 class PostJob;
 class Provider;
-class AccountBalance;
 
 
 /**
@@ -244,6 +245,8 @@ class ATTICA_EXPORT Provider
     ListJob<Person>* requestPersonSearchByName(const QString& name);
     ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
     PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
+    ItemJob<Attributes>* requestAttributes(const QString& key = QString());
+    PostJob* setAttributes(const QStringList &keys, const QStringList &values);
 
     // Friend part of OCS
 
