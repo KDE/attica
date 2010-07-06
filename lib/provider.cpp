@@ -660,7 +660,7 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 }
 
 
-PostJob* Provider::setAttributes(const QStringList& keys, const QStringList& values)
+PostJob* Provider::setPersonAttributes(const QStringList& keys, const QStringList& values)
 {
     Q_ASSERT(keys.size() == values.size());
     
@@ -673,7 +673,7 @@ PostJob* Provider::setAttributes(const QStringList& keys, const QStringList& val
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
-ItemJob<Attributes>* Provider::requestAttributes(const QString& key)
+ItemJob<Attributes>* Provider::requestPersonAttributes(const QString& key)
 {
     ItemJob<Attributes>* job = new ItemJob<Attributes>(d->m_internals, createRequest("person/attributes/search/" + key));
     return job;

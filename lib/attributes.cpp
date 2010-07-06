@@ -73,7 +73,7 @@ void Attributes::setAttribute(const QString &key, const QString &value)
     d->m_attributesChanged[key] = QDateTime::currentDateTime();
 
     if (d->m_autoSync) {
-        d->m_provider->setAttributes(QStringList(key), QStringList(value));
+        d->m_provider->setPersonAttributes(QStringList(key), QStringList(value));
     }
 }
 
