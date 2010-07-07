@@ -50,12 +50,17 @@ public:
         OcsError
     };
 
+    /**
+     * Check if the job was successful.
+     * @return the error state enum returns the type of error (network or ocs)
+     */
     Error error() const;
     void setError(Error error);
 
     /**
-     * The status as int, for easier interpretation.
-     * 100 means "Ok", for other codes refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
+     * The status as integer.
+     * If the error is an OCS error, refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
+     * in any other case it is the network return code.
      */
     int statusCode() const;
     void setStatusCode(int code);
