@@ -23,8 +23,8 @@ set(ocsclient_SRCS
    activity.cpp
    activityparser.cpp
    atticabasejob.cpp
-   attributes.cpp
-   attributesparser.cpp
+   privatedata.cpp
+   privatedataparser.cpp
    category.cpp
    categoryparser.cpp
    content.cpp

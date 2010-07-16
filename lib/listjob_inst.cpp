@@ -29,8 +29,8 @@
 #include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
-#include "attributes.h"
-#include "attributesparser.h"
+#include "privatedata.h"
+#include "privatedataparser.h"
 #include "category.h"
 #include "categoryparser.h"
 #include "content.h"
@@ -64,7 +64,7 @@ template class ListJob<Message>;
 template class ListJob<Person>;
 
 template class ItemJob<AccountBalance>;
-template class ItemJob<Attributes>;
+template class ItemJob<PrivateData>;
 template class ItemJob<Content>;
 template class ItemJob<DownloadItem>;
 template class ItemJob<Event>;
@@ -75,7 +75,7 @@ template class ItemPostJob<Content>;
 
 template class Parser<AccountBalance>;
 template class Parser<Activity>;
-template class Parser<Attributes>;
+template class Parser<PrivateData>;
 template class Parser<Category>;
 template class Parser<Content>;
 template class Parser<DownloadItem>;

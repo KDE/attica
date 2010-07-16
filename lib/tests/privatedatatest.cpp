@@ -23,8 +23,8 @@
 
 #include <QtTest>
 #include <QtCore>
-#include "../attributes.h"
-#include "../attributesparser.h"
+#include "../privatedata.h"
+#include "../privatedataparser.h"
 
 using namespace Attica;
 
@@ -39,22 +39,22 @@ private slots:
 
 void PersonTest::testParsing()
 {
-    Attributes::Parser parser;
+    PrivateData::Parser parser;
     QString validData ("<?xml version=\"1.0\"?><ocs><attributes>"
           "<key>keyfoo</key>"
           "<value>valuebar</value>"
           "<changed>01.01.1998</changed>"
           "</attributes></ocs>");
-    Attributes attributes = parser.parse(validData);
+    PrivateData attributes = parser.parse(validData);
     QVERIFY(attributes.attributeChanged("keyfoo").isValid());
     QVERIFY(!attributes.attribute("keyfoo").isNull());
 }
 
 void PersonTest::testMergeType()
 {
-    Attributes a;
-    a.setMergeType(Attributes::OverwriteLocal);
-    QVERIFY(a.mergeType() == Attributes::OverwriteLocal);
+    PrivateData a;
+    a.setMergeType(PrivateData::OverwriteLocal);
+    QVERIFY(a.mergeType() == PrivateData::OverwriteLocal);
 }
 
 QTEST_MAIN(PersonTest);

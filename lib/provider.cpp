@@ -27,8 +27,8 @@
 #include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
-#include "attributes.h"
-#include "attributesparser.h"
+#include "privatedata.h"
+#include "privatedataparser.h"
 #include "category.h"
 #include "categoryparser.h"
 #include "content.h"
@@ -660,11 +660,11 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 }
 
 
-PostJob* Provider::setPersonAttributes(const QStringList& keys, const QStringList& values)
+PostJob* Provider::setPrivateData(const QStringList& keys, const QStringList& values)
 {
     Q_ASSERT(keys.size() == values.size());
     
-    QUrl url = createUrl("person/attributes/set/");
+    QUrl url = createUrl("person/privatedata/set/");
     PostFileData postRequest(url);
 
     for (int i=0; i<keys.size(); i++) {
@@ -673,9 +673,9 @@ PostJob* Provider::setPersonAttributes(const QStringList& keys, const QStringLis
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
-ItemJob<Attributes>* Provider::requestPersonAttributes(const QString& key)
+ItemJob<PrivateData>* Provider::requestPrivateData(const QString& key)
 {
-    ItemJob<Attributes>* job = new ItemJob<Attributes>(d->m_internals, createRequest("person/attributes/search/" + key));
+    ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest("person/privatedata/search/" + key));
     return job;
 }
 

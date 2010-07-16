@@ -23,15 +23,15 @@
 
 #include <QStringList>
 
-#include "attributes.h"
+#include "privatedata.h"
 
 
 using namespace Attica;
 
-class Attributes::Private : public QSharedData {
+class PrivateData::Private : public QSharedData {
     public:
         QMap<QString, QString> m_attributes;
-        QMap<QString, QDateTime> m_attributesChanged;
+        QMap<QString, QDateTime> m_attributesTimestamp;
 
         Provider *m_provider;
 
@@ -40,74 +40,59 @@ class Attributes::Private : public QSharedData {
         MergeType m_mergeType;
 
         Private()
-            : m_provider(0), m_autoSync(false), m_mergeType(Attributes::Ask)
+            : m_provider(0), m_autoSync(false), m_mergeType(PrivateData::Ask)
         {
         }
 };
 
 
-Attributes::Attributes()
+PrivateData::PrivateData()
   : d(new Private)
 {
 }
 
-Attributes::Attributes(const Attributes& other)
+PrivateData::PrivateData(const PrivateData& other)
     : d(other.d)
 {
 }
 
-Attributes& Attributes::operator=(const Attica::Attributes & other)
+PrivateData& PrivateData::operator=(const Attica::PrivateData & other)
 {
     d = other.d;
     return *this;
 }
 
-Attributes::~Attributes()
+PrivateData::~PrivateData()
 {
 }
 
 
-void Attributes::setAttribute(const QString &key, const QString &value)
+void PrivateData::setAttribute(const QString &key, const QString &value)
 {
     d->m_attributes[key] = value;
-    d->m_attributesChanged[key] = QDateTime::currentDateTime();
+    d->m_attributesTimestamp[key] = QDateTime::currentDateTime();
 
     if (d->m_autoSync) {
-        d->m_provider->setPersonAttributes(QStringList(key), QStringList(value));
+        d->m_provider->setPrivateData(QStringList(key), QStringList(value));
     }
 }
 
-QString Attributes::attribute(const QString &key) const
+QString PrivateData::attribute(const QString &key) const
 {
     return d->m_attributes[key];
 }
 
-QDateTime Attributes::attributeChanged(const QString &key) const
+QDateTime PrivateData::timestamp(const QString &key) const
 {
-    return d->m_attributesChanged[key];
+    return d->m_attributesTimestamp[key];
 }
 
-void Attributes::setAttributeChanged(const QString &key, const QDateTime &when)
+void PrivateData::setTimestamp(const QString &key, const QDateTime &when)
 {
-    d->m_attributesChanged[key] = when;
+    d->m_attributesTimestamp[key] = when;
 }
 
-void Attributes::setAutoSync(bool val)
-{
-    d->m_autoSync = val;
-}
-
-bool Attributes::autoSync() const
-{
-    return d->m_autoSync;
-}
-
-void Attributes::setMergeType(MergeType type)
-{
-    d->m_mergeType = type;
-}
-
-Attributes::MergeType Attributes::mergeType()
+PrivateData::MergeType PrivateData::mergeType()
 {
     return d->m_mergeType;
 }

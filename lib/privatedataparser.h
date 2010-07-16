@@ -21,38 +21,24 @@
 
 */
 
-#include "attributesparser.h"
+#ifndef ATTICA_PRIVATEDATAPARSER_H
+#define ATTICA_PRIVATEDATAPARSER_H
+
+#include "privatedata.h"
+#include "parser.h"
 
 
-using namespace Attica;
+namespace Attica {
 
-Attributes Attributes::Parser::parseXml(QXmlStreamReader& xml)
+class PrivateData::Parser : public Attica::Parser<PrivateData>
 {
-    Attributes person;
-    bool hasAvatarPic = false;
-    QString key;
-    
-    // TODO: when we get internet and some documentation
-    while (!xml.atEnd()) {
-        xml.readNext();
+private:
+    PrivateData parseXml(QXmlStreamReader& xml);
+    QStringList xmlElement() const;
+};
 
-        if (xml.isStartElement()) {
-            if (xml.name() == "key") {
-                key = xml.readElementText();
-            } else if (xml.name() == "value") {
-                person.setAttribute(key, xml.readElementText());
-            } else if (xml.name() == "attributeChanged") {
-                person.setAttributeChanged(key, QDateTime::fromString(xml.readElementText()));
-            }
-        } else if (xml.isEndElement() && (xml.name() == "person" || xml.name() == "user")) {
-            break;
-        }
-    }
-
-    return person;
 }
 
 
-QStringList Attributes::Parser::xmlElement() const {
-    return QStringList("attributes");
-}
+#endif
+

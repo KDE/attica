@@ -20,8 +20,8 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef ATTICA_ATTRIBUTES_H
-#define ATTICA_ATTRIBUTES_H
+#ifndef ATTICA_PRIVATEDATA_H
+#define ATTICA_PRIVATEDATA_H
 
 #include "provider.h"
 
@@ -36,24 +36,24 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Attica {
 
-class ATTICA_EXPORT Attributes
+class ATTICA_EXPORT PrivateData
 {
 public:
     class Parser;
 
-    typedef QList<Attributes> List; // nonsense
+    typedef QList<PrivateData> List; // nonsense
     
     enum MergeType {
-        OverwriteLocal,
-        OverwriteServer,
+        UseLocal,
+        UseRemote,
         Ask
     };
     
     
-    Attributes();
-    Attributes(const Attributes& other);
-    Attributes& operator=(const Attributes& other);
-    ~Attributes();
+    PrivateData();
+    PrivateData(const PrivateData& other);
+    PrivateData& operator=(const PrivateData& other);
+    ~PrivateData();
     
     /**
      * Sets an attribute referenced by \key to \value.
@@ -68,29 +68,21 @@ public:
     /**
      * Sets when an attribute last was changed (mostly for internal use).
      */
-    void setAttributeChanged(const QString &key, const QDateTime &when);
+    void setTimestamp(const QString &key, const QDateTime &when);
 
     /**
      * Returns the date and time an attribute last was changed.
      */
-    QDateTime attributeChanged(const QString &key) const;
+    QDateTime timestamp(const QString &key) const;
 
     /**
      * Enables or disables automatic synchronization whenever the value is updated.
      * Default is off.
-     */
+
     void setAutoSync(bool val);
 
-    /**
      * Returns whether automatic synchronization is enabled.
-     */
-    bool autoSync() const;
-
-    /**
-     * Sets how to merge updated attributes.
-     * Default is to ask the user.
-     */
-    void setMergeType(MergeType type);
+    bool autoSync() const;*/
 
     /**
      * Returns how automatic merging of updated attributes is done.
@@ -101,8 +93,7 @@ public slots:
     /**
      * Helper function to launch a synchronization job,
      * that automatically updates and merges attributes.
-     */
-    void launchSync();
+    void launchSync();*/
 
 private:
     class Private;
