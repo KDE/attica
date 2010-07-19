@@ -58,7 +58,27 @@ BaseJob::~BaseJob()
 
 void BaseJob::dataFinished()
 {
-    if (d->m_reply->error() == QNetworkReply::NoError) {
+    bool error = (d->m_reply->error() != QNetworkReply::NoError);
+
+    // handle redirections automatically
+    QUrl newUrl;
+    if (redirection(newUrl)) {
+        qDebug() << "BaseJob::dataFinished" << newUrl;
+        QNetworkRequest request = d->m_reply->request();
+        QNetworkAccessManager::Operation operation = d->m_reply->operation();
+        if (newUrl.isValid() && operation == QNetworkAccessManager::GetOperation) {
+            d->m_reply->deleteLater();
+            // reissue same request with different Url
+            request.setUrl(newUrl);
+            d->m_reply = internals()->get(request);
+            connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
+            return;
+        } else {
+            error = true;
+        }
+    }
+
+    if (!error) {
         QByteArray data = d->m_reply->readAll();
         //qDebug() << data;
         parse(QString::fromUtf8(data.constData()));
@@ -114,6 +134,26 @@ Metadata BaseJob::metadata() const
 void BaseJob::setMetadata(const Attica::Metadata& data) const
 {
     d->m_metadata = data;
+}
+
+bool BaseJob::redirection(QUrl & newUrl) const
+{
+    if (d->m_reply == 0 || d->m_reply->error() != QNetworkReply::NoError) {
+        return false;
+    }
+
+    int httpStatusCode = d->m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (httpStatusCode == 301 || // Moved Permanently
+        httpStatusCode == 302 || // Found
+        httpStatusCode == 303 || // See Other
+        httpStatusCode == 307) { // Temporary Redirect
+        QNetworkRequest request = d->m_reply->request();
+        newUrl = request.url();
+        newUrl.setPath(d->m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString());
+        return true;
+    }
+
+    return false;
 }
 
 #include "atticabasejob.moc"

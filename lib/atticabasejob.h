@@ -25,6 +25,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QSharedPointer>
+#include <QtCore/QUrl>
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "atticaclient_export.h"
@@ -64,6 +65,7 @@ protected:
     PlatformDependent* internals();
     void setError(int errorCode);
     void setErrorString(const QString& errorString);
+    bool redirection(QUrl & newUrl) const;
 
 private Q_SLOTS:
     void doWork();
