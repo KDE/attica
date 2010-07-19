@@ -48,7 +48,7 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setCreated( QDateTime::fromString( dateString, Qt::ISODate));
-            } else if (xml.name() == "updated") {
+            } else if (xml.name() == "changed") {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setUpdated( QDateTime::fromString( dateString, Qt::ISODate));
