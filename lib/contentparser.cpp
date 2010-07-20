@@ -44,6 +44,8 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
                 content.setRating( xml.readElementText().toInt());
             } else if (xml.name() == "downloads") {
                 content.setDownloads( xml.readElementText().toInt());
+            } else if (xml.name() == "comments") {
+                content.setNumberOfComments(xml.readElementText().toInt());
             } else if (xml.name() == "created") {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);

@@ -32,6 +32,7 @@ class Content::Private : public QSharedData {
         QString m_id;  
         QString m_name;
         int m_downloads;
+        int m_numberOfComments;
         int m_rating;
         QDateTime m_created;
         QDateTime m_updated;
@@ -40,7 +41,8 @@ class Content::Private : public QSharedData {
 
         Private()
             : m_downloads(0),
-              m_rating(0)
+              m_rating(0),
+              m_numberOfComments(0)
         {
         }
 };
@@ -106,7 +108,17 @@ int Content::downloads() const
 {
   return d->m_downloads;
 }
-    
+
+void Content::setNumberOfComments(int v)
+{
+  d->m_numberOfComments = v;
+}
+
+int Content::numberOfComments() const
+{
+  return d->m_numberOfComments;
+}
+
 void Content::setCreated( const QDateTime &date )
 {
   d->m_created = date;

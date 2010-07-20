@@ -117,7 +117,19 @@ class ATTICA_EXPORT Content
      * @return the number of downloads
      */
     int downloads() const;
-    
+
+    /**
+     * Sets the number of comments for the Content.
+     * @param numComments the new number of downloads
+     */
+    void setNumberOfComments(int numComments);
+
+    /**
+     * Gets the number of comments for the Content.
+     * @return the number of comments
+     */
+    int numberOfComments() const;
+
     /**
      * Sets the date and time the Content has been created.
      * @param created the new creation date and time
