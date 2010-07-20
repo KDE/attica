@@ -65,7 +65,6 @@ protected:
     PlatformDependent* internals();
     void setError(int errorCode);
     void setErrorString(const QString& errorString);
-    bool redirection(QUrl & newUrl) const;
 
 private Q_SLOTS:
     void doWork();

@@ -43,6 +43,26 @@ public:
         : m_internals(internals), m_reply(0)
     {
     }
+
+    bool redirection(QUrl & newUrl) const
+    {
+        if (m_reply == 0 || m_reply->error() != QNetworkReply::NoError) {
+            return false;
+        }
+
+        int httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        if (httpStatusCode == 301 || // Moved Permanently
+            httpStatusCode == 302 || // Found
+            httpStatusCode == 303 || // See Other
+            httpStatusCode == 307) { // Temporary Redirect
+            QNetworkRequest request = m_reply->request();
+            newUrl = request.url();
+            newUrl.setPath(m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString());
+            return true;
+        }
+
+        return false;
+    }
 };
 
 BaseJob::BaseJob(PlatformDependent* internals)
@@ -62,7 +82,7 @@ void BaseJob::dataFinished()
 
     // handle redirections automatically
     QUrl newUrl;
-    if (redirection(newUrl)) {
+    if (d->redirection(newUrl)) {
         qDebug() << "BaseJob::dataFinished" << newUrl;
         QNetworkRequest request = d->m_reply->request();
         QNetworkAccessManager::Operation operation = d->m_reply->operation();
@@ -134,26 +154,6 @@ Metadata BaseJob::metadata() const
 void BaseJob::setMetadata(const Attica::Metadata& data) const
 {
     d->m_metadata = data;
-}
-
-bool BaseJob::redirection(QUrl & newUrl) const
-{
-    if (d->m_reply == 0 || d->m_reply->error() != QNetworkReply::NoError) {
-        return false;
-    }
-
-    int httpStatusCode = d->m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-    if (httpStatusCode == 301 || // Moved Permanently
-        httpStatusCode == 302 || // Found
-        httpStatusCode == 303 || // See Other
-        httpStatusCode == 307) { // Temporary Redirect
-        QNetworkRequest request = d->m_reply->request();
-        newUrl = request.url();
-        newUrl.setPath(d->m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString());
-        return true;
-    }
-
-    return false;
 }
 
 #include "atticabasejob.moc"
