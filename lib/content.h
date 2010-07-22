@@ -156,6 +156,11 @@ class ATTICA_EXPORT Content
     QDateTime updated() const;
 
     /**
+     * A summary description of this content.
+     */
+    QString summary() const;
+
+    /**
      * A description of this content.
      */
     QString description() const;

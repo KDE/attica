@@ -161,6 +161,11 @@ bool Content::isValid() const
   return !(d->m_id.isEmpty());
 }
 
+QString Content::summary() const
+{
+    return attribute("summary");
+}
+
 QString Content::description() const
 {
     return attribute("description");
