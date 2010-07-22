@@ -31,14 +31,17 @@
 #include "privatedataparser.h"
 #include "category.h"
 #include "categoryparser.h"
+#include "comment.h"
 #include "content.h"
 #include "contentparser.h"
+#include "distribution.h"
 #include "downloaditem.h"
 #include "downloaditemparser.h"
 #include "event.h"
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "homepagetype.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
 #include "license.h"
@@ -52,8 +55,6 @@
 #include "postfiledata.h"
 #include "itemjob.h"
 #include "listjob.h"
-#include "comment.h"
-#include "distribution.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAccessManager>
@@ -404,6 +405,13 @@ ListJob< Distribution >* Provider::requestDistributions()
 {
     QUrl url = createUrl( "content/distributions" );
     ListJob<Distribution> *job = new ListJob<Distribution>(d->m_internals, createRequest(url));
+    return job;
+}
+
+ListJob< HomePageType >* Provider::requestHomePageTypes()
+{
+    QUrl url = createUrl( "content/homepages" );
+    ListJob<HomePageType> *job = new ListJob<HomePageType>(d->m_internals, createRequest(url));
     return job;
 }
 

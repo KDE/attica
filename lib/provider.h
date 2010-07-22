@@ -48,18 +48,18 @@ class PostJobStatus;
 class AccountBalance;
 class Activity;
 class PrivateData;
+class Comment;
 class Content;
 class DownloadItem;
+class Distribution;
 class Event;
 class Folder;
+class HomePageType;
 class KnowledgeBaseEntry;
 class License;
 class Person;
 class PostJob;
 class Provider;
-class Comment;
-class Distribution;
-
 
 /**
  * The Provider class represents one Open Collaboration Service provider.
@@ -293,6 +293,12 @@ class ATTICA_EXPORT Provider
     * @return the licenses available from the server
     */
     ListJob<Distribution>* requestDistributions();
+
+    /**
+    * Get a list of home page types (such as blog, Facebook)
+    * @return the licenses available from the server
+    */
+    ListJob<HomePageType>* requestHomePageTypes();
 
     /**
       Request a list of Contents.

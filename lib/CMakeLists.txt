@@ -41,6 +41,8 @@ set(ocsclient_SRCS
    folder.cpp
    folderparser.cpp
    getjob.cpp
+   homepagetype.cpp
+   homepagetypeparser.cpp
    itemjob.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
@@ -94,6 +96,8 @@ install(FILES
     event.h
     folder.h
     getjob.h
+    homepagetype.h
+    homepagetypeparser.h
     itemjob.h
     knowledgebaseentry.h
     listjob.h
