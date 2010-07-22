@@ -27,6 +27,8 @@ set(ocsclient_SRCS
    privatedataparser.cpp
    category.cpp
    categoryparser.cpp
+   comment.cpp
+   commentparser.cpp
    content.cpp
    contentparser.cpp
    downloaddescription.cpp
@@ -79,6 +81,8 @@ install(FILES
     accountbalance.h
     atticabasejob.h
     atticaclient_export.h
+    comment.h
+    commentparser.h
     content.h
     category.h
     downloaddescription.h

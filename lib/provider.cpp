@@ -52,6 +52,7 @@
 #include "postfiledata.h"
 #include "itemjob.h"
 #include "listjob.h"
+#include "comment.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAccessManager>
@@ -670,6 +671,76 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
     return job;
 }
 
+ListJob<Comment>* Provider::requestComments(const Provider::CommentType commentType, const QString& id, const QString& id2, int page, int pageSize)
+{
+    QString commentTypeString;
+    commentTypeString = commentTypeToString(commentType);
+    if (!commentTypeString.isEmpty()) {
+        return 0;
+    }
+ 
+    QUrl url = createUrl("comments/data/" + commentTypeString + "/" + id + "/" + id2);
+
+    url.addQueryItem("page", QString::number(page));
+    url.addQueryItem("pagesize", QString::number(pageSize));
+
+    ListJob<Comment>* job = new ListJob<Comment>(d->m_internals, createRequest(url));
+    return job;
+}
+
+PostJob* Provider::addNewComment(const Provider::CommentType commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
+{
+    QString commentTypeString;
+    commentTypeString = commentTypeToString(commentType);
+    if (!commentTypeString.isEmpty()) {
+        return 0;
+    }
+
+    QMap<QString, QString> postParameters;
+
+    postParameters.insert("type", commentTypeString);
+    postParameters.insert("content", id);
+    postParameters.insert("content2", id2);
+    postParameters.insert("parent", parentId);
+    postParameters.insert("subject", subject);
+    postParameters.insert("message", message);
+
+    return new PostJob(d->m_internals, createRequest("comments/add"), postParameters);
+}
+
+PostJob* Provider::voteForComment(const QString & id, uint rating)
+{
+    if (rating > 100) {
+        return 0;
+    }
+
+    QMap<QString, QString> postParameters;
+    postParameters.insert("vote", QString::number(rating));
+
+    QUrl url = createUrl("comments/vote/" + id);
+    return new PostJob(d->m_internals, createRequest(url), postParameters);
+}
+
+QString Provider::commentTypeToString(const Provider::CommentType type) const
+{
+    switch(type) {
+    case ContentComment:
+        return QString("1");
+        break;
+    case ForumComment:
+        return QString("4");
+        break;
+    case KnowledgeBaseComment:
+        return QString("7");
+        break;
+    case EventComment:
+        return QString("8");
+        break;
+    }
+
+    Q_ASSERT(false);
+    return QString();
+}
 
 PostJob* Provider::setPrivateData(const QStringList& keys, const QStringList& values)
 {
