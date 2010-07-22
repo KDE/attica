@@ -33,13 +33,19 @@
 #include "privatedataparser.h"
 #include "category.h"
 #include "categoryparser.h"
+#include "comment.h"
+#include "commentparser.h"
 #include "content.h"
 #include "contentparser.h"
+#include "distribution.h"
+#include "distributionparser.h"
 #include "downloaditemparser.h"
 #include "event.h"
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "homepagetype.h"
+#include "homepagetypeparser.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
 #include "license.h"
@@ -54,10 +60,13 @@ using namespace Attica;
 
 template class ListJob<Activity>;
 template class ListJob<Category>;
+template class ListJob<Comment>;
 template class ListJob<Content>;
+template class ListJob<Distribution>;
 template class ListJob<DownloadItem>;
 template class ListJob<Event>;
 template class ListJob<Folder>;
+template class ListJob<HomePageType>;
 template class ListJob<KnowledgeBaseEntry>;
 template class ListJob<License>;
 template class ListJob<Message>;
@@ -77,10 +86,13 @@ template class Parser<AccountBalance>;
 template class Parser<Activity>;
 template class Parser<PrivateData>;
 template class Parser<Category>;
+template class Parser<Comment>;
 template class Parser<Content>;
+template class Parser<Distribution>;
 template class Parser<DownloadItem>;
 template class Parser<Event>;
 template class Parser<Folder>;
+template class Parser<HomePageType>;
 template class Parser<KnowledgeBaseEntry>;
 template class Parser<License>;
 template class Parser<Message>;
