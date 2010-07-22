@@ -43,6 +43,7 @@ set(ocsclient_SRCS
    getjob.cpp
    homepagetype.cpp
    homepagetypeparser.cpp
+   icon.cpp
    itemjob.cpp
    knowledgebaseentry.cpp
    knowledgebaseentryparser.cpp
@@ -98,6 +99,7 @@ install(FILES
     getjob.h
     homepagetype.h
     homepagetypeparser.h
+    icon.h
     itemjob.h
     knowledgebaseentry.h
     listjob.h

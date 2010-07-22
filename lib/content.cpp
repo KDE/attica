@@ -36,6 +36,7 @@ class Content::Private : public QSharedData {
         int m_rating;
         QDateTime m_created;
         QDateTime m_updated;
+        QList<Icon> m_icons;
 
         QMap<QString,QString> m_extendedAttributes;
 
@@ -244,4 +245,14 @@ QString Attica::Content::previewPicture(const QString& number) const
 QString Attica::Content::smallPreviewPicture(const QString& number) const
 {
     return attribute("smallpreviewpic" + number);
+}
+
+QList<Icon> Attica::Content::icons()
+{
+    return d->m_icons;
+}
+
+void Attica::Content::setIcons(QList<Icon> icons)
+{
+    d->m_icons = icons;
 }

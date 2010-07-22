@@ -31,6 +31,7 @@
 
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
+#include "icon.h"
 
 class QDateTime;
 
@@ -184,6 +185,16 @@ class ATTICA_EXPORT Content
     QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;
     QString license() const;
     QString author() const;
+
+    /**
+      Get all icons for this content.
+      */
+    QList<Icon> icons();
+    /**
+     * Set list of icons.
+     * @param icons list of icons for this content
+     */
+    void setIcons(QList<Icon> icons);
 
     /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.
