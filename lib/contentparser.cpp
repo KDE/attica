@@ -69,6 +69,13 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
                 icons = content.icons();
                 icons.append(icon);
                 content.setIcons(icons);
+            } else if (xml.name() == "video") {
+                QUrl video(xml.readElementText());
+                // append the video to the current list of videos
+                QList<QUrl> videos;
+                videos = content.videos();
+                videos.append(video);
+                content.setVideos(videos);
             } else {
                 content.addAttribute(xml.name().toString(), xml.readElementText());
             }

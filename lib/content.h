@@ -197,6 +197,16 @@ class ATTICA_EXPORT Content
     void setIcons(QList<Icon> icons);
 
     /**
+      Get all videos for this content.
+      */
+    QList<QUrl> videos();
+    /**
+     * Set list of videos.
+     * @param videos list of videos for this content
+     */
+    void setVideos(QList<QUrl> videos);
+
+    /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.
      * If the attribute already exists it gets overwritten.
      * @param key the key of the attribute

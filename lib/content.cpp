@@ -37,6 +37,7 @@ class Content::Private : public QSharedData {
         QDateTime m_created;
         QDateTime m_updated;
         QList<Icon> m_icons;
+        QList<QUrl> m_videos;
 
         QMap<QString,QString> m_extendedAttributes;
 
@@ -255,4 +256,14 @@ QList<Icon> Attica::Content::icons()
 void Attica::Content::setIcons(QList<Icon> icons)
 {
     d->m_icons = icons;
+}
+
+QList<QUrl> Attica::Content::videos()
+{
+    return d->m_videos;
+}
+
+void Attica::Content::setVideos(QList<QUrl> videos)
+{
+    d->m_videos = videos;
 }
