@@ -43,6 +43,14 @@ DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
         if ( xml.isStartElement() ) {
             if ( xml.name() == "downloadlink" ) {
                 item.setUrl( xml.readElementText() );
+            } else if ( xml.name() == "mimetype" ) {
+                item.setMimeType( xml.readElementText() );
+            } else if ( xml.name() == "packagename" ) {
+                item.setPackageName( xml.readElementText() );
+            } else if ( xml.name() == "packagerepository" ) {
+                item.setPackageRepository( xml.readElementText() );
+            } else if ( xml.name() == "gpgfingerprint" ) {
+                item.setGpgFingerprint( xml.readElementText() );
             }
         }
     }

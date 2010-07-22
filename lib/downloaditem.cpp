@@ -30,6 +30,10 @@ class DownloadItem::Private :public QSharedData
 {
 public:
     QUrl m_url;
+    QString m_mimeType;
+    QString m_packageName;
+    QString m_packageRepository;
+    QString m_gpgFingerprint;
 };
 
 DownloadItem::DownloadItem()
@@ -59,4 +63,44 @@ void DownloadItem::setUrl(const QUrl& url)
 QUrl DownloadItem::url() const
 {
     return d->m_url;
+}
+
+void DownloadItem::setMimeType(const QString& mimeType)
+{
+    d->m_mimeType = mimeType;
+}
+
+QString DownloadItem::mimeType() const
+{
+    return d->m_mimeType;
+}
+
+void DownloadItem::setPackageName(const QString& packageName)
+{
+    d->m_packageName = packageName;
+}
+
+QString DownloadItem::packageName() const
+{
+    return d->m_packageName;
+}
+
+void DownloadItem::setPackageRepository(const QString& packageRepository)
+{
+    d->m_packageRepository = packageRepository;
+}
+
+QString DownloadItem::packageRepository() const
+{
+    return d->m_packageRepository;
+}
+
+void DownloadItem::setGpgFingerprint(const QString& gpgFingerprint)
+{
+    d->m_gpgFingerprint = gpgFingerprint;
+}
+
+QString DownloadItem::gpgFingerprint() const
+{
+    return d->m_gpgFingerprint;
 }

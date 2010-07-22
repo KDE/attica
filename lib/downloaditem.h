@@ -63,6 +63,14 @@ public:
     
     void setUrl(const QUrl& url);
     QUrl url() const;
+    void setMimeType(const QString& mimeType);
+    QString mimeType() const;
+    void setPackageName(const QString& packageName);
+    QString packageName() const;
+    void setPackageRepository(const QString& packageRepository);
+    QString packageRepository() const;
+    void setGpgFingerprint(const QString& gpgFingerprint);
+    QString gpgFingerprint() const;
 
 private:
     class Private;
