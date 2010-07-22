@@ -58,6 +58,7 @@ class Person;
 class PostJob;
 class Provider;
 class Comment;
+class Distribution;
 
 
 /**
@@ -286,7 +287,13 @@ class ATTICA_EXPORT Provider
     * @return the licenses available from the server
     */
     ListJob<License>* requestLicenses();
-    
+
+    /**
+    * Get a list of distributions (such as Ark, Debian)
+    * @return the licenses available from the server
+    */
+    ListJob<Distribution>* requestDistributions();
+
     /**
       Request a list of Contents.
       Note that @p categories is not optional. If left empty, no results will be returned.

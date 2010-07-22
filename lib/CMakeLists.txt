@@ -31,6 +31,8 @@ set(ocsclient_SRCS
    commentparser.cpp
    content.cpp
    contentparser.cpp
+   distribution.cpp
+   distributionparser.cpp
    downloaddescription.cpp
    downloaditem.cpp
    downloaditemparser.cpp
@@ -85,6 +87,8 @@ install(FILES
     commentparser.h
     content.h
     category.h
+    distribution.h
+    distributionparser.h
     downloaddescription.h
     downloaditem.h
     event.h

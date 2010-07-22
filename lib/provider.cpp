@@ -53,6 +53,7 @@
 #include "itemjob.h"
 #include "listjob.h"
 #include "comment.h"
+#include "distribution.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAccessManager>
@@ -396,6 +397,13 @@ ListJob< License >* Provider::requestLicenses()
 {
     QUrl url = createUrl( "content/licenses" );
     ListJob<License> *job = new ListJob<License>(d->m_internals, createRequest(url));
+    return job;
+}
+
+ListJob< Distribution >* Provider::requestDistributions()
+{
+    QUrl url = createUrl( "content/distributions" );
+    ListJob<Distribution> *job = new ListJob<Distribution>(d->m_internals, createRequest(url));
     return job;
 }
 
