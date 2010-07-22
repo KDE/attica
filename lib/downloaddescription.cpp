@@ -38,7 +38,11 @@ public:
     QString distributionType;
     QString priceReason;
     QString priceAmount;
-    Private() {}
+    uint size;
+
+    Private() : id(0), isDownloadtypLink(false), hasPrice(false), size(0)
+    {
+    }
 };
 }
 
@@ -154,3 +158,12 @@ void Attica::DownloadDescription::setPriceReason(const QString& priceReason)
     d->priceReason = priceReason;
 }
 
+uint Attica::DownloadDescription::size()
+{
+    return d->size;
+}
+
+void Attica::DownloadDescription::setSize(uint size)
+{
+    d->size = size;
+}

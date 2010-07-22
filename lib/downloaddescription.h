@@ -65,6 +65,8 @@ public:
     void setDistributionType(const QString& distributionType);
     void setPriceReason(const QString& priceReason);
     void setPriceAmount(const QString& priceAmount);
+    uint size();
+    void setSize(uint size);
 
 private:
     class Private;
