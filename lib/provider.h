@@ -315,7 +315,20 @@ class ATTICA_EXPORT Provider
 
     ItemJob<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));
 
-    PostJob* voteForContent(const QString& contentId, bool positiveVote);
+    /** Vote for a content item
+     * This version is for the old OCS API < 1.6
+     * @param contentId the content which this voting is for
+     * @param positiveVote whether the voting is positive or negative
+     * @return the post job for this voting
+     */
+    Q_DECL_DEPRECATED PostJob* voteForContent(const QString& contentId, bool positiveVote);
+
+    /** Vote for a content item
+     * @param contentId the content which this voting is for
+     * @param rating - the rating, must be between 0 (bad) and 100 (good)
+     * @return the post job for this voting
+     */
+    PostJob* voteForContent(const QString& contentId, uint rating);
 
     ItemPostJob<Content>* addNewContent(const Category& category, const Content& newContent);
     ItemPostJob<Content>* editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent);

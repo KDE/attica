@@ -547,6 +547,17 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
     StringMap postParameters;
     postParameters.insert("vote", positiveVote ? "good" : "bad");
+    qDebug() << "vote: " << positiveVote;
+    return new PostJob(d->m_internals, createRequest("content/vote/" + contentId), postParameters);
+}
+
+PostJob* Provider::voteForContent(const QString& contentId, uint rating)
+{
+    // according to OCS API, the rating is 0..100
+    Q_ASSERT(rating <= 100);
+    StringMap postParameters;
+    postParameters.insert("vote", QString::number(rating));
+    qDebug() << "vote: " << QString::number(rating);
     return new PostJob(d->m_internals, createRequest("content/vote/" + contentId), postParameters);
 }
 
