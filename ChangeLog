@@ -1,5 +1,14 @@
 0.2.0
  - Update voting function (add overload) to take uint 0..100 according to ocs 1.6 spec
+ - Add comments interface to request comments, add new comments and vote for comments
+ - Add distribution interface to request distributions available in the server
+ - Add homepagetype interface to request home page types from the server
+ - Add methods to access home page entries in content
+ - Add support of icons to content (OCS 1.6)
+ - Add support of videos to content (OCS 1.6)
+ - Add summary description to content (OCS 1.6)
+ - Add size to download description (OCS 1.6)
+ - Add fields to download item for package name, package repository, gpg fingerprint, mimetype (OCS 1.6)
 
 0.1.4
  - Remove function decls without body introduced in 0.1.3
