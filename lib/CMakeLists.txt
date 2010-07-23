@@ -41,6 +41,7 @@ set(ocsclient_SRCS
    folder.cpp
    folderparser.cpp
    getjob.cpp
+   homepageentry.cpp
    homepagetype.cpp
    homepagetypeparser.cpp
    icon.cpp
@@ -97,6 +98,7 @@ install(FILES
     event.h
     folder.h
     getjob.h
+    homepageentry.h
     homepagetype.h
     homepagetypeparser.h
     icon.h

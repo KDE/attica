@@ -33,7 +33,7 @@ public:
     QString type;
     QUrl url;
     
-    Private() :id(-1)
+    Private()
     {}
 };
 
@@ -61,7 +61,7 @@ QString HomePageEntry::type() const
     return d->type;
 }
 
-void HomePageEntry::setType(uint id)
+void HomePageEntry::setType(const QString& type)
 {
     d->type = type;
 }
@@ -71,7 +71,7 @@ QUrl HomePageEntry::url() const
     return d->url;
 }
 
-void HomePageEntry::setUrl(const QString& url)
+void HomePageEntry::setUrl(const QUrl& url)
 {
     d->url = url;
 }

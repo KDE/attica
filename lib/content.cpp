@@ -228,8 +228,6 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     return desc;
 }
 
-/*
-//Commented out because HomePageEntry is not implemented correctly yet
 QList<HomePageEntry> Attica::Content::homePageEntries()
 {
     QList<Attica::HomePageEntry> homepages;
@@ -265,7 +263,6 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
     homepage.setUrl(attribute("homepage" + num));
     return homepage;
 }
-*/
 
 QString Attica::Content::version() const
 {
