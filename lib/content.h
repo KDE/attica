@@ -31,6 +31,7 @@
 
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
+#include "homepageentry.h"
 #include "icon.h"
 
 class QDateTime;
@@ -185,6 +186,18 @@ class ATTICA_EXPORT Content
       This is slow searching through lots of strings, so beware and don't call it too often.
       */
     QList<DownloadDescription> downloadUrlDescriptions() const;
+
+    /**
+      Get the details about a home page (a content can have multiple home pages, blog, bugs, ...).
+      This is not very helpful if we don't know the allowed numbers.
+      */
+    HomePageEntry homePageEntry(int number) const;
+
+    /**
+      Get all home pages for this content.
+      This is slow searching through lots of strings, so beware and don't call it too often.
+      */
+    QList<HomePageEntry> homePageEntries();
 
     QString previewPicture(const QString& number = QLatin1String("1")) const;
     QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;

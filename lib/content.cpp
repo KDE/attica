@@ -228,6 +228,42 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     return desc;
 }
 
+QList<HomePageEntry> Attica::Content::homePageEntries()
+{
+    QList<Attica::HomePageEntry> homepages;
+    QMap<QString,QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
+    while (iter != d->m_extendedAttributes.constEnd()) {
+        QString key = iter.key();
+        if (key.startsWith(QLatin1String("homepagetype"))) {
+            bool ok;
+            // remove "homepage", get the rest as number
+            int num = key.right(key.size() - 12).toInt(&ok);
+            if (ok) {
+                // check if the homepage actually has a valid type
+                if (!iter.value().isEmpty()) {
+                    homepages.append(homePageEntry(num));
+                }
+            }
+        }
+        ++iter;
+    }
+
+    return homepages;
+}
+
+Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
+{
+    QString num(QString::number(number));
+    HomePageEntry homepage;
+
+    if (number == 1 && attribute("homepage1").isEmpty()) {
+        num.clear();
+    }
+    homepage.setType(attribute("homepagetype" + num));
+    homepage.setUrl(attribute("homepage" + num));
+    return homepage;
+}
+
 QString Attica::Content::version() const
 {
     return attribute("version");

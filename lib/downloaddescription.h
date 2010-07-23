@@ -55,7 +55,8 @@ public:
     QString distributionType();
     QString priceReason();
     QString priceAmount();
-    
+    uint size();
+
     void setId(int id);
     void setDownloadtypLink(bool isLink);
     void setHasPrice(bool hasPrice);
@@ -65,7 +66,6 @@ public:
     void setDistributionType(const QString& distributionType);
     void setPriceReason(const QString& priceReason);
     void setPriceAmount(const QString& priceAmount);
-    uint size();
     void setSize(uint size);
 
 private:
