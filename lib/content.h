@@ -31,7 +31,7 @@
 
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
-//#include "homepageentry.h"
+#include "homepageentry.h"
 #include "icon.h"
 
 class QDateTime;
