@@ -761,22 +761,21 @@ QString Provider::commentTypeToString(const Provider::CommentType type) const
     return QString();
 }
 
-PostJob* Provider::setPrivateData(const QStringList& keys, const QStringList& values)
+PostJob* Provider::setPrivateData(const QString& key, const QString& value)
 {
-    Q_ASSERT(keys.size() == values.size());
+//    Q_ASSERT(keys.size() == values.size());
     
-    QUrl url = createUrl("person/privatedata/set/");
+    QUrl url = createUrl("privatedata/setattribute/" + key);
     PostFileData postRequest(url);
 
-    for (int i=0; i<keys.size(); i++) {
-        postRequest.addArgument(keys[i], values[i]); //I'm not good with XML, what is this?
-    }
+    postRequest.addArgument("value", value);
+
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
 ItemJob<PrivateData>* Provider::requestPrivateData(const QString& key)
 {
-    ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest("person/privatedata/search/" + key));
+    ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest("privatedata/getattribute/" + key));
     return job;
 }
 

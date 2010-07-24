@@ -73,7 +73,7 @@ void PrivateData::setAttribute(const QString &key, const QString &value)
     d->m_attributesTimestamp[key] = QDateTime::currentDateTime();
 
     if (d->m_autoSync) {
-        d->m_provider->setPrivateData(QStringList(key), QStringList(value));
+        d->m_provider->setPrivateData(key, value);
     }
 }
 
