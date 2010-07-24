@@ -111,6 +111,7 @@ install(FILES
     person.h
     #interface for external platform plugins
     platformdependent.h
+    privatedata.h
     postjob.h
     providermanager.h
     provider.h
