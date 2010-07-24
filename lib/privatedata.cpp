@@ -87,6 +87,11 @@ QDateTime PrivateData::timestamp(const QString &key) const
     return d->m_attributesTimestamp[key];
 }
 
+QStringList PrivateData::getKeys() const
+{
+    return d->m_attributes.keys();
+}
+
 void PrivateData::setTimestamp(const QString &key, const QDateTime &when)
 {
     d->m_attributesTimestamp[key] = when;

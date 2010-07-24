@@ -76,6 +76,11 @@ public:
     QDateTime timestamp(const QString &key) const;
 
     /**
+     * Returns a list of fetched keys.
+     */
+    QStringList getKeys() const;
+
+    /**
      * Enables or disables automatic synchronization whenever the value is updated.
      * Default is off.
 
@@ -98,7 +103,6 @@ public slots:
 private:
     class Private;
     QSharedDataPointer<Private> d;
-    QMap<QString, QString> m_item;
 };
 
 }
