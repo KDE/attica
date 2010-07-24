@@ -28,7 +28,7 @@ using namespace Attica;
 
 PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
 {
-    PrivateData person;
+    PrivateData data;
     bool hasAvatarPic = false;
     QString key;
     
@@ -40,19 +40,20 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
             if (xml.name() == "key") {
                 key = xml.readElementText();
             } else if (xml.name() == "value") {
-                person.setAttribute(key, xml.readElementText());
+                data.setAttribute(key, xml.readElementText());
             } else if (xml.name() == "timestamp") {
-                person.setTimestamp(key, QDateTime::fromString(xml.readElementText()));
+                data.setTimestamp(key, QDateTime::fromString(xml.readElementText()));
             }
-        } else if (xml.isEndElement() && (xml.name() == "person" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == "data" || xml.name() == "user")) {
             break;
         }
     }
 
-    return person;
+    return data;
 }
 
 
 QStringList PrivateData::Parser::xmlElement() const {
     return QStringList("privatedata");
 }
+

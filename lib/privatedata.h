@@ -78,7 +78,7 @@ public:
     /**
      * Returns a list of fetched keys.
      */
-    QStringList getKeys() const;
+    QStringList keys() const;
 
     /**
      * Enables or disables automatic synchronization whenever the value is updated.

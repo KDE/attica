@@ -87,7 +87,7 @@ QDateTime PrivateData::timestamp(const QString &key) const
     return d->m_attributesTimestamp[key];
 }
 
-QStringList PrivateData::getKeys() const
+QStringList PrivateData::keys() const
 {
     return d->m_attributes.keys();
 }
