@@ -42,7 +42,7 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == "value") {
                 data.setAttribute(key, xml.readElementText());
             } else if (xml.name() == "timestamp") {
-                data.setTimestamp(key, QDateTime::fromString(xml.readElementText()));
+                data.setTimestamp(key, QDateTime::fromString(xml.readElementText(), Qt::ISODate));
             }
         } else if (xml.isEndElement() && (xml.name() == "data" || xml.name() == "user")) {
             break;
