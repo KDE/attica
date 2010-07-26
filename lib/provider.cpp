@@ -761,11 +761,9 @@ QString Provider::commentTypeToString(const Provider::CommentType type) const
     return QString();
 }
 
-PostJob* Provider::setPrivateData(const QString& key, const QString& value)
+PostJob* Provider::setPrivateData(const QString& app, const QString& key, const QString& value)
 {
-//    Q_ASSERT(keys.size() == values.size());
-    
-    QUrl url = createUrl("privatedata/setattribute/" + key);
+    QUrl url = createUrl("privatedata/setattribute/" + app + "/" + key);
     PostFileData postRequest(url);
 
     postRequest.addArgument("value", value);
@@ -773,9 +771,9 @@ PostJob* Provider::setPrivateData(const QString& key, const QString& value)
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
-ItemJob<PrivateData>* Provider::requestPrivateData(const QString& key)
+ItemJob<PrivateData>* Provider::requestPrivateData(const QString& app, const QString& key)
 {
-    ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest("privatedata/getattribute/" + key));
+    ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest("privatedata/getattribute/" + app + "/" + key));
     return job;
 }
 

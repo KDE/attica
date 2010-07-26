@@ -43,13 +43,6 @@ public:
 
     typedef QList<PrivateData> List; // nonsense
     
-    enum MergeType {
-        UseLocal,
-        UseRemote,
-        Ask
-    };
-    
-    
     PrivateData();
     PrivateData(const PrivateData& other);
     PrivateData& operator=(const PrivateData& other);
@@ -79,26 +72,6 @@ public:
      * Returns a list of fetched keys.
      */
     QStringList keys() const;
-
-    /**
-     * Enables or disables automatic synchronization whenever the value is updated.
-     * Default is off.
-
-    void setAutoSync(bool val);
-
-     * Returns whether automatic synchronization is enabled.
-    bool autoSync() const;*/
-
-    /**
-     * Returns how automatic merging of updated attributes is done.
-     */
-    MergeType mergeType();
-    
-public slots:
-    /**
-     * Helper function to launch a synchronization job,
-     * that automatically updates and merges attributes.
-    void launchSync();*/
 
 private:
     class Private;

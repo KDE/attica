@@ -35,12 +35,8 @@ class PrivateData::Private : public QSharedData {
 
         Provider *m_provider;
 
-        bool m_autoSync;
-
-        MergeType m_mergeType;
-
         Private()
-            : m_provider(0), m_autoSync(false), m_mergeType(PrivateData::Ask)
+            : m_provider(0)
         {
         }
 };
@@ -66,15 +62,10 @@ PrivateData::~PrivateData()
 {
 }
 
-
 void PrivateData::setAttribute(const QString &key, const QString &value)
 {
     d->m_attributes[key] = value;
     d->m_attributesTimestamp[key] = QDateTime::currentDateTime();
-
-    if (d->m_autoSync) {
-        d->m_provider->setPrivateData(key, value);
-    }
 }
 
 QString PrivateData::attribute(const QString &key) const
@@ -95,10 +86,5 @@ QStringList PrivateData::keys() const
 void PrivateData::setTimestamp(const QString &key, const QDateTime &when)
 {
     d->m_attributesTimestamp[key] = when;
-}
-
-PrivateData::MergeType PrivateData::mergeType()
-{
-    return d->m_mergeType;
 }
 

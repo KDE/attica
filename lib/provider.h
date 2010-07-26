@@ -247,8 +247,32 @@ class ATTICA_EXPORT Provider
     ListJob<Person>* requestPersonSearchByName(const QString& name);
     ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
     PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
-    ItemJob<PrivateData>* requestPrivateData(const QString& key = QString());
-    PostJob* setPrivateData(const QString &key, const QString &value);
+
+    //////////////////////////
+    // PrivateData part of OCS
+
+    /**
+     * Fetches the a given attribute from an OCS-compliant server.
+     * @param app The application name
+     * @param key The key of the attribute to fetch (optional)
+     * @return The job that is responsible for fetching the data
+     */
+    ItemJob<PrivateData>* requestPrivateData(const QString& app, const QString& key = QString());
+
+    /**
+     * Fetches all stored private data.
+     * @return The job responsible for fetching data
+     */
+    ItemJob<PrivateData>* requestPrivateData() { return requestPrivateData(QString(), QString()); }
+
+    /**
+     * Sets the value of an attribute.
+     * @param app The application name
+     * @param key The key of the attribute
+     * @param value The new value of the attribute
+     * @return The job responsible for setting data
+     */
+    PostJob* setPrivateData(const QString &app, const QString &key, const QString &value);
 
     // Friend part of OCS
 
