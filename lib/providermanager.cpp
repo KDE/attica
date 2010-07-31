@@ -37,6 +37,7 @@
 
 #include "platformdependent.h"
 #include "qtplatformdependent.h"
+#include <QLibraryInfo>
 
 
 using namespace Attica;
@@ -69,26 +70,39 @@ public:
 };
 
 
-PlatformDependent* ProviderManager::loadPlatformDependent() {
+PlatformDependent* ProviderManager::loadPlatformDependent()
+{
+    // OS specific stuff
+    #if defined Q_WS_WIN
+    #define PATH_SEPARATOR ';'
+    #define LIB_EXTENSION "dll"
+    #else
+    #define PATH_SEPARATOR ':'
+    #define LIB_EXTENSION "so"
+    #endif
 
+    // use qt plugin dir, if that is not found, fall back to kde plugin path (the old way)
+    QStringList paths;
+    paths.append(QLibraryInfo::location(QLibraryInfo::PluginsPath));
+
+    // old plugin location, required for attica < 0.1.5
     QString program("kde4-config");
     QStringList arguments;
     arguments << "--path" << "lib";
-    
+
     QProcess process;
     process.start(program, arguments);
     process.waitForFinished();
 
     /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
+    paths.append(QString(process.readAllStandardOutput()).trimmed().split(PATH_SEPARATOR));
+    qDebug() << "Plugin paths: " << paths;
 
-    QStringList paths = QString(process.readAllStandardOutput()).trimmed().split(':');
-    qDebug() << "Pfade: " << paths;
+    QString pluginName("attica_kde");
 
-    QString pluginName("attica_kde.so");
-    
     foreach(const QString& path, paths) {
-        QString libraryPath(path + '/' + pluginName);
-        qDebug() << "Trying to load " << libraryPath;
+        QString libraryPath(path + '/' + pluginName + '.' + LIB_EXTENSION);
+        qDebug() << "Trying to load Attica plugin: " << libraryPath;
         if (QFile::exists(libraryPath)) {
             d->m_pluginLoader.setFileName(libraryPath);
             QObject* plugin = d->m_pluginLoader.instance();
