@@ -35,7 +35,8 @@
 #include "itemjob.h"
 #include "listjob.h"
 #include "message.h"
-         
+#include "comment.h"
+
 class QDate;
 class QUrl;
 
@@ -48,7 +49,6 @@ class PostJobStatus;
 class AccountBalance;
 class Activity;
 class PrivateData;
-class Comment;
 class Content;
 class DownloadItem;
 class Distribution;
@@ -60,6 +60,7 @@ class License;
 class Person;
 class PostJob;
 class Provider;
+
 
 /**
  * The Provider class represents one Open Collaboration Service provider.
@@ -396,22 +397,15 @@ class ATTICA_EXPORT Provider
     ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
     // Comment part of OCS
-    enum CommentType {
-        ContentComment,
-        ForumComment,
-        KnowledgeBaseComment,
-        EventComment
-    };
-
     /** Request a list of comments for a content / forum / knowledgebase / event.
-     * @param commentType type of the comment @see CommentType (content / forum / knowledgebase / event)
+     * @param comment::Type type of the comment @see Comment::Type (content / forum / knowledgebase / event)
      * @param id id of the content entry where you want to get the comments is from
      * @param id2 id of the content entry where you want to get the comments is from
      * @param page request nth page in the list of results
      * @param pageSize requested size of pages when calculating the list of results
      * @return list job for the comments results
      */
-    ListJob<Comment>* requestComments(const CommentType commentType, const QString& id, const QString& id2, int page, int pageSize);
+    ListJob<Comment>* requestComments(const Comment::Type commentType, const QString& id, const QString& id2, int page, int pageSize);
 
     /** Add a new comment.
      * @param commentType type of the comment @see CommentType (content / forum / knowledgebase / event)
@@ -422,7 +416,7 @@ class ATTICA_EXPORT Provider
      * @param message text of the comment
      * @return post job for adding the new comment
      */
-    PostJob* addNewComment(const CommentType commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
+    PostJob* addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
 
     /** Vote a comment item
      * @param id the comment id which this voting is for
@@ -458,8 +452,6 @@ class ATTICA_EXPORT Provider
              const QString& person, const QString& friendV, const QString& message,
              const QString& activity, const QString& content, const QString& fan,
              const QString& knowledgebase, const QString& event, const QString& comment);
-    
-    QString commentTypeToString(const Provider::CommentType type) const;
 
 friend class ProviderManager;
 };

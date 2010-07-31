@@ -690,10 +690,10 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
     return job;
 }
 
-ListJob<Comment>* Provider::requestComments(const Provider::CommentType commentType, const QString& id, const QString& id2, int page, int pageSize)
+ListJob<Comment>* Provider::requestComments(const Comment::Type commentType, const QString& id, const QString& id2, int page, int pageSize)
 {
     QString commentTypeString;
-    commentTypeString = commentTypeToString(commentType);
+    commentTypeString = Comment::commentTypeToString(commentType);
     if (!commentTypeString.isEmpty()) {
         return 0;
     }
@@ -707,10 +707,10 @@ ListJob<Comment>* Provider::requestComments(const Provider::CommentType commentT
     return job;
 }
 
-PostJob* Provider::addNewComment(const Provider::CommentType commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
+PostJob* Provider::addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
 {
     QString commentTypeString;
-    commentTypeString = commentTypeToString(commentType);
+    commentTypeString = Comment::commentTypeToString(commentType);
     if (!commentTypeString.isEmpty()) {
         return 0;
     }
@@ -738,27 +738,6 @@ PostJob* Provider::voteForComment(const QString & id, uint rating)
 
     QUrl url = createUrl("comments/vote/" + id);
     return new PostJob(d->m_internals, createRequest(url), postParameters);
-}
-
-QString Provider::commentTypeToString(const Provider::CommentType type) const
-{
-    switch(type) {
-    case ContentComment:
-        return QString("1");
-        break;
-    case ForumComment:
-        return QString("4");
-        break;
-    case KnowledgeBaseComment:
-        return QString("7");
-        break;
-    case EventComment:
-        return QString("8");
-        break;
-    }
-
-    Q_ASSERT(false);
-    return QString();
 }
 
 PostJob* Provider::setPrivateData(const QString& app, const QString& key, const QString& value)

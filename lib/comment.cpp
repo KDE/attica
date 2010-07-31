@@ -28,6 +28,28 @@
 
 using namespace Attica;
 
+QString Comment::commentTypeToString(const Comment::Type type)
+{
+    switch(type) {
+    case ContentComment:
+        return QString("1");
+        break;
+    case ForumComment:
+        return QString("4");
+        break;
+    case KnowledgeBaseComment:
+        return QString("7");
+        break;
+    case EventComment:
+        return QString("8");
+        break;
+    }
+
+    Q_ASSERT(false);
+    return QString();
+}
+
+
 class Comment::Private : public QSharedData {
     public:
         QString m_id;

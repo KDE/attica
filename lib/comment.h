@@ -41,6 +41,14 @@ class ATTICA_EXPORT Comment
     typedef QList<Comment> List;
     class Parser;
 
+    enum Type {
+        ContentComment,
+        ForumComment,
+        KnowledgeBaseComment,
+        EventComment
+    };
+    static QString commentTypeToString(const Comment::Type type);
+    
     Comment();
     Comment(const Comment& other);
     Comment& operator=(const Comment& other);
