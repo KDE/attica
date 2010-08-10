@@ -694,7 +694,7 @@ ListJob<Comment>* Provider::requestComments(const Comment::Type commentType, con
 {
     QString commentTypeString;
     commentTypeString = Comment::commentTypeToString(commentType);
-    if (!commentTypeString.isEmpty()) {
+    if (commentTypeString.isEmpty()) {
         return 0;
     }
  
