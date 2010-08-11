@@ -23,12 +23,13 @@
 */
 
 #include "commentparser.h"
-
+#include <QDebug>
 
 using namespace Attica;
 
 Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
 {
+    qDebug() << "XML " << xml.text();
     Comment comment;
 
     while (!xml.atEnd()) {
@@ -49,7 +50,7 @@ Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
                 comment.setDate(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
             } else if (xml.name() == "score") {
                 comment.setScore(xml.readElementText().toInt());
-            } else if (xml.name() == "children") {
+            } else if (xml.name() == "childs") {
                 QList<Comment> children = parseXmlChildren(xml);
                 comment.setChildren(children);
             }
@@ -73,7 +74,7 @@ QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader& xml)
                 Comment comment = parseXml(xml);
                 children.append(comment);
             }
-        } else if (xml.isEndElement() && xml.name() == "children") {
+        } else if (xml.isEndElement() && xml.name() == "childs") {
             break;
         }
     }
