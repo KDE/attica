@@ -202,6 +202,7 @@ class ATTICA_EXPORT Content
     QString previewPicture(const QString& number = QLatin1String("1")) const;
     QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;
     QString license() const;
+    QString licenseName() const;
     QString author() const;
 
     /**

@@ -279,6 +279,11 @@ QString Attica::Content::license() const
     return attribute("licensetype");
 }
 
+QString Attica::Content::licenseName() const
+{
+    return attribute("license");
+}
+
 QString Attica::Content::previewPicture(const QString& number) const
 {
     return attribute("previewpic" + number);
