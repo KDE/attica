@@ -711,7 +711,7 @@ PostJob* Provider::addNewComment(const Comment::Type commentType, const QString&
 {
     QString commentTypeString;
     commentTypeString = Comment::commentTypeToString(commentType);
-    if (!commentTypeString.isEmpty()) {
+    if (commentTypeString.isEmpty()) {
         return 0;
     }
 
