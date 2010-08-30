@@ -71,6 +71,8 @@ public:
     QString packageRepository() const;
     void setGpgFingerprint(const QString& gpgFingerprint);
     QString gpgFingerprint() const;
+    void setGpgSignature(const QString& gpgSignature);
+    QString gpgSignature() const;
 
 private:
     class Private;

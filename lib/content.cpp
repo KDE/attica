@@ -214,17 +214,27 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     QString num(QString::number(number));
     DownloadDescription desc;
     
-    desc.setDownloadtypLink(true);
-    if (number == 1 && attribute("downloadtyp1") == "0") {
-        desc.setDownloadtypLink(false);
+    Attica::DownloadDescription::Type downloadType = Attica::DownloadDescription::LinkDownload;
+    if (attribute("downloadtyp" + num) == "0") {
+        downloadType = Attica::DownloadDescription::FileDownload;
+    } else if (attribute("downloadtyp" + num) == "1") {
+        downloadType = Attica::DownloadDescription::LinkDownload;
+    } else if (attribute("downloadtyp" + num) == "2") {
+        downloadType = Attica::DownloadDescription::PackageDownload;
     }
+    desc.setType(downloadType);
     desc.setId(number);
     desc.setName(attribute("downloadname" + num));
     desc.setDistributionType(attribute("downloadtype" + num));
     desc.setHasPrice(attribute("downloadbuy" + num) == "1");
     desc.setLink(attribute("downloadlink" + num));
-    // desc.setPriceReason(attribute("downloadreason" + num));
+    desc.setPriceReason(attribute("downloadreason" + num));
     desc.setPriceAmount(attribute("downloadprice" + num));
+    desc.setSize(attribute("downloadsize" + num).toUInt());
+    desc.setGpgFingerprint(attribute("downloadgpgfingerprint") + num);
+    desc.setGpgSignature(attribute("downloadgpgsignature") + num);
+    desc.setPackageName(attribute("downloadpackagename") + num);
+    desc.setRepository(attribute("downloadrepository") + num);
     return desc;
 }
 

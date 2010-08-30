@@ -35,7 +35,13 @@ namespace Attica {
 class ATTICA_EXPORT DownloadDescription
 {
 public:
-    
+
+    enum Type {
+        FileDownload = 0,
+        LinkDownload,
+        PackageDownload
+    };
+
     DownloadDescription();
     DownloadDescription(const DownloadDescription& other);
     
@@ -47,7 +53,8 @@ public:
       This will simply be 1, 2, ...
       */
     int id();
-    bool isDownloadtypLink();
+    Attica::DownloadDescription::Type type();
+    Q_DECL_DEPRECATED bool isDownloadtypLink();
     bool hasPrice();
     QString category();
     QString name();
@@ -56,9 +63,14 @@ public:
     QString priceReason();
     QString priceAmount();
     uint size();
+    QString gpgFingerprint();
+    QString gpgSignature();
+    QString packageName();
+    QString repository();
 
     void setId(int id);
-    void setDownloadtypLink(bool isLink);
+    void setType(Attica::DownloadDescription::Type type);
+    Q_DECL_DEPRECATED void setDownloadtypLink(bool isLink);
     void setHasPrice(bool hasPrice);
     void setCategory(const QString& category);
     void setName(const QString& name);
@@ -67,6 +79,10 @@ public:
     void setPriceReason(const QString& priceReason);
     void setPriceAmount(const QString& priceAmount);
     void setSize(uint size);
+    void setGpgFingerprint(const QString& fingerprint);
+    void setGpgSignature(const QString& signature);
+    void setPackageName(const QString& packageName);
+    void setRepository(const QString& repository);
 
 private:
     class Private;

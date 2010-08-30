@@ -23,7 +23,6 @@
 
 #include "itemjob.h"
 
-
 using namespace Attica;
 
 template <class T>

@@ -30,7 +30,7 @@ class DownloadDescription::Private :public QSharedData
 {
 public:
     int id;
-    bool isDownloadtypLink;
+    Attica::DownloadDescription::Type type;
     bool hasPrice;
     QString category;
     QString name;
@@ -38,9 +38,13 @@ public:
     QString distributionType;
     QString priceReason;
     QString priceAmount;
+    QString gpgFingerprint;
+    QString gpgSignature;
+    QString packageName;
+    QString repository;
     uint size;
 
-    Private() : id(0), isDownloadtypLink(false), hasPrice(false), size(0)
+    Private() : id(0), type(Attica::DownloadDescription::FileDownload), hasPrice(false), size(0)
     {
     }
 };
@@ -108,14 +112,28 @@ void DownloadDescription::setHasPrice(bool hasPrice)
     d->hasPrice = hasPrice;
 }
 
+Attica::DownloadDescription::Type DownloadDescription::type()
+{
+    return d->type;
+}
+
+void DownloadDescription::setType(Attica::DownloadDescription::Type type)
+{
+    d->type = type;
+}
+
 bool Attica::DownloadDescription::isDownloadtypLink()
 {
-    return d->isDownloadtypLink;
+    return d->type == Attica::DownloadDescription::LinkDownload;
 }
 
 void DownloadDescription::setDownloadtypLink(bool isLink)
 {
-    d->isDownloadtypLink = isLink;
+    if (isLink) {
+        d->type = Attica::DownloadDescription::LinkDownload;
+    } else {
+        d->type = Attica::DownloadDescription::FileDownload;
+    }
 }
 
 QString Attica::DownloadDescription::link()
@@ -166,4 +184,44 @@ uint Attica::DownloadDescription::size()
 void Attica::DownloadDescription::setSize(uint size)
 {
     d->size = size;
+}
+
+QString Attica::DownloadDescription::gpgFingerprint()
+{
+    return d->gpgFingerprint;
+}
+
+void Attica::DownloadDescription::setGpgFingerprint(const QString& fingerprint)
+{
+    d->gpgFingerprint = fingerprint;
+}
+
+QString Attica::DownloadDescription::gpgSignature()
+{
+    return d->gpgSignature;
+}
+
+void Attica::DownloadDescription::setGpgSignature(const QString& signature)
+{
+    d->gpgSignature = signature;
+}
+
+QString Attica::DownloadDescription::packageName()
+{
+    return d->packageName;
+}
+
+void Attica::DownloadDescription::setPackageName(const QString& packageName)
+{
+    d->packageName = packageName;
+}
+
+QString Attica::DownloadDescription::repository()
+{
+    return d->repository;
+}
+
+void Attica::DownloadDescription::setRepository(const QString& repository)
+{
+    d->repository = repository;
 }

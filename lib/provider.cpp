@@ -420,10 +420,15 @@ ListJob< HomePageType >* Provider::requestHomePageTypes()
 
 ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
-    return searchContentsByPerson(categories, QString(), search, sortMode, page, pageSize);
+    return searchContents(categories, QString(), Distribution::List(), License::List(), search, sortMode, page, pageSize);
 }
 
 ListJob<Content>* Provider::searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search, SortMode sortMode, uint page, uint pageSize)
+{
+    return searchContents(categories, person, Distribution::List(), License::List(), search, sortMode, page, pageSize);
+}
+
+ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& person, const Distribution::List& distributions, const License::List& licenses, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
     QUrl url = createUrl( "content/data" );
 
@@ -432,6 +437,18 @@ ListJob<Content>* Provider::searchContentsByPerson(const Category::List& categor
         categoryIds.append( category.id() );
     }
     url.addQueryItem( "categories", categoryIds.join( "x" ) );
+
+    QStringList distributionIds;
+    foreach( const Distribution &distribution, distributions) {
+        distributionIds.append( QString(distribution.id()) );
+    }
+    url.addQueryItem( "distribution", distributionIds.join( "," ) );
+
+    QStringList licenseIds;
+    foreach( const License &license, licenses) {
+        licenseIds.append( QString(license.id()) );
+    }
+    url.addQueryItem( "license", licenseIds.join( "," ) );
 
     if (!person.isEmpty()) {
         url.addQueryItem( "user", person );

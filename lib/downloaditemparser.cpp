@@ -51,6 +51,8 @@ DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
                 item.setPackageRepository( xml.readElementText() );
             } else if ( xml.name() == "gpgfingerprint" ) {
                 item.setGpgFingerprint( xml.readElementText() );
+            } else if ( xml.name() == "gpgsignature" ) {
+                item.setGpgSignature( xml.readElementText() );
             }
         }
     }

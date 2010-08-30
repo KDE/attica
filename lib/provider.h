@@ -36,6 +36,8 @@
 #include "listjob.h"
 #include "message.h"
 #include "comment.h"
+#include "distribution.h"
+#include "license.h"
 
 class QDate;
 class QUrl;
@@ -344,6 +346,22 @@ class ATTICA_EXPORT Provider
       @param person the person-id that created the contents.
      */
     ListJob<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+
+    /**
+      Request a list of Contents. More complete version.
+      Note that @p categories is not optional. If left empty, no results will be returned.
+      An empty search string @p search returns the top n items.
+      @param categories categories to search in
+      @param person the person-id that created the contents
+      @param distributions list of distributions to filter by, if empty no filtering by distribution is done
+      @param licenses list of licenses to filter by, if empty no filtering by license is done
+      @param search optional search string (in name/description of the content)
+      @param mode sorting mode
+      @param page request nth page in the list of results
+      @param pageSize requested size of pages when calculating the list of results
+      @return list job for the search results
+      */
+    ListJob<Content>* searchContents(const Category::List& categories, const QString& person, const Distribution::List& distributions, const License::List& licenses, const QString& search = QString(), SortMode sortMode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Retrieve a single content.

@@ -34,6 +34,7 @@ public:
     QString m_packageName;
     QString m_packageRepository;
     QString m_gpgFingerprint;
+    QString m_gpgSignature;
 };
 
 DownloadItem::DownloadItem()
@@ -103,4 +104,14 @@ void DownloadItem::setGpgFingerprint(const QString& gpgFingerprint)
 QString DownloadItem::gpgFingerprint() const
 {
     return d->m_gpgFingerprint;
+}
+
+void DownloadItem::setGpgSignature(const QString& gpgSignature)
+{
+    d->m_gpgSignature = gpgSignature;
+}
+
+QString DownloadItem::gpgSignature() const
+{
+    return d->m_gpgSignature;
 }
