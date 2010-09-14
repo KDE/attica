@@ -23,6 +23,7 @@ set(ocsclient_SRCS
    activity.cpp
    activityparser.cpp
    atticabasejob.cpp
+   atticautils.cpp
    privatedata.cpp
    privatedataparser.cpp
    category.cpp
@@ -87,6 +88,7 @@ install(FILES
     accountbalance.h
     atticabasejob.h
     atticaclient_export.h
+    atticautils.h
     comment.h
     commentparser.h
     content.h

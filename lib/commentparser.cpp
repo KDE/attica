@@ -23,6 +23,7 @@
 */
 
 #include "commentparser.h"
+#include "atticautils.h"
 #include <QDebug>
 
 using namespace Attica;
@@ -47,7 +48,7 @@ Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == "user") {
                 comment.setUser(xml.readElementText());
             } else if (xml.name() == "date") {
-                comment.setDate(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
+                comment.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
             } else if (xml.name() == "score") {
                 comment.setScore(xml.readElementText().toInt());
             } else if (xml.name() == "children") {
