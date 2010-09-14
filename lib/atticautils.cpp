@@ -23,7 +23,6 @@
 
 #include "atticautils.h"
 #include <QStringList>
-#include <QDebug>
 
 using namespace Attica;
 
@@ -68,13 +67,8 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
         }
 
         tzsecs = 60 * 60 * hh + 60 * mm;
-        qDebug() << "before addSecs: " << result;
         result = result.addSecs( - tzsecs * tzsign );
-        qDebug() << "after addSecs" << result;
-        qDebug() << "to local time" << result.toLocalTime();
     }
-
-    qDebug() << str << result;
 
     return result;
 }
