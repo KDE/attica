@@ -4,7 +4,7 @@
 
 using namespace Attica;
 
-QDateTime Utils::parseQtDateTimeIso8601(QString str)
+QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
 {
     QDateTime result;
     QStringList list;

@@ -9,7 +9,7 @@ namespace Attica {
 class Utils {
 public:
     /// parses the QtDateTime in ISO 8601 format correctly (recognizes TZ properly)
-    static QDateTime parseQtDateTimeIso8601(QString str);
+    static QDateTime parseQtDateTimeIso8601(const QString & str);
 };
 
 }
