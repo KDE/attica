@@ -30,7 +30,6 @@ using namespace Attica;
 
 Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
 {
-    qDebug() << "XML " << xml.text();
     Comment comment;
 
     while (!xml.atEnd()) {
