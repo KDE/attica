@@ -724,7 +724,7 @@ ListJob<Comment>* Provider::requestComments(const Comment::Type commentType, con
     return job;
 }
 
-PostJob* Provider::addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
+ItemPostJob<Comment>* Provider::addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
 {
     QString commentTypeString;
     commentTypeString = Comment::commentTypeToString(commentType);
@@ -741,7 +741,7 @@ PostJob* Provider::addNewComment(const Comment::Type commentType, const QString&
     postParameters.insert("subject", subject);
     postParameters.insert("message", message);
 
-    return new PostJob(d->m_internals, createRequest("comments/add"), postParameters);
+    return new ItemPostJob<Comment>(d->m_internals, createRequest("comments/add"), postParameters);
 }
 
 PostJob* Provider::voteForComment(const QString & id, uint rating)

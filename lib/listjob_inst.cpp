@@ -81,6 +81,7 @@ template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<Message>;
 template class ItemJob<Person>;
 template class ItemPostJob<Content>;
+template class ItemPostJob<Comment>;
 
 template class Parser<AccountBalance>;
 template class Parser<Activity>;

@@ -432,9 +432,9 @@ class ATTICA_EXPORT Provider
      * @param parentId the id of the parent comment if the new comment is a reply
      * @param subject title of the comment
      * @param message text of the comment
-     * @return post job for adding the new comment
+     * @return item post job for adding the new comment
      */
-    PostJob* addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
+    ItemPostJob<Comment>* addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
 
     /** Vote a comment item
      * @param id the comment id which this voting is for
