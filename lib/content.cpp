@@ -215,11 +215,11 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     DownloadDescription desc;
     
     Attica::DownloadDescription::Type downloadType = Attica::DownloadDescription::LinkDownload;
-    if (attribute("downloadtyp" + num) == "0") {
+    if (attribute("downloadway" + num) == "0") {
         downloadType = Attica::DownloadDescription::FileDownload;
-    } else if (attribute("downloadtyp" + num) == "1") {
+    } else if (attribute("downloadway" + num) == "1") {
         downloadType = Attica::DownloadDescription::LinkDownload;
-    } else if (attribute("downloadtyp" + num) == "2") {
+    } else if (attribute("downloadway" + num) == "2") {
         downloadType = Attica::DownloadDescription::PackageDownload;
     }
     desc.setType(downloadType);

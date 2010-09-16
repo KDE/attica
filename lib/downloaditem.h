@@ -29,6 +29,7 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
+#include "downloaddescription.h"
 
 namespace Attica {
 
@@ -73,6 +74,8 @@ public:
     QString gpgFingerprint() const;
     void setGpgSignature(const QString& gpgSignature);
     QString gpgSignature() const;
+    void setType(Attica::DownloadDescription::Type type);
+    Attica::DownloadDescription::Type type();
 
 private:
     class Private;

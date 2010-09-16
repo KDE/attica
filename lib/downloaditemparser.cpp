@@ -53,6 +53,8 @@ DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
                 item.setGpgFingerprint( xml.readElementText() );
             } else if ( xml.name() == "gpgsignature" ) {
                 item.setGpgSignature( xml.readElementText() );
+            } else if ( xml.name() == "downloadway" ) {
+                item.setType( DownloadDescription::Type(xml.readElementText().toInt()) );
             }
         }
     }

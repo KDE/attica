@@ -35,6 +35,12 @@ public:
     QString m_packageRepository;
     QString m_gpgFingerprint;
     QString m_gpgSignature;
+    Attica::DownloadDescription::Type m_type;
+
+    Private() :
+        m_type(DownloadDescription::FileDownload)
+    {
+    }
 };
 
 DownloadItem::DownloadItem()
@@ -114,4 +120,14 @@ void DownloadItem::setGpgSignature(const QString& gpgSignature)
 QString DownloadItem::gpgSignature() const
 {
     return d->m_gpgSignature;
+}
+
+void DownloadItem::setType(Attica::DownloadDescription::Type type)
+{
+    d->m_type = type;
+}
+
+Attica::DownloadDescription::Type DownloadItem::type()
+{
+    return d->m_type;
 }
