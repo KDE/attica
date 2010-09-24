@@ -206,11 +206,18 @@ bool Provider::hasCredentials() const
 
 bool Provider::loadCredentials(QString& user, QString& password)
 {
-    return d->m_internals->loadCredentials(d->m_baseUrl, user, password);
+    if (d->m_internals->loadCredentials(d->m_baseUrl, user, password)) {
+        d->m_credentialsUserName = user;
+        d->m_credentialsPassword = password;
+        return true;
+    }
+    return false;
 }
 
 bool Provider::saveCredentials(const QString& user, const QString& password)
 {
+    d->m_credentialsUserName = user;
+    d->m_credentialsPassword = password;
     return d->m_internals->saveCredentials(d->m_baseUrl, user, password);
 }
 
