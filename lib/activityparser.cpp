@@ -50,7 +50,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
                 person.setLastName(xml.readElementText());
             } else if (xml.name() == "timestamp") {
                 QString timestampString = xml.readElementText();
-                timestampString.remove(QRegExp("\\+.*$"));
+                timestampString.remove(QRegExp(QLatin1String("\\+.*$")));
                 QDateTime timestamp = QDateTime::fromString(timestampString, Qt::ISODate);
                 activity.setTimestamp(timestamp);
             } else if (xml.name() == "message") {
@@ -69,5 +69,5 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Activity::Parser::xmlElement() const {
-    return QStringList("activity");
+    return QStringList(QLatin1String("activity"));
 }

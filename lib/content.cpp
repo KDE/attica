@@ -29,7 +29,7 @@ using namespace Attica;
 
 class Content::Private : public QSharedData {
     public:
-        QString m_id;  
+        QString m_id;
         QString m_name;
         int m_downloads;
         int m_numberOfComments;
@@ -90,7 +90,7 @@ QString Content::name() const
 {
   return d->m_name;
 }
-  
+
 void Content::setRating( int v )
 {
   d->m_rating = v;
@@ -100,7 +100,7 @@ int Content::rating() const
 {
   return d->m_rating;
 }
-    
+
 void Content::setDownloads( int v )
 {
   d->m_downloads = v;
@@ -163,28 +163,28 @@ bool Content::isValid() const
 
 QString Content::summary() const
 {
-    return attribute("summary");
+    return attribute(QLatin1String( "summary" ));
 }
 
 QString Content::description() const
 {
-    return attribute("description");
+    return attribute(QLatin1String( "description" ));
 }
 
 QUrl Content::detailpage() const
 {
-    return attribute("detailpage");
+    return attribute(QLatin1String( "detailpage" ));
 }
 
 QString Attica::Content::changelog() const
 {
-    return attribute("changelog");
+    return attribute(QLatin1String( "changelog" ));
 
 }
 
 QString Attica::Content::depend() const
 {
-    return attribute("depend");
+    return attribute(QLatin1String( "depend" ));
 }
 
 QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() const
@@ -213,28 +213,28 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
 {
     QString num(QString::number(number));
     DownloadDescription desc;
-    
+
     Attica::DownloadDescription::Type downloadType = Attica::DownloadDescription::LinkDownload;
-    if (attribute("downloadway" + num) == "0") {
+    if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "0" )) {
         downloadType = Attica::DownloadDescription::FileDownload;
-    } else if (attribute("downloadway" + num) == "1") {
+    } else if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "1" )) {
         downloadType = Attica::DownloadDescription::LinkDownload;
-    } else if (attribute("downloadway" + num) == "2") {
+    } else if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "2" )) {
         downloadType = Attica::DownloadDescription::PackageDownload;
     }
     desc.setType(downloadType);
     desc.setId(number);
-    desc.setName(attribute("downloadname" + num));
-    desc.setDistributionType(attribute("downloadtype" + num));
-    desc.setHasPrice(attribute("downloadbuy" + num) == "1");
-    desc.setLink(attribute("downloadlink" + num));
-    desc.setPriceReason(attribute("downloadreason" + num));
-    desc.setPriceAmount(attribute("downloadprice" + num));
-    desc.setSize(attribute("downloadsize" + num).toUInt());
-    desc.setGpgFingerprint(attribute("downloadgpgfingerprint") + num);
-    desc.setGpgSignature(attribute("downloadgpgsignature") + num);
-    desc.setPackageName(attribute("downloadpackagename") + num);
-    desc.setRepository(attribute("downloadrepository") + num);
+    desc.setName(attribute(QLatin1String( "downloadname" ) + num));
+    desc.setDistributionType(attribute(QLatin1String( "downloadtype" ) + num));
+    desc.setHasPrice(attribute(QLatin1String( "downloadbuy" ) + num) == QLatin1String( "1" ));
+    desc.setLink(attribute(QLatin1String( "downloadlink" ) + num));
+    desc.setPriceReason(attribute(QLatin1String( "downloadreason" ) + num));
+    desc.setPriceAmount(attribute(QLatin1String( "downloadprice" ) + num));
+    desc.setSize(attribute(QLatin1String( "downloadsize" ) + num).toUInt());
+    desc.setGpgFingerprint(attribute(QLatin1String( "downloadgpgfingerprint" )) + num);
+    desc.setGpgSignature(attribute(QLatin1String( "downloadgpgsignature" )) + num);
+    desc.setPackageName(attribute(QLatin1String( "downloadpackagename" )) + num);
+    desc.setRepository(attribute(QLatin1String( "downloadrepository" )) + num);
     return desc;
 }
 
@@ -266,42 +266,42 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
     QString num(QString::number(number));
     HomePageEntry homepage;
 
-    if (number == 1 && attribute("homepage1").isEmpty()) {
+    if (number == 1 && attribute(QLatin1String( "homepage1" )).isEmpty()) {
         num.clear();
     }
-    homepage.setType(attribute("homepagetype" + num));
-    homepage.setUrl(attribute("homepage" + num));
+    homepage.setType(attribute(QLatin1String( "homepagetype" ) + num));
+    homepage.setUrl(attribute(QLatin1String( "homepage" ) + num));
     return homepage;
 }
 
 QString Attica::Content::version() const
 {
-    return attribute("version");
+    return attribute(QLatin1String( "version" ));
 }
 
 QString Attica::Content::author() const
 {
-    return attribute("personid");
+    return attribute(QLatin1String( "personid" ));
 }
 
 QString Attica::Content::license() const
 {
-    return attribute("licensetype");
+    return attribute(QLatin1String( "licensetype" ));
 }
 
 QString Attica::Content::licenseName() const
 {
-    return attribute("license");
+    return attribute(QLatin1String( "license" ));
 }
 
 QString Attica::Content::previewPicture(const QString& number) const
 {
-    return attribute("previewpic" + number);
+    return attribute(QLatin1String( "previewpic" ) + number);
 }
 
 QString Attica::Content::smallPreviewPicture(const QString& number) const
 {
-    return attribute("smallpreviewpic" + number);
+    return attribute(QLatin1String( "smallpreviewpic" ) + number);
 }
 
 QList<Icon> Attica::Content::icons()

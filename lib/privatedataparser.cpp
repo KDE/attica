@@ -31,7 +31,7 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
     PrivateData data;
     bool hasAvatarPic = false;
     QString key;
-    
+
     // TODO: when we get internet and some documentation
     while (!xml.atEnd()) {
         xml.readNext();
@@ -54,6 +54,6 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList PrivateData::Parser::xmlElement() const {
-    return QStringList("privatedata");
+    return QStringList(QLatin1String( "privatedata" ));
 }
 

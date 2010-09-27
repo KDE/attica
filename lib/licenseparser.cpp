@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2010 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -26,13 +26,13 @@ using namespace Attica;
 
 QStringList License::Parser::xmlElement() const
 {
-    return QStringList("license");
+    return QStringList(QLatin1String( "license" ));
 }
 
 License License::Parser::parseXml(QXmlStreamReader& xml)
 {
     License item;
-    
+
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
@@ -42,8 +42,8 @@ License License::Parser::parseXml(QXmlStreamReader& xml)
                 item.setName( xml.readElementText() );
             } else if ( xml.name() == "link" ) {
                 item.setUrl( xml.readElementText() );
-            }  
-        }        
+            }
+        }
         if (xml.isEndElement() && xml.name() == "license") {
             break;
         }

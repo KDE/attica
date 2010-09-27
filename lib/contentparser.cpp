@@ -31,7 +31,7 @@ using namespace Attica;
 Content Content::Parser::parseXml(QXmlStreamReader& xml)
 {
     Content content;
-    
+
     while (!xml.atEnd()) {
         xml.readNext();
 
@@ -58,11 +58,11 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
                 QXmlStreamAttributes attributes = xml.attributes();
-                if (attributes.hasAttribute("width")) {
-                    icon.setWidth(attributes.value("width").toString().toInt());
+                if (attributes.hasAttribute(QLatin1String( "width" ))) {
+                    icon.setWidth(attributes.value(QLatin1String( "width" )).toString().toInt());
                 }
-                if (attributes.hasAttribute("height")) {
-                    icon.setHeight(attributes.value("height").toString().toInt());
+                if (attributes.hasAttribute(QLatin1String( "height" ))) {
+                    icon.setHeight(attributes.value(QLatin1String( "height" )).toString().toInt());
                 }
                 // append the icon to the current list of icons
                 QList<Icon> icons;
@@ -96,5 +96,5 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Content::Parser::xmlElement() const {
-    return QStringList("content");
+    return QStringList(QLatin1String( "content" ));
 }

@@ -43,11 +43,11 @@ Category Category::Parser::parseXml(QXmlStreamReader& xml)
             break;
         }
     }
-      
+
     return category;
 }
 
 
 QStringList Category::Parser::xmlElement() const {
-    return QStringList("category");
+    return QStringList(QLatin1String( "category" ));
 }

@@ -1,9 +1,9 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -86,22 +86,22 @@ PlatformDependent* ProviderManager::loadPlatformDependent()
     paths.append(QLibraryInfo::location(QLibraryInfo::PluginsPath));
 
     // old plugin location, required for attica < 0.1.5
-    QString program("kde4-config");
+    QString program(QLatin1String( "kde4-config" ));
     QStringList arguments;
-    arguments << "--path" << "lib";
+    arguments << QLatin1String( "--path" ) << QLatin1String( "lib" );
 
     QProcess process;
     process.start(program, arguments);
     process.waitForFinished();
 
     /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
-    paths.append(QString(process.readAllStandardOutput()).trimmed().split(PATH_SEPARATOR));
+    paths.append(QString(QLatin1String( process.readAllStandardOutput() )).trimmed().split(QLatin1Char( PATH_SEPARATOR )));
     qDebug() << "Plugin paths: " << paths;
 
-    QString pluginName("attica_kde");
+    QString pluginName(QLatin1String( "attica_kde" ));
 
     foreach(const QString& path, paths) {
-        QString libraryPath(path + '/' + pluginName + '.' + LIB_EXTENSION);
+        QString libraryPath(path + QLatin1Char( '/' ) + pluginName + QLatin1Char( '.' ) + QLatin1String( LIB_EXTENSION ));
         qDebug() << "Trying to load Attica plugin: " << libraryPath;
         if (QFile::exists(libraryPath)) {
             d->m_pluginLoader.setFileName(libraryPath);
@@ -184,7 +184,7 @@ void ProviderManager::addProviderFile(const QUrl& url)
             qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
             return;
         }
-        addProviderFromXml(file.readAll());
+        addProviderFromXml(QLatin1String( file.readAll() ));
     } else {
         if (!d->m_downloads.contains(url.toString())) {
             QNetworkReply* reply = d->m_internals->get(QNetworkRequest(url));
@@ -198,7 +198,7 @@ void ProviderManager::addProviderFile(const QUrl& url)
 void ProviderManager::fileFinished(const QString& url)
 {
     QNetworkReply* reply = d->m_downloads.take(url);
-    parseProviderFile(reply->readAll(), url);
+    parseProviderFile(QLatin1String ( reply->readAll() ), url);
     reply->deleteLater();
 }
 
@@ -224,7 +224,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             QString knowledgebase;
             QString event;
             QString comment;
-            
+
             while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
                 {
@@ -235,23 +235,23 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                     } else if (xml.name() == "icon") {
                         icon = QUrl(xml.readElementText());
                     } else if (xml.name() == "person") {
-                        person = xml.attributes().value("ocsversion").toString();
+                        person = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "friend") {
-                        friendV = xml.attributes().value("ocsversion").toString();
+                        friendV = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "message") {
-                        message = xml.attributes().value("ocsversion").toString();
+                        message = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "activity") {
-                        activity = xml.attributes().value("ocsversion").toString();
+                        activity = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "content") {
-                        content = xml.attributes().value("ocsversion").toString();
+                        content = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "fan") {
-                        fan = xml.attributes().value("ocsversion").toString();
+                        fan = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "knowledgebase") {
-                        knowledgebase = xml.attributes().value("ocsversion").toString();
+                        knowledgebase = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "event") {
-                        event = xml.attributes().value("ocsversion").toString();
+                        event = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "comment") {
-                        comment = xml.attributes().value("ocsversion").toString();
+                        comment = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     }
                 } else if (xml.isEndElement() && xml.name() == "provider") {
                     break;

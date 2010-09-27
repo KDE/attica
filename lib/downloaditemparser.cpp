@@ -30,7 +30,7 @@ using namespace Attica;
 
 QStringList DownloadItem::Parser::xmlElement() const
 {
-    return QStringList("content");
+    return QStringList(QLatin1String( "content" ));
 }
 
 

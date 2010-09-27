@@ -30,7 +30,7 @@ using namespace Attica;
 
 QStringList AccountBalance::Parser::xmlElement() const
 {
-    return QStringList("person");
+    return QStringList(QLatin1String("person"));
 }
 
 

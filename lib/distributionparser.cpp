@@ -29,13 +29,13 @@ using namespace Attica;
 
 QStringList Distribution::Parser::xmlElement() const
 {
-    return QStringList("distribution");
+    return QStringList(QLatin1String( "distribution" ));
 }
 
 Distribution Distribution::Parser::parseXml(QXmlStreamReader& xml)
 {
     Distribution item;
-    
+
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
@@ -44,7 +44,7 @@ Distribution Distribution::Parser::parseXml(QXmlStreamReader& xml)
             } else if ( xml.name() == "name" ) {
                 item.setName( xml.readElementText() );
             }
-        }        
+        }
         if (xml.isEndElement() && xml.name() == "distribution") {
             break;
         }

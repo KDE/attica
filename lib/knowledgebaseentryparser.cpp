@@ -70,5 +70,5 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList KnowledgeBaseEntry::Parser::xmlElement() const {
-    return QStringList("content");
+    return QStringList(QLatin1String( "content" ));
 }

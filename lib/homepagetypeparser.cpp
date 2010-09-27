@@ -29,13 +29,13 @@ using namespace Attica;
 
 QStringList HomePageType::Parser::xmlElement() const
 {
-    return QStringList("homepagetype");
+    return QStringList(QLatin1String( "homepagetype" ));
 }
 
 HomePageType HomePageType::Parser::parseXml(QXmlStreamReader& xml)
 {
     HomePageType item;
-    
+
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
@@ -44,7 +44,7 @@ HomePageType HomePageType::Parser::parseXml(QXmlStreamReader& xml)
             } else if ( xml.name() == "name" ) {
                 item.setName( xml.readElementText() );
             }
-        }        
+        }
         if (xml.isEndElement() && xml.name() == "homepagetype") {
             break;
         }

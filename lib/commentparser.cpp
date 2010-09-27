@@ -84,5 +84,5 @@ QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader& xml)
 
 QStringList Comment::Parser::xmlElement() const
 {
-    return QStringList("comment");
+    return QStringList(QLatin1String( "comment" ));
 }

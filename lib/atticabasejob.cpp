@@ -110,7 +110,7 @@ void BaseJob::dataFinished()
     } else {
         d->m_metadata.setError(Metadata::NetworkError);
         d->m_metadata.setStatusCode(d->m_reply->error());
-        d->m_metadata.setStatusString("Network error");
+        d->m_metadata.setStatusString(QLatin1String("Network error"));
     }
     emit finished(this);
 

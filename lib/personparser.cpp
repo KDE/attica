@@ -30,7 +30,7 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
 {
     Person person;
     bool hasAvatarPic = false;
-    
+
     while (!xml.atEnd()) {
         xml.readNext();
 
@@ -77,5 +77,5 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Person::Parser::xmlElement() const {
-    return QStringList("person") << "user";
+    return QStringList(QLatin1String( "person" )) << QLatin1String( "user" );
 }

@@ -1,6 +1,6 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 2010 Intel Corporation
     Author: Mateu Batle Sastre <mbatle@collabora.co.uk>
 
@@ -32,16 +32,16 @@ QString Comment::commentTypeToString(const Comment::Type type)
 {
     switch(type) {
     case ContentComment:
-        return QString("1");
+        return QLatin1String("1");
         break;
     case ForumComment:
-        return QString("4");
+        return QLatin1String("4");
         break;
     case KnowledgeBaseComment:
-        return QString("7");
+        return QLatin1String("7");
         break;
     case EventComment:
-        return QString("8");
+        return QLatin1String("8");
         break;
     }
 

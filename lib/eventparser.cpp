@@ -45,10 +45,10 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == "user") {
                 event.setUser(xml.readElementText());
             } else if (xml.name() == "startdate") {
-                QString date = xml.readElementText().remove(QRegExp("\\+.*$"));
+                QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setStartDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == "enddate") {
-                QString date = xml.readElementText().remove(QRegExp("\\+.*$"));
+                QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setEndDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == "latitude") {
                 event.setLatitude(xml.readElementText().toFloat());
@@ -73,5 +73,5 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Event::Parser::xmlElement() const {
-    return QStringList("event");
+    return QStringList(QLatin1String( "event" ));
 }

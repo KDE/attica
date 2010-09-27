@@ -39,7 +39,7 @@ private slots:
 void PersonTest::testParsing()
 {
     Person::Parser parser;
-    QString validData ("<?xml version=\"1.0\"?>"
+    QString validData (QLatin1String("<?xml version=\"1.0\"?>"
                "<ocs><person>"
                "<personid>10</personid>"
                "<firstname>Ola</firstname>"
@@ -52,11 +52,11 @@ void PersonTest::testParsing()
                "<country>Norway</country>"
                "<latitude>59.56</latitude>"
                "<longitude>10.41</longitude>"
-          "</person></ocs>");
+          "</person></ocs>"));
     Person person = parser.parse(validData);
     QVERIFY(person.isValid());
 
-    QString invalidData = "<ocs><braaaaaaaaaaawrlawrf></braaaaaaaaaaawrlawrf></ocs>";
+    QString invalidData = QLatin1String("<ocs><braaaaaaaaaaawrlawrf></braaaaaaaaaaawrlawrf></ocs>");
     person = parser.parse(invalidData);
     QVERIFY(!person.isValid());
 }
