@@ -1,0 +1,30 @@
+--- lib/provider.cpp
++++ lib/provider.cpp
+@@ -98,11 +109,11 @@
+     QString m_eventVersion;
+     QString m_commentVersion;
+     PlatformDependent* m_internals;
+-    
++
+     Private()
+         :m_internals(0)
+     {}
+-    
++
+     Private(const Private& other)
+         : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
+         , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
+@@ -553,13 +779,11 @@
+     return new PostJob(d->m_internals, createRequest("friend/invite/" + to), postParameters);
+ }
+ 
+-
+ PostJob* Provider::approveFriendship(const QString& to)
+ {
+     return new PostJob(d->m_internals, createRequest("friend/approve/" + to));
+ }
+ 
+-
+ PostJob* Provider::declineFriendship(const QString& to)
+ {
+     return new PostJob(d->m_internals, createRequest("friend/decline/" + to));
