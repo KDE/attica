@@ -446,6 +446,8 @@ QMap<QString, QString> buildServiceJobPostParameters(const BuildServiceJob& buil
     if (!buildjob.buildServiceId().isEmpty()) {
         postParameters.insert("buildservice", buildjob.buildServiceId());
     }
+
+    return postParameters;
 }
 
 PostJob* Provider::cancelBuildServiceJob(const BuildServiceJob& job)
