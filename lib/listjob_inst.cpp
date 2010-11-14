@@ -29,6 +29,10 @@
 #include "accountbalanceparser.h"
 #include "activity.h"
 #include "activityparser.h"
+#include "buildservice.h"
+#include "buildserviceparser.h"
+#include "buildservicejob.h"
+#include "buildservicejobparser.h"
 #include "privatedata.h"
 #include "privatedataparser.h"
 #include "category.h"
@@ -54,11 +58,19 @@
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
+#include "project.h"
+#include "projectparser.h"
+#include "publisher.h"
+#include "publisherparser.h"
+#include "remoteaccount.h"
+#include "remoteaccountparser.h"
 
 
 using namespace Attica;
 
 template class ListJob<Activity>;
+template class ListJob<BuildServiceJob>;
+template class ListJob<BuildService>;
 template class ListJob<Category>;
 template class ListJob<Comment>;
 template class ListJob<Content>;
@@ -71,8 +83,23 @@ template class ListJob<KnowledgeBaseEntry>;
 template class ListJob<License>;
 template class ListJob<Message>;
 template class ListJob<Person>;
+template class ItemJob<Project>;
+template class ItemJob<Publisher>;
+template class ItemJob<RemoteAccount>;
+
+template class ItemPostJob<BuildService>;
+template class ItemPostJob<BuildServiceJob>;
+template class ItemPostJob<Project>;
+template class ItemPostJob<Publisher>;
+template class ItemPostJob<RemoteAccount>;
+
+template class ListJob<Project>;
+template class ListJob<Publisher>;
+template class ListJob<RemoteAccount>;
 
 template class ItemJob<AccountBalance>;
+template class ItemJob<BuildServiceJob>;
+template class ItemJob<BuildService>;
 template class ItemJob<PrivateData>;
 template class ItemJob<Content>;
 template class ItemJob<DownloadItem>;
@@ -85,6 +112,8 @@ template class ItemPostJob<Comment>;
 
 template class Parser<AccountBalance>;
 template class Parser<Activity>;
+template class Parser<BuildService>;
+template class Parser<BuildServiceJob>;
 template class Parser<PrivateData>;
 template class Parser<Category>;
 template class Parser<Comment>;
@@ -98,4 +127,7 @@ template class Parser<KnowledgeBaseEntry>;
 template class Parser<License>;
 template class Parser<Message>;
 template class Parser<Person>;
+template class Parser<Project>;
+template class Parser<Publisher>;
+template class Parser<RemoteAccount>;
 

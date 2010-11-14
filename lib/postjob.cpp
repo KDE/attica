@@ -71,6 +71,7 @@ QNetworkReply* PostJob::executeRequest()
 
 void PostJob::parse(const QString& xmlString)
 {
+    qDebug() << "PostJob::parse" << xmlString;
     QXmlStreamReader xml( xmlString );
     Metadata data;
     while (!xml.atEnd()) {
@@ -96,11 +97,24 @@ void PostJob::parse(const QString& xmlString)
                         }
                     }
                 }
+            } else if (xml.name() == "data") {
+                while ( !xml.atEnd() ) {
+                    xml.readNext();
+                    if (xml.isEndElement() && xml.name() == "data") {
+                        break;
+                    } else if (xml.isStartElement()) {
+                        if (xml.name() == "projectid") {
+                            data.setResultingId(xml.readElementText());
+                        } if (xml.name() == "buildjobid") {
+                            data.setResultingId(xml.readElementText());
+                        }
+
+                    }
+                }
             }
         }
     }
     setMetadata(data);
-    
 }
 
 

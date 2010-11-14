@@ -44,7 +44,7 @@ public:
     virtual ~BaseJob();
 
     Metadata metadata() const;
-    
+
 public Q_SLOTS:
     void start();
     void abort();

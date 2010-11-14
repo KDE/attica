@@ -10,3 +10,4 @@ endmacro(ATTICA_TESTS)
 ATTICA_TESTS(persontest )
 #             attributestest)
 
+add_subdirectory(projecttest)

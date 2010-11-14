@@ -20,6 +20,10 @@ configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 set(ocsclient_SRCS
    accountbalance.cpp
    accountbalanceparser.cpp
+   buildservice.cpp
+   buildserviceparser.cpp
+   buildservicejob.cpp
+   buildservicejobparser.cpp
    activity.cpp
    activityparser.cpp
    atticabasejob.cpp
@@ -60,8 +64,14 @@ set(ocsclient_SRCS
    personparser.cpp
    postfiledata.cpp
    postjob.cpp
+   project.cpp
+   projectparser.cpp
+   remoteaccount.cpp
+   remoteaccountparser.cpp
    provider.cpp
    providermanager.cpp
+   publisher.cpp
+   publisherparser.cpp
    qtplatformdependent.cpp
 )
 
@@ -115,8 +125,13 @@ install(FILES
     platformdependent.h
     privatedata.h
     postjob.h
+    project.h
+    remoteaccount.h
+    buildservice.h
+    buildservicejob.h
     providermanager.h
     provider.h
+    publisher.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     DESTINATION include/attica COMPONENT Devel
 )

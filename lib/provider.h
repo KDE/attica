@@ -27,6 +27,7 @@
 #include <QtCore/QExplicitlySharedDataPointer>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include <QtCore/QUrl>
 
@@ -50,6 +51,8 @@ class PostJobStatus;
 
 class AccountBalance;
 class Activity;
+class BuildServiceJob;
+class BuildService;
 class PrivateData;
 class Content;
 class DownloadItem;
@@ -61,7 +64,10 @@ class KnowledgeBaseEntry;
 class License;
 class Person;
 class PostJob;
+class Project;
 class Provider;
+class Publisher;
+class RemoteAccount;
 
 
 /**
@@ -107,20 +113,20 @@ class ATTICA_EXPORT Provider
     Returns true if the provider has been set up and can be used.
     */
     bool isValid() const;
-    
+
     /**
     Test if the provider is enabled by the settings.
     The application can choose to ignore this, but the user settings should be respected.
     */
     bool isEnabled() const;
     void setEnabled(bool enabled);
-    
+
     /**
     A url that identifies this provider.
     This should be used as identifier when refering to this provider but you don't want to use the full provider object.
     */
     QUrl baseUrl() const;
-    
+
     /**
     A name for the provider that can be displayed to the user
     */
@@ -301,6 +307,134 @@ class ATTICA_EXPORT Provider
     ListJob<Activity>* requestActivities();
     PostJob* postActivity(const QString& message);
 
+    // Project part of OCS
+    /** 
+     * Get a list of build service projects
+     * @return ListJob listing Projects
+     */
+    ListJob<Project>* requestProjects();
+
+    /**
+     * Get a Project's data
+     * @return ItemJob receiving data
+     */
+    ItemJob<Project>* requestProject(const QString& id);
+
+    /**
+     * Post modifications to a Project on the server. The resulting project ID can be found in
+     * the Attica::MetaData of the finished() PostJob. You can retrieve it using
+     * Attica::MetaData::resultingProjectId().
+     * @param project Project to create on the server
+     */
+    PostJob* createProject(const Project& project);
+
+    /**
+     * Deletes a project on the server. The project passed as an argument doesn't need complete
+     * information as just the id() is used.
+     * @param project Project to delete on the server.
+     */
+    PostJob* deleteProject(const Project& project);
+
+    /**
+     * Post modifications to a Project on the server
+     * @param project Project to update on the server
+     */
+    PostJob* editProject(const Project& project);
+
+    // Buildservice part of OCS
+
+    /**
+     * Get the information for a specific build service instance.
+     * @return ItemJob receiving data
+     */
+    ItemJob<BuildService>* requestBuildService(const QString& id);
+
+    /**
+     * Get the information for a specific publisher.
+     * @return ItemJob receiving data
+     */
+    ItemJob<Publisher>* requestPublisher(const QString& id);
+
+    /**
+     * Publish the result of a completed build job to a publisher.
+     * @return ItemJob receiving data
+     */
+    PostJob* publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher);
+
+    /**
+     * Get the information for a specific build service job, such as status and progress.
+     * @return ItemJob receiving and containing the data
+     */
+    ItemJob<BuildServiceJob>* requestBuildServiceJob(const QString& id);
+
+    /**
+     * Get a list of build service build services
+     * @return ListJob listing BuildServices
+     */
+    ListJob<BuildService>* requestBuildServices();
+
+    /**
+     * Get a list of publishers
+     * @return ListJob listing Publishers
+     */
+    ListJob<Publisher>* requestPublishers();
+
+    /**
+     * Get a list of build service projects
+     * @return ListJob listing BuildServiceJobs
+     */
+    ListJob<BuildServiceJob>* requestBuildServiceJobs(const Project &project);
+
+
+    /**
+     * Create a new job for a given project on a given buildservice for a given target.
+     * Those three items are mandatory for the job to succeed.
+     * @param job Buildservicejob to create on the server
+     */
+    PostJob* createBuildServiceJob(const BuildServiceJob& job);
+
+    /**
+     * Cancel a job.
+     * Setting the ID on the build service parameter is enough for it to work.
+     * @param job Buildservicejob to cancel on the server, needs at least id set.
+     */
+    PostJob* cancelBuildServiceJob(const BuildServiceJob& job);
+
+    /**
+     * Get a list of remote accounts, account for a build service instance
+     * which is stored in the OCS service in order to authenticate with the
+     * build service instance.
+     * @return ListJob listing RemoteAccounts
+     */
+    ListJob<RemoteAccount>* requestRemoteAccounts();
+
+    /**
+     * Deletes a remote account stored on the OCS server.
+     * @param id The ID of the remote account on the OCS instance.
+     */
+    PostJob* deleteRemoteAccount(const QString& id);
+
+    /**
+     * Create a new remote account, an account for a build service instance
+     * which is stored in the OCS service in order to authenticate with the
+     * build service instance.
+     * Type, Type ID, login and password are mandatory.
+     * @param account RemoteAccount to create on the server
+     */
+    PostJob* createRemoteAccount(const RemoteAccount& account);
+
+    /**
+     * Edit an existing remote account.
+     * @param account RemoteAccount to create on the server
+     */
+    PostJob* editRemoteAccount(const RemoteAccount& account);
+
+    /** Get a remote account by its ID.
+     * @param id The ID of the remote account
+     */
+    ItemJob<RemoteAccount>* requestRemoteAccount(const QString &id);
+
+
     // Content part of OCS
 
     /** 
@@ -308,7 +442,7 @@ class ATTICA_EXPORT Provider
      * @return the categories of the server
      */
     ListJob<Category>* requestCategories();
-    
+
     /** 
     * Get a list of licenses (such as GPL)
     * @return the licenses available from the server
@@ -464,7 +598,7 @@ class ATTICA_EXPORT Provider
   private:
     class Private;
     QExplicitlySharedDataPointer<Private> d;
-    
+
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
              const QString& person, const QString& friendV, const QString& message,

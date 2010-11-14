@@ -46,6 +46,8 @@ public:
     /// The number of items per page the server was asked for
     int itemsPerPage;
 
+    QString resultingId;
+
     Private()
         // values that make sense for single item jobs
         :error(NoError)
@@ -97,6 +99,16 @@ QString Metadata::message()
 void Metadata::setMessage(const QString& message)
 {
     d->message = message;
+}
+
+QString Metadata::resultingId()
+{
+    return d->resultingId;
+}
+
+void Metadata::setResultingId(const QString& id)
+{
+    d->resultingId = id;
 }
 
 int Metadata::statusCode() const

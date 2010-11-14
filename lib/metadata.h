@@ -83,6 +83,10 @@ public:
     int itemsPerPage();
     void setItemsPerPage(int itemsPerPage);
 
+    /// The resulting ID when a PostJob created a new item.
+    QString resultingId();
+    void setResultingId(const QString& id);
+
     private:
         class Private;
         QSharedDataPointer<Private> d;
