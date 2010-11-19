@@ -37,35 +37,35 @@ Project Project::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "projectid") {
+            if (xml.name() == QLatin1String("projectid")) {
                 project.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 project.setName(xml.readElementText());
-            } else if (xml.name() == "version") {
+            } else if (xml.name() == QLatin1String("version")) {
                 project.setVersion(xml.readElementText());
-            } else if (xml.name() == "license") {
+            } else if (xml.name() == QLatin1String("license")) {
                 project.setLicense(xml.readElementText());
-            } else if (xml.name() == "url") {
+            } else if (xml.name() == QLatin1String("url")) {
                 project.setUrl(xml.readElementText());
-            } else if (xml.name() == "summary") {
+            } else if (xml.name() == QLatin1String("summary")) {
                 project.setSummary(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 project.setDescription(xml.readElementText());
-            } else if (xml.name() == "specfile") {
+            } else if (xml.name() == QLatin1String("specfile")) {
                 project.setSpecFile(xml.readElementText());
-            } else if (xml.name() == "developers") {
-                project.setDevelopers(xml.readElementText().split("\n"));
-            } else if (xml.name() == "projectlist") {
+            } else if (xml.name() == QLatin1String("developers")) {
+                project.setDevelopers(xml.readElementText().split(QLatin1String("\n")));
+            } else if (xml.name() == QLatin1String("projectlist")) {
                 QXmlStreamReader list_xml(xml.readElementText());
                 while (!list_xml.atEnd()) {
                     list_xml.readNext();
-                    if (xml.name() == "projectid") {
+                    if (xml.name() == QLatin1String("projectid")) {
                         project.setSpecFile(xml.readElementText());
                     }
                 }
 
             }
-        } else if (xml.isEndElement() && (xml.name() == "project" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("project") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -74,5 +74,5 @@ Project Project::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Project::Parser::xmlElement() const {
-    return QStringList("project") << "user";
+    return QStringList(QLatin1String("project")) << QLatin1String("user");
 }

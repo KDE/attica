@@ -65,5 +65,5 @@ BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList BuildServiceJob::Parser::xmlElement() const {
-    return QStringList("buildjob") << "user";
+    return QStringList(QLatin1String("buildjob")) << QLatin1String("user");
 }

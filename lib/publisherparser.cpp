@@ -64,7 +64,7 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                                     } else if (xml.name() == "fieldsize") {
                                         t.fieldsize = xml.readElementText().toInt();
                                     } else if (xml.name() == "required") {
-                                        t.required = xml.readElementText() == QString("true");
+                                        t.required = xml.readElementText() == QLatin1String("true");
                                     }
                                 } else if (xml.isEndElement() && (xml.name() == "field")) {
                                     xml.readNext();
@@ -103,5 +103,5 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
 }
 
 QStringList Publisher::Parser::xmlElement() const {
-    return QStringList("publisher") << "user";
+    return QStringList(QLatin1String("publisher")) << QLatin1String("user");
 }

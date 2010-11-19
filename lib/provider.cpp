@@ -333,13 +333,13 @@ ListJob<Activity>* Provider::requestActivities()
 ListJob<Project>* Provider::requestProjects()
 {
     qDebug() << "request projects";
-    QUrl url = createUrl( "buildservice/project/list" );
+    QUrl url = createUrl( QLatin1String("buildservice/project/list") );
     return new ListJob<Project>(d->m_internals, createRequest(url));
 }
 
 ItemJob<Project>* Provider::requestProject(const QString& id)
 {
-    QUrl url = createUrl( "buildservice/project/get/" + id );
+    QUrl url = createUrl( QLatin1String("buildservice/project/get/") + id );
     qDebug() << url;
     return new ItemJob<Project>(d->m_internals, createRequest(url));
 }
@@ -349,83 +349,83 @@ QMap<QString, QString> projectPostParameters(const Project& project)
     QMap<QString, QString> postParameters;
 
     if (!project.name().isEmpty()) {
-        postParameters.insert("name", project.name());
+        postParameters.insert(QLatin1String("name"), project.name());
     }
     if (!project.summary().isEmpty()) {
-        postParameters.insert("summary", project.summary());
+        postParameters.insert(QLatin1String("summary"), project.summary());
     }
     if (!project.description().isEmpty()) {
-        postParameters.insert("description", project.description());
+        postParameters.insert(QLatin1String("description"), project.description());
     }
     if (!project.url().isEmpty()) {
-        postParameters.insert("url", project.url());
+        postParameters.insert(QLatin1String("url"), project.url());
     }
     if (project.developers().count()) {
-        postParameters.insert("developers", project.developers().join("\n"));
+        postParameters.insert(QLatin1String("developers"), project.developers().join(QLatin1String("\n")));
     }
     if (!project.version().isEmpty()) {
-        postParameters.insert("version", project.version());
+        postParameters.insert(QLatin1String("version"), project.version());
     }
     if (!project.license().isEmpty()) {
-        postParameters.insert("license", project.license());
+        postParameters.insert(QLatin1String("license"), project.license());
     }
     if (!project.requirements().isEmpty()) {
-        postParameters.insert("requirements", project.requirements());
+        postParameters.insert(QLatin1String("requirements"), project.requirements());
     }
     if (!project.specFile().isEmpty()) {
-        postParameters.insert("specfile", project.specFile());
+        postParameters.insert(QLatin1String("specfile"), project.specFile());
     }
     return postParameters;
 }
 
 PostJob* Provider::createProject(const Project& project)
 {
-    return new PostJob(d->m_internals, createRequest("buildservice/project/create"),
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/create")),
                        projectPostParameters(project));
 }
 
 PostJob* Provider::editProject(const Project& project)
 {
     return new PostJob(d->m_internals, createRequest(
-                       QString("buildservice/project/edit/%1").arg(project.id())),
+                       QLatin1String("buildservice/project/edit/") + project.id()),
                        projectPostParameters(project));
 }
 
 PostJob* Provider::deleteProject(const Project& project)
 {
     return new PostJob(d->m_internals, createRequest(
-                       QString("buildservice/project/delete/%1").arg(project.id())),
+                       QLatin1String("buildservice/project/delete/%1") + project.id()),
                        projectPostParameters(project));
 }
 
 ItemJob<BuildService>* Provider::requestBuildService(const QString& id)
 {
-    QUrl url = createUrl( "buildservice/buildservices/get/" + id );
+    QUrl url = createUrl( QLatin1String("buildservice/buildservices/get/") + id );
     return new ItemJob<BuildService>(d->m_internals, createRequest(url));
 }
 
 ItemJob<Publisher>* Provider::requestPublisher(const QString& id)
 {
-    qDebug() << "request publisher" << id;
-    QUrl url = createUrl( "buildservice/publishing/getpublisher/" + id );
+    //qDebug() << "request publisher" << id;
+    QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublisher/") + id );
     return new ItemJob<Publisher>(d->m_internals, createRequest(url));
 }
 
 PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher)
 {
     StringMap postParameters;
-    postParameters.insert("dummyparameter", "dummyvalue");
+    postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
 
-    QString url = QString("buildservice/publishing/publishtargetresult/%1/%2").arg(
-                                                                    buildjob.id(), publisher.id());
-    qDebug() << "pub'ing";
+    QString url = QLatin1String("buildservice/publishing/publishtargetresult/") + 
+                                                                    buildjob.id() + QLatin1Char('/') + publisher.id();
+    //qDebug() << "pub'ing";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
 // Buildservices and their jobs
 ItemJob<BuildServiceJob>* Provider::requestBuildServiceJob(const QString &id)
 {
-    QUrl url = createUrl( "buildservice/jobs/get/" + id );
+    QUrl url = createUrl( QLatin1String("buildservice/jobs/get/") + id );
     qDebug() << url;
     return new ItemJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
@@ -435,16 +435,16 @@ QMap<QString, QString> buildServiceJobPostParameters(const BuildServiceJob& buil
     QMap<QString, QString> postParameters;
 
     if (!buildjob.name().isEmpty()) {
-        postParameters.insert("name", buildjob.name());
+        postParameters.insert(QLatin1String("name"), buildjob.name());
     }
     if (!buildjob.projectId().isEmpty()) {
-        postParameters.insert("projectid", buildjob.projectId());
+        postParameters.insert(QLatin1String("projectid"), buildjob.projectId());
     }
     if (!buildjob.target().isEmpty()) {
-        postParameters.insert("target", buildjob.target());
+        postParameters.insert(QLatin1String("target"), buildjob.target());
     }
     if (!buildjob.buildServiceId().isEmpty()) {
-        postParameters.insert("buildservice", buildjob.buildServiceId());
+        postParameters.insert(QLatin1String("buildservice"), buildjob.buildServiceId());
     }
 
     return postParameters;
@@ -453,10 +453,10 @@ QMap<QString, QString> buildServiceJobPostParameters(const BuildServiceJob& buil
 PostJob* Provider::cancelBuildServiceJob(const BuildServiceJob& job)
 {
     StringMap postParameters;
-    postParameters.insert("dummyparameter", "dummyvalue");
+    postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "b....................b";
     return new PostJob(d->m_internals, createRequest(
-                       QString("buildservice/jobs/cancel/%1").arg(job.id())), postParameters);
+                       QLatin1String("buildservice/jobs/cancel/") + job.id()), postParameters);
 }
 
 PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
@@ -465,39 +465,39 @@ PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
     // A postjob won't be run without parameters. 
     // so even while we don't need any in this case,
     // we add dummy data to the request
-    postParameters.insert("dummyparameter", "dummyvalue");
+    postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "Creating new BSJ on" << job.buildServiceId();
     return new PostJob(d->m_internals, createRequest(
-                       QString("buildservice/jobs/create/%1/%2/%3").arg(
-                           job.projectId(), job.buildServiceId(), job.target())),
+                       QLatin1String("buildservice/jobs/create/%1/%2/%3") +
+                           job.projectId() + QLatin1Char('/') + job.buildServiceId()  + QLatin1Char('/') + job.target()),
                        postParameters);
 }
 
 ListJob<BuildService>* Provider::requestBuildServices()
 {
     qDebug() << "request projects";
-    QUrl url = createUrl( "buildservice/buildservices/list" );
+    QUrl url = createUrl( QLatin1String("buildservice/buildservices/list") );
     return new ListJob<BuildService>(d->m_internals, createRequest(url));
 }
 
 ListJob<Publisher>* Provider::requestPublishers()
 {
-    QUrl url = createUrl( "buildservice/publishing/getpublishingcapabilities" );
-    qDebug() << "request publishers" << url;
+    QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublishingcapabilities") );
+    //qDebug() << "request publishers" << url;
     return new ListJob<Publisher>(d->m_internals, createRequest(url));
 }
 
 ListJob<BuildServiceJob>* Provider::requestBuildServiceJobs(const Project &project)
 {
-    qDebug() << "request projects";
-    QUrl url = createUrl( "buildservice/jobs/list/" + project.id() );
+    //qDebug() << "request projects";
+    QUrl url = createUrl( QLatin1String("buildservice/jobs/list/") + project.id() );
     return new ListJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
 
 ListJob<RemoteAccount>* Provider::requestRemoteAccounts()
 {
-    qDebug() << "request remoteaccounts";
-    QUrl url = createUrl( "buildservice/remoteaccounts/list/");
+    //qDebug() << "request remoteaccounts";
+    QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/list/"));
     return new ListJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
 
@@ -507,13 +507,13 @@ PostJob* Provider::createRemoteAccount(const RemoteAccount& account)
     // A postjob won't be run without parameters.
     // so even while we don't need any in this case,
     // we add dummy data to the request
-    postParameters.insert("login", account.login());
-    postParameters.insert("password", account.password());
-    postParameters.insert("type", account.type());
-    postParameters.insert("typeid", account.remoteServiceId()); // FIXME: remoteserviceid?
-    postParameters.insert("data", account.data());
+    postParameters.insert(QLatin1String("login"), account.login());
+    postParameters.insert(QLatin1String("password"), account.password());
+    postParameters.insert(QLatin1String("type"), account.type());
+    postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
+    postParameters.insert(QLatin1String("data"), account.data());
     qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new PostJob(d->m_internals, createRequest("buildservice/remoteaccounts/add"),
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/add")),
                        postParameters);
 }
 
@@ -523,19 +523,19 @@ PostJob* Provider::editRemoteAccount(const RemoteAccount& account)
     // A postjob won't be run without parameters.
     // so even while we don't need any in this case,
     // we add dummy data to the request
-    postParameters.insert("login", account.login());
-    postParameters.insert("password", account.password());
-    postParameters.insert("type", account.type());
-    postParameters.insert("typeid", account.remoteServiceId()); // FIXME: remoteserviceid?
-    postParameters.insert("data", account.data());
+    postParameters.insert(QLatin1String("login"), account.login());
+    postParameters.insert(QLatin1String("password"), account.password());
+    postParameters.insert(QLatin1String("type"), account.type());
+    postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
+    postParameters.insert(QLatin1String("data"), account.data());
     qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new PostJob(d->m_internals, createRequest("buildservice/remoteaccounts/edit/" + account.id()),
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()),
                        postParameters);
 }
 
 ItemJob<RemoteAccount>* Provider::requestRemoteAccount(const QString &id)
 {
-    QUrl url = createUrl( "buildservice/remoteaccounts/get/" + id );
+    QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/get/") + id );
     qDebug() << url;
     return new ItemJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
@@ -544,7 +544,7 @@ PostJob* Provider::deleteRemoteAccount(const QString& id)
 {
     StringMap postParameters;
     return new PostJob(d->m_internals, createRequest(
-                       QString("buildservice/remoteaccounts/remove/%1").arg(id)),
+                       QLatin1String("buildservice/remoteaccounts/remove/%1") + id),
                        postParameters);
 }
 
