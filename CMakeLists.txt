@@ -6,7 +6,7 @@ set(CMAKE_LIBATTICA_VERSION_PATCH 1 CACHE INT "Release Attica version number" FO
 set(CMAKE_LIBATTICA_VERSION_STRING "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}" CACHE STRING "Attica version string" FORCE)
 
 cmake_minimum_required(VERSION 2.6)
-add_definitions( -DQT_NO_CAST_FROM_ASCII ) # FIXME: re-enable when OBS classes are fixed (sebas)
+add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 
 
