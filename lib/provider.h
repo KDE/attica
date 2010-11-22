@@ -434,6 +434,12 @@ class ATTICA_EXPORT Provider
      */
     ItemJob<RemoteAccount>* requestRemoteAccount(const QString &id);
 
+    /** Upload a tarball to the buildservice.
+     * @param projectId The ID of the project this source file belongs to
+     * @param payload A reference tothe complete file data
+     * @return A postjob to keep keep track of the upload
+     */
+    Attica::PostJob* uploadTarballToBuildService(const QString& projectId, const QString& fileName, const QByteArray& payload);
 
     // Content part of OCS
 

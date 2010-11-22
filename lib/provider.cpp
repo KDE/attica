@@ -548,6 +548,17 @@ PostJob* Provider::deleteRemoteAccount(const QString& id)
                        postParameters);
 }
 
+PostJob* Provider::uploadTarballToBuildService(const QString& projectId, const QString& fileName, const QByteArray& payload)
+{
+    QUrl url = createUrl(QLatin1String( "buildservice/project/uploadsource/" ) + projectId);
+    qDebug() << "Up'ing tarball" << url << projectId << fileName << payload;
+    PostFileData postRequest(url);
+    postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ), QLatin1String("source"));
+    return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
+}
+
+// Activity
+
 PostJob* Provider::postActivity(const QString& message)
 {
     StringMap postParameters;
@@ -781,7 +792,7 @@ PostJob* Provider::setDownloadFile(const QString& contentId, const QString& file
     QUrl url = createUrl(QLatin1String( "content/uploaddownload/" ) + contentId);
     PostFileData postRequest(url);
     // FIXME mime type
-    postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ));
+    postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ), QLatin1String("source"));
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 

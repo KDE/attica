@@ -98,7 +98,7 @@ void PostFileData::addFile(const QString& fileName, QIODevice* file, const QStri
 }
 */
 
-void PostFileData::addFile(const QString& fileName, const QByteArray& file, const QString& mimeType)
+void PostFileData::addFile(const QString& fileName, const QByteArray& file, const QString& mimeType, const QString& fieldName)
 {
     if (d->finished) {
         qDebug() << "PostFileData::addFile: should not add data after calling request() or data()";
@@ -106,7 +106,9 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
     
     QByteArray data(
         "--" + d->boundary + "\r\n"
-        "Content-Disposition: form-data; name=\"localfile\"; filename=\"" + fileName.toUtf8()
+        "Content-Disposition: form-data; name=\"");
+    data.append(fieldName.toAscii());
+    data.append("\"; filename=\"" + fileName.toUtf8()
         + "\"\r\nContent-Type: " + mimeType.toAscii() + "\r\n\r\n");
 
     d->buffer.append(data);
