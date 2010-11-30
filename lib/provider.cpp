@@ -394,7 +394,7 @@ PostJob* Provider::editProject(const Project& project)
 PostJob* Provider::deleteProject(const Project& project)
 {
     return new PostJob(d->m_internals, createRequest(
-                       QLatin1String("buildservice/project/delete/%1") + project.id()),
+                       QLatin1String("buildservice/project/delete/") + project.id()),
                        projectPostParameters(project));
 }
 
@@ -544,7 +544,7 @@ PostJob* Provider::deleteRemoteAccount(const QString& id)
 {
     StringMap postParameters;
     return new PostJob(d->m_internals, createRequest(
-                       QLatin1String("buildservice/remoteaccounts/remove/%1") + id),
+                       QLatin1String("buildservice/remoteaccounts/remove/") + id),
                        postParameters);
 }
 
