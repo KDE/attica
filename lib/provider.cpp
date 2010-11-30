@@ -468,7 +468,7 @@ PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "Creating new BSJ on" << job.buildServiceId();
     return new PostJob(d->m_internals, createRequest(
-                       QLatin1String("buildservice/jobs/create/%1/%2/%3") +
+                       QLatin1String("buildservice/jobs/create/") +
                            job.projectId() + QLatin1Char('/') + job.buildServiceId()  + QLatin1Char('/') + job.target()),
                        postParameters);
 }
