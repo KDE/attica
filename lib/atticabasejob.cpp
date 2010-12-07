@@ -78,6 +78,10 @@ BaseJob::~BaseJob()
 
 void BaseJob::dataFinished()
 {
+    if (!d->m_reply) {
+        return;
+    }
+
     bool error = (d->m_reply->error() != QNetworkReply::NoError);
 
     // handle redirections automatically

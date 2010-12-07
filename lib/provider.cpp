@@ -192,11 +192,19 @@ bool Provider::isValid() const
 
 bool Provider::isEnabled() const
 {
+    if (!isValid()) {
+        return false;
+    }
+
     return d->m_internals->isEnabled(d->m_baseUrl);
 }
 
 void Provider::setEnabled(bool enabled)
 {
+    if (!isValid()) {
+        return;
+    }
+
     d->m_internals->enableProvider(d->m_baseUrl, enabled);
 }
 
@@ -207,16 +215,28 @@ QString Provider::name() const
 
 bool Provider::hasCredentials()
 {
+    if (!isValid()) {
+        return false;
+    }
+
     return d->m_internals->hasCredentials(d->m_baseUrl);
 }
 
 bool Provider::hasCredentials() const
 {
+    if (!isValid()) {
+        return false;
+    }
+
     return d->m_internals->hasCredentials(d->m_baseUrl);
 }
 
 bool Provider::loadCredentials(QString& user, QString& password)
 {
+    if (!isValid()) {
+        return false;
+    }
+
     if (d->m_internals->loadCredentials(d->m_baseUrl, user, password)) {
         d->m_credentialsUserName = user;
         d->m_credentialsPassword = password;
@@ -227,6 +247,10 @@ bool Provider::loadCredentials(QString& user, QString& password)
 
 bool Provider::saveCredentials(const QString& user, const QString& password)
 {
+    if (!isValid()) {
+        return false;
+    }
+
     d->m_credentialsUserName = user;
     d->m_credentialsPassword = password;
     return d->m_internals->saveCredentials(d->m_baseUrl, user, password);
@@ -234,6 +258,10 @@ bool Provider::saveCredentials(const QString& user, const QString& password)
 
 PostJob* Provider::checkLogin(const QString& user, const QString& password)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QMap<QString, QString> postParameters;
 
     postParameters.insert(QLatin1String( "login" ), user);
@@ -244,6 +272,10 @@ PostJob* Provider::checkLogin(const QString& user, const QString& password)
 
 PostJob* Provider::registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QMap<QString, QString> postParameters;
 
     postParameters.insert(QLatin1String( "login" ), id);
@@ -258,24 +290,40 @@ PostJob* Provider::registerAccount(const QString& id, const QString& password, c
 
 ItemJob<Person>* Provider::requestPerson(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "person/data/" ) + id );
     return doRequestPerson( url );
 }
 
 ItemJob<Person>* Provider::requestPersonSelf()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "person/self" ) );
     return doRequestPerson( url );
 }
 
 ItemJob<AccountBalance>* Provider::requestAccountBalance()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "person/balance" ) );
     return doRequestAccountBalance( url );
 }
 
 ListJob<Person>* Provider::requestPersonSearchByName(const QString& name)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "person/data" ));
     url.addQueryItem(QLatin1String( "name" ), name);
     return doRequestPersonList( url );
@@ -283,6 +331,10 @@ ListJob<Person>* Provider::requestPersonSearchByName(const QString& name)
 
 ListJob<Person>* Provider::requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance, int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "person/data" ) );
     url.addQueryItem(QLatin1String( "latitude" ), QString::number(latitude));
     url.addQueryItem(QLatin1String( "longitude" ), QString::number(longitude));
@@ -297,6 +349,10 @@ ListJob<Person>* Provider::requestPersonSearchByLocation(qreal latitude, qreal l
 
 ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "friend/data/" ) + id );
     url.addQueryItem(QLatin1String( "page" ), QString::number(page));
     url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
@@ -306,6 +362,10 @@ ListJob<Person>* Provider::requestFriends(const QString& id, int page, int pageS
 
 ListJob<Person>* Provider::requestSentInvitations(int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "friend/sentinvitations" ));
     url.addQueryItem(QLatin1String( "page" ), QString::number(page));
     url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
@@ -315,6 +375,10 @@ ListJob<Person>* Provider::requestSentInvitations(int page, int pageSize)
 
 ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "friend/receivedinvitations" ));
     url.addQueryItem(QLatin1String( "page" ), QString::number(page));
     url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
@@ -324,6 +388,10 @@ ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
 
 ListJob<Activity>* Provider::requestActivities()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     qDebug() << "request activity";
     QUrl url = createUrl( QLatin1String( "activity" ) );
     return doRequestActivityList( url );
@@ -332,6 +400,10 @@ ListJob<Activity>* Provider::requestActivities()
 
 ListJob<Project>* Provider::requestProjects()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/project/list") );
     return new ListJob<Project>(d->m_internals, createRequest(url));
@@ -339,6 +411,10 @@ ListJob<Project>* Provider::requestProjects()
 
 ItemJob<Project>* Provider::requestProject(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String("buildservice/project/get/") + id );
     qDebug() << url;
     return new ItemJob<Project>(d->m_internals, createRequest(url));
@@ -382,12 +458,20 @@ QMap<QString, QString> projectPostParameters(const Project& project)
 
 PostJob* Provider::createProject(const Project& project)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/create")),
                        projectPostParameters(project));
 }
 
 PostJob* Provider::editProject(const Project& project)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(
                        QLatin1String("buildservice/project/edit/") + project.id()),
                        projectPostParameters(project));
@@ -395,6 +479,10 @@ PostJob* Provider::editProject(const Project& project)
 
 PostJob* Provider::deleteProject(const Project& project)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(
                        QLatin1String("buildservice/project/delete/") + project.id()),
                        projectPostParameters(project));
@@ -402,12 +490,20 @@ PostJob* Provider::deleteProject(const Project& project)
 
 ItemJob<BuildService>* Provider::requestBuildService(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String("buildservice/buildservices/get/") + id );
     return new ItemJob<BuildService>(d->m_internals, createRequest(url));
 }
 
 ItemJob<Publisher>* Provider::requestPublisher(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     //qDebug() << "request publisher" << id;
     QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublisher/") + id );
     return new ItemJob<Publisher>(d->m_internals, createRequest(url));
@@ -415,6 +511,10 @@ ItemJob<Publisher>* Provider::requestPublisher(const QString& id)
 
 PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
 
@@ -427,6 +527,10 @@ PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publis
 // Buildservices and their jobs
 ItemJob<BuildServiceJob>* Provider::requestBuildServiceJob(const QString &id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String("buildservice/jobs/get/") + id );
     qDebug() << url;
     return new ItemJob<BuildServiceJob>(d->m_internals, createRequest(url));
@@ -454,6 +558,10 @@ QMap<QString, QString> buildServiceJobPostParameters(const BuildServiceJob& buil
 
 PostJob* Provider::cancelBuildServiceJob(const BuildServiceJob& job)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "b....................b";
@@ -463,6 +571,10 @@ PostJob* Provider::cancelBuildServiceJob(const BuildServiceJob& job)
 
 PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     // A postjob won't be run without parameters. 
     // so even while we don't need any in this case,
@@ -477,6 +589,10 @@ PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
 
 ListJob<BuildService>* Provider::requestBuildServices()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/buildservices/list") );
     return new ListJob<BuildService>(d->m_internals, createRequest(url));
@@ -484,6 +600,10 @@ ListJob<BuildService>* Provider::requestBuildServices()
 
 ListJob<Publisher>* Provider::requestPublishers()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublishingcapabilities") );
     //qDebug() << "request publishers" << url;
     return new ListJob<Publisher>(d->m_internals, createRequest(url));
@@ -491,6 +611,10 @@ ListJob<Publisher>* Provider::requestPublishers()
 
 ListJob<BuildServiceJob>* Provider::requestBuildServiceJobs(const Project &project)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     //qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/jobs/list/") + project.id() );
     return new ListJob<BuildServiceJob>(d->m_internals, createRequest(url));
@@ -498,6 +622,10 @@ ListJob<BuildServiceJob>* Provider::requestBuildServiceJobs(const Project &proje
 
 ListJob<RemoteAccount>* Provider::requestRemoteAccounts()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     //qDebug() << "request remoteaccounts";
     QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/list/"));
     return new ListJob<RemoteAccount>(d->m_internals, createRequest(url));
@@ -505,6 +633,10 @@ ListJob<RemoteAccount>* Provider::requestRemoteAccounts()
 
 PostJob* Provider::createRemoteAccount(const RemoteAccount& account)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     // A postjob won't be run without parameters.
     // so even while we don't need any in this case,
@@ -521,6 +653,10 @@ PostJob* Provider::createRemoteAccount(const RemoteAccount& account)
 
 PostJob* Provider::editRemoteAccount(const RemoteAccount& account)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     // A postjob won't be run without parameters.
     // so even while we don't need any in this case,
@@ -537,6 +673,10 @@ PostJob* Provider::editRemoteAccount(const RemoteAccount& account)
 
 ItemJob<RemoteAccount>* Provider::requestRemoteAccount(const QString &id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/get/") + id );
     qDebug() << url;
     return new ItemJob<RemoteAccount>(d->m_internals, createRequest(url));
@@ -544,6 +684,10 @@ ItemJob<RemoteAccount>* Provider::requestRemoteAccount(const QString &id)
 
 PostJob* Provider::deleteRemoteAccount(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     return new PostJob(d->m_internals, createRequest(
                        QLatin1String("buildservice/remoteaccounts/remove/") + id),
@@ -552,6 +696,10 @@ PostJob* Provider::deleteRemoteAccount(const QString& id)
 
 PostJob* Provider::uploadTarballToBuildService(const QString& projectId, const QString& fileName, const QByteArray& payload)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "buildservice/project/uploadsource/" ) + projectId);
     qDebug() << "Up'ing tarball" << url << projectId << fileName << payload;
     PostFileData postRequest(url);
@@ -563,6 +711,10 @@ PostJob* Provider::uploadTarballToBuildService(const QString& projectId, const Q
 
 PostJob* Provider::postActivity(const QString& message)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "message" ), message);
     return new PostJob(d->m_internals, createRequest(QLatin1String( "activity" )), postParameters);
@@ -570,6 +722,10 @@ PostJob* Provider::postActivity(const QString& message)
 
 PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "message" ), message);
     return new PostJob(d->m_internals, createRequest(QLatin1String( "friend/invite/" ) + to), postParameters);
@@ -578,23 +734,39 @@ PostJob* Provider::inviteFriend(const QString& to, const QString& message)
 
 PostJob* Provider::approveFriendship(const QString& to)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(QLatin1String( "friend/approve/" ) + to));
 }
 
 
 PostJob* Provider::declineFriendship(const QString& to)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(QLatin1String( "friend/decline/" ) + to));
 }
 
 PostJob* Provider::cancelFriendship(const QString& to)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new PostJob(d->m_internals, createRequest(QLatin1String( "friend/cancel/" ) + to));
 }
 
 
 PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& city, const QString& country)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "latitude" ), QString::number(latitude));
     postParameters.insert(QLatin1String( "longitude" ), QString::number(longitude));
@@ -606,17 +778,29 @@ PostJob* Provider::postLocation(qreal latitude, qreal longitude, const QString& 
 
 ListJob<Folder>* Provider::requestFolders()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return doRequestFolderList( createUrl( QLatin1String( "message" ) ) );
 }
 
 ListJob<Message>* Provider::requestMessages(const Folder& folder)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return doRequestMessageList( createUrl( QLatin1String( "message/" ) + folder.id() ) );
 }
 
 
 ListJob<Message>* Provider::requestMessages(const Folder& folder, Message::Status status)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "message/" ) + folder.id());
     url.addQueryItem(QLatin1String( "status" ), QString::number(status));
     return doRequestMessageList(url);
@@ -625,12 +809,20 @@ ListJob<Message>* Provider::requestMessages(const Folder& folder, Message::Statu
 
 ItemJob<Message>* Provider::requestMessage(const Folder& folder, const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     return new ItemJob<Message>(d->m_internals, createRequest(QLatin1String( "message/" ) + folder.id() + QLatin1Char( '/' ) + id));
 }
 
 
 PostJob* Provider::postMessage( const Message &message )
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "message" ), message.body());
     postParameters.insert(QLatin1String( "subject" ), message.subject());
@@ -640,6 +832,10 @@ PostJob* Provider::postMessage( const Message &message )
 
 ListJob<Category>* Provider::requestCategories()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/categories" ) );
     ListJob<Category> *job = new ListJob<Category>(d->m_internals, createRequest(url));
     return job;
@@ -647,6 +843,10 @@ ListJob<Category>* Provider::requestCategories()
 
 ListJob< License >* Provider::requestLicenses()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/licenses" ) );
     ListJob<License> *job = new ListJob<License>(d->m_internals, createRequest(url));
     return job;
@@ -654,6 +854,10 @@ ListJob< License >* Provider::requestLicenses()
 
 ListJob< Distribution >* Provider::requestDistributions()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/distributions" ) );
     ListJob<Distribution> *job = new ListJob<Distribution>(d->m_internals, createRequest(url));
     return job;
@@ -661,6 +865,10 @@ ListJob< Distribution >* Provider::requestDistributions()
 
 ListJob< HomePageType >* Provider::requestHomePageTypes()
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/homepages" ) );
     ListJob<HomePageType> *job = new ListJob<HomePageType>(d->m_internals, createRequest(url));
     return job;
@@ -678,6 +886,10 @@ ListJob<Content>* Provider::searchContentsByPerson(const Category::List& categor
 
 ListJob<Content>* Provider::searchContents(const Category::List& categories, const QString& person, const Distribution::List& distributions, const License::List& licenses, const QString& search, SortMode sortMode, uint page, uint pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/data" ) );
 
     QStringList categoryIds;
@@ -732,6 +944,10 @@ ListJob<Content>* Provider::searchContents(const Category::List& categories, con
 
 ItemJob<Content>* Provider::requestContent(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/data/" ) + id );
     ItemJob<Content> *job = new ItemJob<Content>(d->m_internals, createRequest(url));
     return job;
@@ -739,7 +955,7 @@ ItemJob<Content>* Provider::requestContent(const QString& id)
 
 ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Content& cont)
 {
-    if (!category.isValid()) {
+    if (!isValid() || !category.isValid()) {
         return 0;
     }
 
@@ -757,6 +973,10 @@ ItemPostJob<Content>* Provider::addNewContent(const Category& category, const Co
 
 ItemPostJob<Content>* Provider::editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     // FIXME I get a server error message here, though the name of the item is changed
     QUrl url = createUrl(QLatin1String( "content/edit/" ) + contentId);
     StringMap pars(updatedContent.attributes());
@@ -783,6 +1003,10 @@ PostJob* Provider::setDownloadFile(const QString& contentId, QIODevice* payload)
 
 PostJob* Provider::deleteContent(const QString& contentId)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "content/delete/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
@@ -791,6 +1015,10 @@ PostJob* Provider::deleteContent(const QString& contentId)
 
 PostJob* Provider::setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "content/uploaddownload/" ) + contentId);
     PostFileData postRequest(url);
     // FIXME mime type
@@ -800,6 +1028,10 @@ PostJob* Provider::setDownloadFile(const QString& contentId, const QString& file
 
 PostJob* Provider::deleteDownloadFile(const QString& contentId)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "content/deletedownload/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
@@ -808,6 +1040,10 @@ PostJob* Provider::deleteDownloadFile(const QString& contentId)
 
 PostJob* Provider::setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "content/uploadpreview/" ) + contentId + QLatin1Char( '/' ) + previewId);
 
     PostFileData postRequest(url);
@@ -821,6 +1057,10 @@ PostJob* Provider::setPreviewImage(const QString& contentId, const QString& prev
 
 PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& previewId)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "content/deletepreview/" ) + contentId + QLatin1Char( '/' ) + previewId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
@@ -830,6 +1070,10 @@ PostJob* Provider::deletePreviewImage(const QString& contentId, const QString& p
 
 PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "vote" ), positiveVote ? QLatin1String( "good" ) : QLatin1String( "bad" ));
     qDebug() << "vote: " << positiveVote;
@@ -838,6 +1082,10 @@ PostJob* Provider::voteForContent(const QString& contentId, bool positiveVote)
 
 PostJob* Provider::voteForContent(const QString& contentId, uint rating)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     // according to OCS API, the rating is 0..100
     Q_ASSERT(rating <= 100);
     StringMap postParameters;
@@ -848,6 +1096,10 @@ PostJob* Provider::voteForContent(const QString& contentId, uint rating)
 
 PostJob* Provider::becomeFan(const QString& contentId)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "fan/add/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
@@ -856,6 +1108,10 @@ PostJob* Provider::becomeFan(const QString& contentId)
 
 ListJob<Person>* Provider::requestFans(const QString& contentId, uint page, uint pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "fan/data/" ) + contentId );
     url.addQueryItem( QLatin1String( "contentid" ), contentId );
     url.addQueryItem( QLatin1String( "page" ), QString::number(page) );
@@ -866,6 +1122,10 @@ ListJob<Person>* Provider::requestFans(const QString& contentId, uint page, uint
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "content/download/" ) + contentId + QLatin1Char( '/' ) + itemId );
     ItemJob<DownloadItem> *job = new ItemJob<DownloadItem>(d->m_internals, createRequest(url));
     return job;
@@ -873,6 +1133,10 @@ ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QS
 
 ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "knowledgebase/data/" ) + id );
     ItemJob<KnowledgeBaseEntry> *job = new ItemJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
     return job;
@@ -880,6 +1144,10 @@ ItemJob<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& 
 
 ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& content, const QString& search, Provider::SortMode sortMode, int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl( QLatin1String( "knowledgebase/data" ) );
     if (content.isValid()) {
         url.addQueryItem(QLatin1String( "content" ), content.id());
@@ -915,12 +1183,20 @@ ListJob<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& conten
 
 ItemJob<Event>* Provider::requestEvent(const QString& id)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     ItemJob<Event>* job = new ItemJob<Event>(d->m_internals, createRequest(QLatin1String( "event/data/" ) + id));
     return job;
 }
 
 ListJob<Event>* Provider::requestEvent(const QString& country, const QString& search, const QDate& startAt, Provider::SortMode mode, int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "event/data" ));
 
     if (!search.isEmpty()) {
@@ -957,6 +1233,10 @@ ListJob<Event>* Provider::requestEvent(const QString& country, const QString& se
 
 ListJob<Comment>* Provider::requestComments(const Comment::Type commentType, const QString& id, const QString& id2, int page, int pageSize)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QString commentTypeString;
     commentTypeString = Comment::commentTypeToString(commentType);
     if (commentTypeString.isEmpty()) {
@@ -974,6 +1254,10 @@ ListJob<Comment>* Provider::requestComments(const Comment::Type commentType, con
 
 ItemPostJob<Comment>* Provider::addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QString commentTypeString;
     commentTypeString = Comment::commentTypeToString(commentType);
     if (commentTypeString.isEmpty()) {
@@ -994,7 +1278,7 @@ ItemPostJob<Comment>* Provider::addNewComment(const Comment::Type commentType, c
 
 PostJob* Provider::voteForComment(const QString & id, uint rating)
 {
-    if (rating > 100) {
+    if (!isValid() || (rating > 100)) {
         return 0;
     }
 
@@ -1007,6 +1291,10 @@ PostJob* Provider::voteForComment(const QString & id, uint rating)
 
 PostJob* Provider::setPrivateData(const QString& app, const QString& key, const QString& value)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     QUrl url = createUrl(QLatin1String( "privatedata/setattribute/" ) + app + QLatin1String( "/" ) + key);
     PostFileData postRequest(url);
 
@@ -1017,6 +1305,10 @@ PostJob* Provider::setPrivateData(const QString& app, const QString& key, const 
 
 ItemJob<PrivateData>* Provider::requestPrivateData(const QString& app, const QString& key)
 {
+    if (!isValid()) {
+        return 0;
+    }
+
     ItemJob<PrivateData>* job = new ItemJob<PrivateData>(d->m_internals, createRequest(QLatin1String( "privatedata/getattribute/" ) + app + QLatin1String( "/" ) + key));
     return job;
 }
