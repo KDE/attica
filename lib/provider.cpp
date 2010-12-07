@@ -372,7 +372,9 @@ QMap<QString, QString> projectPostParameters(const Project& project)
     if (!project.requirements().isEmpty()) {
         postParameters.insert(QLatin1String("requirements"), project.requirements());
     }
-    if (!project.specFile().isEmpty()) {
+    // The specfile generator expects an empty string parameter if it is supposed to regenerate the spec file
+    // So we need to check for nullity here as opposed to an empty string.
+    if (!project.specFile().isNull()) {
         postParameters.insert(QLatin1String("specfile"), project.specFile());
     }
     return postParameters;
