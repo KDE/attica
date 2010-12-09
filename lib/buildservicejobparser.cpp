@@ -41,6 +41,8 @@ BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader& xml)
                 buildservicejob.setId(xml.readElementText());
             } else if (xml.name() == "project") {
                 buildservicejob.setProjectId(xml.readElementText());
+            } else if (xml.name() == "buildservice") {
+                buildservicejob.setBuildServiceId(xml.readElementText());
             } else if (xml.name() == "target") {
                 buildservicejob.setTarget(xml.readElementText());
             } else if (xml.name() == "name") {
