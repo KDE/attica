@@ -32,6 +32,8 @@
 #include "buildserviceparser.h"
 #include "buildservicejob.h"
 #include "buildservicejobparser.h"
+#include "buildservicejoboutput.h"
+#include "buildservicejoboutputparser.h"
 #include "privatedata.h"
 #include "privatedataparser.h"
 #include "category.h"
@@ -525,6 +527,17 @@ PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publis
 }
 
 // Buildservices and their jobs
+ItemJob<BuildServiceJobOutput>* Provider::requestBuildServiceJobOutput(const QString &id)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl( QLatin1String("buildservice/jobs/getoutput/") + id );
+    qDebug() << url;
+    return new ItemJob<BuildServiceJobOutput>(d->m_internals, createRequest(url));
+}
+
 ItemJob<BuildServiceJob>* Provider::requestBuildServiceJob(const QString &id)
 {
     if (!isValid()) {

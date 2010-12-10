@@ -51,6 +51,7 @@ class PostJobStatus;
 
 class AccountBalance;
 class Activity;
+class BuildServiceJobOutput;
 class BuildServiceJob;
 class BuildService;
 class PrivateData;
@@ -360,6 +361,12 @@ class ATTICA_EXPORT Provider
      * @return ItemJob receiving data
      */
     PostJob* publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher);
+
+    /**
+     * Get the build output for a specific build service job
+     * @return ItemJob receiving and containing the output data
+     */
+    ItemJob<BuildServiceJobOutput>* requestBuildServiceJobOutput(const QString& id);
 
     /**
      * Get the information for a specific build service job, such as status and progress.

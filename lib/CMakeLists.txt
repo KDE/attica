@@ -24,6 +24,8 @@ set(ocsclient_SRCS
    buildserviceparser.cpp
    buildservicejob.cpp
    buildservicejobparser.cpp
+   buildservicejoboutput.cpp
+   buildservicejoboutputparser.cpp
    activity.cpp
    activityparser.cpp
    atticabasejob.cpp
@@ -129,6 +131,7 @@ install(FILES
     remoteaccount.h
     buildservice.h
     buildservicejob.h
+    buildservicejoboutput.h
     providermanager.h
     provider.h
     publisher.h
