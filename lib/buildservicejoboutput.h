@@ -34,15 +34,13 @@ namespace Attica {
 class ATTICA_EXPORT BuildServiceJobOutput
 {
 public:
-    typedef QList<BuildServiceJobOutput> List;
-    class Parser;
+  typedef QList<BuildServiceJobOutput> List;
+  class Parser;
 
-    BuildServiceJobOutput();
-    BuildServiceJobOutput(const BuildServiceJobOutput& other);
-    BuildServiceJobOutput& operator=(const BuildServiceJobOutput& other);
-    ~BuildServiceJobOutput();
-
-public:
+  BuildServiceJobOutput();
+  BuildServiceJobOutput(const BuildServiceJobOutput& other);
+  BuildServiceJobOutput& operator=(const BuildServiceJobOutput& other);
+  ~BuildServiceJobOutput();
 
   void setOutput( const QString & output);
   QString output() const;

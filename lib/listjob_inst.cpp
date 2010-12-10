@@ -33,6 +33,8 @@
 #include "buildserviceparser.h"
 #include "buildservicejob.h"
 #include "buildservicejobparser.h"
+#include "buildservicejoboutput.h"
+#include "buildservicejoboutputparser.h"
 #include "privatedata.h"
 #include "privatedataparser.h"
 #include "category.h"
@@ -99,6 +101,7 @@ template class ListJob<RemoteAccount>;
 
 template class ItemJob<AccountBalance>;
 template class ItemJob<BuildServiceJob>;
+template class ItemJob<BuildServiceJobOutput>;
 template class ItemJob<BuildService>;
 template class ItemJob<PrivateData>;
 template class ItemJob<Content>;
@@ -114,6 +117,7 @@ template class Parser<AccountBalance>;
 template class Parser<Activity>;
 template class Parser<BuildService>;
 template class Parser<BuildServiceJob>;
+template class Parser<BuildServiceJobOutput>;
 template class Parser<PrivateData>;
 template class Parser<Category>;
 template class Parser<Comment>;
