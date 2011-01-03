@@ -75,7 +75,7 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                                                 {
                                                     t.options << xml.readElementText();
                                                 }
-                                            } else if (xml.isEndElement() && xml.name() == "option") {
+                                            } else if (xml.isEndElement() && xml.name() == "options") {
                                                 xml.readNext();
                                                 break;
                                             }

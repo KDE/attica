@@ -67,6 +67,8 @@
 #include "projectparser.h"
 #include "publisher.h"
 #include "publisherparser.h"
+#include "publisherfield.h"
+#include "publisherfieldparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
 #include "itemjob.h"
@@ -509,6 +511,22 @@ ItemJob<Publisher>* Provider::requestPublisher(const QString& id)
     //qDebug() << "request publisher" << id;
     QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublisher/") + id );
     return new ItemJob<Publisher>(d->m_internals, createRequest(url));
+}
+
+PostJob* Provider::savePublisherField(const Project& project, const PublisherField& field)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+    postParameters.insert(QLatin1String("fields[0][name]"), field.name());
+    postParameters.insert(QLatin1String("fields[0][fieldtype]"), field.type());
+    postParameters.insert(QLatin1String("fields[0][data]"), field.data());
+
+    QString url = QLatin1String("buildservice/publishing/savefields/") + project.id();
+    //qDebug() << "saving field values...";
+    return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
 PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher)
