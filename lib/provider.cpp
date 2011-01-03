@@ -1100,7 +1100,11 @@ PostJob* Provider::voteForContent(const QString& contentId, uint rating)
     }
 
     // according to OCS API, the rating is 0..100
-    Q_ASSERT(rating <= 100);
+    if (rating > 100) {
+      qWarning() << "Rating cannot be superior to 100, fallback to 100." ;
+      rating = 100 ;
+    }
+
     StringMap postParameters;
     postParameters.insert(QLatin1String( "vote" ), QString::number(rating));
     qDebug() << "vote: " << QString::number(rating);
