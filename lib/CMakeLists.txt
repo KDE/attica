@@ -74,6 +74,8 @@ set(ocsclient_SRCS
    providermanager.cpp
    publisher.cpp
    publisherparser.cpp
+   publisherfield.cpp
+   publisherfieldparser.cpp
    qtplatformdependent.cpp
 )
 
@@ -135,6 +137,7 @@ install(FILES
     providermanager.h
     provider.h
     publisher.h
+    publisherfield.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     DESTINATION include/attica COMPONENT Devel
 )
