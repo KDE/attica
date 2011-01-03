@@ -68,6 +68,7 @@ class PostJob;
 class Project;
 class Provider;
 class Publisher;
+class PublisherField;
 class RemoteAccount;
 
 
@@ -355,6 +356,12 @@ class ATTICA_EXPORT Provider
      * @return ItemJob receiving data
      */
     ItemJob<Publisher>* requestPublisher(const QString& id);
+
+    /**
+     * Save the value of a single publishing field
+     * @return PostJob*
+     */
+    PostJob* savePublisherField(const Project& project, const PublisherField& field);
 
     /**
      * Publish the result of a completed build job to a publisher.

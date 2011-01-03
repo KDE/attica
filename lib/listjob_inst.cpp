@@ -64,6 +64,8 @@
 #include "projectparser.h"
 #include "publisher.h"
 #include "publisherparser.h"
+#include "publisherfield.h"
+#include "publisherfieldparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
 
@@ -97,6 +99,7 @@ template class ItemPostJob<RemoteAccount>;
 
 template class ListJob<Project>;
 template class ListJob<Publisher>;
+template class ListJob<PublisherField>;
 template class ListJob<RemoteAccount>;
 
 template class ItemJob<AccountBalance>;
@@ -133,5 +136,6 @@ template class Parser<Message>;
 template class Parser<Person>;
 template class Parser<Project>;
 template class Parser<Publisher>;
+template class Parser<PublisherField>;
 template class Parser<RemoteAccount>;
 
