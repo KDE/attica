@@ -65,6 +65,21 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                                         t.fieldsize = xml.readElementText().toInt();
                                     } else if (xml.name() == "required") {
                                         t.required = xml.readElementText() == QLatin1String("true");
+                                    } else if (xml.name() == "options") {
+                                        while (!xml.atEnd())
+                                        {
+                                            xml.readNextStartElement();
+                                            if(xml.isStartElement())
+                                            {
+                                                if(xml.name() == "option")
+                                                {
+                                                    t.options << xml.readElementText();
+                                                }
+                                            } else if (xml.isEndElement() && xml.name() == "option") {
+                                                xml.readNext();
+                                                break;
+                                            }
+                                        }
                                     }
                                 } else if (xml.isEndElement() && (xml.name() == "field")) {
                                     xml.readNext();
