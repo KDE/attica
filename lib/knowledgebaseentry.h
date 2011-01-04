@@ -54,7 +54,7 @@ class ATTICA_EXPORT KnowledgeBaseEntry
     void setUser(const QString &user);
     QString user() const;
 
-    void setStatus(const QString status);
+    void setStatus(const QString& status);
     QString status() const;
 
     void setChanged(const QDateTime &changed);

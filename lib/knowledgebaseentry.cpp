@@ -106,7 +106,7 @@ QString KnowledgeBaseEntry::user() const
 }
 
 
-void KnowledgeBaseEntry::setStatus(const QString status)
+void KnowledgeBaseEntry::setStatus(const QString& status)
 {
     d->m_status = status;
 }
