@@ -5,7 +5,6 @@ set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
 set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
-set(CMAKE_INSTALL_RPATH "${LIB_DESTINATION}" )
 
 find_package(Qt4 REQUIRED)
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
