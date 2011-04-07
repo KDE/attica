@@ -2,6 +2,7 @@
     This file is part of KDE.
 
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -27,6 +28,8 @@
 
 #include "accountbalance.h"
 #include "accountbalanceparser.h"
+#include "achievement.h"
+#include "achievementparser.h"
 #include "activity.h"
 #include "activityparser.h"
 #include "buildservice.h"
@@ -50,6 +53,8 @@
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "forum.h"
+#include "forumparser.h"
 #include "homepagetype.h"
 #include "homepagetypeparser.h"
 #include "knowledgebaseentry.h"
@@ -68,10 +73,13 @@
 #include "publisherfieldparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
+#include "topic.h"
+#include "topicparser.h"
 
 
 using namespace Attica;
 
+template class ListJob<Achievement>;
 template class ListJob<Activity>;
 template class ListJob<BuildServiceJob>;
 template class ListJob<BuildService>;
@@ -82,6 +90,7 @@ template class ListJob<Distribution>;
 template class ListJob<DownloadItem>;
 template class ListJob<Event>;
 template class ListJob<Folder>;
+template class ListJob<Forum>;
 template class ListJob<HomePageType>;
 template class ListJob<KnowledgeBaseEntry>;
 template class ListJob<License>;
@@ -103,9 +112,11 @@ template class ListJob<PublisherField>;
 template class ListJob<RemoteAccount>;
 
 template class ItemJob<AccountBalance>;
+template class ItemJob<Achievement>;
 template class ItemJob<BuildServiceJob>;
 template class ItemJob<BuildServiceJobOutput>;
 template class ItemJob<BuildService>;
+template class ItemJob<Forum>;
 template class ItemJob<PrivateData>;
 template class ItemJob<Content>;
 template class ItemJob<DownloadItem>;
@@ -113,10 +124,13 @@ template class ItemJob<Event>;
 template class ItemJob<KnowledgeBaseEntry>;
 template class ItemJob<Message>;
 template class ItemJob<Person>;
+template class ItemPostJob<Achievement>;
 template class ItemPostJob<Content>;
 template class ItemPostJob<Comment>;
+template class ItemPostJob<Forum>;
 
 template class Parser<AccountBalance>;
+template class Parser<Achievement>;
 template class Parser<Activity>;
 template class Parser<BuildService>;
 template class Parser<BuildServiceJob>;

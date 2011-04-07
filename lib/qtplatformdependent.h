@@ -2,6 +2,7 @@
     This file is part of KDE.
 
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -40,10 +41,13 @@ public:
     virtual void removeDefaultProviderFile(const QUrl& url);
     virtual void enableProvider(const QUrl& baseUrl, bool enabled) const;
     virtual bool isEnabled(const QUrl& baseUrl) const;
-    
+
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
+    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data);
+    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data);
     virtual QNetworkReply* get(const QNetworkRequest& request);
+    virtual QNetworkReply* deleteResource(const QNetworkRequest& request);
     virtual bool hasCredentials(const QUrl& baseUrl) const;
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);

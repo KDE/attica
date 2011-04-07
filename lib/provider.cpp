@@ -3,6 +3,7 @@
 
     Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
     Copyright (c) 2010 Sebastian Kügler <sebas@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -26,6 +27,8 @@
 
 #include "accountbalance.h"
 #include "accountbalanceparser.h"
+#include "achievement.h"
+#include "achievementparser.h"
 #include "activity.h"
 #include "activityparser.h"
 #include "buildservice.h"
@@ -50,6 +53,8 @@
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
+#include "forum.h"
+#include "forumparser.h"
 #include "homepagetype.h"
 #include "homepagetypeparser.h"
 #include "knowledgebaseentry.h"
@@ -71,6 +76,8 @@
 #include "publisherfieldparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
+#include "topic.h"
+#include "topicparser.h"
 #include "itemjob.h"
 #include "listjob.h"
 
@@ -95,9 +102,11 @@ public:
     QString m_personVersion;
     QString m_friendVersion;
     QString m_messageVersion;
+    QString m_achievementVersion;
     QString m_activityVersion;
     QString m_contentVersion;
     QString m_fanVersion;
+    QString m_forumVersion;
     QString m_knowledgebaseVersion;
     QString m_eventVersion;
     QString m_commentVersion;
@@ -114,9 +123,11 @@ public:
         , m_personVersion(other.m_personVersion)
         , m_friendVersion(other.m_friendVersion)
         , m_messageVersion(other.m_messageVersion)
+        , m_achievementVersion(other.m_achievementVersion)
         , m_activityVersion(other.m_activityVersion)
         , m_contentVersion(other.m_contentVersion)
         , m_fanVersion(other.m_fanVersion)
+        , m_forumVersion(other.m_forumVersion)
         , m_knowledgebaseVersion(other.m_knowledgebaseVersion)
         , m_eventVersion(other.m_eventVersion)
         , m_commentVersion(other.m_commentVersion)
@@ -124,16 +135,18 @@ public:
     }
 
 Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
-        const QString& person, const QString& friendV, const QString& message,
-        const QString& activity, const QString& content, const QString& fan,
+        const QString& person, const QString& friendV, const QString& message, const QString& achievement,
+        const QString& activity, const QString& content, const QString& fan, const QString& forum,
         const QString& knowledgebase, const QString& event, const QString& comment)
         : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
         , m_personVersion(person)
         , m_friendVersion(friendV)
         , m_messageVersion(message)
+        , m_achievementVersion(achievement)
         , m_activityVersion(activity)
         , m_contentVersion(content)
         , m_fanVersion(fan)
+        , m_forumVersion(forum)
         , m_knowledgebaseVersion(knowledgebase)
         , m_eventVersion(event)
         , m_commentVersion(comment)
@@ -166,10 +179,10 @@ Provider::Provider(const Provider& other)
 }
 
 Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
-                   const QString& person, const QString& friendV, const QString& message,
-                   const QString& activity, const QString& content, const QString& fan,
+                   const QString& person, const QString& friendV, const QString& message, const QString& achievement,
+                   const QString& activity, const QString& content, const QString& fan, const QString& forum,
                    const QString& knowledgebase, const QString& event, const QString& comment)
-    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, activity, content, fan, knowledgebase, event, comment))
+    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content, fan, forum, knowledgebase, event, comment))
 {
 }
 
@@ -390,6 +403,103 @@ ListJob<Person>* Provider::requestReceivedInvitations(int page, int pageSize)
     return doRequestPersonList(url);
 }
 
+ListJob<Achievement>* Provider::requestAchievements(const QString& contentId, const QString& achievementId, const QString& userId)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl(QLatin1String( "achievements/content/" ) + contentId + achievementId);
+    url.addQueryItem(QLatin1String( "user_id" ), userId);
+    return doRequestAchievementList(url);
+}
+
+ItemPostJob<Achievement>* Provider::addNewAchievement(const QString& contentId, const Achievement& newAchievement)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+    int i = 0, j = 0;
+
+    postParameters.insert(QLatin1String( "name" ), newAchievement.name());
+    postParameters.insert(QLatin1String( "description" ), newAchievement.description());
+    postParameters.insert(QLatin1String( "explanation" ), newAchievement.explanation());
+    postParameters.insert(QLatin1String( "points" ), QString::number(newAchievement.points()));
+    postParameters.insert(QLatin1String( "image" ), newAchievement.image().toLocalFile());
+    foreach( QString dependency, newAchievement.dependencies() )
+        postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
+
+    postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(newAchievement.type()));
+    foreach( QString option, newAchievement.options() )
+        postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
+
+    postParameters.insert(QLatin1String( "steps" ), QString::number(newAchievement.steps()));
+    postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(newAchievement.visibility()));
+
+    return new ItemPostJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/content/" ) + contentId ), postParameters);
+}
+
+PutJob* Provider::editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+    int i = 0, j = 0;
+
+    postParameters.insert(QLatin1String( "name" ), achievement.name());
+    postParameters.insert(QLatin1String( "description" ), achievement.description());
+    postParameters.insert(QLatin1String( "explanation" ), achievement.explanation());
+    postParameters.insert(QLatin1String( "points" ), QString::number(achievement.points()));
+    postParameters.insert(QLatin1String( "image" ), achievement.image().toLocalFile());
+    foreach( QString dependency, achievement.dependencies() )
+        postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
+
+    postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(achievement.type()));
+    foreach( QString option, achievement.options() )
+        postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
+
+    postParameters.insert(QLatin1String( "steps" ), QString::number(achievement.steps()));
+    postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(achievement.visibility()));
+
+    return new ItemPutJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievement/content/" ) + contentId + achievementId), postParameters);
+}
+
+DeleteJob* Provider::deleteAchievement(const QString& contentId, const QString& achievementId)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
+}
+
+PostJob* Provider::setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+
+    postParameters.insert(QLatin1String( "progress" ), progress.toString());
+    postParameters.insert(QLatin1String( "timestamp" ), timestamp.toString());
+
+    return new ItemPostJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + id), postParameters);
+}
+
+DeleteJob* Provider::resetAchievementProgress(const QString& id)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + id));
+}
+
 ListJob<Activity>* Provider::requestActivities()
 {
     if (!isValid()) {
@@ -538,7 +648,7 @@ PostJob* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publis
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
 
-    QString url = QLatin1String("buildservice/publishing/publishtargetresult/") + 
+    QString url = QLatin1String("buildservice/publishing/publishtargetresult/") +
                                                                     buildjob.id() + QLatin1Char('/') + publisher.id();
     //qDebug() << "pub'ing";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
@@ -607,7 +717,7 @@ PostJob* Provider::createBuildServiceJob(const BuildServiceJob& job)
     }
 
     StringMap postParameters;
-    // A postjob won't be run without parameters. 
+    // A postjob won't be run without parameters.
     // so even while we don't need any in this case,
     // we add dummy data to the request
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
@@ -1155,6 +1265,62 @@ ListJob<Person>* Provider::requestFans(const QString& contentId, uint page, uint
     return job;
 }
 
+ListJob<Forum>* Provider::requestForums(uint page, uint pageSize)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl( QLatin1String( "forum/list" ) );
+    url.addQueryItem(QLatin1String( "page" ), QString::number(page));
+    url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
+
+    return doRequestForumList( url );
+}
+
+ListJob<Topic>* Provider::requestTopics(const QString& forum, const QString& search, const QString& description, Provider::SortMode mode, int page, int pageSize)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl( QLatin1String( "forum/topics/list" ) );
+    url.addQueryItem(QLatin1String( "forum" ), forum);
+    url.addQueryItem(QLatin1String( "search" ), search);
+    url.addQueryItem(QLatin1String( "description" ), description);
+    QString sortModeString;
+    switch (mode) {
+    case Newest:
+        sortModeString = QLatin1String( "new" );
+        break;
+    case Alphabetical:
+        sortModeString = QLatin1String( "alpha" );
+        break;
+    default:
+        break;
+    }
+    if (!sortModeString.isEmpty()) {
+        url.addQueryItem(QLatin1String( "sortmode" ), sortModeString);
+    }
+    url.addQueryItem(QLatin1String( "page" ), QString::number(page));
+    url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
+
+    return doRequestTopicList( url );
+}
+
+PostJob* Provider::postTopic(const QString& forumId, const QString& subject, const QString& content)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+    postParameters.insert(QLatin1String( "subject" ), subject);
+    postParameters.insert(QLatin1String( "content" ), content);
+    postParameters.insert(QLatin1String( "forum" ), forumId);
+    return new PostJob(d->m_internals, createRequest(QLatin1String( "forum/topic/add" )), postParameters);
+}
+
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
     if (!isValid()) {
@@ -1392,6 +1558,11 @@ ListJob<Person>* Provider::doRequestPersonList(const QUrl& url)
     return new ListJob<Person>(d->m_internals, createRequest(url));
 }
 
+ListJob<Achievement>* Provider::doRequestAchievementList(const QUrl& url)
+{
+    return new ListJob<Achievement>(d->m_internals, createRequest(url));
+}
+
 ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
     return new ListJob<Activity>(d->m_internals, createRequest(url));
@@ -1400,6 +1571,16 @@ ListJob<Activity>* Provider::doRequestActivityList(const QUrl& url)
 ListJob<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
     return new ListJob<Folder>(d->m_internals, createRequest(url));
+}
+
+ListJob<Forum>* Provider::doRequestForumList(const QUrl& url)
+{
+    return new ListJob<Forum>(d->m_internals, createRequest(url));
+}
+
+ListJob<Topic>* Provider::doRequestTopicList(const QUrl& url)
+{
+    return new ListJob<Topic>(d->m_internals, createRequest(url));
 }
 
 ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)

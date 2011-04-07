@@ -19,6 +19,8 @@ configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 set(ocsclient_SRCS
    accountbalance.cpp
    accountbalanceparser.cpp
+   achievement.cpp
+   achievementparser.cpp
    buildservice.cpp
    buildserviceparser.cpp
    buildservicejob.cpp
@@ -37,6 +39,7 @@ set(ocsclient_SRCS
    commentparser.cpp
    content.cpp
    contentparser.cpp
+   deletejob.cpp
    distribution.cpp
    distributionparser.cpp
    downloaddescription.cpp
@@ -46,6 +49,8 @@ set(ocsclient_SRCS
    eventparser.cpp
    folder.cpp
    folderparser.cpp
+   forum.cpp
+   forumparser.cpp
    getjob.cpp
    homepageentry.cpp
    homepagetype.cpp
@@ -75,7 +80,10 @@ set(ocsclient_SRCS
    publisherparser.cpp
    publisherfield.cpp
    publisherfieldparser.cpp
+   putjob.cpp
    qtplatformdependent.cpp
+   topic.cpp
+   topicparser.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})
@@ -99,6 +107,7 @@ install(TARGETS attica ARCHIVE DESTINATION ${LIB_DESTINATION}
 install(FILES
     activity.h
     accountbalance.h
+    achievement.h
     atticabasejob.h
     atticaclient_export.h
     atticautils.h
@@ -106,12 +115,14 @@ install(FILES
     commentparser.h
     content.h
     category.h
+    deletejob.h
     distribution.h
     distributionparser.h
     downloaddescription.h
     downloaditem.h
     event.h
     folder.h
+    forum.h
     getjob.h
     homepageentry.h
     homepagetype.h
@@ -129,6 +140,7 @@ install(FILES
     privatedata.h
     postjob.h
     project.h
+    putjob.h
     remoteaccount.h
     buildservice.h
     buildservicejob.h
@@ -137,6 +149,7 @@ install(FILES
     provider.h
     publisher.h
     publisherfield.h
+    topic.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     DESTINATION include/attica COMPONENT Devel
 )

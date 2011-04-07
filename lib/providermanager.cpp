@@ -218,9 +218,11 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             QString person;
             QString friendV;
             QString message;
+            QString achievement;
             QString activity;
             QString content;
             QString fan;
+            QString forum;
             QString knowledgebase;
             QString event;
             QString comment;
@@ -240,12 +242,16 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                         friendV = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "message") {
                         message = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                    } else if (xml.name() == "achievement") {
+                        achievement = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "activity") {
                         activity = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "content") {
                         content = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "fan") {
                         fan = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                    } else if (xml.name() == "forum") {
+                        forum = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "knowledgebase") {
                         knowledgebase = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == "event") {
@@ -260,7 +266,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             if (!baseUrl.isEmpty()) {
                 qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon,
-                    person, friendV, message, activity, content, fan, knowledgebase, event, comment));
+                    person, friendV, message, achievement, activity, content, fan, forum, knowledgebase, event, comment));
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }

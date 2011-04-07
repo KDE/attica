@@ -2,6 +2,7 @@
     This file is part of KDE.
 
     Copyright (c) 2008 Cornelius Schumacher <schumacher@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -31,8 +32,10 @@
 
 #include <QtCore/QUrl>
 
+#include "achievement.h"
 #include "atticaclient_export.h"
 #include "category.h"
+#include "forum.h"
 #include "itemjob.h"
 #include "listjob.h"
 #include "message.h"
@@ -101,7 +104,7 @@ class RemoteAccount;
  </services>
 </provider>
  </pre>
- * The server provides the services specified in the services section, not necessarily all of them. 
+ * The server provides the services specified in the services section, not necessarily all of them.
  */
 class ATTICA_EXPORT Provider
 {
@@ -149,17 +152,17 @@ class ATTICA_EXPORT Provider
     Version of the person part of the API
     */
     QString personServiceVersion() const;
-    
+
     /**
     Test if the server supports the friend part of the API
     */
     bool hasFriendService() const;
-    
+
     /**
     Version of the friend part of the API
     */
     QString friendServiceVersion() const;
-    
+
     /**
     Test if the server supports the message part of the API
     */
@@ -168,7 +171,16 @@ class ATTICA_EXPORT Provider
     Version of the message part of the API
     */
     QString messageServiceVersion() const;
-    
+
+    /**
+    Test if the server supports the achievement part of the API
+    */
+    bool hasAchievementService() const;
+    /**
+    Version of the achievement part of the API
+    */
+    QString achievementServiceVersion() const;
+
     /**
     Test if the server supports the activity part of the API
     */
@@ -177,7 +189,7 @@ class ATTICA_EXPORT Provider
     Version of the activity part of the API
     */
     QString activityServiceVersion() const;
-    
+
     /**
     Test if the server supports the content part of the API
     */
@@ -186,7 +198,7 @@ class ATTICA_EXPORT Provider
     Version of the content part of the API
     */
     QString contentServiceVersion() const;
-    
+
     /**
     Test if the server supports the fan part of the API
     */
@@ -195,8 +207,18 @@ class ATTICA_EXPORT Provider
     Version of the fan part of the API
     */
     QString fanServiceVersion() const;
-    
+
     /**
+    Test if the server supports the forum part of the API
+    */
+    bool hasForumService() const;
+    /**
+    Version of the forum part of the API
+    */
+    QString forumServiceVersion() const;
+
+    /**
+     *
     Test if the server supports the knowledgebase part of the API
     */
     bool hasKnowledgebaseService() const;
@@ -204,7 +226,7 @@ class ATTICA_EXPORT Provider
     Version of the knowledgebase part of the API
     */
     QString knowledgebaseServiceVersion() const;
-    
+
     /**
     Test if the server supports the comments part of the API
     */
@@ -221,7 +243,7 @@ class ATTICA_EXPORT Provider
     */
     bool hasCredentials() const;
     bool hasCredentials();
-    
+
     /**
       Load user name and password from the store.
       Attica will remember the loaded values and use them from this point on.
@@ -230,7 +252,7 @@ class ATTICA_EXPORT Provider
       @return if credentials could be loaded
     */
     bool loadCredentials(QString& user, QString& password);
-    
+
     /**
       Sets (and remembers) user name and password for this provider.
       To remove the data an empty username should be passed.
@@ -239,7 +261,7 @@ class ATTICA_EXPORT Provider
       @return if credentials could be saved
     */
     bool saveCredentials(const QString& user, const QString& password);
-    
+
     /**
       Test if the server accepts the login/password.
       This function does not actually set the credentials. Use saveCredentials for that purpose.
@@ -304,13 +326,44 @@ class ATTICA_EXPORT Provider
     ItemJob<Message>* requestMessage(const Folder& folder, const QString& id);
     PostJob* postMessage(const Message& message);
 
+    // Achievement part of OCS
+    /**
+     * Get a list of achievements
+     * @return ListJob listing Achievements
+     */
+    ListJob<Achievement>* requestAchievements(const QString& contentId, const QString& achievementId, const QString& userId);
+
+    /** Add a new achievement.
+     * @param id id of the achievement entry
+     * @param achievement The new Achievement added
+     * @return item post job for adding the new achievement
+     */
+    ItemPostJob<Achievement>* addNewAchievement(const QString& id, const Achievement& newAchievement);
+
+    /**
+     * Post modifications to an Achievement on the server
+     * @param achievement Achievement to update on the server
+     */
+    PutJob* editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement);
+
+    /**
+     * Deletes an achievement on the server. The achievement passed as an argument doesn't need complete
+     * information as just the id() is used.
+     * @param achievement Achievement to delete on the server.
+     */
+    DeleteJob* deleteAchievement(const QString& contentId, const QString& achievementId);
+
+    // PostJob* postAchievement(const Achievement& achievement);
+    PostJob* setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp);
+    DeleteJob* resetAchievementProgress(const QString& id);
+
     // Activity part of OCS
 
     ListJob<Activity>* requestActivities();
     PostJob* postActivity(const QString& message);
 
     // Project part of OCS
-    /** 
+    /**
      * Get a list of build service projects
      * @return ListJob listing Projects
      */
@@ -457,13 +510,13 @@ class ATTICA_EXPORT Provider
 
     // Content part of OCS
 
-    /** 
+    /**
      * Get a list of categories (such as wallpaper)
      * @return the categories of the server
      */
     ListJob<Category>* requestCategories();
 
-    /** 
+    /**
     * Get a list of licenses (such as GPL)
     * @return the licenses available from the server
     */
@@ -602,6 +655,11 @@ class ATTICA_EXPORT Provider
     PostJob* becomeFan(const QString& contentId);
     ListJob<Person>* requestFans(const QString& contentId, uint page = 0, uint pageSize = 10);
 
+    // Forum part of OCS
+    ListJob<Forum>* requestForums(uint page = 0, uint pageSize = 10);
+    ListJob<Topic>* requestTopics(const QString& forum, const QString& search, const QString& description, SortMode mode, int page, int pageSize);
+    PostJob* postTopic(const QString& forumId, const QString& subject, const QString& content);
+
   protected:
     QUrl createUrl(const QString& path);
     QNetworkRequest createRequest(const QUrl& url);
@@ -611,8 +669,11 @@ class ATTICA_EXPORT Provider
     ItemJob<Person>* doRequestPerson(const QUrl& url);
     ItemJob<AccountBalance>* doRequestAccountBalance(const QUrl& url);
     ListJob<Person>* doRequestPersonList(const QUrl& url);
+    ListJob<Achievement>* doRequestAchievementList(const QUrl& url);
     ListJob<Activity>* doRequestActivityList(const QUrl& url);
     ListJob<Folder>* doRequestFolderList(const QUrl& url);
+    ListJob<Forum>* doRequestForumList(const QUrl& url);
+    ListJob<Topic>* doRequestTopicList(const QUrl& url);
     ListJob<Message>* doRequestMessageList(const QUrl& url);
 
   private:
@@ -621,8 +682,8 @@ class ATTICA_EXPORT Provider
 
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon = QUrl());
     Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
-             const QString& person, const QString& friendV, const QString& message,
-             const QString& activity, const QString& content, const QString& fan,
+             const QString& person, const QString& friendV, const QString& message, const QString& achievements,
+             const QString& activity, const QString& content, const QString& fan, const QString& forum,
              const QString& knowledgebase, const QString& event, const QString& comment);
 
 friend class ProviderManager;

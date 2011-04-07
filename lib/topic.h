@@ -1,8 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2010 Intel Corporation
-    Author: Mateu Batle Sastre <mbatle@collabora.co.uk>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -21,50 +20,34 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ATTICA_COMMENT_H
-#define ATTICA_COMMENT_H
+#ifndef ATTICA_TOPIC_H
+#define ATTICA_TOPIC_H
 
 #include "atticaclient_export.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>
 
-#include <QtCore/QUrl>
-
 
 namespace Attica
 {
 
-class ATTICA_EXPORT Comment
+class ATTICA_EXPORT Topic
 {
   public:
-    typedef QList<Comment> List;
+    typedef QList<Topic> List;
     class Parser;
 
-    enum Type {
-        ContentComment,
-        ForumComment,
-        KnowledgeBaseComment,
-        EventComment
-    };
-    static QString commentTypeToString(const Comment::Type type);
-
-    Comment();
-    Comment(const Comment& other);
-    Comment& operator=(const Comment& other);
-    ~Comment();
+    Topic();
+    Topic(const Topic& other);
+    Topic& operator=(const Topic& other);
+    ~Topic();
 
     void setId(const QString &id);
     QString id() const;
 
-    void setSubject(const QString &subject);
-    QString subject() const;
-
-    void setText(const QString &text);
-    QString text() const;
-
-    void setChildCount(const int childCount);
-    int childCount() const;
+    void setForumId(const QString &forumId);
+    QString forumId() const;
 
     void setUser(const QString &user);
     QString user() const;
@@ -72,19 +55,14 @@ class ATTICA_EXPORT Comment
     void setDate(const QDateTime &date);
     QDateTime date() const;
 
-    /**
-      This is for internal usage, @see Provider::setCommentScore to set scores in comments.
-      @param score average comment score in scale from 0 to 100
-     */
-    void setScore(const int score);
-    /**
-      Returns score of this comment.
-      @param score average comment score in scale from 0 to 100
-     */
-    int score() const;
+    void setSubject(const QString &subject);
+    QString subject() const;
 
-    void setChildren(QList<Comment> comments);
-    QList<Comment> children() const;
+    void setContent(const QString &content);
+    QString content() const;
+
+    void setComments(const int comments);
+    int comments() const;
 
     bool isValid() const;
 

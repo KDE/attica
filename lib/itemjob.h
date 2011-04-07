@@ -2,6 +2,7 @@
     This file is part of KDE.
 
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -25,7 +26,9 @@
 
 #include "atticaclient_export.h"
 #include "getjob.h"
+#include "deletejob.h"
 #include "postjob.h"
+#include "putjob.h"
 
 namespace Attica {
     class Provider;
@@ -45,6 +48,20 @@ private:
 
 
 template <class T>
+class ATTICA_EXPORT ItemDeleteJob : public DeleteJob
+{
+public:
+    T result() const;
+
+private:
+    ItemDeleteJob(PlatformDependent*, const QNetworkRequest& request);
+    virtual void parse(const QString& xml);
+    T m_item;
+    friend class Attica::Provider;
+};
+
+
+template <class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
 public:
@@ -53,6 +70,22 @@ public:
 private:
     ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice * data);
     ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+
+    virtual void parse(const QString& xml);
+    T m_item;
+    friend class Attica::Provider;
+};
+
+
+template <class T>
+class ATTICA_EXPORT ItemPutJob : public PutJob
+{
+public:
+    T result() const;
+
+private:
+    ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice * data);
+    ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
 
     virtual void parse(const QString& xml);
     T m_item;

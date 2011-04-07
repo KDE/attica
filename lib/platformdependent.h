@@ -2,6 +2,7 @@
     This file is part of KDE.
 
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -46,20 +47,23 @@ public:
     virtual QList<QUrl> getDefaultProviderFiles() const = 0;
     virtual void addDefaultProviderFile(const QUrl& url) = 0;
     virtual void removeDefaultProviderFile(const QUrl& url) = 0;
-    
+
     /**
      * Providers are enabled by default. Use this call to disable or enable them later.
      */
     virtual void enableProvider(const QUrl& baseUrl, bool enabled) const = 0;
     virtual bool isEnabled(const QUrl& baseUrl) const  = 0;
-    
+
     virtual bool hasCredentials(const QUrl& baseUrl) const = 0;
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) = 0;
     virtual QNetworkReply* get(const QNetworkRequest& request) = 0;
+    virtual QNetworkReply* deleteResource(const QNetworkRequest& request) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data) = 0;
+    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data) = 0;
+    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data) = 0;
     virtual QNetworkAccessManager* nam() = 0;
 };
 
