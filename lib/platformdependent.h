@@ -59,12 +59,12 @@ public:
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password) = 0;
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password) = 0;
     virtual QNetworkReply* get(const QNetworkRequest& request) = 0;
-    // virtual QNetworkReply* deleteResource(const QNetworkRequest& request) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data) = 0;
-    // virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data) = 0;
-    // virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data) = 0;
     virtual QNetworkAccessManager* nam() = 0;
+    virtual QNetworkReply* deleteResource(const QNetworkRequest& request) { return 0; }
+    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data) { return 0; }
+    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data) { return 0; }
 };
 
 }

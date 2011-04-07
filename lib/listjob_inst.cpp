@@ -130,9 +130,9 @@ template class ItemPostJob<Content>;
 template class ItemPostJob<Comment>;
 template class ItemPostJob<Forum>;
 
-// template class ItemPutJob<Achievement>;
+template class ItemPutJob<Achievement>;
 
-// template class ItemDeleteJob<Achievement>;
+template class ItemDeleteJob<Achievement>;
 
 template class Parser<AccountBalance>;
 template class Parser<Achievement>;

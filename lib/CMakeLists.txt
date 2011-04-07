@@ -39,6 +39,7 @@ set(ocsclient_SRCS
    commentparser.cpp
    content.cpp
    contentparser.cpp
+   deletejob.cpp
    distribution.cpp
    distributionparser.cpp
    downloaddescription.cpp
@@ -71,6 +72,7 @@ set(ocsclient_SRCS
    postjob.cpp
    project.cpp
    projectparser.cpp
+   putjob.cpp
    remoteaccount.cpp
    remoteaccountparser.cpp
    provider.cpp
@@ -113,6 +115,7 @@ install(FILES
     commentparser.h
     content.h
     category.h
+    deletejob.h
     distribution.h
     distributionparser.h
     downloaddescription.h
@@ -137,6 +140,7 @@ install(FILES
     privatedata.h
     postjob.h
     project.h
+    putjob.h
     remoteaccount.h
     buildservice.h
     buildservicejob.h

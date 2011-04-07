@@ -44,15 +44,15 @@ public:
 
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
-    // virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data);
-    // virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data);
     virtual QNetworkReply* get(const QNetworkRequest& request);
-    // virtual QNetworkReply* deleteResource(const QNetworkRequest& request);
     virtual bool hasCredentials(const QUrl& baseUrl) const;
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password);
     virtual QNetworkAccessManager* nam();
+    virtual QNetworkReply* deleteResource(const QNetworkRequest& request);
+    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data);
+    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data);
 
 private:
     QNetworkAccessManager m_qnam;
