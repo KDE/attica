@@ -66,25 +66,25 @@ QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, QIODevi
     return m_qnam.post(request, data);
 }
 
-QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, const QByteArray& data)
-{
-    return m_qnam.put(request, data);
-}
+// QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, const QByteArray& data)
+// {
+    // return m_qnam.put(request, data);
+// }
 
-QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, QIODevice* data)
-{
-    return m_qnam.put(request, data);
-}
+// QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, QIODevice* data)
+// {
+    // return m_qnam.put(request, data);
+// }
 
 QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 {
     return m_qnam.get(request);
 }
 
-QNetworkReply* QtPlatformDependent::deleteResource(const QNetworkRequest& request)
-{
-    return m_qnam.deleteResource(request);
-}
+// QNetworkReply* QtPlatformDependent::deleteResource(const QNetworkRequest& request)
+// {
+    // return m_qnam.deleteResource(request);
+// }
 
 bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl) const
 {

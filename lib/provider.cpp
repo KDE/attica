@@ -441,41 +441,41 @@ ItemPostJob<Achievement>* Provider::addNewAchievement(const QString& contentId, 
     return new ItemPostJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/content/" ) + contentId ), postParameters);
 }
 
-PutJob* Provider::editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement)
-{
-    if (!isValid()) {
-        return 0;
-    }
+// PutJob* Provider::editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement)
+// {
+    // if (!isValid()) {
+        // return 0;
+    // }
 
-    StringMap postParameters;
-    int i = 0, j = 0;
+    // StringMap postParameters;
+    // int i = 0, j = 0;
 
-    postParameters.insert(QLatin1String( "name" ), achievement.name());
-    postParameters.insert(QLatin1String( "description" ), achievement.description());
-    postParameters.insert(QLatin1String( "explanation" ), achievement.explanation());
-    postParameters.insert(QLatin1String( "points" ), QString::number(achievement.points()));
-    postParameters.insert(QLatin1String( "image" ), achievement.image().toLocalFile());
-    foreach( QString dependency, achievement.dependencies() )
-        postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
+    // postParameters.insert(QLatin1String( "name" ), achievement.name());
+    // postParameters.insert(QLatin1String( "description" ), achievement.description());
+    // postParameters.insert(QLatin1String( "explanation" ), achievement.explanation());
+    // postParameters.insert(QLatin1String( "points" ), QString::number(achievement.points()));
+    // postParameters.insert(QLatin1String( "image" ), achievement.image().toLocalFile());
+    // foreach( QString dependency, achievement.dependencies() )
+        // postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
 
-    postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(achievement.type()));
-    foreach( QString option, achievement.options() )
-        postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
+    // postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(achievement.type()));
+    // foreach( QString option, achievement.options() )
+        // postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
 
-    postParameters.insert(QLatin1String( "steps" ), QString::number(achievement.steps()));
-    postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(achievement.visibility()));
+    // postParameters.insert(QLatin1String( "steps" ), QString::number(achievement.steps()));
+    // postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(achievement.visibility()));
 
-    return new ItemPutJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievement/content/" ) + contentId + achievementId), postParameters);
-}
+    // return new ItemPutJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievement/content/" ) + contentId + achievementId), postParameters);
+// }
 
-DeleteJob* Provider::deleteAchievement(const QString& contentId, const QString& achievementId)
-{
-    if (!isValid()) {
-        return 0;
-    }
+// DeleteJob* Provider::deleteAchievement(const QString& contentId, const QString& achievementId)
+// {
+    // if (!isValid()) {
+        // return 0;
+    // }
 
-    return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
-}
+    // return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
+// }
 
 PostJob* Provider::setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp)
 {
@@ -491,14 +491,14 @@ PostJob* Provider::setAchievementProgress(const QString& id, const QVariant& pro
     return new ItemPostJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + id), postParameters);
 }
 
-DeleteJob* Provider::resetAchievementProgress(const QString& id)
-{
-    if (!isValid()) {
-        return 0;
-    }
+// DeleteJob* Provider::resetAchievementProgress(const QString& id)
+// {
+    // if (!isValid()) {
+        // return 0;
+    // }
 
-    return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + id));
-}
+    // return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + id));
+// }
 
 ListJob<Activity>* Provider::requestActivities()
 {

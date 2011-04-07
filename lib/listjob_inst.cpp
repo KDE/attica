@@ -96,6 +96,7 @@ template class ListJob<KnowledgeBaseEntry>;
 template class ListJob<License>;
 template class ListJob<Message>;
 template class ListJob<Person>;
+template class ListJob<Topic>;
 template class ItemJob<Project>;
 template class ItemJob<Publisher>;
 template class ItemJob<RemoteAccount>;
@@ -128,6 +129,10 @@ template class ItemPostJob<Achievement>;
 template class ItemPostJob<Content>;
 template class ItemPostJob<Comment>;
 template class ItemPostJob<Forum>;
+
+// template class ItemPutJob<Achievement>;
+
+// template class ItemDeleteJob<Achievement>;
 
 template class Parser<AccountBalance>;
 template class Parser<Achievement>;

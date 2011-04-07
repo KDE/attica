@@ -134,6 +134,6 @@ int Topic::comments() const
 
 bool Topic::isValid() const
 {
-    return true; //for lack of something smarter
+    return !(d->m_id.isEmpty());
 }
 

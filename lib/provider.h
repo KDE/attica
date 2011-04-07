@@ -344,18 +344,18 @@ class ATTICA_EXPORT Provider
      * Post modifications to an Achievement on the server
      * @param achievement Achievement to update on the server
      */
-    PutJob* editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement);
+    // PutJob* editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement);
 
     /**
      * Deletes an achievement on the server. The achievement passed as an argument doesn't need complete
      * information as just the id() is used.
      * @param achievement Achievement to delete on the server.
      */
-    DeleteJob* deleteAchievement(const QString& contentId, const QString& achievementId);
+    // DeleteJob* deleteAchievement(const QString& contentId, const QString& achievementId);
 
     // PostJob* postAchievement(const Achievement& achievement);
     PostJob* setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp);
-    DeleteJob* resetAchievementProgress(const QString& id);
+    // DeleteJob* resetAchievementProgress(const QString& id);
 
     // Activity part of OCS
 
