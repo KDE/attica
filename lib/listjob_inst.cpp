@@ -148,6 +148,7 @@ template class Parser<Distribution>;
 template class Parser<DownloadItem>;
 template class Parser<Event>;
 template class Parser<Folder>;
+template class Parser<Forum>;
 template class Parser<HomePageType>;
 template class Parser<KnowledgeBaseEntry>;
 template class Parser<License>;
@@ -157,4 +158,5 @@ template class Parser<Project>;
 template class Parser<Publisher>;
 template class Parser<PublisherField>;
 template class Parser<RemoteAccount>;
+template class Parser<Topic>;
 
