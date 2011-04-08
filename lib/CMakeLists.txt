@@ -68,6 +68,7 @@ set(ocsclient_SRCS
    parser.cpp
    person.cpp
    personparser.cpp
+   platformdependent_v2.cpp
    postfiledata.cpp
    postjob.cpp
    project.cpp
@@ -137,6 +138,7 @@ install(FILES
     person.h
     #interface for external platform plugins
     platformdependent.h
+    platformdependent_v2.h
     privatedata.h
     postjob.h
     project.h

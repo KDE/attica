@@ -28,7 +28,7 @@
 
 #include <QtNetwork/QNetworkAccessManager>
 
-#include "platformdependent.h"
+#include "platformdependent_v2.h"
 
 
 using namespace Attica;
@@ -61,10 +61,14 @@ PutJob::PutJob(PlatformDependent* internals, const QNetworkRequest& request, con
 
 QNetworkReply* PutJob::executeRequest()
 {
+    Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2*>(internals());
+    if (!platformDependentV2)
+        return 0;
+
     if (m_ioDevice) {
-        return internals()->put(m_request, m_ioDevice);
+        return platformDependentV2->put(m_request, m_ioDevice);
     } else {
-        return internals()->put(m_request, m_byteArray);
+        return platformDependentV2->put(m_request, m_byteArray);
     }
 }
 

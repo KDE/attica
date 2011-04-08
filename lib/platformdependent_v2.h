@@ -21,30 +21,37 @@
 
 */
 
-#include "deletejob.h"
+#ifndef ATTICA_PLATFORMDEPENDENT_V2_H
+#define ATTICA_PLATFORMDEPENDENT_V2_H
 
-#include <QtNetwork/QNetworkAccessManager>
+#include <QtCore/QList>
+#include <QtCore/QtPlugin>
 
-#include "platformdependent_v2.h"
+#include <platformdependent.h>
 
+class QByteArray;
+class QIODevice;
+class QNetworkAccessManager;
+class QNetworkReply;
+class QNetworkRequest;
+class QString;
+class QUrl;
+class QStringList;
 
-using namespace Attica;
+namespace Attica {
 
-
-DeleteJob::DeleteJob(PlatformDependent* internals, const QNetworkRequest& request)
-    : BaseJob(internals), m_request(request)
+class PlatformDependentV2: public PlatformDependent
 {
+public:
+    virtual ~PlatformDependentV2();
+    virtual QNetworkReply* deleteResource(const QNetworkRequest& request) = 0;
+    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data) = 0;
+    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data) = 0;
+};
+
 }
 
-
-QNetworkReply* DeleteJob::executeRequest()
-{
-    Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2*>(internals());
-    if (!platformDependentV2)
-        return 0;
-
-    return platformDependentV2->deleteResource(m_request);
-}
+Q_DECLARE_INTERFACE(Attica::PlatformDependentV2, "org.kde.Attica.InternalsV2/1.2")
 
 
-#include "deletejob.moc"
+#endif

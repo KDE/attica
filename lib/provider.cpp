@@ -65,7 +65,7 @@
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
-#include "platformdependent.h"
+#include "platformdependent_v2.h"
 #include "postjob.h"
 #include "postfiledata.h"
 #include "project.h"
@@ -447,6 +447,10 @@ PutJob* Provider::editAchievement(const QString& contentId, const QString& achie
         return 0;
     }
 
+    if (!dynamic_cast<Attica::PlatformDependentV2*>(d->m_internals)) {
+        return 0;
+    }
+
     StringMap postParameters;
     int i = 0, j = 0;
 
@@ -474,6 +478,10 @@ DeleteJob* Provider::deleteAchievement(const QString& contentId, const QString& 
         return 0;
     }
 
+    if (!dynamic_cast<Attica::PlatformDependentV2*>(d->m_internals)) {
+        return 0;
+    }
+
     return new ItemDeleteJob<Achievement>(d->m_internals, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
 }
 
@@ -494,6 +502,10 @@ PostJob* Provider::setAchievementProgress(const QString& id, const QVariant& pro
 DeleteJob* Provider::resetAchievementProgress(const QString& id)
 {
     if (!isValid()) {
+        return 0;
+    }
+
+    if (!dynamic_cast<Attica::PlatformDependentV2*>(d->m_internals)) {
         return 0;
     }
 
