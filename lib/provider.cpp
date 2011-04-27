@@ -118,7 +118,7 @@ public:
 
     Private(const Private& other)
         : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
-        , m_internals(other.m_internals), m_credentialsUserName(other.m_credentialsUserName)
+        , m_credentialsUserName(other.m_credentialsUserName)
         , m_credentialsPassword(other.m_credentialsPassword)
         , m_personVersion(other.m_personVersion)
         , m_friendVersion(other.m_friendVersion)
@@ -131,6 +131,7 @@ public:
         , m_knowledgebaseVersion(other.m_knowledgebaseVersion)
         , m_eventVersion(other.m_eventVersion)
         , m_commentVersion(other.m_commentVersion)
+        , m_internals(other.m_internals)
     {
     }
 
@@ -138,7 +139,7 @@ Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, 
         const QString& person, const QString& friendV, const QString& message, const QString& achievement,
         const QString& activity, const QString& content, const QString& fan, const QString& forum,
         const QString& knowledgebase, const QString& event, const QString& comment)
-        : m_baseUrl(baseUrl), m_icon(icon), m_name(name), m_internals(internals)
+        : m_baseUrl(baseUrl), m_icon(icon), m_name(name)
         , m_personVersion(person)
         , m_friendVersion(friendV)
         , m_messageVersion(message)
@@ -150,6 +151,7 @@ Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, 
         , m_knowledgebaseVersion(knowledgebase)
         , m_eventVersion(event)
         , m_commentVersion(comment)
+        , m_internals(internals)
     {
         if (m_baseUrl.isEmpty()) {
             return;

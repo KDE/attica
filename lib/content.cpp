@@ -43,8 +43,8 @@ class Content::Private : public QSharedData {
 
         Private()
             : m_downloads(0),
-              m_rating(0),
-              m_numberOfComments(0)
+              m_numberOfComments(0), 
+              m_rating(0)
         {
         }
 };
