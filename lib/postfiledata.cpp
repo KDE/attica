@@ -1,6 +1,6 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 1999 Matthias Kalle Dalheimer <kalle@kde.org>
     Copyright (c) 2000 Charles Samuels <charles@kde.org>
     Copyright (c) 2005 Joseph Wenninger <kde@jowenn.at>
@@ -37,7 +37,7 @@ class PostFileDataPrivate {
         QByteArray boundary;
         QUrl url;
         bool finished;
-        
+
         PostFileDataPrivate()
             :finished(false)
         {
@@ -73,7 +73,7 @@ QString PostFileData::randomString(int length)
    }
    return str;
 }
-   
+
 void PostFileData::addArgument(const QString& key, const QString& value)
 {
     if (d->finished) {
@@ -83,7 +83,7 @@ void PostFileData::addArgument(const QString& key, const QString& value)
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"" + key.toAscii() +
         "\"\r\n\r\n" + value.toUtf8() + "\r\n");
-    
+
     d->buffer.append(data);
 }
 
@@ -103,7 +103,7 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
     if (d->finished) {
         qDebug() << "PostFileData::addFile: should not add data after calling request() or data()";
     }
-    
+
     QByteArray data(
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"");
@@ -122,7 +122,7 @@ QNetworkRequest PostFileData::request()
     }
     QNetworkRequest request;
     request.setUrl(d->url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "multipart/form-data; boundary=" + d->boundary);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QByteArray("multipart/form-data; boundary=" + d->boundary));
     request.setHeader(QNetworkRequest::ContentLengthHeader, d->buffer.length());
     return request;
 }
