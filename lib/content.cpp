@@ -231,10 +231,10 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     desc.setPriceReason(attribute(QLatin1String( "downloadreason" ) + num));
     desc.setPriceAmount(attribute(QLatin1String( "downloadprice" ) + num));
     desc.setSize(attribute(QLatin1String( "downloadsize" ) + num).toUInt());
-    desc.setGpgFingerprint(attribute(QLatin1String( "downloadgpgfingerprint" )) + num);
-    desc.setGpgSignature(attribute(QLatin1String( "downloadgpgsignature" )) + num);
-    desc.setPackageName(attribute(QLatin1String( "downloadpackagename" )) + num);
-    desc.setRepository(attribute(QLatin1String( "downloadrepository" )) + num);
+    desc.setGpgFingerprint(attribute(QLatin1String( "downloadgpgfingerprint" ) + num));
+    desc.setGpgSignature(attribute(QLatin1String( "downloadgpgsignature" ) + num));
+    desc.setPackageName(attribute(QLatin1String( "downloadpackagename" ) + num));
+    desc.setRepository(attribute(QLatin1String( "downloadrepository" ) + num));
     return desc;
 }
 
