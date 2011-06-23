@@ -1623,6 +1623,10 @@ QString Provider::fanServiceVersion() const
 {
     return d->m_fanVersion;
 }
+QString Provider::forumServiceVersion() const
+{
+    return d->m_forumVersion;
+}
 QString Provider::friendServiceVersion() const
 {
     return d->m_friendVersion;
@@ -1660,6 +1664,10 @@ bool Provider::hasContentService() const
 bool Provider::hasFanService() const
 {
     return !d->m_fanVersion.isEmpty();
+}
+bool Provider::hasForumService() const
+{
+    return !d->m_forumVersion.isEmpty();
 }
 bool Provider::hasFriendService() const
 {
