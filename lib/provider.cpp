@@ -1602,6 +1602,11 @@ ListJob<Message>* Provider::doRequestMessageList(const QUrl& url)
     return new ListJob<Message>(d->m_internals, createRequest(url));
 }
 
+QString Provider::achievementServiceVersion() const
+{
+    return d->m_achievementVersion;
+}
+
 QString Provider::activityServiceVersion() const
 {
     return d->m_activityVersion;
@@ -1633,6 +1638,11 @@ QString Provider::messageServiceVersion() const
 QString Provider::personServiceVersion() const
 {
     return d->m_personVersion;
+}
+
+bool Provider::hasAchievementService() const
+{
+    return !d->m_achievementVersion.isEmpty();
 }
 
 bool Provider::hasActivityService() const
