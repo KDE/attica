@@ -11,6 +11,8 @@ add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
+# Enable static build
+option(ATTICA_STATIC_BUILD "Build a static library" 0)
 
 # Enable unit testing
 option(ATTICA_ENABLE_TESTS "Enable tests")

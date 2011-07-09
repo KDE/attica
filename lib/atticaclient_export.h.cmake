@@ -24,8 +24,13 @@
 
 #include <QtCore/QtGlobal>
 
+#define STATIC_BUILD ${ATTICA_STATIC_BUILD}
+
 #ifndef ATTICA_EXPORT
-# if defined(ATTICA_LIB_MAKEDLL)
+# if ${ATTICA_STATIC_BUILD}
+   /* No export/import for static libraries */
+#  define ATTICA_EXPORT
+# elif defined(ATTICA_LIB_MAKEDLL)
    /* We are building this library */
 #  define ATTICA_EXPORT Q_DECL_EXPORT
 # else

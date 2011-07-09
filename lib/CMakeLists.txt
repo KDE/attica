@@ -15,6 +15,7 @@ if (MINGW)
 endif (MINGW)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h)
 
 set(ocsclient_SRCS
    accountbalance.cpp
@@ -89,15 +90,21 @@ set(ocsclient_SRCS
 
 qt4_automoc(${ocsclient_SRCS})
 
-add_library(attica SHARED ${ocsclient_SRCS})
-
-set_target_properties(attica PROPERTIES
-    VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
-    SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}
-    LINK_INTERFACE_LIBRARIES ""
-    DEFINE_SYMBOL ATTICA_LIB_MAKEDLL
-)
-
+if (ATTICA_STATIC_BUILD)
+    add_library(attica STATIC ${ocsclient_SRCS})
+    set_target_properties(attica PROPERTIES
+        VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
+        SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}
+    )
+else (ATTICA_STATIC_BUILD)
+    add_library(attica SHARED ${ocsclient_SRCS})
+    set_target_properties(attica PROPERTIES
+        VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
+        SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}
+        LINK_INTERFACE_LIBRARIES ""
+        DEFINE_SYMBOL ATTICA_LIB_MAKEDLL
+    )
+endif(ATTICA_STATIC_BUILD)
 target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 
 
@@ -110,7 +117,7 @@ install(FILES
     accountbalance.h
     achievement.h
     atticabasejob.h
-    atticaclient_export.h
+    ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     atticautils.h
     comment.h
     commentparser.h
