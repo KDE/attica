@@ -1,6 +1,7 @@
 /*
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
+    Copyright (c) 2011 Tudorica Constantin-Alexandru <tudalex@gmail.com>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -24,10 +25,10 @@
 
 #include <QtCore/QtGlobal>
 
-#define STATIC_BUILD ${ATTICA_STATIC_BUILD}
+#cmakedefine01 ATTICA_STATIC_BUILD
 
 #ifndef ATTICA_EXPORT
-# if ${ATTICA_STATIC_BUILD}
+# if ATTICA_STATIC_BUILD
    /* No export/import for static libraries */
 #  define ATTICA_EXPORT
 # elif defined(ATTICA_LIB_MAKEDLL)
