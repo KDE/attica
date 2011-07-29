@@ -36,8 +36,8 @@ ProjectTest::ProjectTest() : QMainWindow(),
     connect(m_editor->build, SIGNAL(clicked()), this, SLOT(createBuildServiceJob()));
     connect(m_editor->cancelJob, SIGNAL(clicked()), this, SLOT(cancelBuildServiceJob()));
     connect(m_editor->updateJob, SIGNAL(clicked()), this, SLOT(updateCurrentProject()));
-    connect(m_editor->buildServices, SIGNAL(currentItemChanged( QListWidgetItem*, QListWidgetItem*)),
-            this, SLOT(selectedBuildServiceChanged( QListWidgetItem*, QListWidgetItem*)));
+    connect(m_editor->buildServices, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
+            this, SLOT(selectedBuildServiceChanged(QListWidgetItem*,QListWidgetItem*)));
 
     QAction* a = new QAction(this);
     a->setText( "Quit" );
@@ -53,7 +53,7 @@ ProjectTest::~ProjectTest()
 void ProjectTest::initOcs()
 {
     m_pm.setAuthenticationSuppressed(true);
-    connect(&m_pm, SIGNAL(providerAdded(const Attica::Provider&)), SLOT(providerAdded(const Attica::Provider&)));
+    connect(&m_pm, SIGNAL(providerAdded(Attica::Provider)), SLOT(providerAdded(Attica::Provider)));
     m_pm.loadDefaultProviders();
     m_mainWidget->setEnabled(false);
     setStatus("Loading providers...");
