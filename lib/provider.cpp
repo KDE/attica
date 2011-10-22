@@ -1176,8 +1176,9 @@ PostJob* Provider::setDownloadFile(const QString& contentId, const QString& file
 
     QUrl url = createUrl(QLatin1String( "content/uploaddownload/" ) + contentId);
     PostFileData postRequest(url);
+    postRequest.addArgument(QLatin1String( "contentid" ), contentId);
     // FIXME mime type
-    postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ), QLatin1String("source"));
+    postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ));
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
