@@ -1,3 +1,9 @@
+0.2.9
+ - Fix upload errors resulting from content-id not being set.
+ - Add Forum, Achievement, services and related dependencies.
+ - Make it build against Qt 4.8.
+ - Add static build option.
+
 0.2.0
  - Update voting function (add overload) to take uint 0..100 according to ocs 1.6 spec
  - Add comments interface to request comments, add new comments and vote for comments
