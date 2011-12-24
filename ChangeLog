@@ -1,3 +1,6 @@
+0.3.0
+ - Bump soname from .0 to .0.3 since we have a BIC change.
+
 0.2.9
  - Fix upload errors resulting from content-id not being set.
  - Add Forum, Achievement, services and related dependencies.
