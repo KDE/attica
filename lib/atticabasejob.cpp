@@ -104,7 +104,7 @@ void BaseJob::dataFinished()
 
     if (!error) {
         QByteArray data = d->m_reply->readAll();
-        qDebug() << "XML Returned:\n" << data;
+        //qDebug() << "XML Returned:\n" << data;
         parse(QString::fromUtf8(data.constData()));
         if (d->m_metadata.statusCode() == 100) {
             d->m_metadata.setError(Metadata::NoError);
