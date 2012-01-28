@@ -33,7 +33,11 @@
 #include <QtCore/QProcess>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkReply>
+#if QT_VERSION >= 0x050000
+#include <QtCore/QXmlStreamReader>
+#else
 #include <QtXml/QXmlStreamReader>
+#endif // QT_VERSION
 
 #include "platformdependent.h"
 #include "qtplatformdependent.h"

@@ -25,8 +25,12 @@
 #define ATTICA_PARSER_H
 
 #include <QtCore/QStringList>
+#if QT_VERSION >= 0x050000
+#include <QtCore/QXmlStreamReader>
+#else
 // WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
 #include <QtXml/QXmlStreamReader>
+#endif // QT_VERSION
 
 #include "listjob.h"
 
