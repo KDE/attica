@@ -23,6 +23,7 @@
 */
 
 #include "itemjob.h"
+#include "parserfactory.h"
 
 using namespace Attica;
 
@@ -35,9 +36,10 @@ ItemJob<T>::ItemJob(PlatformDependent* internals, const QNetworkRequest& request
 template <class T>
 void ItemJob<T>::parse(const QString& xml)
 {
-    typename T::Parser p;
-    m_item = p.parse(xml);
-    setMetadata(p.metadata());
+    typename T::Parser* p = ParserFactory::self()->getParser<T>();
+    m_item = p->parse(xml);
+    setMetadata(p->metadata());
+    delete p;
 }
 
 template <class T>
