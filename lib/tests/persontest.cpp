@@ -63,4 +63,4 @@ void PersonTest::testParsing()
 
 QTEST_MAIN(PersonTest);
 
-#include "moc_persontest.cxx"
+#include "persontest.moc"
