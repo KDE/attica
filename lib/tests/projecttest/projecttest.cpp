@@ -40,9 +40,9 @@ ProjectTest::ProjectTest() : QMainWindow(),
             this, SLOT(selectedBuildServiceChanged(QListWidgetItem*,QListWidgetItem*)));
 
     QAction* a = new QAction(this);
-    a->setText( "Quit" );
+    a->setText( QLatin1String("Quit") );
     connect(a, SIGNAL(triggered()), SLOT(close()) );
-    menuBar()->addMenu( "File" )->addAction( a );
+    menuBar()->addMenu( QLatin1String("File") )->addAction( a );
 
     initOcs();
 }
@@ -56,18 +56,18 @@ void ProjectTest::initOcs()
     connect(&m_pm, SIGNAL(providerAdded(Attica::Provider)), SLOT(providerAdded(Attica::Provider)));
     m_pm.loadDefaultProviders();
     m_mainWidget->setEnabled(false);
-    setStatus("Loading providers...");
+    setStatus(QLatin1String("Loading providers..."));
     //connect(m_serviceUpdates.data(), SIGNAL(mapped(QString)), SLOT(serviceUpdates(QString)));
 }
 
 void ProjectTest::providerAdded(const Attica::Provider& provider)
 {
     qDebug() << "providerAdded" << provider.baseUrl();
-    setStatus("Provider found:" + provider.baseUrl().toString());
+    setStatus(QLatin1String("Provider found:") + provider.baseUrl().toString());
     m_mainWidget->setEnabled(true);
 
     if (provider.isValid()) {
-        QString _id = "1";
+        QString _id = QLatin1String("1");
         m_provider = provider;
 
         getProject(_id);
@@ -87,7 +87,7 @@ void ProjectTest::getProject(QString id)
     ItemJob<Project>* job = m_provider.requestProject(id);
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectResult(Attica::BaseJob*)));
     job->start();
-    setStatus(QString("Loading project %").arg(id));
+    setStatus(QString(QLatin1String("Loading project %")).arg(id));
     m_mainWidget->setEnabled(false);
 
 }
@@ -122,15 +122,15 @@ void ProjectTest::projectResult(Attica::BaseJob* j)
     if (j->metadata().error() == Metadata::NoError) {
         Attica::ItemJob<Project> *itemJob = static_cast<Attica::ItemJob<Project> *>( j );
         Attica::Project p = itemJob->result();
-        output.append("Project loaded.");
+        output.append(QLatin1String("Project loaded."));
 
         projectToUi(p);
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     setStatus(output);
 }
@@ -142,7 +142,7 @@ void ProjectTest::projectToUi(const Project& p)
     m_editor->description->setText(p.description());
     m_editor->url->setText(p.url());
     m_editor->summary->setText(p.summary());
-    m_editor->developers->setText(p.developers().join(", "));
+    m_editor->developers->setText(p.developers().join(QLatin1String(", ")));
     m_editor->license->setText(p.license());
     m_editor->version->setText(p.version());
     m_editor->requirements->setText(p.requirements());
@@ -160,7 +160,7 @@ Project ProjectTest::uiToProject()
     project.setVersion(m_editor->version->text());
     project.setLicense(m_editor->license->text());
     project.setUrl(m_editor->url->text());
-    QStringList _d = m_editor->developers->text().split(',');
+    QStringList _d = m_editor->developers->text().split(QLatin1Char(','));
     QStringList devs;
     foreach (QString dev, _d) {
         devs << dev.trimmed();
@@ -208,13 +208,13 @@ void ProjectTest::createProjectResult(Attica::BaseJob* j)
         Attica::PostJob* postjob = static_cast<Attica::PostJob*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
-        output.append(QString("Project [%1] successfully created:").arg(m_currentProjectId));
+        output.append(QString(QLatin1String("Project [%1] successfully created:")).arg(m_currentProjectId));
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     setStatus(output);
 }
@@ -229,13 +229,13 @@ void ProjectTest::saveProjectResult(Attica::BaseJob* j)
         Attica::PostJob* postjob = static_cast<Attica::PostJob*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
-        output.append(QString("Project [%1] successfully saved.").arg(m_currentProjectId));
+        output.append(QString(QLatin1String("Project [%1] successfully saved.")).arg(m_currentProjectId));
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     setStatus(output);
 }
@@ -248,13 +248,13 @@ void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
 
     if (j->metadata().error() == Metadata::NoError) {
         qDebug() << "Yay, no errors ... deleted project.";
-        output.append(QString("Project [%1] successfully deleted").arg(m_currentProjectId));
+        output.append(QString(QLatin1String("Project [%1] successfully deleted")).arg(m_currentProjectId));
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     setStatus(output);
     m_currentProjectId = QString();
@@ -264,7 +264,7 @@ void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
 void ProjectTest::projectListResult(Attica::BaseJob* j)
 {
     qDebug() << "Project list job returned";
-    QString output = "<b>Projects:</b>";
+    QString output = QLatin1String("<b>Projects:</b>");
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
@@ -275,20 +275,20 @@ void ProjectTest::projectListResult(Attica::BaseJob* j)
         foreach (const Project& p, listJob->itemList()) {
             m_projects[p.id()] = p;
             qDebug() << "New project:" << p.id() << p.name();
-            output.append(QString("<br />%1 (%2)").arg(p.name(), p.id()));
+            output.append(QString(QLatin1String("<br />%1 (%2)")).arg(p.name(), p.id()));
             projectIds << p.id();
             m_editor->projects->insertItem(0, p.name(), p.id());
             // TODO: start project jobs here
         }
         if (!listJob->itemList().count()) {
-            output.append("No Projects found.");
+            output.append(QLatin1String("No Projects found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
     setStatus(output);
@@ -297,7 +297,7 @@ void ProjectTest::projectListResult(Attica::BaseJob* j)
 void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
 {
     qDebug() << "BuildService list job returned";
-    QString output = "<b>BuildServices:</b>";
+    QString output = QLatin1String("<b>BuildServices:</b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
@@ -307,7 +307,7 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
         foreach (const BuildService& bs, listJob->itemList()) {
             m_buildServices[bs.id()] = bs;
             qDebug() << "New OBS:" << bs.id() << bs.name() << bs.url();
-            output.append(QString("<br />%1 (%2) at %3").arg(bs.name(), bs.id(), bs.url()));
+            output.append(QString(QLatin1String("<br />%1 (%2) at %3")).arg(bs.name(), bs.id(), bs.url()));
             QListWidgetItem* new_bs = new QListWidgetItem(bs.name(), m_editor->buildServices);
             new_bs->setData(Qt::UserRole, QVariant(bs.id()));
 
@@ -317,14 +317,14 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
 
         }
         if (!listJob->itemList().count()) {
-            output.append("No OBS'en found.");
+            output.append(QLatin1String("No OBS'en found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
     //setBuildStatus(output);
@@ -333,7 +333,7 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
 void ProjectTest::buildServiceJobListResult(Attica::BaseJob* j)
 {
     qDebug() << "BuildServiceJobList list job returned";
-    QString output = "<b>BuildServiceJobs: </b>";
+    QString output = QLatin1String("<b>BuildServiceJobs: </b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
@@ -343,19 +343,19 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob* j)
         foreach (const BuildServiceJob& bsj, listJob->itemList()) {
             m_buildServiceJobs[bsj.id()] = bsj;
             qDebug() << "New BuildServiceJob:" << bsj.id() << bsj.name() << bsj.target();
-            output.append(QString("<br />%1 (%2) for %3").arg(bsj.name(), bsj.id(), bsj.target()));
+            output.append(QString(QLatin1String("<br />%1 (%2) for %3")).arg(bsj.name(), bsj.id(), bsj.target()));
             QListWidgetItem* new_bsj = new QListWidgetItem(bsj.name(), m_editor->buildServiceJobs);
             new_bsj->setData(Qt::UserRole, QVariant(bsj.id()));
         }
         if (!listJob->itemList().count()) {
-            output.append("No jobs found.");
+            output.append(QLatin1String("No jobs found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
     //setBuildStatus(output);
@@ -392,7 +392,7 @@ void ProjectTest::createBuildServiceJob()
     Attica::PostJob* j = m_provider.createBuildServiceJob(b);
     connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCreated(Attica::BaseJob*)));
     j->start();
-    setStatus("Starting a build job on the server.");
+    setStatus(QLatin1String("Starting a build job on the server."));
 }
 
 void ProjectTest::cancelBuildServiceJob()
@@ -414,11 +414,11 @@ void ProjectTest::buildServiceJobCanceled(Attica::BaseJob* j)
         qDebug() << "job canceled.";
         // TODO: refresh jobs
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
     updateCurrentProject();
@@ -434,11 +434,11 @@ void ProjectTest::buildServiceJobCreated(Attica::BaseJob* j)
         qDebug() << "job created. I think.";
         // TODO: refresh jobs
     } else if (j->metadata().error() == Metadata::OcsError) {
-        output.append(QString("OCS Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message()));
     } else if (j->metadata().error() == Metadata::NetworkError) {
-        output.append(QString("Network Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Network Error: %1")).arg(j->metadata().message()));
     } else {
-        output.append(QString("Unknown Error: %1").arg(j->metadata().message()));
+        output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << "New BuildServiceJob created with ID:" << j->metadata().resultingId();
     qDebug() << output;
