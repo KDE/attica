@@ -23,8 +23,7 @@
 
 #include <QtTest>
 #include <QtCore>
-#include "attica/person.h"
-#include "../personparser.h"
+#include <personparser.h>
 
 using namespace Attica;
 
