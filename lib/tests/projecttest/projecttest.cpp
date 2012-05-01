@@ -257,7 +257,7 @@ void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
         output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     setStatus(output);
-    m_currentProjectId = QString();
+    m_currentProjectId.clear();
     projectToUi(Project());
 }
 
