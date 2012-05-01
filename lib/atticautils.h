@@ -24,8 +24,8 @@
 #ifndef ATTICAUTILS_H
 #define ATTICAUTILS_H
 
-#include <QDateTime>
-#include <QString>
+#include <QtCore/QDateTime>
+#include <QtCore/QString>
 
 namespace Attica {
 

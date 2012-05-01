@@ -21,9 +21,9 @@
 
 */
 
-#include <QStringList>
-
 #include "privatedata.h"
+
+#include <QStringList>
 
 
 using namespace Attica;
