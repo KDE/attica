@@ -128,7 +128,7 @@ class ATTICA_EXPORT Provider
 
     /**
     A url that identifies this provider.
-    This should be used as identifier when refering to this provider but you don't want to use the full provider object.
+    This should be used as identifier when referring to this provider but you don't want to use the full provider object.
     */
     QUrl baseUrl() const;
 
