@@ -430,11 +430,11 @@ ItemPostJob<Achievement>* Provider::addNewAchievement(const QString& contentId, 
     postParameters.insert(QLatin1String( "explanation" ), newAchievement.explanation());
     postParameters.insert(QLatin1String( "points" ), QString::number(newAchievement.points()));
     postParameters.insert(QLatin1String( "image" ), newAchievement.image().toLocalFile());
-    foreach( QString dependency, newAchievement.dependencies() )
+    foreach( const QString& dependency, newAchievement.dependencies() )
         postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
 
     postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(newAchievement.type()));
-    foreach( QString option, newAchievement.options() )
+    foreach( const QString& option, newAchievement.options() )
         postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
 
     postParameters.insert(QLatin1String( "steps" ), QString::number(newAchievement.steps()));
@@ -461,11 +461,11 @@ PutJob* Provider::editAchievement(const QString& contentId, const QString& achie
     postParameters.insert(QLatin1String( "explanation" ), achievement.explanation());
     postParameters.insert(QLatin1String( "points" ), QString::number(achievement.points()));
     postParameters.insert(QLatin1String( "image" ), achievement.image().toLocalFile());
-    foreach( QString dependency, achievement.dependencies() )
+    foreach( const QString& dependency, achievement.dependencies() )
     postParameters.insert(QString::fromLatin1( "dependencies[%1]" ).arg(QString::number(i++)), dependency );
 
     postParameters.insert(QLatin1String( "type" ), Achievement::achievementTypeToString(achievement.type()));
-    foreach( QString option, achievement.options() )
+    foreach( const QString& option, achievement.options() )
     postParameters.insert(QString::fromLatin1( "options[%1]" ).arg(QString::number(j++)), option);
 
     postParameters.insert(QLatin1String( "steps" ), QString::number(achievement.steps()));

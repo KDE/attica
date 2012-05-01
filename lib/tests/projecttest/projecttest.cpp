@@ -162,7 +162,7 @@ Project ProjectTest::uiToProject()
     project.setUrl(m_editor->url->text());
     QStringList _d = m_editor->developers->text().split(QLatin1Char(','));
     QStringList devs;
-    foreach (QString dev, _d) {
+    foreach (const QString& dev, _d) {
         devs << dev.trimmed();
     }
     project.setDevelopers(devs);
