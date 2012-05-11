@@ -19,74 +19,74 @@ configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticacli
 
 set(ocsclient_SRCS
    accountbalance.cpp
-   accountbalanceparser.cpp
+   accountbalancexmlparser.cpp
    achievement.cpp
-   achievementparser.cpp
+   achievementxmlparser.cpp
    buildservice.cpp
-   buildserviceparser.cpp
+   buildservicexmlparser.cpp
    buildservicejob.cpp
-   buildservicejobparser.cpp
+   buildservicejobxmlparser.cpp
    buildservicejoboutput.cpp
-   buildservicejoboutputparser.cpp
+   buildservicejoboutputxmlparser.cpp
    activity.cpp
-   activityparser.cpp
+   activityxmlparser.cpp
    atticabasejob.cpp
    atticautils.cpp
    privatedata.cpp
-   privatedataparser.cpp
+   privatedataxmlparser.cpp
    category.cpp
-   categoryparser.cpp
+   categoryxmlparser.cpp
    comment.cpp
-   commentparser.cpp
+   commentxmlparser.cpp
    content.cpp
-   contentparser.cpp
+   contentxmlparser.cpp
    deletejob.cpp
    distribution.cpp
-   distributionparser.cpp
+   distributionxmlparser.cpp
    downloaddescription.cpp
    downloaditem.cpp
-   downloaditemparser.cpp
+   downloaditemxmlparser.cpp
    event.cpp
-   eventparser.cpp
+   eventxmlparser.cpp
    folder.cpp
-   folderparser.cpp
+   folderxmlparser.cpp
    forum.cpp
-   forumparser.cpp
+   forumxmlparser.cpp
    getjob.cpp
    homepageentry.cpp
    homepagetype.cpp
-   homepagetypeparser.cpp
+   homepagetypexmlparser.cpp
    icon.cpp
    itemjob.cpp
    knowledgebaseentry.cpp
-   knowledgebaseentryparser.cpp
+   knowledgebaseentryxmlparser.cpp
    license.cpp
-   licenseparser.cpp
+   licensexmlparser.cpp
    listjob_inst.cpp
    message.cpp
-   messageparser.cpp
+   messagexmlparser.cpp
    metadata.cpp
    parser.cpp
    parserfactory.cpp
    person.cpp
-   personparser.cpp
+   personxmlparser.cpp
    platformdependent_v2.cpp
    postfiledata.cpp
    postjob.cpp
    project.cpp
-   projectparser.cpp
+   projectxmlparser.cpp
    putjob.cpp
    remoteaccount.cpp
-   remoteaccountparser.cpp
+   remoteaccountxmlparser.cpp
    provider.cpp
    providermanager.cpp
    publisher.cpp
-   publisherparser.cpp
+   publisherxmlparser.cpp
    publisherfield.cpp
-   publisherfieldparser.cpp
+   publisherfieldxmlparser.cpp
    qtplatformdependent.cpp
    topic.cpp
-   topicparser.cpp
+   topicxmlparser.cpp
    xmlparser.cpp
 )
 
@@ -122,12 +122,12 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     atticautils.h
     comment.h
-    commentparser.h
+    #commentparser.h
     content.h
     category.h
     deletejob.h
     distribution.h
-    distributionparser.h
+    #distributionparser.h
     downloaddescription.h
     downloaditem.h
     event.h
@@ -136,7 +136,7 @@ install(FILES
     getjob.h
     homepageentry.h
     homepagetype.h
-    homepagetypeparser.h
+    #homepagetypeparser.h
     icon.h
     itemjob.h
     knowledgebaseentry.h

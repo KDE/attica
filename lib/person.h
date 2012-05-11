@@ -38,7 +38,7 @@ class ATTICA_EXPORT Person
 {
   public:
     typedef QList<Person> List;
-    class Parser;
+    class XmlParser;
 
     Person();
     Person(const Person& other);
@@ -50,10 +50,10 @@ class ATTICA_EXPORT Person
 
     void setFirstName( const QString & );
     QString firstName() const;
-    
+
     void setLastName( const QString & );
     QString lastName() const;
-    
+
     void setBirthday( const QDate & );
     QDate birthday() const;
 

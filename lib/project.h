@@ -39,7 +39,7 @@ class ATTICA_EXPORT Project
 {
   public:
     typedef QList<Project> List;
-    class Parser;
+    class XmlParser;
 
     Project();
     Project(const Project& other);

@@ -37,7 +37,7 @@ class ATTICA_EXPORT AccountBalance
 {
   public:
     typedef QList<AccountBalance> List;
-    class Parser;
+    class XmlParser;
 
     /**
      * Creates an empty AccountBalance

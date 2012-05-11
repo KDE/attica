@@ -30,7 +30,7 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
-         
+
 namespace Attica {
 /**
     The HomePageType class contains information about one home page type.
@@ -40,39 +40,39 @@ class ATTICA_EXPORT HomePageType
 {
 public:
     typedef QList<HomePageType> List;
-    class Parser;
-    
+    class XmlParser;
+
     /**
     * Creates an empty HomePageType
     */
     HomePageType();
-    
+
     /**
     * Copy constructor.
     * @param other the HomePageType to copy from
     */
     HomePageType(const HomePageType& other);
-    
+
     /**
     * Assignment operator.
     * @param other the HomePageType to assign from
     * @return pointer to this HomePageType
     */
     HomePageType& operator=(const HomePageType& other);
-    
+
     /**
     * Destructor.
     */
     ~HomePageType();
-    
+
     /*
    <id>10</id>
    <name>Blog</name>
     */
-    
+
     uint id() const;
     void setId(uint id);
-    
+
     QString name() const;
     void setName(const QString& name);
 
@@ -80,7 +80,7 @@ private:
     class Private;
     QSharedDataPointer<Private> d;
 };
-         
+
 }
 
 #endif

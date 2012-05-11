@@ -30,7 +30,7 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
-         
+
 namespace Attica {
 /**
     The Distribution class contains information about one distribution that the server offers.
@@ -40,39 +40,39 @@ class ATTICA_EXPORT Distribution
 {
 public:
     typedef QList<Distribution> List;
-    class Parser;
-    
+    class XmlParser;
+
     /**
     * Creates an empty Distribution
     */
     Distribution();
-    
+
     /**
     * Copy constructor.
     * @param other the Distribution to copy from
     */
     Distribution(const Distribution& other);
-    
+
     /**
     * Assignment operator.
     * @param other the Distribution to assign from
     * @return pointer to this Distribution
     */
     Distribution& operator=(const Distribution& other);
-    
+
     /**
     * Destructor.
     */
     ~Distribution();
-    
+
     /*
      <id>2000</id>
      <name>Ark</name>
     */
-    
+
     uint id() const;
     void setId(uint id);
-    
+
     QString name() const;
     void setName(const QString& name);
 
@@ -80,7 +80,7 @@ private:
     class Private;
     QSharedDataPointer<Private> d;
 };
-         
+
 }
 
 #endif

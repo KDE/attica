@@ -37,7 +37,7 @@
 class QDateTime;
 
 namespace Attica {
-    
+
 /**
  * Represents a single content
  */
@@ -45,8 +45,8 @@ class ATTICA_EXPORT Content
 {
   public:
     typedef QList<Content> List;
-    class Parser;
-  
+    class XmlParser;
+
     /**
      * Creates an empty Content
      */
@@ -107,13 +107,13 @@ class ATTICA_EXPORT Content
      * @return the rating in the range 0-100
      */
     int rating() const;
-    
+
     /**
      * Sets the number of downloads for the Content.
      * @param downloads the new number of downloads
      */
     void setDownloads(int downloads);
-    
+
     /**
      * Gets the number of downloads for the Content (how often this has been downloaded from the server).
      * @return the number of downloads
@@ -137,7 +137,7 @@ class ATTICA_EXPORT Content
      * @param created the new creation date and time
      */
     void setCreated(const QDateTime& created);
-    
+
     /**
      * Gets the date and time the Content has been created.
      * @return the date and time of the last update
@@ -246,7 +246,7 @@ class ATTICA_EXPORT Content
      */
     QMap<QString,QString> attributes() const;
 
-    
+
     /**
      * Checks whether this Content has an id
      * @return @c true if an id has been set, @c false otherwise

@@ -49,7 +49,7 @@ class ATTICA_EXPORT Publisher
 {
   public:
     typedef QList<Publisher> List;
-    class Parser;
+    class XmlParser;
 
     Publisher();
     Publisher(const Publisher& other);

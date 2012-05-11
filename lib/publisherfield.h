@@ -10,7 +10,7 @@ class ATTICA_EXPORT PublisherField
 {
 public:
     typedef QList<PublisherField> List;
-    class Parser;
+    class XmlParser;
 
     PublisherField();
     PublisherField(const PublisherField& other);

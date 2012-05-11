@@ -39,7 +39,7 @@ class ATTICA_EXPORT RemoteAccount
 {
   public:
     typedef QList<RemoteAccount> List;
-    class Parser;
+    class XmlParser;
 
     RemoteAccount();
     RemoteAccount(const RemoteAccount& other);

@@ -39,7 +39,7 @@ class ATTICA_EXPORT BuildServiceJob
 {
   public:
     typedef QList<BuildServiceJob> List;
-    class Parser;
+    class XmlParser;
 
     BuildServiceJob();
     BuildServiceJob(const BuildServiceJob& other);

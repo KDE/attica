@@ -1,8 +1,8 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -37,31 +37,31 @@ class ATTICA_EXPORT DownloadItem
 {
 public:
     typedef QList<DownloadItem> List;
-    class Parser;
-    
+    class XmlParser;
+
     /**
     * Creates an empty DownloadItem
     */
     DownloadItem();
-    
+
     /**
     * Copy constructor.
     * @param other the DownloadItem to copy from
     */
     DownloadItem(const DownloadItem& other);
-    
+
     /**
     * Assignment operator.
     * @param other the DownloadItem to assign from
     * @return pointer to this DownloadItem
     */
     DownloadItem& operator=(const DownloadItem& other);
-    
+
     /**
     * Destructor.
     */
     ~DownloadItem();
-    
+
     void setUrl(const QUrl& url);
     QUrl url() const;
     void setMimeType(const QString& mimeType);

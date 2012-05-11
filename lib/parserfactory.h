@@ -26,6 +26,33 @@
 
 #include "parser.h"
 
+// XML parsers
+#include "accountbalancexmlparser.h"
+#include "achievementxmlparser.h"
+#include "activityxmlparser.h"
+#include "buildservicejoboutputxmlparser.h"
+#include "buildservicejobxmlparser.h"
+#include "buildservicexmlparser.h"
+#include "categoryxmlparser.h"
+#include "commentxmlparser.h"
+#include "contentxmlparser.h"
+#include "distributionxmlparser.h"
+#include "downloaditemxmlparser.h"
+#include "eventxmlparser.h"
+#include "folderxmlparser.h"
+#include "forumxmlparser.h"
+#include "homepagetypexmlparser.h"
+#include "knowledgebaseentryxmlparser.h"
+#include "licensexmlparser.h"
+#include "messagexmlparser.h"
+#include "personxmlparser.h"
+#include "privatedataxmlparser.h"
+#include "projectxmlparser.h"
+#include "publisherfieldxmlparser.h"
+#include "publisherxmlparser.h"
+#include "remoteaccountxmlparser.h"
+#include "topicxmlparser.h"
+
 namespace Attica
 {
 
@@ -55,7 +82,7 @@ Parser<T>* ParserFactory::getParser()
     switch( getParserType() )
     {
         case Xml:
-            return new typename T::/*Xml*/Parser();
+            return new typename T::XmlParser();
             break;
         case Json:
             return 0;

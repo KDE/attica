@@ -36,7 +36,7 @@ class ATTICA_EXPORT Message
 {
   public:
     typedef QList<Message> List;
-    class Parser;
+    class XmlParser;
 
     enum Status { Unread = 0, Read = 1 , Answered = 2};
 
@@ -50,10 +50,10 @@ class ATTICA_EXPORT Message
 
     void setFrom( const QString & );
     QString from() const;
-    
+
     void setTo( const QString & );
     QString to() const;
-    
+
     void setSent( const QDateTime & );
     QDateTime sent() const;
 

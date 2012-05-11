@@ -39,8 +39,8 @@ class ATTICA_EXPORT Category
 {
   public:
     typedef QList<Category> List;
-    class Parser;
-  
+    class XmlParser;
+
     /**
      * Creates an empty Category
      */

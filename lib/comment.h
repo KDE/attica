@@ -39,7 +39,7 @@ class ATTICA_EXPORT Comment
 {
   public:
     typedef QList<Comment> List;
-    class Parser;
+    class XmlParser;
 
     enum Type {
         ContentComment,

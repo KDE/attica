@@ -39,7 +39,7 @@ class ATTICA_EXPORT Folder
 {
 public:
     typedef QList<Folder> List;
-    class Parser;
+    class XmlParser;
 
     /**
      * Creates an empty Folder

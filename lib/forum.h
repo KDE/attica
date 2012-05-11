@@ -39,7 +39,7 @@ class ATTICA_EXPORT Forum
 {
   public:
     typedef QList<Forum> List;
-    class Parser;
+    class XmlParser;
 
     Forum();
     Forum(const Forum& other);

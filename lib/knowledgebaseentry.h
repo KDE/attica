@@ -1,6 +1,6 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (C) 2009 Marco Martin <notmart@gmail.com>
 
     This library is free software; you can redistribute it and/or
@@ -38,7 +38,7 @@ class ATTICA_EXPORT KnowledgeBaseEntry
 {
   public:
     typedef QList<KnowledgeBaseEntry> List;
-    class Parser;
+    class XmlParser;
 
     KnowledgeBaseEntry();
     KnowledgeBaseEntry(const KnowledgeBaseEntry& other);

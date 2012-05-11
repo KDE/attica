@@ -41,12 +41,12 @@ struct Target {
 };
 
 
-    
+
 class ATTICA_EXPORT BuildService
 {
   public:
     typedef QList<BuildService> List;
-    class Parser;
+    class XmlParser;
 
     BuildService();
     BuildService(const BuildService& other);

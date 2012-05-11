@@ -42,7 +42,7 @@ class ATTICA_EXPORT Activity
 {
   public:
     typedef QList<Activity> List;
-    class Parser;
+    class XmlParser;
 
     /**
      * Creates an empty Activity

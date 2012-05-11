@@ -34,7 +34,7 @@
 
 
 namespace Attica {
-    
+
 /**
  * Represents a single event
  */
@@ -42,7 +42,7 @@ class ATTICA_EXPORT Event
 {
     public:
         typedef QList<Event> List;
-        class Parser;
+        class XmlParser;
 
         /**
          * Creates an empty Event
@@ -122,7 +122,7 @@ class ATTICA_EXPORT Event
          * @param startDate the start date
          */
         void setStartDate(const QDate& startDate);
-    
+
         /**
          * Gets the start date of the Event.
          * @return the start date
@@ -134,7 +134,7 @@ class ATTICA_EXPORT Event
          * @param endDate the end date
          */
         void setEndDate(const QDate& endDate);
-    
+
         /**
          * Gets the start date of the Event.
          * @return the end date
@@ -146,7 +146,7 @@ class ATTICA_EXPORT Event
          * @param latitude the new latitude
          */
         void setLatitude(qreal latitude);
-    
+
         /**
          * Gets the latitude of the position the Event takes place.
          * @return the latitude
@@ -158,7 +158,7 @@ class ATTICA_EXPORT Event
          * @param longitude the new latitude
          */
         void setLongitude(qreal longitude);
-    
+
         /**
          * Gets the longitude of the position the Event takes place.
          * @return the latitude
@@ -170,7 +170,7 @@ class ATTICA_EXPORT Event
          * @param homepage the new homepage
          */
         void setHomepage(const QUrl& homepage);
-    
+
         /**
          * Gets the homepage of the Event.
          * @return the homepage
@@ -182,7 +182,7 @@ class ATTICA_EXPORT Event
          * @param country the new country
          */
         void setCountry(const QString& country);
-    
+
         /**
          * Gets the country where the Event takes place.
          * @return the country
@@ -194,7 +194,7 @@ class ATTICA_EXPORT Event
          * @param city the new city
          */
         void setCity(const QString& city);
-    
+
         /**
          * Gets the city where the Event takes place.
          * @return the city

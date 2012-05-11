@@ -38,7 +38,7 @@ class ATTICA_EXPORT Achievement
 {
   public:
     typedef QList<Achievement> List;
-    class Parser;
+    class XmlParser;
 
     enum Type {
         FlowingAchievement,
