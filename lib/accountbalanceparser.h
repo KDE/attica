@@ -25,11 +25,11 @@
 #define ATTICA_ACCOUNTBALANCEPARSER_H
 
 #include "accountbalance.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 namespace Attica {
 
-class AccountBalance::Parser : public Attica::Parser<AccountBalance>
+class AccountBalance::Parser : public Attica::XmlParser<AccountBalance>
 {
 private:
     AccountBalance parseXml(QXmlStreamReader& xml);

@@ -25,12 +25,12 @@
 #define ATTICA_REMOTEACCOUNTPARSER_H
 
 #include "remoteaccount.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class RemoteAccount::Parser : public Attica::Parser<RemoteAccount>
+class RemoteAccount::Parser : public Attica::XmlParser<RemoteAccount>
 {
 private:
     RemoteAccount parseXml(QXmlStreamReader& xml);

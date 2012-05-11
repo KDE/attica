@@ -25,12 +25,12 @@
 #define ATTICA_ACHIEVEMENTPARSER_H
 
 #include "achievement.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Achievement::Parser : public Attica::Parser<Achievement>
+class Achievement::Parser : public Attica::XmlParser<Achievement>
 {
 private:
     Achievement parseXml(QXmlStreamReader& xml);

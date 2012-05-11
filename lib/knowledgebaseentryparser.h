@@ -26,12 +26,12 @@
 #define ATTICA_KNOWLEDGEBASEENTRYPARSER_H
 
 #include "knowledgebaseentry.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
+class KnowledgeBaseEntry::Parser : public Attica::XmlParser<KnowledgeBaseEntry>
 {
 private:
     KnowledgeBaseEntry parseXml(QXmlStreamReader& xml);

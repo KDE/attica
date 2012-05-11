@@ -25,12 +25,12 @@
 #define ATTICA_FOLDERPARSER_H
 
 #include "folder.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Folder::Parser : public Attica::Parser<Folder>
+class Folder::Parser : public Attica::XmlParser<Folder>
 {
 private:
     Folder parseXml(QXmlStreamReader& xml);

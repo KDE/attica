@@ -87,6 +87,7 @@ set(ocsclient_SRCS
    qtplatformdependent.cpp
    topic.cpp
    topicparser.cpp
+   xmlparser.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})

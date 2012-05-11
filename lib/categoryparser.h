@@ -25,12 +25,12 @@
 #define ATTICA_CATEGORYPARSER_H
 
 #include "category.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Category::Parser : public Attica::Parser<Category>
+class Category::Parser : public Attica::XmlParser<Category>
 {
 private:
     Category parseXml(QXmlStreamReader& xml);

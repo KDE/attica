@@ -35,12 +35,12 @@
 #endif // QT_VERSION
 
 #include "message.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Message::Parser : public Attica::Parser<Message>
+class Message::Parser : public Attica::XmlParser<Message>
 {
 private:
     Message parseXml(QXmlStreamReader& xml);

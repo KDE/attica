@@ -25,12 +25,12 @@
 #define ATTICA_EVENTPARSER_H
 
 #include "event.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Event::Parser : public Attica::Parser<Event>
+class Event::Parser : public Attica::XmlParser<Event>
 {
 private:
     Event parseXml(QXmlStreamReader& xml);

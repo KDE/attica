@@ -24,6 +24,8 @@
 #ifndef ATTICA_PARSERFACTORY_H
 #define ATTICA_PARSERFACTORY_H
 
+#include "parser.h"
+
 namespace Attica
 {
 
@@ -34,7 +36,7 @@ public:
     static ParserFactory* self();
 
     template<class T>
-    typename T::Parser* getParser();
+    Parser<T>* getParser();
 
     ParserType getParserType();
     void setParserType( ParserType type );
@@ -48,7 +50,7 @@ private:
 };
 
 template<class T>
-typename T::Parser* ParserFactory::getParser()
+Parser<T>* ParserFactory::getParser()
 {
     switch( getParserType() )
     {

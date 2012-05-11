@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
+    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -21,21 +21,38 @@
 
 */
 
-#ifndef ATTICA_FORUMPARSER_H
-#define ATTICA_FORUMPARSER_H
+#ifndef ATTICA_XMLPARSER_H
+#define ATTICA_XMLPARSER_H
 
-#include "forum.h"
-#include "xmlparser.h"
+#include <QtCore/QStringList>
+#if QT_VERSION >= 0x050000
+#include <QtCore/QXmlStreamReader>
+#else
+// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
+#include <QtXml/QXmlStreamReader>
+#endif // QT_VERSION
+
+#include "parser.h"
+#include "listjob.h"
 
 
 namespace Attica {
 
-class Forum::Parser : public Attica::XmlParser<Forum>
-{
+template <class T>
+class XmlParser: public Parser<T> {
+public:
+    T parse(const QString& xml);
+    typename T::List parseList(const QString& xml);
+    Metadata metadata() const;
+    virtual ~XmlParser();
+
+protected:
+    virtual QStringList xmlElement() const = 0;
+    virtual T parseXml(QXmlStreamReader& xml) = 0;
+
 private:
-    Forum parseXml(QXmlStreamReader& xml);
-    QList<Forum> parseXmlChildren(QXmlStreamReader& xml);
-    QStringList xmlElement() const;
+    void parseMetadataXml(QXmlStreamReader& xml);
+    Metadata m_metadata;
 };
 
 }

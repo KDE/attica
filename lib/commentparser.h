@@ -26,12 +26,12 @@
 #define ATTICA_COMMENTPARSER_H
 
 #include "comment.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Comment::Parser : public Attica::Parser<Comment>
+class Comment::Parser : public Attica::XmlParser<Comment>
 {
 private:
     Comment parseXml(QXmlStreamReader& xml);

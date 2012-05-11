@@ -25,12 +25,12 @@
 #define ATTICA_PERSONPARSER_H
 
 #include "person.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Person::Parser : public Attica::Parser<Person>
+class Person::Parser : public Attica::XmlParser<Person>
 {
 private:
     Person parseXml(QXmlStreamReader& xml);

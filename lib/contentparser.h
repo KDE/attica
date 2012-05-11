@@ -25,12 +25,12 @@
 #define ATTICA_CONTENTPARSER_H
 
 #include "content.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Content::Parser : public Attica::Parser<Content>
+class Content::Parser : public Attica::XmlParser<Content>
 {
 private:
     Content parseXml(QXmlStreamReader& xml);

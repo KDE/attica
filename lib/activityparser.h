@@ -25,12 +25,12 @@
 #define ATTICA_ACTIVITYPARSER_H
 
 #include "activity.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Activity::Parser : public Attica::Parser<Activity>
+class Activity::Parser : public Attica::XmlParser<Activity>
 {
 private:
     Activity parseXml(QXmlStreamReader& xml);

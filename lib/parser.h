@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2012 Felix Rohrbach <fxrh@gmx.de>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -19,42 +19,26 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-*/
+ */
+
+#include "metadata.h"
 
 #ifndef ATTICA_PARSER_H
 #define ATTICA_PARSER_H
 
-#include <QtCore/QStringList>
-#if QT_VERSION >= 0x050000
-#include <QtCore/QXmlStreamReader>
-#else
-// WARNING: QXmlStreamReader cannot be forward declared (Qt 4.5)
-#include <QtXml/QXmlStreamReader>
-#endif // QT_VERSION
-
-#include "listjob.h"
-
-
 namespace Attica {
 
 template <class T>
-class Parser {
+class Parser
+{
 public:
-    T parse(const QString& xml);
-    typename T::List parseList(const QString& xml);
-    Metadata metadata() const;
-    virtual ~Parser();
+    virtual ~Parser<T>();
 
-protected:
-    virtual QStringList xmlElement() const = 0;
-    virtual T parseXml(QXmlStreamReader& xml) = 0;
-
-private:
-    void parseMetadataXml(QXmlStreamReader& xml);
-    Metadata m_metadata;
+    virtual T parse(const QString& data)=0;
+    virtual typename T::List parseList(const QString& data)=0;
+    virtual Metadata metadata() const=0;
 };
 
 }
 
-
-#endif
+#endif //ATTICA_PARSER_H

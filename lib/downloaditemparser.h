@@ -25,11 +25,11 @@
 #define ATTICA_DOWNLOADITEMPARSER_H
 
 #include "downloaditem.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 namespace Attica {
 
-class DownloadItem::Parser : public Attica::Parser<DownloadItem>
+class DownloadItem::Parser : public Attica::XmlParser<DownloadItem>
 {
 private:
     DownloadItem parseXml(QXmlStreamReader& xml);

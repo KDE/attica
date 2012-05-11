@@ -27,17 +27,17 @@
 #define ATTICA_HOMEPAGETYPE_PARSER_H
 
 #include "homepagetype.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 namespace Attica {
 
-class HomePageType::Parser : public Attica::Parser<HomePageType>
+class HomePageType::Parser : public Attica::XmlParser<HomePageType>
 {
 private:
     HomePageType parseXml(QXmlStreamReader& xml);
     QStringList xmlElement() const;
 };
-         
+
 }
 
 #endif

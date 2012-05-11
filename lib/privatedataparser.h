@@ -25,12 +25,12 @@
 #define ATTICA_PRIVATEDATAPARSER_H
 
 #include "privatedata.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class PrivateData::Parser : public Attica::Parser<PrivateData>
+class PrivateData::Parser : public Attica::XmlParser<PrivateData>
 {
 private:
     PrivateData parseXml(QXmlStreamReader& xml);

@@ -22,9 +22,9 @@
 */
 
 #include "listjob.h"
+#include "parserfactory.h"
 
 #include <QDebug>
-#include <QXmlStreamReader>
 
 using namespace Attica;
 
@@ -44,8 +44,9 @@ typename T::List ListJob<T>::itemList() const
 template <class T>
 void ListJob<T>::parse(const QString& xml)
 {
-    typename T::Parser parser;
-    m_itemList = parser.parseList(xml);
-    setMetadata(parser.metadata());
+    Parser<T>* parser = ParserFactory::self()->getParser<T>();
+    m_itemList = parser->parseList(xml);
+    setMetadata(parser->metadata());
+    delete parser;
 }
 

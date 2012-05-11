@@ -25,12 +25,12 @@
 #define ATTICA_PUBLISHERPARSER_H
 
 #include "publisher.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Publisher::Parser : public Attica::Parser<Publisher>
+class Publisher::Parser : public Attica::XmlParser<Publisher>
 {
 private:
     Publisher parseXml(QXmlStreamReader& xml);

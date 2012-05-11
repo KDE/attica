@@ -25,12 +25,12 @@
 #define ATTICA_TOPICPARSER_H
 
 #include "topic.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Topic::Parser : public Attica::Parser<Topic>
+class Topic::Parser : public Attica::XmlParser<Topic>
 {
 private:
     Topic parseXml(QXmlStreamReader& xml);

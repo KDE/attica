@@ -25,12 +25,12 @@
 #define ATTICA_PROJECTPARSER_H
 
 #include "project.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 
 namespace Attica {
 
-class Project::Parser : public Attica::Parser<Project>
+class Project::Parser : public Attica::XmlParser<Project>
 {
 private:
     Project parseXml(QXmlStreamReader& xml);

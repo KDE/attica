@@ -2,11 +2,11 @@
 #define PUBLISHERFIELDPARSER_H
 
 #include "publisherfield.h"
-#include "parser.h"
+#include "xmlparser.h"
 
 namespace Attica
 {
-class PublisherField::Parser : public Attica::Parser<PublisherField>
+class PublisherField::Parser : public Attica::XmlParser<PublisherField>
 {
 private:
     PublisherField parseXml(QXmlStreamReader& xml);
