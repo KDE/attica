@@ -68,6 +68,7 @@ set(ocsclient_SRCS
    metadata.cpp
    parser.cpp
    parserfactory.cpp
+   parserfactory_inst.cpp
    person.cpp
    personxmlparser.cpp
    platformdependent_v2.cpp
