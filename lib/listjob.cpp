@@ -42,10 +42,10 @@ typename T::List ListJob<T>::itemList() const
 }
 
 template <class T>
-void ListJob<T>::parse(const QString& xml)
+void ListJob<T>::parse(const QString& data)
 {
     Parser<T>* parser = ParserFactory::self()->getParser<T>();
-    m_itemList = parser->parseList(xml);
+    m_itemList = parser->parseList(data);
     setMetadata(parser->metadata());
     delete parser;
 }

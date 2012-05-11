@@ -25,6 +25,7 @@
 #define ATTICA_PARSERFACTORY_H
 
 #include "parser.h"
+#include "statusparser.h"
 
 // XML parsers
 #include "accountbalancexmlparser.h"
@@ -64,6 +65,7 @@ public:
 
     template<class T>
     Parser<T>* getParser();
+    StatusParser* getStatusParser();
 
     ParserType getParserType();
     void setParserType( ParserType type );

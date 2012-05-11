@@ -34,10 +34,10 @@ ItemJob<T>::ItemJob(PlatformDependent* internals, const QNetworkRequest& request
 }
 
 template <class T>
-void ItemJob<T>::parse(const QString& xml)
+void ItemJob<T>::parse(const QString& data)
 {
     Parser<T>* p = ParserFactory::self()->getParser<T>();
-    m_item = p->parse(xml);
+    m_item = p->parse(data);
     setMetadata(p->metadata());
     delete p;
 }
@@ -55,10 +55,10 @@ ItemDeleteJob<T>::ItemDeleteJob(PlatformDependent* internals, const QNetworkRequ
 }
 
 template <class T>
-void ItemDeleteJob<T>::parse(const QString& xml)
+void ItemDeleteJob<T>::parse(const QString& data)
 {
     Parser<T>* p = ParserFactory::self()->getParser<T>();
-    m_item = p->parse(xml);
+    m_item = p->parse(data);
     setMetadata(p->metadata());
     delete p;
 }
@@ -82,10 +82,10 @@ ItemPostJob<T>::ItemPostJob(PlatformDependent* internals, const QNetworkRequest&
 }
 
 template <class T>
-void ItemPostJob<T>::parse(const QString& xml)
+void ItemPostJob<T>::parse(const QString& data)
 {
     Parser<T>* p = ParserFactory::self()->getParser<T>();
-    m_item = p->parse(xml);
+    m_item = p->parse(data);
     setMetadata(p->metadata());
     delete p;
 }
@@ -109,10 +109,10 @@ ItemPutJob<T>::ItemPutJob(PlatformDependent* internals, const QNetworkRequest& r
 }
 
 template <class T>
-void ItemPutJob<T>::parse(const QString& xml)
+void ItemPutJob<T>::parse(const QString& data)
 {
     Parser<T>* p = ParserFactory::self()->getParser<T>();
-    m_item = p->parse(xml);
+    m_item = p->parse(data);
     setMetadata(p->metadata());
     delete p;
 }

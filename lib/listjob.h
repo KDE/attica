@@ -40,7 +40,7 @@ class ATTICA_EXPORT ListJob : public GetJob
         typename T::List itemList() const;
 
     protected:
-        virtual void parse(const QString& xml);
+        virtual void parse(const QString& data);
 
     private:
         ListJob(PlatformDependent* internals, const QNetworkRequest& request);

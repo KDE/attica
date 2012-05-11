@@ -35,12 +35,12 @@ XmlParser<T>::~XmlParser()
 
 
 template <class T>
-T XmlParser<T>::parse(const QString& xmlString)
+T XmlParser<T>::parse(const QString& data)
 {
     QStringList elements = xmlElement();
     T item;
 
-    QXmlStreamReader xml(xmlString);
+    QXmlStreamReader xml(data);
 
     while (!xml.atEnd()) {
         xml.readNext();
@@ -55,7 +55,7 @@ T XmlParser<T>::parse(const QString& xmlString)
     }
     if (xml.hasError()) {
         // TODO: error handling in metadata?
-        qWarning() << "parse():: XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
+        qWarning() << "parse():: XML Error: " << xml.errorString() << "\nIn XML:\n" << data;
     }
 
     return item;
@@ -63,7 +63,7 @@ T XmlParser<T>::parse(const QString& xmlString)
 
 
 template <class T>
-typename T::List XmlParser<T>::parseList(const QString& xmlString)
+typename T::List XmlParser<T>::parseList(const QString& data)
 {
 /*
         QString testxml = QString("<?xml version=\"1.0\"?>\
@@ -117,7 +117,7 @@ typename T::List XmlParser<T>::parseList(const QString& xmlString)
     typename T::List items;
 
     //QXmlStreamReader xml( xmlString );
-    QXmlStreamReader xml( xmlString );
+    QXmlStreamReader xml( data );
 
     while (!xml.atEnd()) {
         xml.readNext();
@@ -143,7 +143,7 @@ typename T::List XmlParser<T>::parseList(const QString& xmlString)
     }
     if (xml.hasError()) {
         // TODO: error handling in metadata?
-        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
+        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn XML:\n" << data;
     }
 
 

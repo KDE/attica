@@ -22,13 +22,10 @@
 */
 
 #include "postjob.h"
-
-#include <QXmlStreamReader>
-#include <QDebug>
-
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "platformdependent.h"
+#include "parserfactory.h"
 
 
 using namespace Attica;
@@ -69,52 +66,12 @@ QNetworkReply* PostJob::executeRequest()
 }
 
 
-void PostJob::parse(const QString& xmlString)
+void PostJob::parse(const QString& data)
 {
-    qDebug() << "PostJob::parse" << xmlString;
-    QXmlStreamReader xml( xmlString );
-    Metadata data;
-    while (!xml.atEnd()) {
-        xml.readNext();
-
-        if (xml.isStartElement()) {
-            if (xml.name() == "meta") {
-                while ( !xml.atEnd() ) {
-                    xml.readNext();
-                    if (xml.isEndElement() && xml.name() == "meta") {
-                        break;
-                    } else if (xml.isStartElement()) {
-                        if (xml.name() == "status") {
-                            data.setStatusString(xml.readElementText());
-                        } else if (xml.name() == "statuscode") {
-                            data.setStatusCode(xml.readElementText().toInt());
-                        } else if (xml.name() == "message") {
-                            data.setMessage(xml.readElementText());
-                        } else if (xml.name() == "totalitems") {
-                            data.setTotalItems(xml.readElementText().toInt());
-                        } else if (xml.name() == "itemsperpage") {
-                            data.setItemsPerPage(xml.readElementText().toInt());
-                        }
-                    }
-                }
-            } else if (xml.name() == "data") {
-                while ( !xml.atEnd() ) {
-                    xml.readNext();
-                    if (xml.isEndElement() && xml.name() == "data") {
-                        break;
-                    } else if (xml.isStartElement()) {
-                        if (xml.name() == "projectid") {
-                            data.setResultingId(xml.readElementText());
-                        } if (xml.name() == "buildjobid") {
-                            data.setResultingId(xml.readElementText());
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-    setMetadata(data);
+    StatusParser* parser = ParserFactory::self()->getStatusParser();
+    parser->parse(data);
+    setMetadata( parser->metadata() );
+    delete parser;
 }
 
 

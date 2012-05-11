@@ -86,9 +86,11 @@ set(ocsclient_SRCS
    publisherfield.cpp
    publisherfieldxmlparser.cpp
    qtplatformdependent.cpp
+   statusparser.cpp
    topic.cpp
    topicxmlparser.cpp
    xmlparser.cpp
+   xmlstatusparser.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})

@@ -23,6 +23,8 @@
 
 #include "parserfactory.h"
 
+#include "xmlstatusparser.h"
+
 using namespace Attica;
 
 ParserFactory* ParserFactory::instance = 0;
@@ -45,6 +47,17 @@ ParserFactory::ParserFactory()
     : d(new Private())
 {
     d->type = Xml;
+}
+
+StatusParser* ParserFactory::getStatusParser()
+{
+    switch( d->type )
+    {
+        case Xml:
+            return new XmlStatusParser();
+        case Json:
+            return 0;
+    }
 }
 
 ParserFactory::ParserType ParserFactory::getParserType()
