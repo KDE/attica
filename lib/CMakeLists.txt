@@ -120,12 +120,10 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     atticautils.h
     comment.h
-    commentparser.h
     content.h
     category.h
     deletejob.h
     distribution.h
-    distributionparser.h
     downloaddescription.h
     downloaditem.h
     event.h
@@ -134,7 +132,6 @@ install(FILES
     getjob.h
     homepageentry.h
     homepagetype.h
-    homepagetypeparser.h
     icon.h
     itemjob.h
     knowledgebaseentry.h
