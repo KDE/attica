@@ -22,7 +22,7 @@
 */
 
 #include <QtTest/QtTest>
-#include <personparser.h>
+#include <personxmlparser.h>
 
 using namespace Attica;
 
@@ -36,7 +36,7 @@ private slots:
 
 void PersonTest::testParsing()
 {
-    Person::Parser parser;
+    Person::XmlParser parser;
     QString validData (QLatin1String("<?xml version=\"1.0\"?>"
                "<ocs><person>"
                "<personid>10</personid>"
