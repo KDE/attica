@@ -3,6 +3,7 @@
 
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
+    Copyright (c) 2012 Jeff Mitchell <mitchell@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -28,6 +29,9 @@
 #include "platformdependent_v2.h"
 
 #include <QtCore/QHash>
+#include <QtCore/QMutex>
+#include <QtCore/QSet>
+#include <QtCore/QThread>
 #include <QtNetwork/QNetworkAccessManager>
 
 
@@ -36,6 +40,12 @@ namespace Attica {
 class QtPlatformDependent : public Attica::PlatformDependentV2
 {
 public:
+    QtPlatformDependent();
+    virtual ~QtPlatformDependent();
+
+    virtual void setNetworkAccessManager(QNetworkAccessManager* nam);
+    virtual QNetworkAccessManager* nam();
+
     virtual QList<QUrl> getDefaultProviderFiles() const;
     virtual void addDefaultProviderFile(const QUrl& url);
     virtual void removeDefaultProviderFile(const QUrl& url);
@@ -49,13 +59,14 @@ public:
     virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
     virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
     virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password);
-    virtual QNetworkAccessManager* nam();
     virtual QNetworkReply* deleteResource(const QNetworkRequest& request);
     virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data);
     virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data);
 
 private:
-    QNetworkAccessManager m_qnam;
+    QMutex m_accessMutex;
+    QHash<QThread*, QNetworkAccessManager*> m_threadNamHash;
+    QSet<QThread*> m_ourNamSet;
     QHash<QString, QPair <QString, QString> > m_passwords;
 };
 

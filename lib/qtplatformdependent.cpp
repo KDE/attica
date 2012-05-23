@@ -3,6 +3,7 @@
 
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
+    Copyright (c) 2012 Jeff Mitchell <mitchell@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -29,6 +30,65 @@
 #include <QtCore/QDebug>
 
 using namespace Attica;
+
+QtPlatformDependent::QtPlatformDependent()
+{
+    m_threadNamHash[ QThread::currentThread() ] = new QNetworkAccessManager();
+    m_ourNamSet.insert( QThread::currentThread() );
+}
+
+QtPlatformDependent::~QtPlatformDependent()
+{
+    QThread *currThread = QThread::currentThread();
+    if( m_threadNamHash.contains( currThread ) )
+    {
+        if ( m_ourNamSet.contains( currThread ) )
+            delete m_threadNamHash[ currThread ];
+        m_threadNamHash.remove( currThread );
+        m_ourNamSet.remove( currThread );
+    }
+}
+
+void QtPlatformDependent::setNetworkAccessManager(QNetworkAccessManager* nam)
+{
+    if( !nam )
+        return;
+
+    QMutexLocker l( &m_accessMutex );
+    QThread* currThread = QThread::currentThread();
+    QNetworkAccessManager* oldNam = 0;
+    if( m_threadNamHash.contains( currThread ) && m_ourNamSet.contains( currThread ) )
+        oldNam = m_threadNamHash[ currThread ];
+
+    if( oldNam == nam )
+    {
+        // If we're being passed back our own NAM, assume they want to
+        // ensure that we don't delete it out from under them 
+        m_ourNamSet.remove( currThread );
+        return;
+    }
+
+    m_threadNamHash[ currThread ] = nam;
+    m_ourNamSet.remove( currThread );
+
+    if( oldNam )
+        delete oldNam;
+}
+
+QNetworkAccessManager* QtPlatformDependent::nam()
+{
+    QMutexLocker l( &m_accessMutex );
+    QThread* currThread = QThread::currentThread();
+    if( !m_threadNamHash.contains( currThread ) )
+    {
+        QNetworkAccessManager *newNam = new QNetworkAccessManager();
+        m_threadNamHash[ currThread ] = newNam;
+        m_ourNamSet.insert( currThread );
+        return newNam;
+    }
+
+    return m_threadNamHash[ currThread ];
+}
 
 // TODO actually save and restore providers!
 QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
@@ -57,33 +117,33 @@ bool QtPlatformDependent::isEnabled(const QUrl& baseUrl) const
 
 QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, const QByteArray& data)
 {
-    return m_qnam.post(request, data);
+    return nam()->post(request, data);
 }
 
 
 QNetworkReply* QtPlatformDependent::post(const QNetworkRequest& request, QIODevice* data)
 {
-    return m_qnam.post(request, data);
+    return nam()->post(request, data);
 }
 
 QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, const QByteArray& data)
 {
-    return m_qnam.put(request, data);
+    return nam()->put(request, data);
 }
 
 QNetworkReply* QtPlatformDependent::put(const QNetworkRequest& request, QIODevice* data)
 {
-    return m_qnam.put(request, data);
+    return nam()->put(request, data);
 }
 
 QNetworkReply* QtPlatformDependent::get(const QNetworkRequest& request)
 {
-    return m_qnam.get(request);
+    return nam()->get(request);
 }
 
 QNetworkReply* QtPlatformDependent::deleteResource(const QNetworkRequest& request)
 {
-    return m_qnam.deleteResource(request);
+    return nam()->deleteResource(request);
 }
 
 bool QtPlatformDependent::hasCredentials(const QUrl& baseUrl) const
@@ -115,7 +175,3 @@ bool Attica::QtPlatformDependent::askForCredentials(const QUrl& baseUrl, QString
     return false;
 }
 
-QNetworkAccessManager* Attica::QtPlatformDependent::nam()
-{
-    return &m_qnam;
-}
