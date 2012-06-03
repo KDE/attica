@@ -109,8 +109,8 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == "publisher")
-               || (xml.name() == "user")) {
+               && ((xml.name() == "publisher")
+               || (xml.name() == "user"))) {
             break;
         }
     }

@@ -74,8 +74,8 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader& xml)
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == "buildservice")
-               || (xml.name() == "user")) {
+               && ((xml.name() == "buildservice")
+               || (xml.name() == "user"))) {
             break;
         }
     }
