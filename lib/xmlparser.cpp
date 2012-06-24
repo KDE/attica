@@ -21,7 +21,7 @@
 
 */
 
-#include "xmlparserv2.h"
+#include "xmlparser.h"
 #include <QStringList>
 #include <QDebug>
 
@@ -31,13 +31,13 @@ using namespace Attica;
 
 
 template <class T>
-XmlParserV2<T>::~XmlParserV2()
+XmlParser<T>::~XmlParser()
 {
 }
 
 
 template <class T>
-void XmlParserV2<T>::parse(const QString &data)
+void XmlParser<T>::parse(const QString &data)
 {
 /*
         QString testxml = QString("<?xml version=\"1.0\"?>\
@@ -121,7 +121,7 @@ void XmlParserV2<T>::parse(const QString &data)
 }
 
 template <class T>
-T XmlParserV2<T>::item() const
+T XmlParser<T>::item() const
 {
     if (m_result.size() == 0) {
         return T();
@@ -130,13 +130,13 @@ T XmlParserV2<T>::item() const
 }
 
 template <class T>
-typename T::List XmlParserV2<T>::itemList() const
+typename T::List XmlParser<T>::itemList() const
 {
     return m_result;
 }
 
 template <class T>
-void XmlParserV2<T>::parseMetadataXml(QXmlStreamReader &xml)
+void XmlParser<T>::parseMetadataXml(QXmlStreamReader &xml)
 {
     while ( !xml.atEnd() ) {
         xml.readNext();
@@ -164,12 +164,12 @@ void XmlParserV2<T>::parseMetadataXml(QXmlStreamReader &xml)
 }
 
 template <class T>
-Metadata XmlParserV2<T>::metadata() const {
+Metadata XmlParser<T>::metadata() const {
     return m_metadata;
 }
 
 template <class T>
-QList<T> XmlParserV2<T>::parseXmlChildren(QXmlStreamReader& xml)
+QList<T> XmlParser<T>::parseXmlChildren(QXmlStreamReader& xml)
 {
     QList<T> children;
 
@@ -190,179 +190,179 @@ QList<T> XmlParserV2<T>::parseXmlChildren(QXmlStreamReader& xml)
 }
 
 template <class T>
-QStringList XmlParserV2<T>::xmlElement()
+QStringList XmlParser<T>::xmlElement()
 {
     qWarning() << "Something went wrong here. It seems like you forgot to add a specialized"
-                " function for XmlParserV2::xmlElement.";
+                " function for XmlParser::xmlElement.";
     return QStringList();
 }
 
 template <>
-QStringList XmlParserV2<NoneType>::xmlElement()
+QStringList XmlParser<NoneType>::xmlElement()
 {
     return QStringList();
 }
 
 template <>
-QStringList XmlParserV2<AccountBalance>::xmlElement()
+QStringList XmlParser<AccountBalance>::xmlElement()
 {
     return QStringList(QLatin1String("person"));
 }
 
 template <>
-QStringList XmlParserV2<Achievement>::xmlElement()
+QStringList XmlParser<Achievement>::xmlElement()
 {
     return QStringList(QLatin1String( "achievement" ));
 }
 
 template <>
-QStringList XmlParserV2<Activity>::xmlElement()
+QStringList XmlParser<Activity>::xmlElement()
 {
     return QStringList(QLatin1String("activity"));
 }
 
 template <>
-QStringList XmlParserV2<BuildService>::xmlElement()
+QStringList XmlParser<BuildService>::xmlElement()
 {
     return QStringList(QLatin1String("buildservice")) << QLatin1String("user");
 }
 
 template <>
-QStringList XmlParserV2<BuildServiceJob>::xmlElement()
+QStringList XmlParser<BuildServiceJob>::xmlElement()
 {
     return QStringList(QLatin1String("buildjob")) << QLatin1String("user");
 }
 
 template <>
-QStringList XmlParserV2<BuildServiceJobOutput>::xmlElement()
+QStringList XmlParser<BuildServiceJobOutput>::xmlElement()
 {
     return QStringList(QLatin1String("output"));
 }
 
 template <>
-QStringList XmlParserV2<Category>::xmlElement()
+QStringList XmlParser<Category>::xmlElement()
 {
     return QStringList(QLatin1String( "category" ));
 }
 
 template <>
-QStringList XmlParserV2<Comment>::xmlElement()
+QStringList XmlParser<Comment>::xmlElement()
 {
     return QStringList(QLatin1String( "comment" ));
 }
 
 template <>
-QStringList XmlParserV2<Content>::xmlElement()
+QStringList XmlParser<Content>::xmlElement()
 {
     return QStringList(QLatin1String( "content" ));
 }
 
 template <>
-QStringList XmlParserV2<Distribution>::xmlElement()
+QStringList XmlParser<Distribution>::xmlElement()
 {
     return QStringList(QLatin1String( "distribution" ));
 }
 
 template <>
-QStringList XmlParserV2<DownloadItem>::xmlElement()
+QStringList XmlParser<DownloadItem>::xmlElement()
 {
     return QStringList(QLatin1String( "content" ));
 }
 
 template <>
-QStringList XmlParserV2<Event>::xmlElement()
+QStringList XmlParser<Event>::xmlElement()
 {
     return QStringList(QLatin1String( "event" ));
 }
 
 template <>
-QStringList XmlParserV2<Folder>::xmlElement()
+QStringList XmlParser<Folder>::xmlElement()
 {
     return QStringList(QLatin1String( "folder" ));
 }
 
 template <>
-QStringList XmlParserV2<Forum>::xmlElement()
+QStringList XmlParser<Forum>::xmlElement()
 {
     return QStringList(QLatin1String( "forum" ));
 }
 
 template <>
-QStringList XmlParserV2<HomePageType>::xmlElement()
+QStringList XmlParser<HomePageType>::xmlElement()
 {
     return QStringList(QLatin1String( "homepagetype" ));
 }
 
 template <>
-QStringList XmlParserV2<KnowledgeBaseEntry>::xmlElement()
+QStringList XmlParser<KnowledgeBaseEntry>::xmlElement()
 {
     return QStringList(QLatin1String( "content" ));
 }
 
 template <>
-QStringList XmlParserV2<License>::xmlElement()
+QStringList XmlParser<License>::xmlElement()
 {
     return QStringList(QLatin1String( "license" ));
 }
 
 template <>
-QStringList XmlParserV2<Message>::xmlElement()
+QStringList XmlParser<Message>::xmlElement()
 {
     return QStringList(QLatin1String( "message" ));
 }
 
 template <>
-QStringList XmlParserV2<Person>::xmlElement()
+QStringList XmlParser<Person>::xmlElement()
 {
     return QStringList(QLatin1String( "person" )) << QLatin1String( "user" );
 }
 
 template <>
-QStringList XmlParserV2<PrivateData>::xmlElement()
+QStringList XmlParser<PrivateData>::xmlElement()
 {
     return QStringList(QLatin1String( "privatedata" ));
 }
 
 template <>
-QStringList XmlParserV2<Project>::xmlElement()
+QStringList XmlParser<Project>::xmlElement()
 {
     return QStringList(QLatin1String("project")) << QLatin1String("user");
 }
 
 template <>
-QStringList XmlParserV2<PublisherField>::xmlElement()
+QStringList XmlParser<PublisherField>::xmlElement()
 {
     return QStringList(QLatin1String("field"));
 }
 
 template <>
-QStringList XmlParserV2<Publisher>::xmlElement()
+QStringList XmlParser<Publisher>::xmlElement()
 {
     return QStringList(QLatin1String("publisher")) << QLatin1String("user");
 }
 
 template <>
-QStringList XmlParserV2<RemoteAccount>::xmlElement()
+QStringList XmlParser<RemoteAccount>::xmlElement()
 {
     return QStringList(QLatin1String("remoteaccount")) << QLatin1String("user");
 }
 
 template <>
-QStringList XmlParserV2<Topic>::xmlElement()
+QStringList XmlParser<Topic>::xmlElement()
 {
     return QStringList(QLatin1String( "topic" ));
 }
 
 template <class T>
-T XmlParserV2<T>::parseXml(QXmlStreamReader &xml)
+T XmlParser<T>::parseXml(QXmlStreamReader &xml)
 {
     qWarning() << "Something went wrong here. It seems like you forgot to add a specialized"
-                " function for XmlParserV2::parseXml.";
+                " function for XmlParser::parseXml.";
     return T();
 }
 
 template <>
-AccountBalance XmlParserV2<AccountBalance>::parseXml(QXmlStreamReader& xml)
+AccountBalance XmlParser<AccountBalance>::parseXml(QXmlStreamReader& xml)
 {
     AccountBalance item;
 
@@ -381,7 +381,7 @@ AccountBalance XmlParserV2<AccountBalance>::parseXml(QXmlStreamReader& xml)
 }
 
 template <>
-Achievement XmlParserV2<Achievement>::parseXml(QXmlStreamReader &xml)
+Achievement XmlParser<Achievement>::parseXml(QXmlStreamReader &xml)
 {
     Achievement achievement;
 
@@ -475,7 +475,7 @@ Achievement XmlParserV2<Achievement>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Activity XmlParserV2<Activity>::parseXml(QXmlStreamReader &xml)
+Activity XmlParser<Activity>::parseXml(QXmlStreamReader &xml)
 {
     Activity activity;
     Person person;
@@ -514,7 +514,7 @@ Activity XmlParserV2<Activity>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-BuildService XmlParserV2<BuildService>::parseXml(QXmlStreamReader &xml)
+BuildService XmlParser<BuildService>::parseXml(QXmlStreamReader &xml)
 {
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft
@@ -569,7 +569,7 @@ BuildService XmlParserV2<BuildService>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-BuildServiceJob XmlParserV2<BuildServiceJob>::parseXml(QXmlStreamReader &xml)
+BuildServiceJob XmlParser<BuildServiceJob>::parseXml(QXmlStreamReader &xml)
 {
     BuildServiceJob buildservicejob;
 
@@ -609,7 +609,7 @@ BuildServiceJob XmlParserV2<BuildServiceJob>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-BuildServiceJobOutput XmlParserV2<BuildServiceJobOutput>::parseXml(QXmlStreamReader &xml)
+BuildServiceJobOutput XmlParser<BuildServiceJobOutput>::parseXml(QXmlStreamReader &xml)
 {
     BuildServiceJobOutput buildservicejoboutput;
 
@@ -629,7 +629,7 @@ BuildServiceJobOutput XmlParserV2<BuildServiceJobOutput>::parseXml(QXmlStreamRea
 }
 
 template <> Category
-XmlParserV2<Category>::parseXml(QXmlStreamReader &xml)
+XmlParser<Category>::parseXml(QXmlStreamReader &xml)
 {
     Category category;
 
@@ -651,7 +651,7 @@ XmlParserV2<Category>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Comment XmlParserV2<Comment>::parseXml(QXmlStreamReader &xml)
+Comment XmlParser<Comment>::parseXml(QXmlStreamReader &xml)
 {
     Comment comment;
 
@@ -686,7 +686,7 @@ Comment XmlParserV2<Comment>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Content XmlParserV2<Content>::parseXml(QXmlStreamReader &xml)
+Content XmlParser<Content>::parseXml(QXmlStreamReader &xml)
 {
     Content content;
 
@@ -753,7 +753,7 @@ Content XmlParserV2<Content>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Distribution XmlParserV2<Distribution>::parseXml(QXmlStreamReader &xml)
+Distribution XmlParser<Distribution>::parseXml(QXmlStreamReader &xml)
 {
     Distribution item;
 
@@ -774,7 +774,7 @@ Distribution XmlParserV2<Distribution>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-DownloadItem XmlParserV2<DownloadItem>::parseXml(QXmlStreamReader &xml)
+DownloadItem XmlParser<DownloadItem>::parseXml(QXmlStreamReader &xml)
 {
     DownloadItem item;
 
@@ -802,7 +802,7 @@ DownloadItem XmlParserV2<DownloadItem>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Event XmlParserV2<Event>::parseXml(QXmlStreamReader &xml)
+Event XmlParser<Event>::parseXml(QXmlStreamReader &xml)
 {
     Event event;
 
@@ -846,7 +846,7 @@ Event XmlParserV2<Event>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Folder XmlParserV2<Folder>::parseXml(QXmlStreamReader &xml)
+Folder XmlParser<Folder>::parseXml(QXmlStreamReader &xml)
 {
     Folder folder;
 
@@ -872,7 +872,7 @@ Folder XmlParserV2<Folder>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Forum XmlParserV2<Forum>::parseXml(QXmlStreamReader &xml)
+Forum XmlParser<Forum>::parseXml(QXmlStreamReader &xml)
 {
     Forum forum;
 
@@ -907,7 +907,7 @@ Forum XmlParserV2<Forum>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-HomePageType XmlParserV2<HomePageType>::parseXml(QXmlStreamReader &xml)
+HomePageType XmlParser<HomePageType>::parseXml(QXmlStreamReader &xml)
 {
     HomePageType item;
 
@@ -928,7 +928,7 @@ HomePageType XmlParserV2<HomePageType>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-KnowledgeBaseEntry XmlParserV2<KnowledgeBaseEntry>::parseXml(QXmlStreamReader &xml)
+KnowledgeBaseEntry XmlParser<KnowledgeBaseEntry>::parseXml(QXmlStreamReader &xml)
 {
     KnowledgeBaseEntry knowledgeBase;
 
@@ -970,7 +970,7 @@ KnowledgeBaseEntry XmlParserV2<KnowledgeBaseEntry>::parseXml(QXmlStreamReader &x
 }
 
 template <>
-License XmlParserV2<License>::parseXml(QXmlStreamReader &xml)
+License XmlParser<License>::parseXml(QXmlStreamReader &xml)
 {
     License item;
 
@@ -993,7 +993,7 @@ License XmlParserV2<License>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Message XmlParserV2<Message>::parseXml(QXmlStreamReader &xml)
+Message XmlParser<Message>::parseXml(QXmlStreamReader &xml)
 {
     Message message;
 
@@ -1027,7 +1027,7 @@ Message XmlParserV2<Message>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Person XmlParserV2<Person>::parseXml(QXmlStreamReader &xml)
+Person XmlParser<Person>::parseXml(QXmlStreamReader &xml)
 {
     Person person;
     bool hasAvatarPic = false;
@@ -1077,7 +1077,7 @@ Person XmlParserV2<Person>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-PrivateData XmlParserV2<PrivateData>::parseXml(QXmlStreamReader &xml)
+PrivateData XmlParser<PrivateData>::parseXml(QXmlStreamReader &xml)
 {
     PrivateData data;
     bool hasAvatarPic = false;
@@ -1104,7 +1104,7 @@ PrivateData XmlParserV2<PrivateData>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Project XmlParserV2<Project>::parseXml(QXmlStreamReader &xml)
+Project XmlParser<Project>::parseXml(QXmlStreamReader &xml)
 {
     Project project;
 
@@ -1151,7 +1151,7 @@ Project XmlParserV2<Project>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-PublisherField XmlParserV2<PublisherField>::parseXml(QXmlStreamReader &xml)
+PublisherField XmlParser<PublisherField>::parseXml(QXmlStreamReader &xml)
 {
     PublisherField fld;
     while (!xml.atEnd()) {
@@ -1173,7 +1173,7 @@ PublisherField XmlParserV2<PublisherField>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Publisher XmlParserV2<Publisher>::parseXml(QXmlStreamReader &xml)
+Publisher XmlParser<Publisher>::parseXml(QXmlStreamReader &xml)
 {
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft
@@ -1263,7 +1263,7 @@ Publisher XmlParserV2<Publisher>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-RemoteAccount XmlParserV2<RemoteAccount>::parseXml(QXmlStreamReader &xml)
+RemoteAccount XmlParser<RemoteAccount>::parseXml(QXmlStreamReader &xml)
 {
     RemoteAccount remoteaccount;
 
@@ -1295,7 +1295,7 @@ RemoteAccount XmlParserV2<RemoteAccount>::parseXml(QXmlStreamReader &xml)
 }
 
 template <>
-Topic XmlParserV2<Topic>::parseXml(QXmlStreamReader &xml)
+Topic XmlParser<Topic>::parseXml(QXmlStreamReader &xml)
 {
     Topic topic;
 

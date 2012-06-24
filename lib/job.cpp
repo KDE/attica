@@ -30,7 +30,7 @@
 
 #include "platformdependent.h"
 #include "iparser.h"
-#include "xmlparserv2.h"
+#include "xmlparser.h"
 
 
 using namespace Attica;
@@ -134,7 +134,7 @@ void Job<T>::parse(const QString &data)
 {
     switch (parserType()) {
     case Xml:
-        d->m_parser = new XmlParserV2<T>();
+        d->m_parser = new XmlParser<T>();
         break;
     }
     d->m_parser->parse(data);
