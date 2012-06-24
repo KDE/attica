@@ -36,8 +36,7 @@
 #include "atticaclient_export.h"
 #include "category.h"
 #include "forum.h"
-#include "itemjob.h"
-#include "listjob.h"
+#include "job.h"
 #include "message.h"
 #include "comment.h"
 #include "distribution.h"
@@ -50,7 +49,7 @@ namespace Attica {
 
 class PlatformDependent;
 
-class PostJobStatus;
+class JobStatus;
 
 class AccountBalance;
 class Activity;
@@ -67,7 +66,7 @@ class HomePageType;
 class KnowledgeBaseEntry;
 class License;
 class Person;
-class PostJob;
+class NoneType;
 class Project;
 class Provider;
 class Publisher;
@@ -269,17 +268,17 @@ class ATTICA_EXPORT Provider
       @param password the password
       @return the job that will contain the success of the login as metadata
     */
-    PostJob* checkLogin(const QString& user, const QString& password);
+    Job<NoneType>* checkLogin(const QString& user, const QString& password);
 
     // Person part of OCS
 
-    PostJob* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);
-    ItemJob<Person>* requestPerson(const QString& id);
-    ItemJob<Person>* requestPersonSelf();
-    ItemJob<AccountBalance>* requestAccountBalance();
-    ListJob<Person>* requestPersonSearchByName(const QString& name);
-    ListJob<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
-    PostJob* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
+    Job<NoneType>* registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName);
+    Job<Person>* requestPerson(const QString& id);
+    Job<Person>* requestPersonSelf();
+    Job<AccountBalance>* requestAccountBalance();
+    Job<Person>* requestPersonSearchByName(const QString& name);
+    Job<Person>* requestPersonSearchByLocation(qreal latitude, qreal longitude, qreal distance = 0.0, int page = 0, int pageSize = 20);
+    Job<NoneType>* postLocation(qreal latitude, qreal longitude, const QString& city = QString(), const QString& country = QString());
 
     //////////////////////////
     // PrivateData part of OCS
@@ -290,13 +289,13 @@ class ATTICA_EXPORT Provider
      * @param key The key of the attribute to fetch (optional)
      * @return The job that is responsible for fetching the data
      */
-    ItemJob<PrivateData>* requestPrivateData(const QString& app, const QString& key = QString());
+    Job<PrivateData>* requestPrivateData(const QString& app, const QString& key = QString());
 
     /**
      * Fetches all stored private data.
      * @return The job responsible for fetching data
      */
-    ItemJob<PrivateData>* requestPrivateData() { return requestPrivateData(QString(), QString()); }
+    Job<PrivateData>* requestPrivateData() { return requestPrivateData(QString(), QString()); }
 
     /**
      * Sets the value of an attribute.
@@ -305,152 +304,152 @@ class ATTICA_EXPORT Provider
      * @param value The new value of the attribute
      * @return The job responsible for setting data
      */
-    PostJob* setPrivateData(const QString &app, const QString &key, const QString &value);
+    Job<NoneType>* setPrivateData(const QString &app, const QString &key, const QString &value);
 
     // Friend part of OCS
 
-    ListJob<Person>* requestFriends(const QString& id, int page = 0, int pageSize = 20);
-    PostJob* postFriendInvitation(const QString& to, const QString& message);
-    ListJob<Person>* requestSentInvitations(int page = 0, int pageSize = 20);
-    ListJob<Person>* requestReceivedInvitations(int page = 0, int pageSize = 20);
-    PostJob* inviteFriend(const QString& to, const QString& message);
-    PostJob* approveFriendship(const QString& to);
-    PostJob* declineFriendship(const QString& to);
-    PostJob* cancelFriendship(const QString& to);
+    Job<Person>* requestFriends(const QString& id, int page = 0, int pageSize = 20);
+    Job<NoneType>* postFriendInvitation(const QString& to, const QString& message);
+    Job<Person>* requestSentInvitations(int page = 0, int pageSize = 20);
+    Job<Person>* requestReceivedInvitations(int page = 0, int pageSize = 20);
+    Job<NoneType>* inviteFriend(const QString& to, const QString& message);
+    Job<NoneType>* approveFriendship(const QString& to);
+    Job<NoneType>* declineFriendship(const QString& to);
+    Job<NoneType>* cancelFriendship(const QString& to);
 
     // Message part of OCS
 
-    ListJob<Folder>* requestFolders();
-    ListJob<Message>* requestMessages(const Folder& folder);
-    ListJob<Message>* requestMessages(const Folder& folder, Message::Status status);
-    ItemJob<Message>* requestMessage(const Folder& folder, const QString& id);
-    PostJob* postMessage(const Message& message);
+    Job<Folder>* requestFolders();
+    Job<Message>* requestMessages(const Folder& folder);
+    Job<Message>* requestMessages(const Folder& folder, Message::Status status);
+    Job<Message>* requestMessage(const Folder& folder, const QString& id);
+    Job<NoneType>* postMessage(const Message& message);
 
     // Achievement part of OCS
     /**
      * Get a list of achievements
-     * @return ListJob listing Achievements
+     * @return Job listing Achievements
      */
-    ListJob<Achievement>* requestAchievements(const QString& contentId, const QString& achievementId, const QString& userId);
+    Job<Achievement>* requestAchievements(const QString& contentId, const QString& achievementId, const QString& userId);
 
     /** Add a new achievement.
      * @param id id of the achievement entry
      * @param achievement The new Achievement added
      * @return item post job for adding the new achievement
      */
-    ItemPostJob<Achievement>* addNewAchievement(const QString& id, const Achievement& newAchievement);
+    Job<Achievement>* addNewAchievement(const QString& id, const Achievement& newAchievement);
 
     /**
      * Post modifications to an Achievement on the server
      * @param achievement Achievement to update on the server
      */
-    PutJob* editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement);
+    Job<Achievement>* editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement);
 
     /**
      * Deletes an achievement on the server. The achievement passed as an argument doesn't need complete
      * information as just the id() is used.
      * @param achievement Achievement to delete on the server.
      */
-    DeleteJob* deleteAchievement(const QString& contentId, const QString& achievementId);
+    Job<Achievement>* deleteAchievement(const QString& contentId, const QString& achievementId);
 
-    // PostJob* postAchievement(const Achievement& achievement);
-    PostJob* setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp);
-    DeleteJob* resetAchievementProgress(const QString& id);
+    // Job<NoneType>* postAchievement(const Achievement& achievement);
+    Job<Achievement>* setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp);
+    Job<Achievement>* resetAchievementProgress(const QString& id);
 
     // Activity part of OCS
 
-    ListJob<Activity>* requestActivities();
-    PostJob* postActivity(const QString& message);
+    Job<Activity>* requestActivities();
+    Job<NoneType>* postActivity(const QString& message);
 
     // Project part of OCS
     /**
      * Get a list of build service projects
-     * @return ListJob listing Projects
+     * @return Job listing Projects
      */
-    ListJob<Project>* requestProjects();
+    Job<Project>* requestProjects();
 
     /**
      * Get a Project's data
-     * @return ItemJob receiving data
+     * @return Job receiving data
      */
-    ItemJob<Project>* requestProject(const QString& id);
+    Job<Project>* requestProject(const QString& id);
 
     /**
      * Post modifications to a Project on the server. The resulting project ID can be found in
-     * the Attica::MetaData of the finished() PostJob. You can retrieve it using
+     * the Attica::MetaData of the finished() Job<NoneType>. You can retrieve it using
      * Attica::MetaData::resultingProjectId().
      * @param project Project to create on the server
      */
-    PostJob* createProject(const Project& project);
+    Job<NoneType>* createProject(const Project& project);
 
     /**
      * Deletes a project on the server. The project passed as an argument doesn't need complete
      * information as just the id() is used.
      * @param project Project to delete on the server.
      */
-    PostJob* deleteProject(const Project& project);
+    Job<NoneType>* deleteProject(const Project& project);
 
     /**
      * Post modifications to a Project on the server
      * @param project Project to update on the server
      */
-    PostJob* editProject(const Project& project);
+    Job<NoneType>* editProject(const Project& project);
 
     // Buildservice part of OCS
 
     /**
      * Get the information for a specific build service instance.
-     * @return ItemJob receiving data
+     * @return Job receiving data
      */
-    ItemJob<BuildService>* requestBuildService(const QString& id);
+    Job<BuildService>* requestBuildService(const QString& id);
 
     /**
      * Get the information for a specific publisher.
-     * @return ItemJob receiving data
+     * @return Job receiving data
      */
-    ItemJob<Publisher>* requestPublisher(const QString& id);
+    Job<Publisher>* requestPublisher(const QString& id);
 
     /**
      * Save the value of a single publishing field
-     * @return PostJob*
+     * @return Job*
      */
-    PostJob* savePublisherField(const Project& project, const PublisherField& field);
+    Job<NoneType>* savePublisherField(const Project& project, const PublisherField& field);
 
     /**
      * Publish the result of a completed build job to a publisher.
-     * @return ItemJob receiving data
+     * @return Job receiving data
      */
-    PostJob* publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher);
+    Job<NoneType>* publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher);
 
     /**
      * Get the build output for a specific build service job
-     * @return ItemJob receiving and containing the output data
+     * @return Job receiving and containing the output data
      */
-    ItemJob<BuildServiceJobOutput>* requestBuildServiceJobOutput(const QString& id);
+    Job<BuildServiceJobOutput>* requestBuildServiceJobOutput(const QString& id);
 
     /**
      * Get the information for a specific build service job, such as status and progress.
-     * @return ItemJob receiving and containing the data
+     * @return Job receiving and containing the data
      */
-    ItemJob<BuildServiceJob>* requestBuildServiceJob(const QString& id);
+    Job<BuildServiceJob>* requestBuildServiceJob(const QString& id);
 
     /**
      * Get a list of build service build services
-     * @return ListJob listing BuildServices
+     * @return Job listing BuildServices
      */
-    ListJob<BuildService>* requestBuildServices();
+    Job<BuildService>* requestBuildServices();
 
     /**
      * Get a list of publishers
-     * @return ListJob listing Publishers
+     * @return Job listing Publishers
      */
-    ListJob<Publisher>* requestPublishers();
+    Job<Publisher>* requestPublishers();
 
     /**
      * Get a list of build service projects
-     * @return ListJob listing BuildServiceJobs
+     * @return Job listing BuildServiceJobs
      */
-    ListJob<BuildServiceJob>* requestBuildServiceJobs(const Project &project);
+    Job<BuildServiceJob>* requestBuildServiceJobs(const Project &project);
 
 
     /**
@@ -458,28 +457,28 @@ class ATTICA_EXPORT Provider
      * Those three items are mandatory for the job to succeed.
      * @param job Buildservicejob to create on the server
      */
-    PostJob* createBuildServiceJob(const BuildServiceJob& job);
+    Job<NoneType>* createBuildServiceJob(const BuildServiceJob& job);
 
     /**
      * Cancel a job.
      * Setting the ID on the build service parameter is enough for it to work.
      * @param job Buildservicejob to cancel on the server, needs at least id set.
      */
-    PostJob* cancelBuildServiceJob(const BuildServiceJob& job);
+    Job<NoneType>* cancelBuildServiceJob(const BuildServiceJob& job);
 
     /**
      * Get a list of remote accounts, account for a build service instance
      * which is stored in the OCS service in order to authenticate with the
      * build service instance.
-     * @return ListJob listing RemoteAccounts
+     * @return Job listing RemoteAccounts
      */
-    ListJob<RemoteAccount>* requestRemoteAccounts();
+    Job<RemoteAccount>* requestRemoteAccounts();
 
     /**
      * Deletes a remote account stored on the OCS server.
      * @param id The ID of the remote account on the OCS instance.
      */
-    PostJob* deleteRemoteAccount(const QString& id);
+    Job<NoneType>* deleteRemoteAccount(const QString& id);
 
     /**
      * Create a new remote account, an account for a build service instance
@@ -488,25 +487,25 @@ class ATTICA_EXPORT Provider
      * Type, Type ID, login and password are mandatory.
      * @param account RemoteAccount to create on the server
      */
-    PostJob* createRemoteAccount(const RemoteAccount& account);
+    Job<NoneType>* createRemoteAccount(const RemoteAccount& account);
 
     /**
      * Edit an existing remote account.
      * @param account RemoteAccount to create on the server
      */
-    PostJob* editRemoteAccount(const RemoteAccount& account);
+    Job<NoneType>* editRemoteAccount(const RemoteAccount& account);
 
     /** Get a remote account by its ID.
      * @param id The ID of the remote account
      */
-    ItemJob<RemoteAccount>* requestRemoteAccount(const QString &id);
+    Job<RemoteAccount>* requestRemoteAccount(const QString &id);
 
     /** Upload a tarball to the buildservice.
      * @param projectId The ID of the project this source file belongs to
      * @param payload A reference tothe complete file data
      * @return A postjob to keep keep track of the upload
      */
-    Attica::PostJob* uploadTarballToBuildService(const QString& projectId, const QString& fileName, const QByteArray& payload);
+    Attica::Job<NoneType>* uploadTarballToBuildService(const QString& projectId, const QString& fileName, const QByteArray& payload);
 
     // Content part of OCS
 
@@ -514,25 +513,25 @@ class ATTICA_EXPORT Provider
      * Get a list of categories (such as wallpaper)
      * @return the categories of the server
      */
-    ListJob<Category>* requestCategories();
+    Job<Category>* requestCategories();
 
     /**
     * Get a list of licenses (such as GPL)
     * @return the licenses available from the server
     */
-    ListJob<License>* requestLicenses();
+    Job<License>* requestLicenses();
 
     /**
     * Get a list of distributions (such as Ark, Debian)
     * @return the licenses available from the server
     */
-    ListJob<Distribution>* requestDistributions();
+    Job<Distribution>* requestDistributions();
 
     /**
     * Get a list of home page types (such as blog, Facebook)
     * @return the licenses available from the server
     */
-    ListJob<HomePageType>* requestHomePageTypes();
+    Job<HomePageType>* requestHomePageTypes();
 
     /**
       Request a list of Contents.
@@ -545,14 +544,14 @@ class ATTICA_EXPORT Provider
       @param pageSize requested size of pages when calculating the list of results
       @return list job for the search results
       */
-    ListJob<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+    Job<Content>* searchContents(const Category::List& categories, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Request a list of Contents.
       Like @see searchContents, but only contents created by one person.
       @param person the person-id that created the contents.
      */
-    ListJob<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+    Job<Content>* searchContentsByPerson(const Category::List& categories, const QString& person, const QString& search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Request a list of Contents. More complete version.
@@ -568,16 +567,16 @@ class ATTICA_EXPORT Provider
       @param pageSize requested size of pages when calculating the list of results
       @return list job for the search results
       */
-    ListJob<Content>* searchContents(const Category::List& categories, const QString& person, const Distribution::List& distributions, const License::List& licenses, const QString& search = QString(), SortMode sortMode = Rating, uint page = 0, uint pageSize = 10);
+    Job<Content>* searchContents(const Category::List& categories, const QString& person, const Distribution::List& distributions, const License::List& licenses, const QString& search = QString(), SortMode sortMode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Retrieve a single content.
       @param contentId the id of the content
       @return job that retrieves the content object
      */
-    ItemJob<Content>* requestContent(const QString& contentId);
+    Job<Content>* requestContent(const QString& contentId);
 
-    ItemJob<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));
+    Job<DownloadItem>* downloadLink(const QString& contentId, const QString& itemId = QLatin1String("1"));
 
     /** Vote for a content item
      * This version is for the old OCS API < 1.6
@@ -585,22 +584,22 @@ class ATTICA_EXPORT Provider
      * @param positiveVote whether the voting is positive or negative
      * @return the post job for this voting
      */
-    Q_DECL_DEPRECATED PostJob* voteForContent(const QString& contentId, bool positiveVote);
+    Q_DECL_DEPRECATED Job<NoneType>* voteForContent(const QString& contentId, bool positiveVote);
 
     /** Vote for a content item
      * @param contentId the content which this voting is for
      * @param rating - the rating, must be between 0 (bad) and 100 (good)
      * @return the post job for this voting
      */
-    PostJob* voteForContent(const QString& contentId, uint rating);
+    Job<NoneType>* voteForContent(const QString& contentId, uint rating);
 
-    ItemPostJob<Content>* addNewContent(const Category& category, const Content& newContent);
-    ItemPostJob<Content>* editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent);
-    PostJob* deleteContent(const QString& contentId);
+    Job<Content>* addNewContent(const Category& category, const Content& newContent);
+    Job<Content>* editContent(const Category& updatedCategory, const QString& contentId, const Content& updatedContent);
+    Job<NoneType>* deleteContent(const QString& contentId);
 
-    PostJob* setDownloadFile(const QString& contentId, const QString& fileName, QIODevice* payload);
-    PostJob* setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload);
-    PostJob* deleteDownloadFile(const QString& contentId);
+    Job<NoneType>* setDownloadFile(const QString& contentId, const QString& fileName, QIODevice* payload);
+    Job<NoneType>* setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload);
+    Job<NoneType>* deleteDownloadFile(const QString& contentId);
 
     /**
      * Upload an image file as preview for the content
@@ -608,18 +607,18 @@ class ATTICA_EXPORT Provider
      * @param previewId each content can have previews with the id 1,2 or 3
      * @param payload the image file
      */
-    PostJob* setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image);
-    PostJob* deletePreviewImage(const QString& contentId, const QString& previewId);
+    Job<NoneType>* setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image);
+    Job<NoneType>* deletePreviewImage(const QString& contentId, const QString& previewId);
 
     // KnowledgeBase part of OCS
 
-    ItemJob<KnowledgeBaseEntry>* requestKnowledgeBaseEntry(const QString& id);
-    ListJob<KnowledgeBaseEntry>* searchKnowledgeBase(const Content& content, const QString& search, SortMode, int page, int pageSize);
+    Job<KnowledgeBaseEntry>* requestKnowledgeBaseEntry(const QString& id);
+    Job<KnowledgeBaseEntry>* searchKnowledgeBase(const Content& content, const QString& search, SortMode, int page, int pageSize);
 
     // Event part of OCS
 
-    ItemJob<Event>* requestEvent(const QString& id);
-    ListJob<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
+    Job<Event>* requestEvent(const QString& id);
+    Job<Event>* requestEvent(const QString& country, const QString& search, const QDate& startAt, SortMode mode, int page, int pageSize);
 
     // Comment part of OCS
     /** Request a list of comments for a content / forum / knowledgebase / event.
@@ -630,7 +629,7 @@ class ATTICA_EXPORT Provider
      * @param pageSize requested size of pages when calculating the list of results
      * @return list job for the comments results
      */
-    ListJob<Comment>* requestComments(const Comment::Type commentType, const QString& id, const QString& id2, int page, int pageSize);
+    Job<Comment>* requestComments(const Comment::Type commentType, const QString& id, const QString& id2, int page, int pageSize);
 
     /** Add a new comment.
      * @param commentType type of the comment @see CommentType (content / forum / knowledgebase / event)
@@ -641,24 +640,24 @@ class ATTICA_EXPORT Provider
      * @param message text of the comment
      * @return item post job for adding the new comment
      */
-    ItemPostJob<Comment>* addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
+    Job<Comment>* addNewComment(const Comment::Type commentType, const QString& id, const QString& id2, const QString& parentId, const QString &subject, const QString& message);
 
     /** Vote a comment item
      * @param id the comment id which this voting is for
      * @param rating the rating, must be between 0 (bad) and 100 (good)
      * @return the post job for this voting
      */
-    PostJob* voteForComment(const QString & id, uint rating);
+    Job<NoneType>* voteForComment(const QString & id, uint rating);
 
     // Fan part of OCS
 
-    PostJob* becomeFan(const QString& contentId);
-    ListJob<Person>* requestFans(const QString& contentId, uint page = 0, uint pageSize = 10);
+    Job<NoneType>* becomeFan(const QString& contentId);
+    Job<Person>* requestFans(const QString& contentId, uint page = 0, uint pageSize = 10);
 
     // Forum part of OCS
-    ListJob<Forum>* requestForums(uint page = 0, uint pageSize = 10);
-    ListJob<Topic>* requestTopics(const QString& forum, const QString& search, const QString& description, SortMode mode, int page, int pageSize);
-    PostJob* postTopic(const QString& forumId, const QString& subject, const QString& content);
+    Job<Forum>* requestForums(uint page = 0, uint pageSize = 10);
+    Job<Topic>* requestTopics(const QString& forum, const QString& search, const QString& description, SortMode mode, int page, int pageSize);
+    Job<NoneType>* postTopic(const QString& forumId, const QString& subject, const QString& content);
 
   protected:
     QUrl createUrl(const QString& path);
@@ -666,15 +665,15 @@ class ATTICA_EXPORT Provider
     // Convenience overload
     QNetworkRequest createRequest(const QString& path);
 
-    ItemJob<Person>* doRequestPerson(const QUrl& url);
-    ItemJob<AccountBalance>* doRequestAccountBalance(const QUrl& url);
-    ListJob<Person>* doRequestPersonList(const QUrl& url);
-    ListJob<Achievement>* doRequestAchievementList(const QUrl& url);
-    ListJob<Activity>* doRequestActivityList(const QUrl& url);
-    ListJob<Folder>* doRequestFolderList(const QUrl& url);
-    ListJob<Forum>* doRequestForumList(const QUrl& url);
-    ListJob<Topic>* doRequestTopicList(const QUrl& url);
-    ListJob<Message>* doRequestMessageList(const QUrl& url);
+    Job<Person>* doRequestPerson(const QUrl& url);
+    Job<AccountBalance>* doRequestAccountBalance(const QUrl& url);
+    Job<Person>* doRequestPersonList(const QUrl& url);
+    Job<Achievement>* doRequestAchievementList(const QUrl& url);
+    Job<Activity>* doRequestActivityList(const QUrl& url);
+    Job<Folder>* doRequestFolderList(const QUrl& url);
+    Job<Forum>* doRequestForumList(const QUrl& url);
+    Job<Topic>* doRequestTopicList(const QUrl& url);
+    Job<Message>* doRequestMessageList(const QUrl& url);
 
   private:
     class Private;

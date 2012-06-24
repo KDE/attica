@@ -19,78 +19,46 @@ configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticacli
 
 set(ocsclient_SRCS
    accountbalance.cpp
-   accountbalancexmlparser.cpp
    achievement.cpp
-   achievementxmlparser.cpp
+   basicjob.cpp
    buildservice.cpp
-   buildservicexmlparser.cpp
    buildservicejob.cpp
-   buildservicejobxmlparser.cpp
    buildservicejoboutput.cpp
-   buildservicejoboutputxmlparser.cpp
    activity.cpp
-   activityxmlparser.cpp
-   atticabasejob.cpp
    atticautils.cpp
    privatedata.cpp
-   privatedataxmlparser.cpp
    category.cpp
-   categoryxmlparser.cpp
    comment.cpp
-   commentxmlparser.cpp
    content.cpp
-   contentxmlparser.cpp
-   deletejob.cpp
    distribution.cpp
-   distributionxmlparser.cpp
    downloaddescription.cpp
    downloaditem.cpp
-   downloaditemxmlparser.cpp
    event.cpp
-   eventxmlparser.cpp
    folder.cpp
-   folderxmlparser.cpp
    forum.cpp
-   forumxmlparser.cpp
-   getjob.cpp
    homepageentry.cpp
    homepagetype.cpp
-   homepagetypexmlparser.cpp
    icon.cpp
-   itemjob.cpp
+   iparser.cpp
+   job.cpp
+   job_inst.cpp
    knowledgebaseentry.cpp
-   knowledgebaseentryxmlparser.cpp
    license.cpp
-   licensexmlparser.cpp
-   listjob_inst.cpp
    message.cpp
-   messagexmlparser.cpp
    metadata.cpp
-   parser.cpp
-   parserfactory.cpp
-   parserfactory_inst.cpp
    person.cpp
-   personxmlparser.cpp
+   platformdependent.cpp
    platformdependent_v2.cpp
    postfiledata.cpp
-   postjob.cpp
    project.cpp
-   projectxmlparser.cpp
-   putjob.cpp
    remoteaccount.cpp
-   remoteaccountxmlparser.cpp
    provider.cpp
    providermanager.cpp
    publisher.cpp
-   publisherxmlparser.cpp
    publisherfield.cpp
-   publisherfieldxmlparser.cpp
    qtplatformdependent.cpp
-   statusparser.cpp
    topic.cpp
-   topicxmlparser.cpp
-   xmlparser.cpp
-   xmlstatusparser.cpp
+   xmlparserv2.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})
@@ -121,40 +89,31 @@ install(FILES
     activity.h
     accountbalance.h
     achievement.h
-    atticabasejob.h
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     atticautils.h
     comment.h
-    #commentparser.h
     content.h
     category.h
-    deletejob.h
     distribution.h
-    #distributionparser.h
     downloaddescription.h
     downloaditem.h
     event.h
     folder.h
     forum.h
-    getjob.h
     homepageentry.h
     homepagetype.h
-    #homepagetypeparser.h
     icon.h
-    itemjob.h
+    job.h
     knowledgebaseentry.h
-    listjob.h
     license.h
     message.h
     metadata.h
+    nonetype.h
     person.h
     #interface for external platform plugins
     platformdependent.h
-    platformdependent_v2.h
     privatedata.h
-    postjob.h
     project.h
-    putjob.h
     remoteaccount.h
     buildservice.h
     buildservicejob.h

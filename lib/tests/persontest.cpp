@@ -22,7 +22,7 @@
 */
 
 #include <QtTest/QtTest>
-#include <personxmlparser.h>
+#include <xmlparserv2.h>
 
 using namespace Attica;
 
@@ -36,9 +36,9 @@ private slots:
 
 void PersonTest::testParsing()
 {
-    Person::XmlParser parser;
+    XmlParserV2<Person> parser;
     QString validData (QLatin1String("<?xml version=\"1.0\"?>"
-               "<ocs><person>"
+               "<ocs><data><person>"
                "<personid>10</personid>"
                "<firstname>Ola</firstname>"
                "<lastname>Nordmann</lastname>"
@@ -50,12 +50,14 @@ void PersonTest::testParsing()
                "<country>Norway</country>"
                "<latitude>59.56</latitude>"
                "<longitude>10.41</longitude>"
-          "</person></ocs>"));
-    Person person = parser.parse(validData);
+          "</person></data></ocs>"));
+    parser.parse(validData);
+    Person person = parser.item();
     QVERIFY(person.isValid());
 
     QString invalidData = QLatin1String("<ocs><braaaaaaaaaaawrlawrf></braaaaaaaaaaawrlawrf></ocs>");
-    person = parser.parse(invalidData);
+    parser.parse(invalidData);
+    person = parser.item();
     QVERIFY(!person.isValid());
 }
 

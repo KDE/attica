@@ -32,8 +32,7 @@
 
 #include <QDebug>
 
-#include <itemjob.h>
-#include <listjob.h>
+#include "job.h"
 #include <buildservice.h>
 #include <buildservicejob.h>
 #include <provider.h>
@@ -107,8 +106,8 @@ void ProjectTest::providerAdded(const Attica::Provider& provider)
 
 void ProjectTest::getProject(QString id)
 {
-    ItemJob<Project>* job = m_provider.requestProject(id);
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectResult(Attica::BaseJob*)));
+    Job<Project>* job = m_provider.requestProject(id);
+    connect(job, SIGNAL(finished(Attica::BasicJob*)), SLOT(projectResult(Attica::BasicJob*)));
     job->start();
     setStatus(QString(QLatin1String("Loading project %")).arg(id));
     m_mainWidget->setEnabled(false);
@@ -117,34 +116,34 @@ void ProjectTest::getProject(QString id)
 
 void ProjectTest::listProjects()
 {
-    ListJob<Project>* job = m_provider.requestProjects();
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectListResult(Attica::BaseJob*)));
+    Job<Project>* job = m_provider.requestProjects();
+    connect(job, SIGNAL(finished(Attica::BasicJob*)), SLOT(projectListResult(Attica::BasicJob*)));
     job->start();
 }
 
 void ProjectTest::listBuildServices()
 {
-    ListJob<BuildService>* job = m_provider.requestBuildServices();
+    Job<BuildService>* job = m_provider.requestBuildServices();
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceListResult(Attica::BaseJob*)));
     job->start();
 }
 
 void ProjectTest::listBuildServiceJobs(const Project &p)
 {
-    ListJob<BuildServiceJob>* job = m_provider.requestBuildServiceJobs(p);
+    Job<BuildServiceJob>* job = m_provider.requestBuildServiceJobs(p);
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceJobListResult(Attica::BaseJob*)));
     job->start();
 }
 
-void ProjectTest::projectResult(Attica::BaseJob* j)
+void ProjectTest::projectResult(Attica::BasicJob* j)
 {
     qDebug() << "Project job returned";
     QString output;
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ItemJob<Project> *itemJob = static_cast<Attica::ItemJob<Project> *>( j );
-        Attica::Project p = itemJob->result();
+        Attica::Job<Project> *itemJob = static_cast<Attica::Job<Project> *>( j );
+        Attica::Project p = itemJob->item();
         output.append(QLatin1String("Project loaded."));
 
         projectToUi(p);
@@ -199,36 +198,36 @@ Project ProjectTest::uiToProject()
 
 void ProjectTest::save()
 {
-    Attica::PostJob* postjob = m_provider.editProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(saveProjectResult(Attica::BaseJob*)));
+    Attica::Job<NoneType>* postjob = m_provider.editProject(uiToProject());
+    connect(postjob, SIGNAL(finished(Attica::BasicJob*)), SLOT(saveProjectResult(Attica::BasicJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
 
 void ProjectTest::create()
 {
-    Attica::PostJob* postjob = m_provider.createProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(createProjectResult(Attica::BaseJob*)));
+    Attica::Job<NoneType>* postjob = m_provider.createProject(uiToProject());
+    connect(postjob, SIGNAL(finished(Attica::BasicJob*)), SLOT(createProjectResult(Attica::BasicJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
 
 void ProjectTest::deleteProject()
 {
-    Attica::PostJob* postjob = m_provider.deleteProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(deleteProjectResult(Attica::BaseJob*)));
+    Attica::Job<NoneType>* postjob = m_provider.deleteProject(uiToProject());
+    connect(postjob, SIGNAL(finished(Attica::BasicJob*)), SLOT(deleteProjectResult(Attica::BasicJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
 
-void ProjectTest::createProjectResult(Attica::BaseJob* j)
+void ProjectTest::createProjectResult(Attica::BasicJob* j)
 {
     qDebug() << "createProject() job returned";
     QString output;
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::PostJob* postjob = static_cast<Attica::PostJob*>(j);
+        Attica::Job<NoneType>* postjob = static_cast<Attica::Job<NoneType>*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
         output.append(QString(QLatin1String("Project [%1] successfully created:")).arg(m_currentProjectId));
@@ -242,14 +241,14 @@ void ProjectTest::createProjectResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::saveProjectResult(Attica::BaseJob* j)
+void ProjectTest::saveProjectResult(Attica::BasicJob* j)
 {
     qDebug() << "editProject() job returned";
     QString output;
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::PostJob* postjob = static_cast<Attica::PostJob*>(j);
+        Attica::Job<NoneType>* postjob = static_cast<Attica::Job<NoneType>*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
         output.append(QString(QLatin1String("Project [%1] successfully saved.")).arg(m_currentProjectId));
@@ -263,7 +262,7 @@ void ProjectTest::saveProjectResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
+void ProjectTest::deleteProjectResult(Attica::BasicJob* j)
 {
     qDebug() << "deleteProject() job returned";
     QString output;
@@ -284,14 +283,14 @@ void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
     projectToUi(Project());
 }
 
-void ProjectTest::projectListResult(Attica::BaseJob* j)
+void ProjectTest::projectListResult(Attica::BasicJob* j)
 {
     qDebug() << "Project list job returned";
     QString output = QLatin1String("<b>Projects:</b>");
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<Project> *listJob = static_cast<Attica::ListJob<Project> *>( j );
+        Attica::Job<Project> *listJob = static_cast<Attica::Job<Project> *>( j );
         qDebug() << "Yay, no errors ...";
         QStringList projectIds;
 
@@ -317,14 +316,14 @@ void ProjectTest::projectListResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
+void ProjectTest::buildServiceListResult(Attica::BasicJob* j)
 {
     qDebug() << "BuildService list job returned";
     QString output = QLatin1String("<b>BuildServices:</b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<BuildService> *listJob = static_cast<Attica::ListJob<BuildService> *>( j );
+        Attica::Job<BuildService> *listJob = static_cast<Attica::Job<BuildService> *>( j );
         qDebug() << "Yay, no errors ...";
 
         foreach (const BuildService& bs, listJob->itemList()) {
@@ -353,14 +352,14 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
     //setBuildStatus(output);
 }
 
-void ProjectTest::buildServiceJobListResult(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobListResult(Attica::BasicJob* j)
 {
     qDebug() << "BuildServiceJobList list job returned";
     QString output = QLatin1String("<b>BuildServiceJobs: </b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<BuildServiceJob> *listJob = static_cast<Attica::ListJob<BuildServiceJob> *>( j );
+        Attica::Job<BuildServiceJob> *listJob = static_cast<Attica::Job<BuildServiceJob> *>( j );
         qDebug() << "Yay, no errors. Items found:" << listJob->itemList().count();
 
         foreach (const BuildServiceJob& bsj, listJob->itemList()) {
@@ -412,8 +411,8 @@ void ProjectTest::createBuildServiceJob()
     qDebug() << "Target:" << b.target();
     qDebug() << "Buildservice:" << b.buildServiceId();
     //*/
-    Attica::PostJob* j = m_provider.createBuildServiceJob(b);
-    connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCreated(Attica::BaseJob*)));
+    Attica::Job<NoneType>* j = m_provider.createBuildServiceJob(b);
+    connect(j, SIGNAL(finished(Attica::BasicJob*)), this, SLOT(buildServiceJobCreated(Attica::BasicJob*)));
     j->start();
     setStatus(QLatin1String("Starting a build job on the server."));
 }
@@ -424,12 +423,12 @@ void ProjectTest::cancelBuildServiceJob()
     qDebug() << "Cancelling build job:" << bsj_id;
     BuildServiceJob b = BuildServiceJob();
     b.setId(bsj_id);
-    Attica::PostJob* j = m_provider.cancelBuildServiceJob(b);
-    connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCanceled(Attica::BaseJob*)));
+    Attica::Job<NoneType>* j = m_provider.cancelBuildServiceJob(b);
+    connect(j, SIGNAL(finished(Attica::BasicJob*)), this, SLOT(buildServiceJobCanceled(Attica::BasicJob*)));
     j->start();
 }
 
-void ProjectTest::buildServiceJobCanceled(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobCanceled(Attica::BasicJob* j)
 {
     //m_mainWidget->setEnabled(true); // fixme: tab
     QString output;
@@ -448,7 +447,7 @@ void ProjectTest::buildServiceJobCanceled(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::buildServiceJobCreated(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobCreated(Attica::BasicJob* j)
 {
     qDebug() << "JOB CREATED!!!!!!!!!!!!!!!!";
     //m_mainWidget->setEnabled(true); // fixme: tab

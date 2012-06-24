@@ -31,10 +31,10 @@
 
 #include <providermanager.h>
 #include <project.h>
+#include "nonetype.h"
 
 namespace Attica {
     class Project;
-    class BaseJob;
     class Provider;
 }
 
@@ -48,14 +48,14 @@ public:
 private Q_SLOTS:
     void providerAdded(const Attica::Provider& provider);
 
-    void projectListResult(Attica::BaseJob*);
-    void projectResult(Attica::BaseJob*);
-    void createProjectResult(Attica::BaseJob* j);
-    void saveProjectResult(Attica::BaseJob* j);
-    void deleteProjectResult(Attica::BaseJob* j);
+    void projectListResult(Attica::BasicJob*);
+    void projectResult(Attica::BasicJob*);
+    void createProjectResult(Attica::BasicJob* j);
+    void saveProjectResult(Attica::BasicJob* j);
+    void deleteProjectResult(Attica::BasicJob* j);
 
-    void buildServiceListResult(Attica::BaseJob*);
-    void buildServiceJobListResult(Attica::BaseJob*);
+    void buildServiceListResult(Attica::BasicJob*);
+    void buildServiceJobListResult(Attica::BasicJob*);
 
     void save();
     void create();
@@ -63,9 +63,9 @@ private Q_SLOTS:
 
     void selectedBuildServiceChanged(QListWidgetItem* current, QListWidgetItem* previous);
     void createBuildServiceJob();
-    void buildServiceJobCreated(Attica::BaseJob* j);
+    void buildServiceJobCreated(Attica::BasicJob* j);
     void cancelBuildServiceJob();
-    void buildServiceJobCanceled(Attica::BaseJob* j);
+    void buildServiceJobCanceled(Attica::BasicJob* j);
 
     void updateCurrentProject();
 
