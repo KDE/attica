@@ -60,7 +60,7 @@ public:
         NoFlags = 0x0,
         DisablePlugins = 0x1
     };
-    Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag);
+    Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
 
     ProviderManager(const ProviderFlags& flags = NoFlags);
     ~ProviderManager();
