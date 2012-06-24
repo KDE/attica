@@ -25,7 +25,7 @@
 #ifndef ATTICA_QTPLATFORMDEPENDENT_H
 #define ATTICA_QTPLATFORMDEPENDENT_H
 
-#include "platformdependent_v2.h"
+#include "platformdependent.h"
 
 #include <QtCore/QHash>
 #include <QtNetwork/QNetworkAccessManager>
@@ -33,7 +33,7 @@
 
 namespace Attica {
 
-class QtPlatformDependent : public Attica::PlatformDependentV2
+class QtPlatformDependent : public Attica::PlatformDependent
 {
 public:
     virtual QList<QUrl> getDefaultProviderFiles() const;

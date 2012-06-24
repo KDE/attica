@@ -29,7 +29,6 @@
 #include <QtNetwork/QNetworkReply>
 
 #include "platformdependent.h"
-#include "parser.h"
 
 using namespace Attica;
 

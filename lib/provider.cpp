@@ -46,16 +46,13 @@
 #include "license.h"
 #include "message.h"
 #include "person.h"
-#include "platformdependent_v2.h"
-#include "postjob.h"
+#include "platformdependent.h"
 #include "postfiledata.h"
 #include "project.h"
 #include "publisher.h"
 #include "publisherfield.h"
 #include "remoteaccount.h"
 #include "topic.h"
-#include "itemjob.h"
-#include "listjob.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAccessManager>
@@ -422,10 +419,6 @@ Job<Achievement>* Provider::addNewAchievement(const QString& contentId, const Ac
 Job<Achievement>* Provider::editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement)
 {
     if (!isValid()) {
-        return 0;
-    }
-
-    if (!dynamic_cast<Attica::PlatformDependentV2*>(d->m_internals)) {
         return 0;
     }
 

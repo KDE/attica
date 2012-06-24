@@ -48,7 +48,6 @@ set(ocsclient_SRCS
    metadata.cpp
    person.cpp
    platformdependent.cpp
-   platformdependent_v2.cpp
    postfiledata.cpp
    project.cpp
    remoteaccount.cpp
