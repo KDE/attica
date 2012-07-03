@@ -20,7 +20,7 @@ add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 
 # Enable unit testing
-option(ATTICA_ENABLE_TESTS "Enable tests")
+option(ATTICA_ENABLE_TESTS "Enable tests" ON)
 if (ATTICA_ENABLE_TESTS)
     enable_testing()
 endif (ATTICA_ENABLE_TESTS)
