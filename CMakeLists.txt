@@ -6,9 +6,9 @@ set(CMAKE_LIBATTICA_VERSION_PATCH 0)
 set(CMAKE_LIBATTICA_VERSION_STRING  "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}")
 
 if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Wall -Wno-switch -O2 -g -fPIC")
-    set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Wno-switch -O2 -fPIC")
-    set(CMAKE_CXX_FLAGS_DEBUG  "-Wall -Wno-switch -g3 -ggdb -O0 -fPIC" CACHE STRING "Debug options." FORCE)
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2 -g")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2")
+    set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -g3 -ggdb -O0" CACHE STRING "Debug options." FORCE)
 endif(NOT MSVC)
 
 cmake_minimum_required(VERSION 2.6)

@@ -15,6 +15,15 @@ find_package(Qt5Transitional REQUIRED
     Test
 )
 
+# TODO: Remove me once fixed in ECM module
+if(Qt5Core_FOUND)
+  # Avoid errors and build in PIC mode:
+  # qt5/qtbase/include/QtCore/qglobal.h:1765:4: error:
+  #   #error "You must build your code with position independent code if Qt was
+  #   built with -reduce-relocations. " "Compile your code with -fPIC or -fPIE."
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
+
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # mingw can't handle exported explicit template instantiations in a DLL
