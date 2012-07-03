@@ -1,4 +1,5 @@
 project(attica)
+cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_LIBATTICA_VERSION_MAJOR 0)
 set(CMAKE_LIBATTICA_VERSION_MINOR 4)
@@ -11,7 +12,6 @@ if(NOT MSVC)
     set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -g3 -ggdb -O0" CACHE STRING "Debug options." FORCE)
 endif(NOT MSVC)
 
-cmake_minimum_required(VERSION 2.6)
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
