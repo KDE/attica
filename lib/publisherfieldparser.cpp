@@ -31,14 +31,14 @@ PublisherField PublisherField::Parser::parseXml(QXmlStreamReader& xml)
     while (!xml.atEnd()) {
         xml.readNextStartElement();
         if (xml.isStartElement()) {
-            if (xml.name() == "fieldtype") {
+            if (xml.name() == QLatin1String("fieldtype")) {
                 fld.setType(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 fld.setName(xml.readElementText());
-            } else if (xml.name() == "data") {
+            } else if (xml.name() == QLatin1String("data")) {
                 fld.setData(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "field")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("field"))) {
             xml.readNext();
             break;
         }

@@ -42,75 +42,75 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
 
         if (xml.isStartElement()) {
 
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 publisher.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 publisher.setName(xml.readElementText());
-            } else if (xml.name() == "registrationurl") {
+            } else if (xml.name() == QLatin1String("registrationurl")) {
                 publisher.setUrl(xml.readElementText());
-            } else if (xml.name() == "fields") {
+            } else if (xml.name() == QLatin1String("fields")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "field") {
+                        if (xml.name() == QLatin1String("field")) {
                             Field t;
                             while (!xml.atEnd()) {
                                 xml.readNextStartElement();
                                 if (xml.isStartElement()) {
-                                    if (xml.name() == "fieldtype") {
+                                    if (xml.name() == QLatin1String("fieldtype")) {
                                         t.type = xml.readElementText();
-                                    } else if (xml.name() == "name") {
+                                    } else if (xml.name() == QLatin1String("name")) {
                                         t.name = xml.readElementText();
-                                    } else if (xml.name() == "fieldsize") {
+                                    } else if (xml.name() == QLatin1String("fieldsize")) {
                                         t.fieldsize = xml.readElementText().toInt();
-                                    } else if (xml.name() == "required") {
+                                    } else if (xml.name() == QLatin1String("required")) {
                                         t.required = xml.readElementText() == QLatin1String("true");
-                                    } else if (xml.name() == "options") {
+                                    } else if (xml.name() == QLatin1String("options")) {
                                         while (!xml.atEnd())
                                         {
                                             xml.readNextStartElement();
                                             if(xml.isStartElement())
                                             {
-                                                if(xml.name() == "option")
+                                                if(xml.name() == QLatin1String("option"))
                                                 {
                                                     t.options << xml.readElementText();
                                                 }
-                                            } else if (xml.isEndElement() && xml.name() == "options") {
+                                            } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
                                                 xml.readNext();
                                                 break;
                                             }
                                         }
                                     }
-                                } else if (xml.isEndElement() && (xml.name() == "field")) {
+                                } else if (xml.isEndElement() && (xml.name() == QLatin1String("field"))) {
                                     xml.readNext();
                                     break;
                                 }
                             }
                             publisher.addField(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "fields")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("fields"))) {
                         xml.readNext();
                         break;
                     }
                 }
-            } else if (xml.name() == "supportedtargets") {
+            } else if (xml.name() == QLatin1String("supportedtargets")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "target") {
+                        if (xml.name() == QLatin1String("target")) {
                             Target t;
                             t.name = xml.readElementText();
                             publisher.addTarget(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "supportedtargets")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("supportedtargets"))) {
                         xml.readNext();
                         break;
                     }
                 }
             }
         } else if (xml.isEndElement()
-               && ((xml.name() == "publisher")
-               || (xml.name() == "user"))) {
+               && ((xml.name() == QLatin1String("publisher")
+               || (xml.name() == QLatin1String("user"))))) {
             break;
         }
     }

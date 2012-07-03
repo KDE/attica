@@ -40,42 +40,42 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader& xml)
 
         if (xml.isStartElement()) {
 
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 buildservice.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 buildservice.setName(xml.readElementText());
-            } else if (xml.name() == "registrationurl") {
+            } else if (xml.name() == QLatin1String("registrationurl")) {
                 buildservice.setUrl(xml.readElementText());
-            } else if (xml.name() == "supportedtargets") {
+            } else if (xml.name() == QLatin1String("supportedtargets")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "target") {
+                        if (xml.name() == QLatin1String("target")) {
                             Target t;
                             while (!xml.atEnd()) {
                                 xml.readNextStartElement();
                                 if (xml.isStartElement()) {
-                                    if (xml.name() == "id") {
+                                    if (xml.name() == QLatin1String("id")) {
                                         t.id = xml.readElementText();
-                                    } else if (xml.name() == "name") {
+                                    } else if (xml.name() == QLatin1String("name")) {
                                         t.name = xml.readElementText();
                                     }
-                                } else if (xml.isEndElement() && (xml.name() == "target")) {
+                                } else if (xml.isEndElement() && (xml.name() == QLatin1String("target"))) {
                                     xml.readNext();
                                     break;
                                 }
                             }
                             buildservice.addTarget(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "supportedtargets")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("supportedtargets"))) {
                         xml.readNext();
                         break;
                     }
                 }
             }
         } else if (xml.isEndElement()
-               && ((xml.name() == "buildservice")
-               || (xml.name() == "user"))) {
+               && ((xml.name() == QLatin1String("buildservice"))
+               || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }

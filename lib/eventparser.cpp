@@ -36,34 +36,34 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 event.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 event.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 event.setDescription(xml.readElementText());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 event.setUser(xml.readElementText());
-            } else if (xml.name() == "startdate") {
+            } else if (xml.name() == QLatin1String("startdate")) {
                 QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setStartDate(QDate::fromString(date, Qt::ISODate));
-            } else if (xml.name() == "enddate") {
+            } else if (xml.name() == QLatin1String("enddate")) {
                 QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setEndDate(QDate::fromString(date, Qt::ISODate));
-            } else if (xml.name() == "latitude") {
+            } else if (xml.name() == QLatin1String("latitude")) {
                 event.setLatitude(xml.readElementText().toFloat());
-            } else if (xml.name() == "longitude") {
+            } else if (xml.name() == QLatin1String("longitude")) {
                 event.setLongitude(xml.readElementText().toFloat());
-            } else if (xml.name() == "homepage") {
+            } else if (xml.name() == QLatin1String("homepage")) {
                 event.setHomepage(xml.readElementText());
-            } else if (xml.name() == "country") {
+            } else if (xml.name() == QLatin1String("country")) {
                 event.setCountry(xml.readElementText());
-            } else if (xml.name() == "city") {
+            } else if (xml.name() == QLatin1String("city")) {
                 event.setCity(xml.readElementText());
             } else {
                 event.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "event") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("event")) {
             break;
         }
     }

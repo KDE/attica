@@ -37,14 +37,14 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "key") {
+            if (xml.name() == QLatin1String("key")) {
                 key = xml.readElementText();
-            } else if (xml.name() == "value") {
+            } else if (xml.name() == QLatin1String("value")) {
                 data.setAttribute(key, xml.readElementText());
-            } else if (xml.name() == "timestamp") {
+            } else if (xml.name() == QLatin1String("timestamp")) {
                 data.setTimestamp(key, QDateTime::fromString(xml.readElementText(), Qt::ISODate));
             }
-        } else if (xml.isEndElement() && (xml.name() == "data" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("data") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }

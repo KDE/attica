@@ -38,27 +38,27 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 activity.setId(xml.readElementText());
-            } else if (xml.name() == "personid") {
+            } else if (xml.name() == QLatin1String("personid")) {
                 person.setId(xml.readElementText());
-            } else if (xml.name() == "avatarpic") {
+            } else if (xml.name() == QLatin1String("avatarpic")) {
                 person.setAvatarUrl(xml.readElementText());
-            } else if (xml.name() == "firstname") {
+            } else if (xml.name() == QLatin1String("firstname")) {
                 person.setFirstName(xml.readElementText());
-            } else if (xml.name() == "lastname") {
+            } else if (xml.name() == QLatin1String("lastname")) {
                 person.setLastName(xml.readElementText());
-            } else if (xml.name() == "timestamp") {
+            } else if (xml.name() == QLatin1String("timestamp")) {
                 QString timestampString = xml.readElementText();
                 timestampString.remove(QRegExp(QLatin1String("\\+.*$")));
                 QDateTime timestamp = QDateTime::fromString(timestampString, Qt::ISODate);
                 activity.setTimestamp(timestamp);
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 activity.setMessage(xml.readElementText());
-            } else if (xml.name() == "link") {
+            } else if (xml.name() == QLatin1String("link")) {
                 activity.setLink(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "activity") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("activity")) {
             break;
         }
     }

@@ -45,19 +45,19 @@ DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "downloadlink" ) {
+            if ( xml.name() == QLatin1String("downloadlink" )) {
                 item.setUrl( xml.readElementText() );
-            } else if ( xml.name() == "mimetype" ) {
+            } else if ( xml.name() == QLatin1String("mimetype" )) {
                 item.setMimeType( xml.readElementText() );
-            } else if ( xml.name() == "packagename" ) {
+            } else if ( xml.name() == QLatin1String("packagename" )) {
                 item.setPackageName( xml.readElementText() );
-            } else if ( xml.name() == "packagerepository" ) {
+            } else if ( xml.name() == QLatin1String("packagerepository" )) {
                 item.setPackageRepository( xml.readElementText() );
-            } else if ( xml.name() == "gpgfingerprint" ) {
+            } else if ( xml.name() == QLatin1String("gpgfingerprint" )) {
                 item.setGpgFingerprint( xml.readElementText() );
-            } else if ( xml.name() == "gpgsignature" ) {
+            } else if ( xml.name() == QLatin1String("gpgsignature" )) {
                 item.setGpgSignature( xml.readElementText() );
-            } else if ( xml.name() == "downloadway" ) {
+            } else if ( xml.name() == QLatin1String("downloadway" )) {
                 item.setType( DownloadDescription::Type(xml.readElementText().toInt()) );
             }
         }

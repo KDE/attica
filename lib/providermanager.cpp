@@ -221,7 +221,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
 {
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
-        if (xml.isStartElement() && xml.name() == "provider") {
+        if (xml.isStartElement() && xml.name() == QLatin1String("provider")) {
             QString baseUrl;
             QString name;
             QUrl icon;
@@ -240,36 +240,36 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
                 {
-                    if (xml.name() == "location") {
+                    if (xml.name() == QLatin1String("location")) {
                         baseUrl = xml.readElementText();
-                    } else if (xml.name() == "name") {
+                    } else if (xml.name() == QLatin1String("name")) {
                         name = xml.readElementText();
-                    } else if (xml.name() == "icon") {
+                    } else if (xml.name() == QLatin1String("icon")) {
                         icon = QUrl(xml.readElementText());
-                    } else if (xml.name() == "person") {
+                    } else if (xml.name() == QLatin1String("person")) {
                         person = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "friend") {
+                    } else if (xml.name() == QLatin1String("friend")) {
                         friendV = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "message") {
+                    } else if (xml.name() == QLatin1String("message")) {
                         message = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "achievement") {
+                    } else if (xml.name() == QLatin1String("achievement")) {
                         achievement = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "activity") {
+                    } else if (xml.name() == QLatin1String("activity")) {
                         activity = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "content") {
+                    } else if (xml.name() == QLatin1String("content")) {
                         content = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "fan") {
+                    } else if (xml.name() == QLatin1String("fan")) {
                         fan = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "forum") {
+                    } else if (xml.name() == QLatin1String("forum")) {
                         forum = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "knowledgebase") {
+                    } else if (xml.name() == QLatin1String("knowledgebase")) {
                         knowledgebase = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "event") {
+                    } else if (xml.name() == QLatin1String("event")) {
                         event = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
-                    } else if (xml.name() == "comment") {
+                    } else if (xml.name() == QLatin1String("comment")) {
                         comment = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     }
-                } else if (xml.isEndElement() && xml.name() == "provider") {
+                } else if (xml.isEndElement() && xml.name() == QLatin1String("provider")) {
                     break;
                 }
             }

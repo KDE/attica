@@ -37,20 +37,20 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 remoteaccount.setId(xml.readElementText());
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 remoteaccount.setType(xml.readElementText());
-            } else if (xml.name() == "typeid") {  // FIXME: change to remoteserviceid sometime soon (OCS API change pending
+            } else if (xml.name() == QLatin1String("typeid")) {  // FIXME: change to remoteserviceid sometime soon (OCS API change pending
                 remoteaccount.setRemoteServiceId(xml.readElementText());
-            } else if (xml.name() == "data") {
+            } else if (xml.name() == QLatin1String("data")) {
                 remoteaccount.setData(xml.readElementText());
-            } else if (xml.name() == "login") {
+            } else if (xml.name() == QLatin1String("login")) {
                 remoteaccount.setLogin(xml.readElementText());
-            } else if (xml.name() == "password") {
+            } else if (xml.name() == QLatin1String("password")) {
                 remoteaccount.setPassword(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "remoteaccount" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("remoteaccount") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }

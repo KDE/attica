@@ -35,32 +35,32 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 knowledgeBase.setId(xml.readElementText());
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 knowledgeBase.setStatus(xml.readElementText());
-            } else if (xml.name() == "contentId") {
+            } else if (xml.name() == QLatin1String("contentId")) {
                 knowledgeBase.setContentId(xml.readElementText().toInt());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 knowledgeBase.setUser(xml.readElementText());
-            } else if (xml.name() == "changed") {
+            } else if (xml.name() == QLatin1String("changed")) {
                 knowledgeBase.setChanged(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 knowledgeBase.setDescription(xml.readElementText());
-            } else if (xml.name() == "answer") {
+            } else if (xml.name() == QLatin1String("answer")) {
                 knowledgeBase.setAnswer(xml.readElementText());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 knowledgeBase.setComments(xml.readElementText().toInt());
-            } else if (xml.name() == "detailpage") {
+            } else if (xml.name() == QLatin1String("detailpage")) {
                 knowledgeBase.setDetailPage(QUrl(xml.readElementText()));
-            } else if (xml.name() == "contentid") {
+            } else if (xml.name() == QLatin1String("contentid")) {
                 knowledgeBase.setContentId(xml.readElementText().toInt());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 knowledgeBase.setName(xml.readElementText());
             } else {
                 knowledgeBase.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "content") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("content")) {
             break;
         }
     }

@@ -45,10 +45,10 @@ AccountBalance AccountBalance::Parser::parseXml(QXmlStreamReader& xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "balance" ) {
+            if ( xml.name() == QLatin1String("balance") ) {
                 item.setBalance( xml.readElementText() );
             }
-            if ( xml.name() == "currency" ) {
+            if ( xml.name() == QLatin1String("currency") ) {
                 item.setCurrency( xml.readElementText() );
             }
         }

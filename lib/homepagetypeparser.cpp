@@ -39,13 +39,13 @@ HomePageType HomePageType::Parser::parseXml(QXmlStreamReader& xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "id" ) {
+            if ( xml.name() == QLatin1String("id") ) {
                 item.setId( xml.readElementText().toInt() );
-            } else if ( xml.name() == "name" ) {
+            } else if ( xml.name() == QLatin1String("name") ) {
                 item.setName( xml.readElementText() );
             }
         }
-        if (xml.isEndElement() && xml.name() == "homepagetype") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("homepagetype")) {
             break;
         }
     }

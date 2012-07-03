@@ -46,7 +46,7 @@ T Parser<T>::parse(const QString& xmlString)
         xml.readNext();
         
         if (xml.isStartElement()) {
-            if (xml.name() == "meta") {
+            if (xml.name() == QLatin1String("meta")) {
                 parseMetadataXml(xml);
             } else if (elements.contains(xml.name().toString())) {
                 item = parseXml(xml);
@@ -123,11 +123,11 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
         xml.readNext();
         //qDebug() << "parseList():: Looking for:" << xml.name().toString();
         if (xml.isStartElement()) {
-            if (xml.name() == "data") {
+            if (xml.name() == QLatin1String("data")) {
                 while (!xml.atEnd()) {
                     xml.readNext();
 
-                    if (xml.isEndElement() && xml.name() == "data") {
+                    if (xml.isEndElement() && xml.name() == QLatin1String("data")) {
                         break;
                     }
 
@@ -136,7 +136,7 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
                         items.append(parseXml(xml));
                     }
                 }
-            } else if (xml.name() == "meta") {
+            } else if (xml.name() == QLatin1String("meta")) {
                 parseMetadataXml(xml);
             }
         }
@@ -156,18 +156,18 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
 {
     while ( !xml.atEnd() ) {
         xml.readNext();
-        if (xml.isEndElement() && xml.name() == "meta") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
             break;
         } else if (xml.isStartElement()) {
-            if (xml.name() == "status") {
+            if (xml.name() == QLatin1String("status")) {
                 m_metadata.setStatusString(xml.readElementText());
-            } else if (xml.name() == "statuscode") {
+            } else if (xml.name() == QLatin1String("statuscode")) {
                 m_metadata.setStatusCode(xml.readElementText().toInt());
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 m_metadata.setMessage(xml.readElementText());
-            } else if (xml.name() == "totalitems") {
+            } else if (xml.name() == QLatin1String("totalitems")) {
                 m_metadata.setTotalItems(xml.readElementText().toInt());
-            } else if (xml.name() == "itemsperpage") {
+            } else if (xml.name() == QLatin1String("itemsperpage")) {
                 m_metadata.setItemsPerPage(xml.readElementText().toInt());
             }
         }

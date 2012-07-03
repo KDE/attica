@@ -34,10 +34,10 @@ BuildServiceJobOutput BuildServiceJobOutput::Parser::parseXml(QXmlStreamReader& 
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft#BuildServiceJobs
     while (!xml.atEnd()) {
         if (xml.isStartElement()) {
-            if (xml.name() == "output") {
+            if (xml.name() == QLatin1String("output")) {
                 buildservicejoboutput.setOutput(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "output") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("output")) {
             break;
         }
         xml.readNext();

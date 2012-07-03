@@ -33,24 +33,24 @@ Message Message::Parser::parseXml(QXmlStreamReader& xml) {
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 message.setId(xml.readElementText());
-            } else if (xml.name() == "messagefrom") {
+            } else if (xml.name() == QLatin1String("messagefrom")) {
                 message.setFrom(xml.readElementText());
-            } else if (xml.name() == "messageto") {
+            } else if (xml.name() == QLatin1String("messageto")) {
                 message.setTo(xml.readElementText());
-            } else if (xml.name() == "senddate") {
+            } else if (xml.name() == QLatin1String("senddate")) {
                 message.setSent(QDateTime::fromString(xml.readElementText(), Qt::ISODate));
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 message.setStatus(Message::Status(xml.readElementText().toInt()));
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 message.setSubject(xml.readElementText());
-            } else if (xml.name() == "body") {
+            } else if (xml.name() == QLatin1String("body")) {
                 message.setBody(xml.readElementText());
             }
         }
 
-        if (xml.isEndElement() && xml.name() == "message") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("message")) {
             break;
         }
     }

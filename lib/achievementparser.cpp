@@ -34,33 +34,33 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 achievement.setId(xml.readElementText());
-            } else if (xml.name() == "content_id") {
+            } else if (xml.name() == QLatin1String("content_id")) {
                 achievement.setContentId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 achievement.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 achievement.setDescription(xml.readElementText());
-            } else if (xml.name() == "explanation") {
+            } else if (xml.name() == QLatin1String("explanation")) {
                 achievement.setExplanation(xml.readElementText());
-            } else if (xml.name() == "points") {
+            } else if (xml.name() == QLatin1String("points")) {
                 achievement.setPoints(xml.readElementText().toInt());
-            } else if (xml.name() == "image") {
+            } else if (xml.name() == QLatin1String("image")) {
                 achievement.setImage(QUrl(xml.readElementText()));
-            } else if (xml.name() == "dependencies") {
+            } else if (xml.name() == QLatin1String("dependencies")) {
                 QStringList dependencies = parseXmlDependencies(xml);
                 achievement.setDependencies(dependencies);
-            } else if (xml.name() == "visibility") {
+            } else if (xml.name() == QLatin1String("visibility")) {
                 achievement.setVisibility(Achievement::stringToAchievementVisibility(xml.readElementText()));
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 achievement.setType(Achievement::stringToAchievementType(xml.readElementText()));
-            } else if (xml.name() == "options") {
+            } else if (xml.name() == QLatin1String("options")) {
                 QStringList options = parseXmlOptions(xml);
                 achievement.setOptions(options);
-            } else if (xml.name() == "steps") {
+            } else if (xml.name() == QLatin1String("steps")) {
                 achievement.setSteps(xml.readElementText().toInt());
-            } else if (xml.name() == "progress") {
+            } else if (xml.name() == QLatin1String("progress")) {
                 switch(achievement.type()) {
                 case Achievement::FlowingAchievement:
                     achievement.setProgress(QVariant(xml.readElementText().toFloat()));
@@ -81,7 +81,7 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
                     break;
                 }
             }
-        } else if (xml.isEndElement() && xml.name() == "achievement") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("achievement")) {
             break;
         }
     }
@@ -97,9 +97,9 @@ QStringList Achievement::Parser::parseXmlDependencies(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "achievement_id")
+            if (xml.name() == QLatin1String("achievement_id"))
                 dependencies.append(xml.readElementText());
-        } else if (xml.isEndElement() && xml.name() == "dependencies") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("dependencies")) {
             break;
         }
     }
@@ -115,9 +115,9 @@ QStringList Achievement::Parser::parseXmlOptions(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "option")
+            if (xml.name() == QLatin1String("option"))
                 options.append(xml.readElementText());
-        } else if (xml.isEndElement() && xml.name() == "options") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
             break;
         }
     }
@@ -133,9 +133,9 @@ QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "reached")
+            if (xml.name() == QLatin1String("reached"))
                 progress.append(xml.readElementText());
-        } else if (xml.isEndElement() && xml.name() == "progress") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("progress")) {
             break;
         }
     }

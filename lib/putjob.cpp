@@ -82,34 +82,34 @@ void PutJob::parse(const QString& xmlString)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "meta") {
+            if (xml.name() == QLatin1String("meta")) {
                 while ( !xml.atEnd() ) {
                     xml.readNext();
-                    if (xml.isEndElement() && xml.name() == "meta") {
+                    if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
                         break;
                     } else if (xml.isStartElement()) {
-                        if (xml.name() == "status") {
+                        if (xml.name() == QLatin1String("status")) {
                             data.setStatusString(xml.readElementText());
-                        } else if (xml.name() == "statuscode") {
+                        } else if (xml.name() == QLatin1String("statuscode")) {
                             data.setStatusCode(xml.readElementText().toInt());
-                        } else if (xml.name() == "message") {
+                        } else if (xml.name() == QLatin1String("message")) {
                             data.setMessage(xml.readElementText());
-                        } else if (xml.name() == "totalitems") {
+                        } else if (xml.name() == QLatin1String("totalitems")) {
                             data.setTotalItems(xml.readElementText().toInt());
-                        } else if (xml.name() == "itemsperpage") {
+                        } else if (xml.name() == QLatin1String("itemsperpage")) {
                             data.setItemsPerPage(xml.readElementText().toInt());
                         }
                     }
                 }
-            } else if (xml.name() == "data") {
+            } else if (xml.name() == QLatin1String("data")) {
                 while ( !xml.atEnd() ) {
                     xml.readNext();
-                    if (xml.isEndElement() && xml.name() == "data") {
+                    if (xml.isEndElement() && xml.name() == QLatin1String("data")) {
                         break;
                     } else if (xml.isStartElement()) {
-                        if (xml.name() == "projectid") {
+                        if (xml.name() == QLatin1String("projectid")) {
                             data.setResultingId(xml.readElementText());
-                        } if (xml.name() == "buildjobid") {
+                        } if (xml.name() == QLatin1String("buildjobid")) {
                             data.setResultingId(xml.readElementText());
                         }
 

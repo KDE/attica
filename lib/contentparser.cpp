@@ -36,25 +36,25 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 content.setId( xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 content.setName( xml.readElementText());
-            } else if (xml.name() == "score") {
+            } else if (xml.name() == QLatin1String("score")) {
                 content.setRating( xml.readElementText().toInt());
-            } else if (xml.name() == "downloads") {
+            } else if (xml.name() == QLatin1String("downloads")) {
                 content.setDownloads( xml.readElementText().toInt());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 content.setNumberOfComments(xml.readElementText().toInt());
-            } else if (xml.name() == "created") {
+            } else if (xml.name() == QLatin1String("created")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setCreated( QDateTime::fromString( dateString, Qt::ISODate));
-            } else if (xml.name() == "changed") {
+            } else if (xml.name() == QLatin1String("changed")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setUpdated( QDateTime::fromString( dateString, Qt::ISODate));
-            } else if (xml.name() == "icon") {
+            } else if (xml.name() == QLatin1String("icon")) {
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
                 QXmlStreamAttributes attributes = xml.attributes();
@@ -69,7 +69,7 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
                 icons = content.icons();
                 icons.append(icon);
                 content.setIcons(icons);
-            } else if (xml.name() == "video") {
+            } else if (xml.name() == QLatin1String("video")) {
                 QUrl video(xml.readElementText());
                 // append the video to the current list of videos
                 QList<QUrl> videos;
@@ -81,7 +81,7 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
             }
         }
 
-        if (xml.isEndElement() && xml.name() == "content") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("content")) {
             break;
         }
     }

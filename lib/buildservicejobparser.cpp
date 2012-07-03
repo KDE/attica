@@ -37,28 +37,28 @@ BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") { // FIXME: server should give "id" here ...
+            if (xml.name() == QLatin1String("id")) { // FIXME: server should give "id" here ...
                 buildservicejob.setId(xml.readElementText());
-            } else if (xml.name() == "project") {
+            } else if (xml.name() == QLatin1String("project")) {
                 buildservicejob.setProjectId(xml.readElementText());
-            } else if (xml.name() == "buildservice") {
+            } else if (xml.name() == QLatin1String("buildservice")) {
                 buildservicejob.setBuildServiceId(xml.readElementText());
-            } else if (xml.name() == "target") {
+            } else if (xml.name() == QLatin1String("target")) {
                 buildservicejob.setTarget(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 buildservicejob.setName(xml.readElementText());
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 int status = xml.readElementText().toInt();
                 buildservicejob.setStatus(status);
-            } else if (xml.name() == "progress") {
+            } else if (xml.name() == QLatin1String("progress")) {
                 qreal progress = (qreal)(xml.readElementText().toFloat());
                 buildservicejob.setProgress(progress);
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 buildservicejob.setMessage(xml.readElementText());
-            } else if (xml.name() == "url") {
+            } else if (xml.name() == QLatin1String("url")) {
                 buildservicejob.setUrl(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "buildjob" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("buildjob") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }

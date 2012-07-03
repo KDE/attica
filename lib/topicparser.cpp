@@ -34,22 +34,22 @@ Topic Topic::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 topic.setId(xml.readElementText());
-            } else if (xml.name() == "forumId") {
+            } else if (xml.name() == QLatin1String("forumId")) {
                 topic.setForumId(xml.readElementText());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 topic.setUser(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 topic.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 topic.setSubject(xml.readElementText());
-            } else if (xml.name() == "content") {
+            } else if (xml.name() == QLatin1String("content")) {
                 topic.setContent(xml.readElementText());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 topic.setComments(xml.readElementText().toInt());
             }
-        } else if (xml.isEndElement() && xml.name() == "topic") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("topic")) {
             break;
         }
     }

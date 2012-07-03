@@ -34,25 +34,25 @@ Forum Forum::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 forum.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 forum.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 forum.setDescription(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 forum.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "icon") {
+            } else if (xml.name() == QLatin1String("icon")) {
                 forum.setIcon(QUrl(xml.readElementText()));
-            } else if (xml.name() == "childcount") {
+            } else if (xml.name() == QLatin1String("childcount")) {
                 forum.setChildCount(xml.readElementText().toInt());
-            } else if (xml.name() == "children") {
+            } else if (xml.name() == QLatin1String("children")) {
                 QList<Forum> children = parseXmlChildren(xml);
                 forum.setChildren(children);
-            } else if (xml.name() == "topics") {
+            } else if (xml.name() == QLatin1String("topics")) {
                 forum.setTopics(xml.readElementText().toInt());
             }
-        } else if (xml.isEndElement() && xml.name() == "forum") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("forum")) {
             break;
         }
     }
@@ -68,11 +68,11 @@ QList<Forum> Forum::Parser::parseXmlChildren(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "forum") {
+            if (xml.name() == QLatin1String("forum")) {
                 Forum forum = parseXml(xml);
                 children.append(forum);
             }
-        } else if (xml.isEndElement() && xml.name() == "children") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("children")) {
             break;
         }
     }

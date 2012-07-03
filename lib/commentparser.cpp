@@ -36,25 +36,25 @@ Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 comment.setId(xml.readElementText());
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 comment.setSubject(xml.readElementText());
-            } else if (xml.name() == "text") {
+            } else if (xml.name() == QLatin1String("text")) {
                 comment.setText(xml.readElementText());
-            } else if (xml.name() == "childcount") {
+            } else if (xml.name() == QLatin1String("childcount")) {
                 comment.setChildCount(xml.readElementText().toInt());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 comment.setUser(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 comment.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "score") {
+            } else if (xml.name() == QLatin1String("score")) {
                 comment.setScore(xml.readElementText().toInt());
-            } else if (xml.name() == "children") {
+            } else if (xml.name() == QLatin1String("children")) {
                 QList<Comment> children = parseXmlChildren(xml);
                 comment.setChildren(children);
             }
-        } else if (xml.isEndElement() && xml.name() == "comment") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("comment")) {
             break;
         }
     }
@@ -70,11 +70,11 @@ QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "comment") {
+            if (xml.name() == QLatin1String("comment")) {
                 Comment comment = parseXml(xml);
                 children.append(comment);
             }
-        } else if (xml.isEndElement() && xml.name() == "children") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("children")) {
             break;
         }
     }
