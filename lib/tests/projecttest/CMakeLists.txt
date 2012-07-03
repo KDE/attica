@@ -1,7 +1,13 @@
 project(projecttest)
 cmake_minimum_required(VERSION 2.6)
-find_package(Qt4 REQUIRED)
 
+set(QT_MIN_VERSION "4.7.0")
+find_package(Qt5Transitional REQUIRED
+    Core
+    Network
+    Test
+    Widgets
+)
 
 include_directories(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
