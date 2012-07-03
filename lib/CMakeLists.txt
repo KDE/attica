@@ -11,6 +11,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 set(QT_MIN_VERSION "4.7.0")
 find_package(Qt5Transitional REQUIRED
     Core
+    Network
     Test
 )
 
