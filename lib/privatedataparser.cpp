@@ -29,7 +29,6 @@ using namespace Attica;
 PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
 {
     PrivateData data;
-    bool hasAvatarPic = false;
     QString key;
 
     // TODO: when we get internet and some documentation
