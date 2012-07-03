@@ -6,7 +6,14 @@ set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Lib
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 
-find_package(Qt4 REQUIRED)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
+
+set(QT_MIN_VERSION "4.7.0")
+find_package(Qt5Transitional REQUIRED
+    Core
+    Test
+)
+
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # mingw can't handle exported explicit template instantiations in a DLL
