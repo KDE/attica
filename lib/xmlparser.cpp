@@ -96,11 +96,11 @@ void XmlParser<T>::parse(const QString &data)
         xml.readNext();
         //qDebug() << "parseList():: Looking for:" << xml.name().toString();
         if (xml.isStartElement()) {
-            if (xml.name() == "data") {
+            if (xml.name() == QLatin1String("data")) {
                 while (!xml.atEnd()) {
                     xml.readNext();
 
-                    if (xml.isEndElement() && xml.name() == "data") {
+                    if (xml.isEndElement() && xml.name() == QLatin1String("data")) {
                         break;
                     }
 
@@ -109,7 +109,7 @@ void XmlParser<T>::parse(const QString &data)
                         m_result.append(parseXml(xml));
                     }
                 }
-            } else if (xml.name() == "meta") {
+            } else if (xml.name() == QLatin1String("meta")) {
                 parseMetadataXml(xml);
             }
         }
@@ -140,18 +140,18 @@ void XmlParser<T>::parseMetadataXml(QXmlStreamReader &xml)
 {
     while ( !xml.atEnd() ) {
         xml.readNext();
-        if (xml.isEndElement() && xml.name() == "meta") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
             break;
         } else if (xml.isStartElement()) {
-            if (xml.name() == "status") {
+            if (xml.name() == QLatin1String("status")) {
                 m_metadata.setStatusString(xml.readElementText());
-            } else if (xml.name() == "statuscode") {
+            } else if (xml.name() == QLatin1String("statuscode")) {
                 m_metadata.setStatusCode(xml.readElementText().toInt());
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 m_metadata.setMessage(xml.readElementText());
-            } else if (xml.name() == "totalitems") {
+            } else if (xml.name() == QLatin1String("totalitems")) {
                 m_metadata.setTotalItems(xml.readElementText().toInt());
-            } else if (xml.name() == "itemsperpage") {
+            } else if (xml.name() == QLatin1String("itemsperpage")) {
                 m_metadata.setItemsPerPage(xml.readElementText().toInt());
             }
         }
@@ -181,7 +181,7 @@ QList<T> XmlParser<T>::parseXmlChildren(QXmlStreamReader& xml)
                 T child = parseXml(xml);
                 children.append(child);
             }
-        } else if (xml.isEndElement() && xml.name() == "children") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("children")) {
             break;
         }
     }
@@ -389,53 +389,53 @@ Achievement XmlParser<Achievement>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 achievement.setId(xml.readElementText());
-            } else if (xml.name() == "content_id") {
+            } else if (xml.name() == QLatin1String("content_id")) {
                 achievement.setContentId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 achievement.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 achievement.setDescription(xml.readElementText());
-            } else if (xml.name() == "explanation") {
+            } else if (xml.name() == QLatin1String("explanation")) {
                 achievement.setExplanation(xml.readElementText());
-            } else if (xml.name() == "points") {
+            } else if (xml.name() == QLatin1String("points")) {
                 achievement.setPoints(xml.readElementText().toInt());
-            } else if (xml.name() == "image") {
+            } else if (xml.name() == QLatin1String("image")) {
                 achievement.setImage(QUrl(xml.readElementText()));
-            } else if (xml.name() == "dependencies") {
+            } else if (xml.name() == QLatin1String("dependencies")) {
                 QStringList dependencies;
                 while (!xml.atEnd()) {
                     xml.readNext();
 
                     if (xml.isStartElement()) {
-                        if (xml.name() == "achievement_id")
+                        if (xml.name() == QLatin1String("achievement_id"))
                             dependencies.append(xml.readElementText());
-                    } else if (xml.isEndElement() && xml.name() == "dependencies") {
+                    } else if (xml.isEndElement() && xml.name() == QLatin1String("dependencies")) {
                         break;
                     }
                 }
                 achievement.setDependencies(dependencies);
-            } else if (xml.name() == "visibility") {
+            } else if (xml.name() == QLatin1String("visibility")) {
                 achievement.setVisibility(Achievement::stringToAchievementVisibility(xml.readElementText()));
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 achievement.setType(Achievement::stringToAchievementType(xml.readElementText()));
-            } else if (xml.name() == "options") {
+            } else if (xml.name() == QLatin1String("options")) {
                 QStringList options;
                 while (!xml.atEnd()) {
                     xml.readNext();
 
                     if (xml.isStartElement()) {
-                        if (xml.name() == "option")
+                        if (xml.name() == QLatin1String("option"))
                             options.append(xml.readElementText());
-                    } else if (xml.isEndElement() && xml.name() == "options") {
+                    } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
                         break;
                     }
                 }
                 achievement.setOptions(options);
-            } else if (xml.name() == "steps") {
+            } else if (xml.name() == QLatin1String("steps")) {
                 achievement.setSteps(xml.readElementText().toInt());
-            } else if (xml.name() == "progress") {
+            } else if (xml.name() == QLatin1String("progress")) {
                 switch(achievement.type()) {
                 case Achievement::FlowingAchievement:
                     achievement.setProgress(QVariant(xml.readElementText().toFloat()));
@@ -453,9 +453,9 @@ Achievement XmlParser<Achievement>::parseXml(QXmlStreamReader &xml)
                         xml.readNext();
 
                         if (xml.isStartElement()) {
-                            if (xml.name() == "reached")
+                            if (xml.name() == QLatin1String("reached"))
                                 progress.append(xml.readElementText());
-                        } else if (xml.isEndElement() && xml.name() == "progress") {
+                        } else if (xml.isEndElement() && xml.name() == QLatin1String("progress")) {
                             break;
                         }
                     }
@@ -466,7 +466,7 @@ Achievement XmlParser<Achievement>::parseXml(QXmlStreamReader &xml)
                     break;
                 }
             }
-        } else if (xml.isEndElement() && xml.name() == "achievement") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("achievement")) {
             break;
         }
     }
@@ -484,27 +484,27 @@ Activity XmlParser<Activity>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 activity.setId(xml.readElementText());
-            } else if (xml.name() == "personid") {
+            } else if (xml.name() == QLatin1String("personid")) {
                 person.setId(xml.readElementText());
-            } else if (xml.name() == "avatarpic") {
+            } else if (xml.name() == QLatin1String("avatarpic")) {
                 person.setAvatarUrl(xml.readElementText());
-            } else if (xml.name() == "firstname") {
+            } else if (xml.name() == QLatin1String("firstname")) {
                 person.setFirstName(xml.readElementText());
-            } else if (xml.name() == "lastname") {
+            } else if (xml.name() == QLatin1String("lastname")) {
                 person.setLastName(xml.readElementText());
-            } else if (xml.name() == "timestamp") {
+            } else if (xml.name() == QLatin1String("timestamp")) {
                 QString timestampString = xml.readElementText();
                 timestampString.remove(QRegExp(QLatin1String("\\+.*$")));
                 QDateTime timestamp = QDateTime::fromString(timestampString, Qt::ISODate);
                 activity.setTimestamp(timestamp);
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 activity.setMessage(xml.readElementText());
-            } else if (xml.name() == "link") {
+            } else if (xml.name() == QLatin1String("link")) {
                 activity.setLink(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "activity") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("activity")) {
             break;
         }
     }
@@ -526,42 +526,42 @@ BuildService XmlParser<BuildService>::parseXml(QXmlStreamReader &xml)
 
         if (xml.isStartElement()) {
 
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 buildservice.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 buildservice.setName(xml.readElementText());
-            } else if (xml.name() == "registrationurl") {
+            } else if (xml.name() == QLatin1String("registrationurl")) {
                 buildservice.setUrl(xml.readElementText());
-            } else if (xml.name() == "supportedtargets") {
+            } else if (xml.name() == QLatin1String("supportedtargets")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "target") {
+                        if (xml.name() == QLatin1String("target")) {
                             Target t;
                             while (!xml.atEnd()) {
                                 xml.readNextStartElement();
                                 if (xml.isStartElement()) {
-                                    if (xml.name() == "id") {
+                                    if (xml.name() == QLatin1String("id")) {
                                         t.id = xml.readElementText();
-                                    } else if (xml.name() == "name") {
+                                    } else if (xml.name() == QLatin1String("name")) {
                                         t.name = xml.readElementText();
                                     }
-                                } else if (xml.isEndElement() && (xml.name() == "target")) {
+                                } else if (xml.isEndElement() && (xml.name() == QLatin1String("target"))) {
                                     xml.readNext();
                                     break;
                                 }
                             }
                             buildservice.addTarget(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "supportedtargets")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("supportedtargets"))) {
                         xml.readNext();
                         break;
                     }
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == "buildservice")
-               || (xml.name() == "user")) {
+               && (xml.name() == QLatin1String("buildservice"))
+               || (xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -580,28 +580,28 @@ BuildServiceJob XmlParser<BuildServiceJob>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") { // FIXME: server should give "id" here ...
+            if (xml.name() == QLatin1String("id")) { // FIXME: server should give "id" here ...
                 buildservicejob.setId(xml.readElementText());
-            } else if (xml.name() == "project") {
+            } else if (xml.name() == QLatin1String("project")) {
                 buildservicejob.setProjectId(xml.readElementText());
-            } else if (xml.name() == "buildservice") {
+            } else if (xml.name() == QLatin1String("buildservice")) {
                 buildservicejob.setBuildServiceId(xml.readElementText());
-            } else if (xml.name() == "target") {
+            } else if (xml.name() == QLatin1String("target")) {
                 buildservicejob.setTarget(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 buildservicejob.setName(xml.readElementText());
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 int status = xml.readElementText().toInt();
                 buildservicejob.setStatus(status);
-            } else if (xml.name() == "progress") {
+            } else if (xml.name() == QLatin1String("progress")) {
                 qreal progress = (qreal)(xml.readElementText().toFloat());
                 buildservicejob.setProgress(progress);
-            } else if (xml.name() == "message") {
+            } else if (xml.name() == QLatin1String("message")) {
                 buildservicejob.setMessage(xml.readElementText());
-            } else if (xml.name() == "url") {
+            } else if (xml.name() == QLatin1String("url")) {
                 buildservicejob.setUrl(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "buildjob" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("buildjob") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -617,10 +617,10 @@ BuildServiceJobOutput XmlParser<BuildServiceJobOutput>::parseXml(QXmlStreamReade
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft#BuildServiceJobs
     while (!xml.atEnd()) {
         if (xml.isStartElement()) {
-            if (xml.name() == "output") {
+            if (xml.name() == QLatin1String("output")) {
                 buildservicejoboutput.setOutput(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "output") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("output")) {
             break;
         }
         xml.readNext();
@@ -637,12 +637,12 @@ XmlParser<Category>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 category.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 category.setName(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "category") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("category")) {
             break;
         }
     }
@@ -659,25 +659,25 @@ Comment XmlParser<Comment>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 comment.setId(xml.readElementText());
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 comment.setSubject(xml.readElementText());
-            } else if (xml.name() == "text") {
+            } else if (xml.name() == QLatin1String("text")) {
                 comment.setText(xml.readElementText());
-            } else if (xml.name() == "childcount") {
+            } else if (xml.name() == QLatin1String("childcount")) {
                 comment.setChildCount(xml.readElementText().toInt());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 comment.setUser(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 comment.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "score") {
+            } else if (xml.name() == QLatin1String("score")) {
                 comment.setScore(xml.readElementText().toInt());
-            } else if (xml.name() == "children") {
+            } else if (xml.name() == QLatin1String("children")) {
                 QList<Comment> children = parseXmlChildren(xml);
                 comment.setChildren(children);
             }
-        } else if (xml.isEndElement() && xml.name() == "comment") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("comment")) {
             break;
         }
     }
@@ -694,25 +694,25 @@ Content XmlParser<Content>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 content.setId( xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 content.setName( xml.readElementText());
-            } else if (xml.name() == "score") {
+            } else if (xml.name() == QLatin1String("score")) {
                 content.setRating( xml.readElementText().toInt());
-            } else if (xml.name() == "downloads") {
+            } else if (xml.name() == QLatin1String("downloads")) {
                 content.setDownloads( xml.readElementText().toInt());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 content.setNumberOfComments(xml.readElementText().toInt());
-            } else if (xml.name() == "created") {
+            } else if (xml.name() == QLatin1String("created")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setCreated( QDateTime::fromString( dateString, Qt::ISODate));
-            } else if (xml.name() == "changed") {
+            } else if (xml.name() == QLatin1String("changed")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
                 content.setUpdated( QDateTime::fromString( dateString, Qt::ISODate));
-            } else if (xml.name() == "icon") {
+            } else if (xml.name() == QLatin1String("icon")) {
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
                 QXmlStreamAttributes attributes = xml.attributes();
@@ -727,7 +727,7 @@ Content XmlParser<Content>::parseXml(QXmlStreamReader &xml)
                 icons = content.icons();
                 icons.append(icon);
                 content.setIcons(icons);
-            } else if (xml.name() == "video") {
+            } else if (xml.name() == QLatin1String("video")) {
                 QUrl video(xml.readElementText());
                 // append the video to the current list of videos
                 QList<QUrl> videos;
@@ -739,7 +739,7 @@ Content XmlParser<Content>::parseXml(QXmlStreamReader &xml)
             }
         }
 
-        if (xml.isEndElement() && xml.name() == "content") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("content")) {
             break;
         }
     }
@@ -760,13 +760,13 @@ Distribution XmlParser<Distribution>::parseXml(QXmlStreamReader &xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "id" ) {
+            if ( xml.name() == QLatin1String("id") ) {
                 item.setId( xml.readElementText().toInt() );
-            } else if ( xml.name() == "name" ) {
+            } else if ( xml.name() == QLatin1String("name") ) {
                 item.setName( xml.readElementText() );
             }
         }
-        if (xml.isEndElement() && xml.name() == "distribution") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("distribution")) {
             break;
         }
     }
@@ -781,19 +781,19 @@ DownloadItem XmlParser<DownloadItem>::parseXml(QXmlStreamReader &xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "downloadlink" ) {
+            if ( xml.name() == QLatin1String("downloadlink") ) {
                 item.setUrl( xml.readElementText() );
-            } else if ( xml.name() == "mimetype" ) {
+            } else if ( xml.name() == QLatin1String("mimetype") ) {
                 item.setMimeType( xml.readElementText() );
-            } else if ( xml.name() == "packagename" ) {
+            } else if ( xml.name() == QLatin1String("packagename") ) {
                 item.setPackageName( xml.readElementText() );
-            } else if ( xml.name() == "packagerepository" ) {
+            } else if ( xml.name() == QLatin1String("packagerepository") ) {
                 item.setPackageRepository( xml.readElementText() );
-            } else if ( xml.name() == "gpgfingerprint" ) {
+            } else if ( xml.name() == QLatin1String("gpgfingerprint") ) {
                 item.setGpgFingerprint( xml.readElementText() );
-            } else if ( xml.name() == "gpgsignature" ) {
+            } else if ( xml.name() == QLatin1String("gpgsignature") ) {
                 item.setGpgSignature( xml.readElementText() );
-            } else if ( xml.name() == "downloadway" ) {
+            } else if ( xml.name() == QLatin1String("downloadway") ) {
                 item.setType( DownloadDescription::Type(xml.readElementText().toInt()) );
             }
         }
@@ -810,34 +810,34 @@ Event XmlParser<Event>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 event.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 event.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 event.setDescription(xml.readElementText());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 event.setUser(xml.readElementText());
-            } else if (xml.name() == "startdate") {
+            } else if (xml.name() == QLatin1String("startdate")) {
                 QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setStartDate(QDate::fromString(date, Qt::ISODate));
-            } else if (xml.name() == "enddate") {
+            } else if (xml.name() == QLatin1String("enddate")) {
                 QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
                 event.setEndDate(QDate::fromString(date, Qt::ISODate));
-            } else if (xml.name() == "latitude") {
+            } else if (xml.name() == QLatin1String("latitude")) {
                 event.setLatitude(xml.readElementText().toFloat());
-            } else if (xml.name() == "longitude") {
+            } else if (xml.name() == QLatin1String("longitude")) {
                 event.setLongitude(xml.readElementText().toFloat());
-            } else if (xml.name() == "homepage") {
+            } else if (xml.name() == QLatin1String("homepage")) {
                 event.setHomepage(xml.readElementText());
-            } else if (xml.name() == "country") {
+            } else if (xml.name() == QLatin1String("country")) {
                 event.setCountry(xml.readElementText());
-            } else if (xml.name() == "city") {
+            } else if (xml.name() == QLatin1String("city")) {
                 event.setCity(xml.readElementText());
             } else {
                 event.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "event") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("event")) {
             break;
         }
     }
@@ -854,16 +854,16 @@ Folder XmlParser<Folder>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 folder.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 folder.setName(xml.readElementText());
-            } else if (xml.name() == "messagecount") {
+            } else if (xml.name() == QLatin1String("messagecount")) {
                 folder.setMessageCount(xml.readElementText().toInt());
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 folder.setType(xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "folder") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("folder")) {
             break;
         }
     }
@@ -880,25 +880,25 @@ Forum XmlParser<Forum>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 forum.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 forum.setName(xml.readElementText());
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 forum.setDescription(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 forum.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "icon") {
+            } else if (xml.name() == QLatin1String("icon")) {
                 forum.setIcon(QUrl(xml.readElementText()));
-            } else if (xml.name() == "childcount") {
+            } else if (xml.name() == QLatin1String("childcount")) {
                 forum.setChildCount(xml.readElementText().toInt());
-            } else if (xml.name() == "children") {
+            } else if (xml.name() == QLatin1String("children")) {
                 QList<Forum> children = parseXmlChildren(xml);
                 forum.setChildren(children);
-            } else if (xml.name() == "topics") {
+            } else if (xml.name() == QLatin1String("topics")) {
                 forum.setTopics(xml.readElementText().toInt());
             }
-        } else if (xml.isEndElement() && xml.name() == "forum") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("forum")) {
             break;
         }
     }
@@ -914,13 +914,13 @@ HomePageType XmlParser<HomePageType>::parseXml(QXmlStreamReader &xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "id" ) {
+            if ( xml.name() == QLatin1String("id") ) {
                 item.setId( xml.readElementText().toInt() );
-            } else if ( xml.name() == "name" ) {
+            } else if ( xml.name() == QLatin1String("name") ) {
                 item.setName( xml.readElementText() );
             }
         }
-        if (xml.isEndElement() && xml.name() == "homepagetype") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("homepagetype")) {
             break;
         }
     }
@@ -936,32 +936,32 @@ KnowledgeBaseEntry XmlParser<KnowledgeBaseEntry>::parseXml(QXmlStreamReader &xml
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 knowledgeBase.setId(xml.readElementText());
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 knowledgeBase.setStatus(xml.readElementText());
-            } else if (xml.name() == "contentId") {
+            } else if (xml.name() == QLatin1String("contentId")) {
                 knowledgeBase.setContentId(xml.readElementText().toInt());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 knowledgeBase.setUser(xml.readElementText());
-            } else if (xml.name() == "changed") {
+            } else if (xml.name() == QLatin1String("changed")) {
                 knowledgeBase.setChanged(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
-            } else if (xml.name() == "description") {
+            } else if (xml.name() == QLatin1String("description")) {
                 knowledgeBase.setDescription(xml.readElementText());
-            } else if (xml.name() == "answer") {
+            } else if (xml.name() == QLatin1String("answer")) {
                 knowledgeBase.setAnswer(xml.readElementText());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 knowledgeBase.setComments(xml.readElementText().toInt());
-            } else if (xml.name() == "detailpage") {
+            } else if (xml.name() == QLatin1String("detailpage")) {
                 knowledgeBase.setDetailPage(QUrl(xml.readElementText()));
-            } else if (xml.name() == "contentid") {
+            } else if (xml.name() == QLatin1String("contentid")) {
                 knowledgeBase.setContentId(xml.readElementText().toInt());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 knowledgeBase.setName(xml.readElementText());
             } else {
                 knowledgeBase.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && xml.name() == "content") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("content")) {
             break;
         }
     }
@@ -977,15 +977,15 @@ License XmlParser<License>::parseXml(QXmlStreamReader &xml)
     while ( !xml.atEnd() ) {
         xml.readNext();
         if ( xml.isStartElement() ) {
-            if ( xml.name() == "id" ) {
+            if ( xml.name() == QLatin1String("id") ) {
                 item.setId( xml.readElementText().toInt() );
-            } else if ( xml.name() == "name" ) {
+            } else if ( xml.name() == QLatin1String("name") ) {
                 item.setName( xml.readElementText() );
-            } else if ( xml.name() == "link" ) {
+            } else if ( xml.name() == QLatin1String("link") ) {
                 item.setUrl( xml.readElementText() );
             }
         }
-        if (xml.isEndElement() && xml.name() == "license") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("license")) {
             break;
         }
     }
@@ -1001,24 +1001,24 @@ Message XmlParser<Message>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 message.setId(xml.readElementText());
-            } else if (xml.name() == "messagefrom") {
+            } else if (xml.name() == QLatin1String("messagefrom")) {
                 message.setFrom(xml.readElementText());
-            } else if (xml.name() == "messageto") {
+            } else if (xml.name() == QLatin1String("messageto")) {
                 message.setTo(xml.readElementText());
-            } else if (xml.name() == "senddate") {
+            } else if (xml.name() == QLatin1String("senddate")) {
                 message.setSent(QDateTime::fromString(xml.readElementText(), Qt::ISODate));
-            } else if (xml.name() == "status") {
+            } else if (xml.name() == QLatin1String("status")) {
                 message.setStatus(Message::Status(xml.readElementText().toInt()));
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 message.setSubject(xml.readElementText());
-            } else if (xml.name() == "body") {
+            } else if (xml.name() == QLatin1String("body")) {
                 message.setBody(xml.readElementText());
             }
         }
 
-        if (xml.isEndElement() && xml.name() == "message") {
+        if (xml.isEndElement() && xml.name() == QLatin1String("message")) {
             break;
         }
     }
@@ -1036,35 +1036,35 @@ Person XmlParser<Person>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "personid") {
+            if (xml.name() == QLatin1String("personid")) {
                 person.setId(xml.readElementText());
-            } else if (xml.name() == "firstname") {
+            } else if (xml.name() == QLatin1String("firstname")) {
                 person.setFirstName(xml.readElementText());
-            } else if (xml.name() == "lastname") {
+            } else if (xml.name() == QLatin1String("lastname")) {
                 person.setLastName(xml.readElementText());
-            } else if (xml.name() == "homepage") {
+            } else if (xml.name() == QLatin1String("homepage")) {
                 person.setHomepage(xml.readElementText());
-            } else if (xml.name() == "avatarpic") {
+            } else if (xml.name() == QLatin1String("avatarpic")) {
                 person.setAvatarUrl(xml.readElementText());
-            } else if (xml.name() == "avatarpicfound") {
+            } else if (xml.name() == QLatin1String("avatarpicfound")) {
                 QString value = xml.readElementText();
                 if (value.toInt()) {
                     hasAvatarPic = true;
                 }
-            } else if (xml.name() == "birthday") {
+            } else if (xml.name() == QLatin1String("birthday")) {
                 person.setBirthday(QDate::fromString(xml.readElementText(), Qt::ISODate));
-            } else if (xml.name() == "city") {
+            } else if (xml.name() == QLatin1String("city")) {
                 person.setCity(xml.readElementText());
-            } else if (xml.name() == "country") {
+            } else if (xml.name() == QLatin1String("country")) {
                 person.setCountry(xml.readElementText());
-            } else if (xml.name() == "latitude") {
+            } else if (xml.name() == QLatin1String("latitude")) {
                 person.setLatitude(xml.readElementText().toFloat());
-            } else if (xml.name() == "longitude") {
+            } else if (xml.name() == QLatin1String("longitude")) {
                 person.setLongitude(xml.readElementText().toFloat());
             } else {
                 person.addExtendedAttribute(xml.name().toString(), xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "person" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("person") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -1088,14 +1088,14 @@ PrivateData XmlParser<PrivateData>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "key") {
+            if (xml.name() == QLatin1String("key")) {
                 key = xml.readElementText();
-            } else if (xml.name() == "value") {
+            } else if (xml.name() == QLatin1String("value")) {
                 data.setAttribute(key, xml.readElementText());
-            } else if (xml.name() == "timestamp") {
+            } else if (xml.name() == QLatin1String("timestamp")) {
                 data.setTimestamp(key, QDateTime::fromString(xml.readElementText(), Qt::ISODate));
             }
-        } else if (xml.isEndElement() && (xml.name() == "data" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("data") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -1157,14 +1157,14 @@ PublisherField XmlParser<PublisherField>::parseXml(QXmlStreamReader &xml)
     while (!xml.atEnd()) {
         xml.readNextStartElement();
         if (xml.isStartElement()) {
-            if (xml.name() == "fieldtype") {
+            if (xml.name() == QLatin1String("fieldtype")) {
                 fld.setType(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 fld.setName(xml.readElementText());
-            } else if (xml.name() == "data") {
+            } else if (xml.name() == QLatin1String("data")) {
                 fld.setData(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "field")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("field"))) {
             xml.readNext();
             break;
         }
@@ -1187,75 +1187,75 @@ Publisher XmlParser<Publisher>::parseXml(QXmlStreamReader &xml)
 
         if (xml.isStartElement()) {
 
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 publisher.setId(xml.readElementText());
-            } else if (xml.name() == "name") {
+            } else if (xml.name() == QLatin1String("name")) {
                 publisher.setName(xml.readElementText());
-            } else if (xml.name() == "registrationurl") {
+            } else if (xml.name() == QLatin1String("registrationurl")) {
                 publisher.setUrl(xml.readElementText());
-            } else if (xml.name() == "fields") {
+            } else if (xml.name() == QLatin1String("fields")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "field") {
+                        if (xml.name() == QLatin1String("field")) {
                             Field t;
                             while (!xml.atEnd()) {
                                 xml.readNextStartElement();
                                 if (xml.isStartElement()) {
-                                    if (xml.name() == "fieldtype") {
+                                    if (xml.name() == QLatin1String("fieldtype")) {
                                         t.type = xml.readElementText();
-                                    } else if (xml.name() == "name") {
+                                    } else if (xml.name() == QLatin1String("name")) {
                                         t.name = xml.readElementText();
-                                    } else if (xml.name() == "fieldsize") {
+                                    } else if (xml.name() == QLatin1String("fieldsize")) {
                                         t.fieldsize = xml.readElementText().toInt();
-                                    } else if (xml.name() == "required") {
+                                    } else if (xml.name() == QLatin1String("required")) {
                                         t.required = xml.readElementText() == QLatin1String("true");
-                                    } else if (xml.name() == "options") {
+                                    } else if (xml.name() == QLatin1String("options")) {
                                         while (!xml.atEnd())
                                         {
                                             xml.readNextStartElement();
                                             if(xml.isStartElement())
                                             {
-                                                if(xml.name() == "option")
+                                                if(xml.name() == QLatin1String("option"))
                                                 {
                                                     t.options << xml.readElementText();
                                                 }
-                                            } else if (xml.isEndElement() && xml.name() == "options") {
+                                            } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
                                                 xml.readNext();
                                                 break;
                                             }
                                         }
                                     }
-                                } else if (xml.isEndElement() && (xml.name() == "field")) {
+                                } else if (xml.isEndElement() && (xml.name() == QLatin1String("field"))) {
                                     xml.readNext();
                                     break;
                                 }
                             }
                             publisher.addField(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "fields")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("fields"))) {
                         xml.readNext();
                         break;
                     }
                 }
-            } else if (xml.name() == "supportedtargets") {
+            } else if (xml.name() == QLatin1String("supportedtargets")) {
                 while (!xml.atEnd()) {
                     xml.readNextStartElement();
                     if (xml.isStartElement()) {
-                        if (xml.name() == "target") {
+                        if (xml.name() == QLatin1String("target")) {
                             Target t;
                             t.name = xml.readElementText();
                             publisher.addTarget(t);
                         }
-                    } else if (xml.isEndElement() && (xml.name() == "supportedtargets")) {
+                    } else if (xml.isEndElement() && (xml.name() == QLatin1String("supportedtargets"))) {
                         xml.readNext();
                         break;
                     }
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == "publisher")
-               || (xml.name() == "user")) {
+               && (xml.name() == QLatin1String("publisher"))
+               || (xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -1274,20 +1274,20 @@ RemoteAccount XmlParser<RemoteAccount>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 remoteaccount.setId(xml.readElementText());
-            } else if (xml.name() == "type") {
+            } else if (xml.name() == QLatin1String("type")) {
                 remoteaccount.setType(xml.readElementText());
-            } else if (xml.name() == "typeid") {  // FIXME: change to remoteserviceid sometime soon (OCS API change pending
+            } else if (xml.name() == QLatin1String("typeid")) {  // FIXME: change to remoteserviceid sometime soon (OCS API change pending
                 remoteaccount.setRemoteServiceId(xml.readElementText());
-            } else if (xml.name() == "data") {
+            } else if (xml.name() == QLatin1String("data")) {
                 remoteaccount.setData(xml.readElementText());
-            } else if (xml.name() == "login") {
+            } else if (xml.name() == QLatin1String("login")) {
                 remoteaccount.setLogin(xml.readElementText());
-            } else if (xml.name() == "password") {
+            } else if (xml.name() == QLatin1String("password")) {
                 remoteaccount.setPassword(xml.readElementText());
             }
-        } else if (xml.isEndElement() && (xml.name() == "remoteaccount" || xml.name() == "user")) {
+        } else if (xml.isEndElement() && (xml.name() == QLatin1String("remoteaccount") || xml.name() == QLatin1String("user"))) {
             break;
         }
     }
@@ -1303,22 +1303,22 @@ Topic XmlParser<Topic>::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == "id") {
+            if (xml.name() == QLatin1String("id")) {
                 topic.setId(xml.readElementText());
-            } else if (xml.name() == "forumId") {
+            } else if (xml.name() == QLatin1String("forumId")) {
                 topic.setForumId(xml.readElementText());
-            } else if (xml.name() == "user") {
+            } else if (xml.name() == QLatin1String("user")) {
                 topic.setUser(xml.readElementText());
-            } else if (xml.name() == "date") {
+            } else if (xml.name() == QLatin1String("date")) {
                 topic.setDate(Utils::parseQtDateTimeIso8601(xml.readElementText()));
-            } else if (xml.name() == "subject") {
+            } else if (xml.name() == QLatin1String("subject")) {
                 topic.setSubject(xml.readElementText());
-            } else if (xml.name() == "content") {
+            } else if (xml.name() == QLatin1String("content")) {
                 topic.setContent(xml.readElementText());
-            } else if (xml.name() == "comments") {
+            } else if (xml.name() == QLatin1String("comments")) {
                 topic.setComments(xml.readElementText().toInt());
             }
-        } else if (xml.isEndElement() && xml.name() == "topic") {
+        } else if (xml.isEndElement() && xml.name() == QLatin1String("topic")) {
             break;
         }
     }

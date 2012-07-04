@@ -21,8 +21,8 @@
 
 */
 
-#include <QtTest/QtTest>
-#include <xmlparser.h>
+#include <QtTest>
+#include "xmlparser.h"
 
 using namespace Attica;
 

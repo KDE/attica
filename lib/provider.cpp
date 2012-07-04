@@ -55,10 +55,10 @@
 #include "topic.h"
 
 #include <QtCore/QStringList>
-#include <QNetworkAccessManager>
-#include <QDebug>
-#include <QUrl>
-#include <QNetworkReply>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtCore/QDebug>
+#include <QtCore/QUrl>
+#include <QtNetwork/QNetworkReply>
 #include <QtCore/QFile>
 
 
