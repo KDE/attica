@@ -8,7 +8,8 @@ macro(ATTICA_TESTS)
     endforeach(_testname)
 endmacro(ATTICA_TESTS)
 
-ATTICA_TESTS(persontest )
+ATTICA_TESTS(persontest
+             jsontest )
 #             attributestest)
 
 add_subdirectory(projecttest)
