@@ -227,7 +227,6 @@ void ProjectTest::createProjectResult(Attica::BasicJob* j)
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::Job<NoneType>* postjob = static_cast<Attica::Job<NoneType>*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
         output.append(QString(QLatin1String("Project [%1] successfully created:")).arg(m_currentProjectId));
@@ -248,7 +247,6 @@ void ProjectTest::saveProjectResult(Attica::BasicJob* j)
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::Job<NoneType>* postjob = static_cast<Attica::Job<NoneType>*>(j);
         m_currentProjectId = j->metadata().resultingId();
         qDebug() << "Yay, no errors ... resulting ID:" << m_currentProjectId;
         output.append(QString(QLatin1String("Project [%1] successfully saved.")).arg(m_currentProjectId));

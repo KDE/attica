@@ -74,7 +74,7 @@ public:
 };
 
 
-PlatformDependent* ProviderManager::loadPlatformDependent()
+PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& flags)
 {
     // OS specific stuff
     #if defined Q_WS_WIN
@@ -84,6 +84,12 @@ PlatformDependent* ProviderManager::loadPlatformDependent()
     #define PATH_SEPARATOR ':'
     #define LIB_EXTENSION "so"
     #endif
+
+    if (flags & ProviderManager::DisablePlugins)
+    {
+        qDebug() << "Disabling provider plugins per application request";
+        return new QtPlatformDependent;
+    }
 
     // use qt plugin dir, if that is not found, fall back to kde plugin path (the old way)
     QStringList paths;
@@ -124,10 +130,10 @@ PlatformDependent* ProviderManager::loadPlatformDependent()
 }
 
 
-ProviderManager::ProviderManager()
+ProviderManager::ProviderManager(const ProviderFlags& flags)
     : d(new Private)
 {
-    d->m_internals = loadPlatformDependent();
+    d->m_internals = loadPlatformDependent(flags);
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
     connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }

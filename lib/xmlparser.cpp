@@ -560,8 +560,8 @@ BuildService XmlParser<BuildService>::parseXml(QXmlStreamReader &xml)
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == QLatin1String("buildservice"))
-               || (xml.name() == QLatin1String("user"))) {
+               && ((xml.name() == QLatin1String("buildservice"))
+               || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }
@@ -1254,8 +1254,8 @@ Publisher XmlParser<Publisher>::parseXml(QXmlStreamReader &xml)
                 }
             }
         } else if (xml.isEndElement()
-               && (xml.name() == QLatin1String("publisher"))
-               || (xml.name() == QLatin1String("user"))) {
+               && ((xml.name() == QLatin1String("publisher"))
+               || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }

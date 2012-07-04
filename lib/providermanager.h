@@ -55,7 +55,14 @@ class ATTICA_EXPORT ProviderManager : public QObject
     Q_OBJECT
 
 public:
-    ProviderManager();
+
+    enum ProviderFlag {
+        NoFlags = 0x0,
+        DisablePlugins = 0x1
+    };
+    Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
+
+    ProviderManager(const ProviderFlags& flags = NoFlags);
     ~ProviderManager();
     
     /** 
@@ -138,7 +145,7 @@ private:
     ProviderManager& operator=(const ProviderManager& other);
 
     void initNetworkAccesssManager();
-    PlatformDependent* loadPlatformDependent();
+    PlatformDependent* loadPlatformDependent(const ProviderFlags& flags);
 
     void parseProviderFile(const QString& xmlString, const QString& url);
 
@@ -148,5 +155,6 @@ private:
 
 }
 
+Q_DECLARE_OPERATORS_FOR_FLAGS( Attica::ProviderManager::ProviderFlags )
 
 #endif
