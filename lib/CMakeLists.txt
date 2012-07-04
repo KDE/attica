@@ -59,6 +59,7 @@ set(ocsclient_SRCS
    iparser.cpp
    job.cpp
    job_inst.cpp
+   jsonparser.cpp
    knowledgebaseentry.cpp
    license.cpp
    message.cpp
