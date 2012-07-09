@@ -27,10 +27,11 @@
 #include "person.h"
 #include "parser.h"
 
+#include "atticaclient_export.h"
 
 namespace Attica {
 
-class Person::Parser : public Attica::Parser<Person>
+class ATTICA_EXPORT Person::Parser : public Attica::Parser<Person>
 {
 private:
     Person parseXml(QXmlStreamReader& xml);
