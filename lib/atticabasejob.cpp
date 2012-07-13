@@ -87,7 +87,7 @@ void BaseJob::dataFinished()
     // handle redirections automatically
     QUrl newUrl;
     if (d->redirection(newUrl)) {
-        qDebug() << "BaseJob::dataFinished" << newUrl;
+        //qDebug() << "BaseJob::dataFinished" << newUrl;
         QNetworkRequest request = d->m_reply->request();
         QNetworkAccessManager::Operation operation = d->m_reply->operation();
         if (newUrl.isValid() && operation == QNetworkAccessManager::GetOperation) {

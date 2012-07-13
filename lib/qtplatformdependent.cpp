@@ -98,7 +98,7 @@ QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
 
 void QtPlatformDependent::addDefaultProviderFile(const QUrl&)
 {
-    qDebug() << "attica-qt does not support default providers yet";
+    qWarning() << "attica-qt does not support default providers yet";
 }
 
 void QtPlatformDependent::removeDefaultProviderFile(const QUrl&)
@@ -107,7 +107,7 @@ void QtPlatformDependent::removeDefaultProviderFile(const QUrl&)
 
 void QtPlatformDependent::enableProvider(const QUrl& baseUrl, bool enabled) const
 {
-    qDebug() << "attica-qt does not support disabling of providers yet";
+    qWarning() << "attica-qt does not support disabling of providers yet";
 }
 
 bool QtPlatformDependent::isEnabled(const QUrl& baseUrl) const

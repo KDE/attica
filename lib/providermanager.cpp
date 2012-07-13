@@ -87,7 +87,7 @@ PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& f
 
     if (flags & ProviderManager::DisablePlugins)
     {
-        qDebug() << "Disabling provider plugins per application request";
+        //qDebug() << "Disabling provider plugins per application request";
         return new QtPlatformDependent;
     }
 
@@ -106,26 +106,26 @@ PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& f
 
     /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
     paths.append(QString(QLatin1String( process.readAllStandardOutput() )).trimmed().split(QLatin1Char( PATH_SEPARATOR )));
-    qDebug() << "Plugin paths: " << paths;
+    //qDebug() << "Plugin paths: " << paths;
 
     QString pluginName(QLatin1String( "attica_kde" ));
 
     foreach(const QString& path, paths) {
         QString libraryPath(path + QLatin1Char( '/' ) + pluginName + QLatin1Char( '.' ) + QLatin1String( LIB_EXTENSION ));
-        qDebug() << "Trying to load Attica plugin: " << libraryPath;
+        //qDebug() << "Trying to load Attica plugin: " << libraryPath;
         if (QFile::exists(libraryPath)) {
             d->m_pluginLoader.setFileName(libraryPath);
             QObject* plugin = d->m_pluginLoader.instance();
             if (plugin) {
                 PlatformDependent* platformDependent = qobject_cast<PlatformDependent*>(plugin);
                 if (platformDependent) {
-                    qDebug() << "Using Attica with KDE support";
+                    //qDebug() << "Using Attica with KDE support";
                     return platformDependent;
                 }
             }
         }
     }
-    qDebug() << "Using Attica without KDE support";
+    //qDebug() << "Using Attica without KDE support";
     return new QtPlatformDependent;
 }
 
@@ -274,7 +274,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                 }
             }
             if (!baseUrl.isEmpty()) {
-                qDebug() << "Adding provider" << baseUrl;
+                //qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon,
                     person, friendV, message, achievement, activity, content, fan, forum, knowledgebase, event, comment));
                 emit providerAdded(d->m_providers.value(baseUrl));
@@ -317,14 +317,14 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
         }
     }
 
-    qDebug() << "ProviderManager::authenticate" << baseUrl;
+    //qDebug() << "ProviderManager::authenticate" << baseUrl;
 
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
         if (d->m_internals->hasCredentials(baseUrl)) {
             if (d->m_internals->loadCredentials(baseUrl, user, password)) {
-                qDebug() << "ProviderManager::authenticate: loading authentication";
+                //qDebug() << "ProviderManager::authenticate: loading authentication";
                 auth->setUser(user);
                 auth->setPassword(password);
                 return;
@@ -333,13 +333,13 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
     }
 
     if (!d->m_authenticationSuppressed && d->m_internals->askForCredentials(baseUrl, user, password)) {
-        qDebug() << "ProviderManager::authenticate: asking internals for new credentials";
+        //qDebug() << "ProviderManager::authenticate: asking internals for new credentials";
         //auth->setUser(user);
         //auth->setPassword(password);
         return;
     }
 
-    qDebug() << "ProviderManager::authenticate: No authentication credentials provided, aborting." << reply->url().toString();
+    qWarning() << "ProviderManager::authenticate: No authentication credentials provided, aborting." << reply->url().toString();
     emit authenticationCredentialsMissing(d->m_providers.value(baseUrl));
     reply->abort();
 }

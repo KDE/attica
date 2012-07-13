@@ -75,7 +75,7 @@ QNetworkReply* PutJob::executeRequest()
 
 void PutJob::parse(const QString& xmlString)
 {
-    qDebug() << "PutJob::parse" << xmlString;
+    //qDebug() << "PutJob::parse" << xmlString;
     QXmlStreamReader xml( xmlString );
     Metadata data;
     while (!xml.atEnd()) {

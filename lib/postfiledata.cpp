@@ -77,7 +77,7 @@ QString PostFileData::randomString(int length)
 void PostFileData::addArgument(const QString& key, const QString& value)
 {
     if (d->finished) {
-        qDebug() << "PostFileData::addFile: should not add data after calling request() or data()";
+        qWarning() << "PostFileData::addFile: should not add data after calling request() or data()";
     }
     QByteArray data(
         "--" + d->boundary + "\r\n"
@@ -101,7 +101,7 @@ void PostFileData::addFile(const QString& fileName, QIODevice* file, const QStri
 void PostFileData::addFile(const QString& fileName, const QByteArray& file, const QString& mimeType, const QString& fieldName)
 {
     if (d->finished) {
-        qDebug() << "PostFileData::addFile: should not add data after calling request() or data()";
+        qWarning() << "PostFileData::addFile: should not add data after calling request() or data()";
     }
 
     QByteArray data(
