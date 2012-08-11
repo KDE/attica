@@ -224,6 +224,41 @@ Achievement JsonParser<Achievement>::parseElement(const QJsonObject &object)
     return achievement;
 }
 
+template<>
+Activity JsonParser<Activity>::parseElement(const QJsonObject &object)
+{
+    Activity activity;
+    Person person;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            activity.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("timestamp")) {
+            activity.setTimestamp( QDateTime::fromString(iter.value().toString(), Qt::ISODate) );
+        }
+        else if (iter.key() == QLatin1String("message")) {
+            activity.setMessage( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("link")) {
+            activity.setLink( QUrl( iter.value().toString() ) );
+        }
+        else if (iter.key() == QLatin1String("personid")) {
+            person.setId( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("firstname")) {
+            person.setFirstName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("lastname")) {
+            person.setLastName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("avatarpic")) {
+            person.setAvatarUrl( QUrl( iter.value().toString() ) );
+        }
+    }
+    activity.setAssociatedPerson( person );
+    return activity;
+}
+
 template <>
 Message JsonParser<Message>::parseElement(const QJsonObject &object)
 {

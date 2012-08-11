@@ -24,6 +24,7 @@
 #include "jsonparser.h"
 #include "metadata.h"
 #include "achievement.h"
+#include "activity.h"
 #include "message.h"
 #include "person.h"
 
@@ -40,6 +41,7 @@ private slots:
     void testMetadata();
 
     void testAchievement();
+    void testActivity();
     void testMessage();
     void testPerson();
 
@@ -153,6 +155,52 @@ void JsonTest::testAchievement()
     QCOMPARE( achievement2.options().size(), 3 );
     QCOMPARE( achievement2.options().at(2), QLatin1String("also good") );
     QVERIFY( achievement2.progress().toStringList().contains(QLatin1String("also good")) );
+}
+
+void JsonTest::testActivity()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"details\": \"full\","
+            "\"id\": 42,"
+            "\"personid\": \"lpapp\","
+            "\"firstname\": \"Laszlo\","
+            "\"lastname\": \"Papp\","
+            "\"profilepage\": \"/usermanager/search.php?username=lpapp\","
+            "\"avatarpic\": \"https://opendesktop.org/usermanager/nopic.png\","
+            "\"timestamp\": \"2008-08-01T20:30:19+02:00\","
+            "\"type\": 6,"
+            "\"message\": \"testy2 has updated: &quot;Extract And Compress&quot;\","
+            "\"link\": \"https://www.KDE-Look.org/content/show.php?content=84206\""
+        "},"
+        "{"
+            "\"details\": \"full\","
+            "\"id\": 43,"
+            "\"personid\": \"foobar\","
+            "\"firstname\": \"Foo\","
+            "\"lastname\": \"Bar\","
+            "\"profilpage\": \"/usermanager/search.php?username=foobar\","
+            "\"avatarpic\": \"https://www.opendesktop.org/usermanager/nopic.png\","
+            "\"timestamp:\": \"2008-08-02T19:38:10+02:00\","
+            "\"type\": 6,"
+            "\"message\": \"foobar2 has updated: &quot;Arezzo&quot;\","
+            "\"link\": \"https://www.KDE-Look.org/content/show.php?content=84403\""
+        "}"
+        "]") + endString;
+    JsonParser<Activity> parser;
+    parser.parse( testData );
+    Activity activity = parser.item();
+
+    QVERIFY( activity.isValid() );
+    QCOMPARE( activity.id(), QLatin1String("42") );
+    QVERIFY( activity.associatedPerson().isValid() );
+    QCOMPARE( activity.associatedPerson().id(), QLatin1String("lpapp") );
+    QCOMPARE( activity.associatedPerson().firstName(), QLatin1String("Laszlo") );
+    QCOMPARE( activity.associatedPerson().lastName(), QLatin1String("Papp") );
+    QCOMPARE( activity.associatedPerson().avatarUrl(), QUrl(QLatin1String("https://opendesktop.org/usermanager/nopic.png")) );
+    QCOMPARE( activity.timestamp(), QDateTime::fromString(QLatin1String("2008-08-01T20:30:19+02:00"), Qt::ISODate) );
+    QCOMPARE( activity.message(), QLatin1String("testy2 has updated: &quot;Extract And Compress&quot;") );
+    QCOMPARE( activity.link(), QUrl(QLatin1String("https://www.KDE-Look.org/content/show.php?content=84206")) );
 }
 
 void JsonTest::testMessage()
