@@ -23,6 +23,7 @@
 
 #include "jsonparser.h"
 #include "metadata.h"
+#include "achievement.h"
 #include "message.h"
 #include "person.h"
 
@@ -37,6 +38,8 @@ class JsonTest: public QObject
     Q_OBJECT
 private slots:
     void testMetadata();
+
+    void testAchievement();
     void testMessage();
     void testPerson();
 
@@ -66,6 +69,90 @@ void JsonTest::testMetadata()
     QCOMPARE( metadata.statusString(), QLatin1String("ok") );
     QCOMPARE( metadata.statusCode(), 100 );
     QCOMPARE( metadata.message(), QLatin1String("") );
+}
+
+void JsonTest::testAchievement()
+{
+    QString testData1 = startString+QLatin1String("["
+        "{"
+            "\"id\": 12,"
+            "\"content_id\": 1234,"
+            "\"name\": \"The Great Thing\","
+            "\"description\": \"Great things are afoot\","
+            "\"explanation\": \"A great thing which will help you with other things.\","
+            "\"points\": 15,"
+            "\"image\": \"https://opendesktop.org/content/achievements/images/12.png\","
+            "\"dependencies\": null,"
+            "\"visibility\": \"visible\","
+            "\"type\": \"flowing\","
+            "\"progress\": 1"
+        "},"
+        "{"
+            "\"id\": 321,"
+            "\"content_id\": 1234,"
+            "\"name\": \"The Greater Thing\","
+            "\"description\": \"Even greater things are afoot\","
+            "\"explanation\": \"Incredible things have been achieved.\","
+            "\"points\": 25,"
+            "\"image\": \"https://opendesktop.org/content/achievements/images/12.png\","
+
+            "\"dependencies\": ["
+                "{"
+                    "\"achievement_id\": 12"
+                "}"
+            "],"
+
+            "\"visibility\": \"dependents\","
+            "\"type\": \"set\","
+
+            "\"options\": ["
+                "{"
+                    "\"option\": \"good\""
+                "},"
+                "{"
+                    "\"option\": \"other good\""
+                "},"
+                "{"
+                    "\"option\": \"also good\""
+                "}"
+            "],"
+
+            "\"progress\": ["
+                "{"
+                    "\"reached\": \"good\""
+                "},"
+                "{"
+                    "\"reached\": \"also good\""
+                "}"
+            "]"
+        "}"
+        "]") + endString;
+    JsonParser<Achievement> parser;
+    parser.parse( testData1 );
+    Achievement achievement1 = parser.itemList().at(0);
+    Achievement achievement2 = parser.itemList().at(1);
+
+    QVERIFY( achievement1.isValid() );
+    QVERIFY( achievement2.isValid() );
+
+    QCOMPARE( achievement1.id(), QLatin1String("12") );
+    QCOMPARE( achievement1.contentId(), QLatin1String("1234") );
+    QCOMPARE( achievement1.name(), QLatin1String("The Great Thing") );
+    QCOMPARE( achievement1.description(), QLatin1String("Great things are afoot") );
+    QCOMPARE( achievement1.explanation(), QLatin1String("A great thing which will help you with other things.") );
+    QCOMPARE( achievement1.points(), 15 );
+    QCOMPARE( achievement1.image(), QUrl(QLatin1String("https://opendesktop.org/content/achievements/images/12.png")) );
+    QVERIFY( achievement1.dependencies().isEmpty() );
+    QCOMPARE( achievement1.visibility(), Achievement::VisibleAchievement );
+    QCOMPARE( achievement1.type(), Achievement::FlowingAchievement );
+    QCOMPARE( achievement1.progress(), QVariant::fromValue<int>(1) );
+
+    QCOMPARE( achievement2.id(), QLatin1String("321") );
+    QCOMPARE( achievement2.dependencies().size(), 1 );
+    QCOMPARE( achievement2.dependencies().at(0), QLatin1String("12") );
+    QCOMPARE( achievement2.options().size(), 3 );
+    QCOMPARE( achievement2.options().at(2), QLatin1String("also good") );
+    QVERIFY( achievement2.progress().toStringList().contains(QLatin1String("also good")) );
 }
 
 void JsonTest::testMessage()

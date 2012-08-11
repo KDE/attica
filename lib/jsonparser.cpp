@@ -108,6 +108,122 @@ QJsonValue JsonParser<T>::getDataValue(const QString &data)
     return object.value(QLatin1String("data"));
 }
 
+template <class T>
+QStringList JsonParser<T>::arrayToStringList( const QJsonArray &array )
+{
+    QStringList stringList;
+    for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); iter++) {
+        stringList << (*iter).toString();
+    }
+    return stringList;
+}
+
+template <class T>
+QStringList JsonParser<T>::intArrayToStringList( const QJsonArray &array )
+{
+    QStringList stringList;
+    for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); iter++) {
+        stringList << QString::number( (int) (*iter).toDouble() );
+    }
+    return stringList;
+}
+
+template <>
+Achievement JsonParser<Achievement>::parseElement(const QJsonObject &object)
+{
+    Achievement achievement;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            achievement.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("content_id")) {
+            achievement.setContentId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            achievement.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("description")) {
+            achievement.setDescription( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("explanation")) {
+            achievement.setExplanation( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("points")) {
+            achievement.setPoints( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("image")) {
+            achievement.setImage( QUrl( iter.value().toString() ) );
+        }
+        else if (iter.key() == QLatin1String("dependencies")) {
+            QStringList dependencies;
+            const QJsonArray &array = iter.value().toArray();
+            for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); ++iter) {
+                const QJsonObject &object = (*iter).toObject();
+                if (object.contains(QLatin1String("achievement_id"))) {
+                    dependencies << QString::number( (int) object.value(QLatin1String("achievement_id")).toDouble() );
+                }
+            }
+            achievement.setDependencies( dependencies );
+        }
+        else if (iter.key() == QLatin1String("visibility")) {
+            if (iter.value() == QLatin1String("visible")) {
+                achievement.setVisibility( Achievement::VisibleAchievement );
+            }
+            else if (iter.value() == QLatin1String("dependents")) {
+                achievement.setVisibility( Achievement::DependentsAchievement );
+            }
+            else if (iter.value() == QLatin1String("secret")) {
+                achievement.setVisibility( Achievement::SecretAchievement );
+            }
+        }
+        else if (iter.key() == QLatin1String("type")) {
+            if (iter.value() == QLatin1String("flowing")) {
+                achievement.setType( Achievement::FlowingAchievement );
+            }
+            else if (iter.value() == QLatin1String("stepped")) {
+                achievement.setType( Achievement::SteppedAchievement );
+            }
+            else if (iter.value() == QLatin1String("namedsteps")) {
+                achievement.setType( Achievement::NamedstepsAchievement );
+            }
+            else if (iter.value() == QLatin1String("set")) {
+                achievement.setType( Achievement::SetAchievement );
+            }
+        }
+        else if (iter.key() == QLatin1String("options")) {
+            QStringList options;
+            const QJsonArray &array = iter.value().toArray();
+            for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); ++iter) {
+                const QJsonObject &object = (*iter).toObject();
+                if (object.contains(QLatin1String("option"))) {
+                    options << object.value(QLatin1String("option")).toString();
+                }
+            }
+            achievement.setOptions( options );
+        }
+        else if (iter.key() == QLatin1String("steps")) {
+            achievement.setSteps( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("progress")) {
+            if (iter.value().isArray()) {
+                QStringList progress;
+                const QJsonArray &array = iter.value().toArray();
+                for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); ++iter) {
+                    const QJsonObject &object = (*iter).toObject();
+                    if (object.contains(QLatin1String("reached"))) {
+                        progress << object.value(QLatin1String("reached")).toString();
+                    }
+                }
+                achievement.setProgress( progress );
+            }
+            else {
+                achievement.setProgress( iter.value().toVariant() );
+            }
+        }
+    }
+    return achievement;
+}
+
 template <>
 Message JsonParser<Message>::parseElement(const QJsonObject &object)
 {

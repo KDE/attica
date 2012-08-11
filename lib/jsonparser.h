@@ -26,6 +26,7 @@
 
 #include "iparser.h"
 
+#include "achievement.h"
 #include "message.h"
 #include "person.h"
 
@@ -48,14 +49,18 @@ private:
     static T parseElement( const QJsonObject &object );
     void parseMetadata( const QJsonObject &object );
     QJsonValue getDataValue( const QString &data );
+    static QStringList arrayToStringList( const QJsonArray &array );
+    static QStringList intArrayToStringList( const QJsonArray &array );
     Metadata m_metadata;
     typename T::List m_result;
 };
 
+template <> Achievement JsonParser<Achievement>::parseElement( const QJsonObject &object );
 template <> Message JsonParser<Message>::parseElement( const QJsonObject &object );
 template <> Person JsonParser<Person>::parseElement( const QJsonObject &object );
 
 template class JsonParser<NoneType>;
+template class JsonParser<Achievement>;
 template class JsonParser<Message>;
 template class JsonParser<Person>;
 
