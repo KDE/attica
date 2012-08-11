@@ -114,9 +114,9 @@ Message JsonParser<Message>::parseElement(const QJsonObject &object)
     Message message;
     for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
         if (iter.key() == QLatin1String("id")) {
-            message.setId( iter.value().toString() );
+            message.setId( QString::number( (int) iter.value().toDouble() ) );
         }
-        else if (iter.key() == QLatin1String("messagefrom")) {
+        else if (iter.key() == QLatin1String("message from")) {
             message.setFrom( iter.value().toString() );
         }
         else if (iter.key() == QLatin1String("messageto")) {

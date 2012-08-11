@@ -70,19 +70,22 @@ void JsonTest::testMetadata()
 
 void JsonTest::testMessage()
 {
-    QString testData1 =startString+QLatin1String("{"
-                "\"id\":\"8490\","
-                "\"messagefrom\":\"testy\","
-                "\"firstname\":\"Test\","
-                "\"lastname\":\"TTT\","
-                "\"profilepage\":\"http://www.opendesktop.org/usermanager/search.php?username=testy\","
-                "\"messageto\":\"Frank\","
-                "\"senddate\":\"2008-08-10T16:03:59+02:00\","
-                "\"status\":1,"
-                "\"statustext\":null,"
-                "\"subject\":\"test message\","
-                "\"body\":\"Sorry for bothering but did you ...\""
-                "}")+endString;
+    QString testData1 =startString+QLatin1String("["
+        "{"
+            "\"details\": \"full\","
+            "\"id\": 8490,"
+            "\"message from\": \"testy\","
+            "\"firstname\": \"Laszlo\","
+            "\"lastname\": \"Papp\","
+            "\"profilepage\": \"https://www.opendesktop.org/usermanager/search.php?username=lpapp\","
+            "\"messageto\": \"lpapp\","
+            "\"senddate\": \"2008-08-10T16:03:59+02:00\","
+            "\"status\": 1,"
+            "\"statustext\": null,"
+            "\"subject\": \"test message\","
+            "\"body\": \"Sorry for bothering but did you ...\""
+        "}"
+        "]")+endString;
     JsonParser<Message> parser;
     parser.parse( testData1 );
     Message message = parser.item();
@@ -90,7 +93,7 @@ void JsonTest::testMessage()
     QVERIFY( message.isValid() );
     QCOMPARE( message.id(), QLatin1String("8490") );
     QCOMPARE( message.from(), QLatin1String("testy") );
-    QCOMPARE( message.to(), QLatin1String("Frank") );
+    QCOMPARE( message.to(), QLatin1String("lpapp") );
     QCOMPARE( message.sent(), QDateTime::fromString(QLatin1String("2008-08-10T16:03:59+02:00"), Qt::ISODate) );
     QCOMPARE( message.status(), Message::Status(1) );
     QCOMPARE( message.subject(), QLatin1String("test message") );
@@ -100,74 +103,70 @@ void JsonTest::testMessage()
 
 void JsonTest::testPerson()
 {
-    QString testData1 = startString+QLatin1String("{"
-            "\"details\":\"full\","
-            "\"personid\":\"Frank\","
-            "\"privacy\":1,"
-            "\"privacytext\":\"visible only for registered users\","
-            "\"firstname\":\"Frank\","
-            "\"lastname\":\"Test\","
-            "\"gender\":\"male\","
-            "\"communityrole\":\"developer\","
-            "\"homepage\":\"openDesktop.org\","
-            "\"homepagetype\":null,"
-            "\"homepageicon\":null,"
-            "\"homepage2\":null,"
-            "\"homepagetype2\":null,"
-            "\"homepage3\":null,"
-            "\"homepagetype3\":null,"
-            "\"homepage4\":null,"
-            "\"homepagetype4\":null,"
-            "\"homepageicon4\":null,"
-            "\"homepage5\":null,"
-            "\"homepagetype5\":null,"
-            "\"homepage6\":\"www.facebook.com/foo\","
-            "\"homepagetype6\":\"Facebook\","
-            "\"homepageicon6\":\"http://openDesktop.org/img/socialicons/emblem-facebook.png\","
-            "\"company\":\"opendesktop.org\","
-            "\"avatarpic\":\"http://www.KDE-Look.org/CONTENT/user-pics/0/Frank.jpg\","
-            "\"avatarpicfound\":1,"
-            "\"bigavatarpic\":\"http://www.KDE-Look.org/CONTENT/user-bigpics/0/Frank.jpg\","
-            "\"bigavatarpicfound\":1,"
-            "\"birthday\":\"1973-07-25\","
-            "\"jobstatus\":\"working\","
-            "\"city\":\"Stuttgart\","
-            "\"country\":\"Germany\","
-            "\"latitude\":null,"
-            "\"longitude\":null,"
-            "\"ircnick\":\"karli\","
-            "\"ircchannels\":\"kde-dev, plasma\","
-            "\"irclink\":\"irc://irc.freenode.org/kde-dev\","
-            "\"irclink\":\"irc://irc.freenode.org/plasma\","
-            "\"likes\":\"lot of stuff\","
-            "\"dontlikes\":\"nothing\","
-            "\"interests\":\"travel\","
-            "\"languages\":\"english\","
-            "\"programminglanguages\":\"php, c++\","
-            "\"favouritequote\":null,"
-            "\"favouritemusic\":\"nin\","
-            "\"favouritetvshows\":null,"
-            "\"favouritemovies\":\"fightclub\","
-            "\"favouritebooks\":null,"
-            "\"favouritegames\":\"ut3\","
-            "\"description\":null,"
-            "\"profilepage\":\"http://www.KDE-Look.org/usermanager/search.php?username=Frank\""
-        "}") + endString;
+    QString testData1 = startString+QLatin1String("["
+        "{"
+            "\"details\": \"full\","
+            "\"personid\": \"lpapp\","
+            "\"privacy\": 1,"
+            "\"privacytext\": \"visible only for registered users\","
+            "\"firstname\": \"Laszlo\","
+            "\"lastname\": \"Papp\","
+            "\"gender\": \"male\","
+            "\"communityrole\": \"developer\","
+            "\"homepage\": null,"
+            "\"company\": \"company\","
+            "\"avatarpic\": \"https://www.opendesktop.org/usermanager/nopic.png\","
+            "\"avatarpicfound\": 1,"
+            "\"bigavatarpic\": \"https://www.opendesktop.org/usermanager/nopic.png\","
+            "\"bigavatarpicfound\": 1,"
+            "\"birthday\": \"1985-12-02\","
+            "\"jobstatus\": \"working\","
+            "\"city\": \"Helsinki\","
+            "\"country\": \"Finland\","
+            "\"longitude\": 24.9375,"
+            "\"latitude\": 60.1708,"
+            "\"ircnick\": \"djszapi\","
+            "\"ircchannels\": \"ocs, qt-labs\","
+
+            "\"irclink\": ["
+                "{"
+                    "\"link\": \"irc://irc.freenode.org/ocs\""
+                "},"
+                "{"
+                    "\"link\": \"irc://irc.freenode.org/qt-labs\""
+                "}"
+            "],"
+
+            "\"likes\": \"lot of stuff\","
+            "\"dontlikes\": \"nothing\","
+            "\"interests\": \"travel\","
+            "\"languages\": \"english\","
+            "\"programminglanguages\": \"c, c++\","
+            "\"favouritequote\": null,"
+            "\"favouritemusic\": \"Iron Maiden\","
+            "\"favouritetvshows\": null,"
+            "\"favouritemovies\": \"Back to the Future\","
+            "\"favouritebooks\": null,"
+            "\"favouritegames\": \"Star Craft\","
+            "\"description\": null,"
+            "\"profilpage\": \"https://www.KDE-Look.org/usermanager/search.php?username=lpapp\""
+        "}"
+        "]") + endString;
     JsonParser<Person> parser;
     parser.parse( testData1 );
     Person person = parser.item();
     QVERIFY( person.isValid() );
-    QCOMPARE( person.id(), QLatin1String("Frank") );
-    QCOMPARE( person.firstName(), QLatin1String("Frank") );
-    QCOMPARE( person.lastName(), QLatin1String("Test") );
-    QCOMPARE( person.birthday(), QDate(1973, 07, 25) );
-    QCOMPARE( person.country(), QLatin1String("Germany") );
-    QCOMPARE( person.latitude(), 0.0 );
-    QCOMPARE( person.longitude(), 0.0 );
-    QCOMPARE( person.avatarUrl(), QUrl( QLatin1String("http://www.KDE-Look.org/CONTENT/user-pics/0/Frank.jpg") ) );
-    QCOMPARE( person.homepage(), QLatin1String("openDesktop.org") );
-    QCOMPARE( person.city(), QLatin1String("Stuttgart") );
-    QCOMPARE( person.extendedAttribute(QLatin1String("favouritemusic")), QLatin1String("nin"));
+    QCOMPARE( person.id(), QLatin1String("lpapp") );
+    QCOMPARE( person.firstName(), QLatin1String("Laszlo") );
+    QCOMPARE( person.lastName(), QLatin1String("Papp") );
+    QCOMPARE( person.birthday(), QDate(1985, 12, 02) );
+    QCOMPARE( person.country(), QLatin1String("Finland") );
+    QCOMPARE( person.latitude(), 60.1708 );
+    QCOMPARE( person.longitude(), 24.9375 );
+    QCOMPARE( person.avatarUrl(), QUrl( QLatin1String("https://www.opendesktop.org/usermanager/nopic.png") ) );
+    QCOMPARE( person.homepage(), QLatin1String("") );
+    QCOMPARE( person.city(), QLatin1String("Helsinki") );
+    QCOMPARE( person.extendedAttribute(QLatin1String("favouritemusic")), QLatin1String("Iron Maiden"));
 }
 
 // void JsonTest::testConfig()
