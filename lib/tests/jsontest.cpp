@@ -25,6 +25,7 @@
 #include "metadata.h"
 #include "achievement.h"
 #include "activity.h"
+#include "comment.h"
 #include "message.h"
 #include "person.h"
 
@@ -42,6 +43,7 @@ private slots:
 
     void testAchievement();
     void testActivity();
+    void testComment();
     void testMessage();
     void testPerson();
 
@@ -201,6 +203,46 @@ void JsonTest::testActivity()
     QCOMPARE( activity.timestamp(), QDateTime::fromString(QLatin1String("2008-08-01T20:30:19+02:00"), Qt::ISODate) );
     QCOMPARE( activity.message(), QLatin1String("testy2 has updated: &quot;Extract And Compress&quot;") );
     QCOMPARE( activity.link(), QUrl(QLatin1String("https://www.KDE-Look.org/content/show.php?content=84206")) );
+}
+
+void JsonTest::testComment()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 235,"
+            "\"subject\": \"vxvdfvd\","
+            "\"text\": \"gfdgfdgfgfgf\","
+            "\"childcount\": 1,"
+            "\"user\": \"test\","
+            "\"date\": \"2005-01-29T19:17:06+01:00\","
+            "\"score\": 60,"
+
+            "\"children\": ["
+                "{"
+                    "\"id\": 315,"
+                    "\"subject\": \"Re: jjjjjjjjjjjjjjj\","
+                    "\"text\": \"gfdg\","
+                    "\"childcount\": 0,"
+                    "\"user\": \"lpapp\","
+                    "\"date\": \"2007-03-13T21:34:43+01:00\","
+                    "\"score\": 40"
+                "}"
+            "]"
+        "}"
+        "]") + endString;
+    JsonParser<Comment> parser;
+    parser.parse( testData );
+    Comment comment = parser.item();
+
+    QVERIFY( comment.isValid() );
+    QCOMPARE( comment.id(), QLatin1String("235") );
+    QCOMPARE( comment.subject(), QLatin1String("vxvdfvd") );
+    QCOMPARE( comment.text(), QLatin1String("gfdgfdgfgfgf") );
+    QCOMPARE( comment.childCount(), 1 );
+    QCOMPARE( comment.user(), QLatin1String("test") );
+    QCOMPARE( comment.date(), QDateTime::fromString(QLatin1String("2005-01-29T19:17:06+01:00"), Qt::ISODate) );
+    QCOMPARE( comment.score(), 60 );
+    QCOMPARE( comment.children().at(0).id(), QLatin1String("315") );
 }
 
 void JsonTest::testMessage()

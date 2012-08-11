@@ -224,7 +224,7 @@ Achievement JsonParser<Achievement>::parseElement(const QJsonObject &object)
     return achievement;
 }
 
-template<>
+template <>
 Activity JsonParser<Activity>::parseElement(const QJsonObject &object)
 {
     Activity activity;
@@ -257,6 +257,44 @@ Activity JsonParser<Activity>::parseElement(const QJsonObject &object)
     }
     activity.setAssociatedPerson( person );
     return activity;
+}
+
+template <>
+Comment JsonParser<Comment>::parseElement(const QJsonObject &object)
+{
+    Comment comment;
+    QList<Comment> children;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            comment.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("subject")) {
+            comment.setSubject( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("text")) {
+            comment.setText( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("childcount")) {
+            comment.setChildCount( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("user")) {
+            comment.setUser( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("date")) {
+            comment.setDate( QDateTime::fromString(iter.value().toString(), Qt::ISODate) );
+        }
+        else if (iter.key() == QLatin1String("score")) {
+            comment.setScore( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("children")) {
+            const QJsonArray &array = iter.value().toArray();
+            for (QJsonArray::ConstIterator childIter = array.constBegin(); childIter != array.constEnd(); ++childIter) {
+                children.append( parseElement((*childIter).toObject()) );
+            }
+        }
+    }
+    comment.setChildren( children );
+    return comment;
 }
 
 template <>
