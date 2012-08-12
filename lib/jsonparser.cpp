@@ -313,6 +313,21 @@ Comment JsonParser<Comment>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Distribution JsonParser<Distribution>::parseElement(const QJsonObject &object)
+{
+    Distribution distribution;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            distribution.setId( (uint) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            distribution.setName( iter.value().toString() );
+        }
+    }
+    return distribution;
+}
+
+template <>
 License JsonParser<License>::parseElement(const QJsonObject &object)
 {
     License license;

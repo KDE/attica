@@ -26,6 +26,7 @@
 #include "achievement.h"
 #include "activity.h"
 #include "comment.h"
+#include "distribution.h"
 #include "license.h"
 #include "message.h"
 #include "person.h"
@@ -46,6 +47,7 @@ private slots:
     void testActivity();
     void testCategory();
     void testComment();
+    void testDistribution();
     void testLicense();
     void testMessage();
     void testPerson();
@@ -276,6 +278,35 @@ void JsonTest::testComment()
     QCOMPARE( comment.date(), QDateTime::fromString(QLatin1String("2005-01-29T19:17:06+01:00"), Qt::ISODate) );
     QCOMPARE( comment.score(), 60 );
     QCOMPARE( comment.children().at(0).id(), QLatin1String("315") );
+}
+
+void JsonTest::testDistribution()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 0,"
+            "\"name\": null"
+        "},"
+        "{"
+            "\"id\": 2200,"
+            "\"name\": \"Arch\""
+        "},"
+        "{"
+            "\"id\": 2000,"
+            "\"name\": \"Ark\""
+        "},"
+        "{"
+            "\"id\": 1100,"
+            "\"name\": \"Debian\""
+        "}"
+        "]") + endString;
+    JsonParser<Distribution> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 4 );
+    Distribution distribution = parser.itemList().at(1);
+
+    QCOMPARE( distribution.id(), 2200u );
+    QCOMPARE( distribution.name(), QLatin1String("Arch") );
 }
 
 void JsonTest::testLicense()
