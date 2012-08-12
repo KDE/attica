@@ -84,6 +84,7 @@ template class IParser<Event>;
 template class IParser<Folder>;
 template class IParser<Forum>;
 template class IParser<HomePageType>;
+template class IParser<Icon>;
 template class IParser<KnowledgeBaseEntry>;
 template class IParser<License>;
 template class IParser<Message>;

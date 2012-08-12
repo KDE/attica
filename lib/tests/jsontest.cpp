@@ -28,6 +28,7 @@
 #include "comment.h"
 #include "distribution.h"
 #include "homepagetype.h"
+#include "icon.h"
 #include "license.h"
 #include "message.h"
 #include "person.h"
@@ -50,6 +51,7 @@ private slots:
     void testComment();
     void testDistribution();
     void testHomepageType();
+    void testIcon();
     void testLicense();
     void testMessage();
     void testPerson();
@@ -334,6 +336,35 @@ void JsonTest::testHomepageType()
 
     QCOMPARE( type.id(), 10u );
     QCOMPARE( type.name(), QLatin1String("Blog") );
+}
+
+void JsonTest::testIcon()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"width\": 16,"
+            "\"height\": 16,"
+            "\"link\": \"https://www.KDE-Look.org/img/icon1.png\""
+        "},"
+        "{"
+            "\"width\": 32,"
+            "\"height\": 32,"
+            "\"link\": \"https://www.KDE-Look.org/img/icon2.png\""
+        "},"
+        "{"
+            "\"width\": 64,"
+            "\"height\": 64,"
+            "\"link\": \"https://www.KDE-Look.org/img/icon2.png\""
+        "}"
+        "]") + endString;
+    JsonParser<Icon> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 3 );
+    Icon icon = parser.item();
+
+    QCOMPARE( icon.width(), 16u );
+    QCOMPARE( icon.height(), 16u );
+    QCOMPARE( icon.url(), QUrl(QLatin1String("https://www.KDE-Look.org/img/icon1.png")) );
 }
 
 void JsonTest::testLicense()

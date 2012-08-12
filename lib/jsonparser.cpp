@@ -343,6 +343,24 @@ HomePageType JsonParser<HomePageType>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Icon JsonParser<Icon>::parseElement(const QJsonObject &object)
+{
+    Icon icon;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("width")) {
+            icon.setWidth( (uint) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("height")) {
+            icon.setHeight( (uint) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("link")) {
+            icon.setUrl( QUrl( iter.value().toString() ) );
+        }
+    }
+    return icon;
+}
+
+template <>
 License JsonParser<License>::parseElement(const QJsonObject &object)
 {
     License license;
