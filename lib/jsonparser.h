@@ -30,6 +30,7 @@
 #include "activity.h"
 #include "category.h"
 #include "comment.h"
+#include "content.h"
 #include "distribution.h"
 #include "homepagetype.h"
 #include "icon.h"
@@ -51,9 +52,9 @@ public:
     T item() const;
     typename T::List itemList() const;
     Metadata metadata() const;
+    static T parseElement( const QJsonObject &object );
 
 private:
-    static T parseElement( const QJsonObject &object );
     void parseMetadata( const QJsonObject &object );
     QJsonValue getDataValue( const QString &data );
     static QStringList arrayToStringList( const QJsonArray &array );
@@ -66,6 +67,7 @@ template <> Achievement JsonParser<Achievement>::parseElement( const QJsonObject
 template <> Activity JsonParser<Activity>::parseElement( const QJsonObject &object );
 template <> Category JsonParser<Category>::parseElement( const QJsonObject &object );
 template <> Comment JsonParser<Comment>::parseElement( const QJsonObject &object );
+template <> Content JsonParser<Content>::parseElement( const QJsonObject &object );
 template <> Distribution JsonParser<Distribution>::parseElement( const QJsonObject &object );
 template <> HomePageType JsonParser<HomePageType>::parseElement( const QJsonObject &object );
 template <> Icon JsonParser<Icon>::parseElement( const QJsonObject &object );
@@ -78,6 +80,7 @@ template class JsonParser<Achievement>;
 template class JsonParser<Activity>;
 template class JsonParser<Category>;
 template class JsonParser<Comment>;
+template class JsonParser<Content>;
 template class JsonParser<Distribution>;
 template class JsonParser<HomePageType>;
 template class JsonParser<Icon>;

@@ -26,6 +26,7 @@
 #include "achievement.h"
 #include "activity.h"
 #include "comment.h"
+#include "content.h"
 #include "distribution.h"
 #include "homepagetype.h"
 #include "icon.h"
@@ -49,6 +50,7 @@ private slots:
     void testActivity();
     void testCategory();
     void testComment();
+    void testContent();
     void testDistribution();
     void testHomepageType();
     void testIcon();
@@ -282,6 +284,133 @@ void JsonTest::testComment()
     QCOMPARE( comment.date(), QDateTime::fromString(QLatin1String("2005-01-29T19:17:06+01:00"), Qt::ISODate) );
     QCOMPARE( comment.score(), 60 );
     QCOMPARE( comment.children().at(0).id(), QLatin1String("315") );
+}
+
+void JsonTest::testContent()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"details\": \"full\","
+            "\"id\": 100,"
+            "\"name\": \"GradE8\","
+            "\"version\": null,"
+            "\"summary\": \"this is a short summary\","
+            "\"changed\": \"2001-09-28T18:45:40+02:00\","
+            "\"created\": \"2001-09-28T18:45:40+02:00\","
+            "\"typeid\": 10,"
+            "\"typename\": \"Theme/Style for KDE 2.1\","
+            "\"language\": null,"
+            "\"personid\": \"Hans\","
+            "\"downloads\": 2,"
+            "\"score\": 67,"
+            "\"comments\": 0,"
+            "\"commentspage\": \"https://www.opendesktop.org/content/show.php?content=100\","
+            "\"fans\": 22,"
+            "\"fanspage\": \"https://www.opendesktop.org/content/show.php?action=fan&amp;content=100\","
+            "\"knowledgebasentries\": 7,"
+            "\"knowledgebasepage\": \"https://www.opendesktop.org/content/show.php?action=knowledgebase&amp;content=100\","
+            "\"depend\": null,"
+            "\"preview1\": \"https://www.KDE-Look.org/content/preview.php?preview=1&amp;id=100&amp;file1=100-1.jpg&amp;file2=&amp;file3=&amp;name=GradE8\","
+            "\"preview2\": null,"
+            "\"preview3\": null,"
+            "\"previewpic1\": \"https://www.KDE-Look.org/CONTENT/content-pre1/100-1.jpg\","
+            "\"previewpic2\": null,"
+            "\"previewpic3\": null,"
+            "\"smallpreviewpic1\": \"https://www.KDE-Look.org/CONTENT/content-m1/m100-1.png\","
+            "\"smallpreviewpic2\": null,"
+            "\"smallpreviewpic3\": null,"
+            "\"description\": \"This is my first KDE 2.0 theme. It is not the final version, I must add some icons etc...\","
+            "\"changelog\": null,"
+            "\"feedbackurl\": \"https://openDesktop.org/feedback\","
+            "\"homepage\": \"https://en.wikipedia.org/foo111\","
+            "\"homepagetype\": \"Wikipedia\","
+            "\"homepage2\": null,"
+            "\"homepagetype2\": null,"
+            "\"homepage3\": null,"
+            "\"homepagetype3\": null,"
+            "\"homepage4\": null,"
+            "\"homepagetype4\": null,"
+            "\"homepage5\": null,"
+            "\"homepagetype5\": null,"
+            "\"homepage6\": null,"
+            "\"homepagetype6\": null,"
+            "\"homepage7\": null,"
+            "\"homepagetype7\": null,"
+            "\"homepage8\": null,"
+            "\"homepagetype8\": null,"
+            "\"homepage9\": null,"
+            "\"homepagetype9\": null,"
+            "\"homepage10\": null,"
+            "\"homepagetype10\": null,"
+            "\"donationpage\": \"https://www.opendesktop.org/content/donation.php?content=123\","
+
+            "\"icon\": ["
+                "{"
+                    "\"width\": 16,"
+                    "\"height\": 16,"
+                    "\"link\": \"https://www.KDE-Look.org/img/icon1.png\""
+                "},"
+                "{"
+                    "\"width\": 32,"
+                    "\"height\": 32,"
+                    "\"link\": \"https://www.KDE-Look.org/img/icon2.png\""
+                "},"
+                "{"
+                    "\"width\": 64,"
+                    "\"height\": 64,"
+                    "\"link\": \"https://www.KDE-Look.org/img/icon2.png\""
+                "}"
+            "],"
+
+            "\"video\": ["
+                "{"
+                    "\"link\": \"https://www.KDE-Look.org/video/video1.mpg\""
+                "},"
+                "{"
+                    "\"link\": \"https://www.KDE-Look.org/video/video2.mpg\""
+                "},"
+                "{"
+                    "\"link\": \"https://www.KDE-Look.org/video/video3.mpg\""
+                "}"
+            "],"
+
+            "\"downloadway1\": 1,"
+            "\"downloadtype1\": \"Fedora\","
+            "\"downloadprice1\": 0,"
+            "\"downloadlink1\": \"https://www.opendesktop.org/content/download.php?content=1423&amp;id=2\","
+            "\"downloadname1\": \"gdfgd22\","
+            "\"downloadsize1\": 2,"
+            "\"downloadgpgsignature1\": \"iEYEABECAAYFAkxT52oACgkQMNASEGDVgdegPAbDSMHn/xDQCfSplogMr9x0G0ZNqMUAn3WLVmXADVzWdEToTJ8B5wpdm3zb=A6Dy\","
+            "\"downloadgpgfingerprint1\": \"6AD9 150F D8CC 941B 4541  2DCC 68B7 AB89 5754 8D2D\","
+            "\"downloadpackagename1\": \"packname\","
+            "\"downloadrepository1\": \"repo\","
+            "\"downloadtype2\": \"Fedora\","
+            "\"downloadprice2\": 2.99,"
+            "\"downloadlink2\": \"https://www.opendesktop.org/content/buy.php?content=1423&amp;id=1\","
+            "\"downloadname2\": \"gdgg22\","
+            "\"downloadgpgsignature2\": \"iEYEABECAAYFAkxT52oACgkQMNASEGDVgdegPAbDSMHn/xDQCfSplogMr9x0G0ZNqMUAn3WLVmXADVzWdEToTJ8B5wpdm3zb=A6Dy\","
+            "\"downloadgpgfingerprint2\": \"6AD9 150F D8CC 941B 4541  2DCC 68B7 AB89 5754 8D2D\","
+            "\"downloadpackagename1\": \"packname\","
+            "\"downloadrepository1\": \"repo\","
+            "\"detailpage\": \"https://www.KDE-Look.org/content/show.php?content=100\""
+        "}"
+        "]") + endString;
+    JsonParser<Content> parser;
+    parser.parse( testData );
+    Content content = parser.item();
+
+    QVERIFY( content.isValid() );
+    QCOMPARE( content.id(), QLatin1String("100") );
+    QCOMPARE( content.name(), QLatin1String("GradE8") );
+    QCOMPARE( content.rating(), 67 );
+    QCOMPARE( content.downloads(), 2 );
+    QCOMPARE( content.numberOfComments(), 0 );
+    QCOMPARE( content.created(), QDateTime::fromString(QLatin1String("2001-09-28T18:45:40+02:00"), Qt::ISODate) );
+    QCOMPARE( content.updated(), QDateTime::fromString(QLatin1String("2001-09-28T18:45:40+02:00"), Qt::ISODate) );
+    QCOMPARE( content.icons().size(), 3 );
+    QCOMPARE( content.icons().at(1).width(), 32u );
+    QCOMPARE( content.videos().size(), 3 );
+    QCOMPARE( content.videos().at(0), QUrl( QLatin1String("https://www.KDE-Look.org/video/video1.mpg") ) );
 }
 
 void JsonTest::testDistribution()

@@ -313,6 +313,61 @@ Comment JsonParser<Comment>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Content JsonParser<Content>::parseElement(const QJsonObject &object)
+{
+    Content content;
+    QList<Icon> icons;
+    QList<QUrl> videos;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            content.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            content.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("score")) {
+            content.setRating( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("downloads")) {
+            content.setDownloads( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("comments")) {
+            content.setNumberOfComments( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("created")) {
+            content.setCreated( QDateTime::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("changed")) {
+            content.setUpdated( QDateTime::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("icon")) {
+            const QJsonArray &array = iter.value().toArray();
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                icons.append( JsonParser<Icon>::parseElement( (*arrayIter).toObject() ) );
+            }
+        }
+        else if (iter.key() == QLatin1String("video")) {
+            const QJsonArray &array = iter.value().toArray();
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                const QJsonObject &video = (*arrayIter).toObject();
+                if (video.contains( QLatin1String("link") )) {
+                    videos.append( QUrl( video.value( QLatin1String("link") ).toString() ) );
+                }
+            }
+        }
+        else {
+            content.addAttribute( iter.key(), iter.value().toString() );
+        }
+    }
+    content.setIcons( icons );
+    content.setVideos( videos );
+    if (content.updated().isNull()) {
+        content.setUpdated( content.created() );
+    }
+    return content;
+}
+
+template <>
 Distribution JsonParser<Distribution>::parseElement(const QJsonObject &object)
 {
     Distribution distribution;
