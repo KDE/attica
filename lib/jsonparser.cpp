@@ -129,6 +129,21 @@ QStringList JsonParser<T>::intArrayToStringList( const QJsonArray &array )
 }
 
 template <>
+AccountBalance JsonParser<AccountBalance>::parseElement(const QJsonObject &object)
+{
+    AccountBalance balance;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("currency")) {
+            balance.setCurrency( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("balance")) {
+            balance.setBalance( QString::number( iter.value().toDouble() ) );
+        }
+    }
+    return balance;
+}
+
+template <>
 Achievement JsonParser<Achievement>::parseElement(const QJsonObject &object)
 {
     Achievement achievement;

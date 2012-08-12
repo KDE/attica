@@ -26,6 +26,7 @@
 
 #include "iparser.h"
 
+#include "accountbalance.h"
 #include "achievement.h"
 #include "activity.h"
 #include "category.h"
@@ -69,6 +70,7 @@ private:
     typename T::List m_result;
 };
 
+template <> AccountBalance JsonParser<AccountBalance>::parseElement( const QJsonObject &object );
 template <> Achievement JsonParser<Achievement>::parseElement( const QJsonObject &object );
 template <> Activity JsonParser<Activity>::parseElement( const QJsonObject &object );
 template <> Category JsonParser<Category>::parseElement( const QJsonObject &object );
@@ -88,6 +90,7 @@ template <> Person JsonParser<Person>::parseElement( const QJsonObject &object )
 template <> Topic JsonParser<Topic>::parseElement( const QJsonObject &object );
 
 template class JsonParser<NoneType>;
+template class JsonParser<AccountBalance>;
 template class JsonParser<Achievement>;
 template class JsonParser<Activity>;
 template class JsonParser<Category>;

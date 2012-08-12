@@ -23,6 +23,7 @@
 
 #include "jsonparser.h"
 #include "metadata.h"
+#include "accountbalance.h"
 #include "achievement.h"
 #include "activity.h"
 #include "comment.h"
@@ -52,6 +53,7 @@ class JsonTest: public QObject
 private slots:
     void testMetadata();
 
+    void testAccountBalance();
     void testAchievement();
     void testActivity();
     void testCategory();
@@ -96,6 +98,21 @@ void JsonTest::testMetadata()
     QCOMPARE( metadata.statusString(), QLatin1String("ok") );
     QCOMPARE( metadata.statusCode(), 100 );
     QCOMPARE( metadata.message(), QLatin1String("") );
+}
+
+void JsonTest::testAccountBalance()
+{
+    QString testData = startString + QLatin1String("{"
+            "\"details\": \"balance\","
+            "\"currency\": \"EUR\","
+            "\"balance\": 1.49"
+        "}")+endString;
+    JsonParser<AccountBalance> parser;
+    parser.parse( testData );
+    AccountBalance balance = parser.item();
+
+    QCOMPARE( balance.currency(), QLatin1String("EUR") );
+    QCOMPARE( balance.balance(), QLatin1String("1.49") );
 }
 
 void JsonTest::testAchievement()
