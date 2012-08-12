@@ -526,6 +526,48 @@ Icon JsonParser<Icon>::parseElement(const QJsonObject &object)
 }
 
 template <>
+KnowledgeBaseEntry JsonParser<KnowledgeBaseEntry>::parseElement(const QJsonObject &object)
+{
+    KnowledgeBaseEntry entry;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            entry.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("status")) {
+            entry.setStatus( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("contentid")) {
+            entry.setContentId( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("user")) {
+            entry.setUser( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("changed")) {
+            entry.setChanged( QDateTime::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            entry.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("description")) {
+            entry.setDescription( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("answer")) {
+            entry.setAnswer( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("comments")) {
+            entry.setComments( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("detailpage")) {
+            entry.setDetailPage( QUrl( iter.value().toString() ) );
+        }
+        else {
+            entry.addExtendedAttribute( iter.key(), iter.value().toString() );
+        }
+    }
+    return entry;
+}
+
+template <>
 License JsonParser<License>::parseElement(const QJsonObject &object)
 {
     License license;

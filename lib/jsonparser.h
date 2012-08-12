@@ -37,6 +37,7 @@
 #include "forum.h"
 #include "homepagetype.h"
 #include "icon.h"
+#include "knowledgebaseentry.h"
 #include "license.h"
 #include "message.h"
 #include "person.h"
@@ -78,6 +79,7 @@ template <> Event JsonParser<Event>::parseElement( const QJsonObject &object );
 template <> Forum JsonParser<Forum>::parseElement( const QJsonObject &object );
 template <> HomePageType JsonParser<HomePageType>::parseElement( const QJsonObject &object );
 template <> Icon JsonParser<Icon>::parseElement( const QJsonObject &object );
+template <> KnowledgeBaseEntry JsonParser<KnowledgeBaseEntry>::parseElement( const QJsonObject &object );
 template <> License JsonParser<License>::parseElement( const QJsonObject &object );
 template <> Message JsonParser<Message>::parseElement( const QJsonObject &object );
 template <> Person JsonParser<Person>::parseElement( const QJsonObject &object );
@@ -95,6 +97,7 @@ template class JsonParser<Event>;
 template class JsonParser<Forum>;
 template class JsonParser<HomePageType>;
 template class JsonParser<Icon>;
+template class JsonParser<KnowledgeBaseEntry>;
 template class JsonParser<License>;
 template class JsonParser<Message>;
 template class JsonParser<Person>;

@@ -33,6 +33,7 @@
 #include "forum.h"
 #include "homepagetype.h"
 #include "icon.h"
+#include "knowledgebaseentry.h"
 #include "license.h"
 #include "message.h"
 #include "person.h"
@@ -61,6 +62,7 @@ private slots:
     void testForum();
     void testHomepageType();
     void testIcon();
+    void testKnowledgeBaseEntry();
     void testLicense();
     void testMessage();
     void testPerson();
@@ -629,6 +631,41 @@ void JsonTest::testIcon()
     QCOMPARE( icon.width(), 16u );
     QCOMPARE( icon.height(), 16u );
     QCOMPARE( icon.url(), QUrl(QLatin1String("https://www.KDE-Look.org/img/icon1.png")) );
+}
+
+void JsonTest::testKnowledgeBaseEntry()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 1,"
+            "\"status\": \"not answered\","
+            "\"contentid\": 12345,"
+            "\"category\": \"Application\","
+            "\"user\": \"lpapp\","
+            "\"changed\": \"2009-02-07T23:14:11+01:00\","
+            "\"name\": \"app question\","
+            "\"description\": \"How can I ........\","
+            "\"answeruser\": \"testy2\","
+            "\"answer\": null,"
+            "\"comments\": 0,"
+            "\"detailpage\": \"https://www.opendesktop.org/content/show.php?action=knowledgebase&amp;content=11&amp;kbid=12345\""
+        "}"
+        "]") + endString;
+    JsonParser<KnowledgeBaseEntry> parser;
+    parser.parse( testData );
+    KnowledgeBaseEntry entry = parser.item();
+
+    QVERIFY( entry.isValid() );
+    QCOMPARE( entry.id(), QLatin1String("1") );
+    QCOMPARE( entry.status(), QLatin1String("not answered") );
+    QCOMPARE( entry.contentId(), 12345 );
+    QCOMPARE( entry.user(), QLatin1String("lpapp") );
+    QCOMPARE( entry.changed(), QDateTime::fromString(QLatin1String("2009-02-07T23:14:11+01:00"), Qt::ISODate) );
+    QCOMPARE( entry.name(), QLatin1String("app question") );
+    QCOMPARE( entry.description(), QLatin1String("How can I ........") );
+    QCOMPARE( entry.answer(), QString() );
+    QCOMPARE( entry.comments(), 0 );
+    QCOMPARE( entry.detailPage(), QUrl( QLatin1String("https://www.opendesktop.org/content/show.php?action=knowledgebase&amp;content=11&amp;kbid=12345") ) );
 }
 
 void JsonTest::testLicense()
