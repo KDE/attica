@@ -458,6 +458,27 @@ Event JsonParser<Event>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Folder JsonParser<Folder>::parseElement(const QJsonObject &object)
+{
+    Folder folder;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            folder.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            folder.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("messagecount")) {
+            folder.setMessageCount( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("type")) {
+            folder.setType( iter.value().toString() );
+        }
+    }
+    return folder;
+}
+
+template <>
 Forum JsonParser<Forum>::parseElement(const QJsonObject &object)
 {
     Forum forum;

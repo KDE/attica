@@ -30,6 +30,7 @@
 #include "distribution.h"
 #include "downloaditem.h"
 #include "event.h"
+#include "folder.h"
 #include "forum.h"
 #include "homepagetype.h"
 #include "icon.h"
@@ -59,6 +60,7 @@ private slots:
     void testDistribution();
     void testDownloadItem();
     void testEvent();
+    void testFolder();
     void testForum();
     void testHomepageType();
     void testIcon();
@@ -525,6 +527,46 @@ void JsonTest::testEvent()
     QCOMPARE( event.country(), QLatin1String("Finland") );
     QCOMPARE( event.city(), QString() );
     QCOMPARE( event.extendedAttribute(QLatin1String("category")), QLatin1String("Party") );
+}
+
+void JsonTest::testFolder()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 0,"
+            "\"name\": \"inbox\","
+            "\"messagecount\": 27,"
+            "\"type\": \"inbox\""
+        "},"
+        "{"
+            "\"id\": 1,"
+            "\"name\": \"send\","
+            "\"messagecount\": 9,"
+            "\"type\": \"send\""
+        "},"
+        "{"
+            "\"id\": 2,"
+            "\"name\": \"trash\","
+            "\"messagecount\": 0,"
+            "\"type\": \"trash\""
+        "},"
+        "{"
+            "\"id\": 3,"
+            "\"name\": \"archive\","
+            "\"messagecount\": 0,"
+            "\"type\": null"
+        "}"
+        "]")+endString;
+    JsonParser<Folder> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 4 );
+    Folder folder = parser.item();
+
+    QVERIFY( folder.isValid() );
+    QCOMPARE( folder.id(), QLatin1String("0") );
+    QCOMPARE( folder.name(), QLatin1String("inbox") );
+    QCOMPARE( folder.messageCount(), 27 );
+    QCOMPARE( folder.type(), QLatin1String("inbox") );
 }
 
 void JsonTest::testForum()
