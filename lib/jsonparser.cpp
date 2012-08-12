@@ -615,3 +615,33 @@ Person JsonParser<Person>::parseElement(const QJsonObject &object)
     return person;
 }
 
+template <>
+Topic JsonParser<Topic>::parseElement(const QJsonObject &object)
+{
+    Topic topic;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            topic.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("forumid")) {
+            topic.setForumId( QString::number( (int) iter.value().toDouble() ) );\
+        }
+        else if (iter.key() == QLatin1String("user")) {
+            topic.setUser( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("date")) {
+            topic.setDate( QDateTime::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("subject")) {
+            topic.setSubject( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("content")) {
+            topic.setContent( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("comments")) {
+            topic.setComments( (int) iter.value().toDouble() );
+        }
+    }
+    return topic;
+}
+

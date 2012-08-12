@@ -36,6 +36,7 @@
 #include "license.h"
 #include "message.h"
 #include "person.h"
+#include "topic.h"
 
 #include <QtTest>
 #include <QObject>
@@ -63,6 +64,7 @@ private slots:
     void testLicense();
     void testMessage();
     void testPerson();
+    void testTopic();
 
 private:
     static const QString startString;
@@ -757,6 +759,33 @@ void JsonTest::testPerson()
     QCOMPARE( person.homepage(), QLatin1String("") );
     QCOMPARE( person.city(), QLatin1String("Helsinki") );
     QCOMPARE( person.extendedAttribute(QLatin1String("favouritemusic")), QLatin1String("Iron Maiden"));
+}
+
+void JsonTest::testTopic()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"details\": \"detail\","
+            "\"id\": 1,"
+            "\"forumid\": 123,"
+            "\"user\": \"testy\","
+            "\"changed\": \"2009-02-07T23:14:11+01:00\","
+            "\"subject\": \"Random forum post\","
+            "\"content\": \"Just testing\","
+            "\"comments\": 0"
+        "}"
+        "]") + endString;
+    JsonParser<Topic> parser;
+    parser.parse( testData );
+    Topic topic = parser.item();
+
+    QVERIFY( topic.isValid() );
+    QCOMPARE( topic.id(), QLatin1String("1") );
+    QCOMPARE( topic.forumId(), QLatin1String("123") );
+    QCOMPARE( topic.user(), QLatin1String("testy") );
+    QCOMPARE( topic.subject(), QLatin1String("Random forum post") );
+    QCOMPARE( topic.content(), QLatin1String("Just testing") );
+    QCOMPARE( topic.comments(), 0 );
 }
 
 // void JsonTest::testConfig()
