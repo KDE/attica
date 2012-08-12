@@ -34,6 +34,7 @@
 #include "distribution.h"
 #include "downloaditem.h"
 #include "event.h"
+#include "forum.h"
 #include "homepagetype.h"
 #include "icon.h"
 #include "license.h"
@@ -73,6 +74,7 @@ template <> Content JsonParser<Content>::parseElement( const QJsonObject &object
 template <> Distribution JsonParser<Distribution>::parseElement( const QJsonObject &object );
 template <> DownloadItem JsonParser<DownloadItem>::parseElement( const QJsonObject &object );
 template <> Event JsonParser<Event>::parseElement( const QJsonObject &object );
+template <> Forum JsonParser<Forum>::parseElement( const QJsonObject &object );
 template <> HomePageType JsonParser<HomePageType>::parseElement( const QJsonObject &object );
 template <> Icon JsonParser<Icon>::parseElement( const QJsonObject &object );
 template <> License JsonParser<License>::parseElement( const QJsonObject &object );
@@ -88,6 +90,7 @@ template class JsonParser<Content>;
 template class JsonParser<Distribution>;
 template class JsonParser<DownloadItem>;
 template class JsonParser<Event>;
+template class JsonParser<Forum>;
 template class JsonParser<HomePageType>;
 template class JsonParser<Icon>;
 template class JsonParser<License>;

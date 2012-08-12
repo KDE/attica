@@ -458,6 +458,41 @@ Event JsonParser<Event>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Forum JsonParser<Forum>::parseElement(const QJsonObject &object)
+{
+    Forum forum;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            forum.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            forum.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("description")) {
+            forum.setDescription( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("date")) {
+            forum.setDate( QDateTime::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("icon")) {
+            forum.setIcon( QUrl( iter.value().toString() ) );
+        }
+        else if (iter.key() == QLatin1String("childcount")) {
+            forum.setChildCount( (int) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("children")) {
+            const QJsonArray &array = iter.value().toArray();
+            QList<Forum> children;
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                children.append( JsonParser<Forum>::parseElement( (*arrayIter).toObject() ) );
+            }
+            forum.setChildren( children );
+        }
+    }
+    return forum;
+}
+
+template <>
 HomePageType JsonParser<HomePageType>::parseElement(const QJsonObject &object)
 {
     HomePageType type;

@@ -30,6 +30,7 @@
 #include "distribution.h"
 #include "downloaditem.h"
 #include "event.h"
+#include "forum.h"
 #include "homepagetype.h"
 #include "icon.h"
 #include "license.h"
@@ -56,6 +57,7 @@ private slots:
     void testDistribution();
     void testDownloadItem();
     void testEvent();
+    void testForum();
     void testHomepageType();
     void testIcon();
     void testLicense();
@@ -519,6 +521,58 @@ void JsonTest::testEvent()
     QCOMPARE( event.country(), QLatin1String("Finland") );
     QCOMPARE( event.city(), QString() );
     QCOMPARE( event.extendedAttribute(QLatin1String("category")), QLatin1String("Party") );
+}
+
+void JsonTest::testForum()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 234,"
+            "\"name\": \"vfvvdsx\","
+            "\"description\": \"test\","
+            "\"date\": \"2005-01-29T18:58:40+01:00\","
+            "\"icon\": \"https://forum.example.org/images/forum-img.png\","
+            "\"childcount\": 0,"
+            "\"children\": null,"
+            "\"topics\": 123"
+        "},"
+        "{"
+            "\"id\": 876,"
+            "\"name\": \"yheweq\","
+            "\"description\": \"foobar\","
+            "\"date\": \"2005-01-29T18:58:40+01:00\","
+            "\"icon\": \"https://forum.example.org/img/forum-icon.gif\","
+            "\"childcount\": 1,"
+            "\"children\": ["
+                "{"
+                    "\"id\": 234,"
+                    "\"name\": \"cameras\","
+                    "\"description\": \"new forum\","
+                    "\"date\": \"2005-01-29T18:58:40+01:00\","
+                    "\"icon\": \"https://forum.example.org/images/icon.jpg\","
+                    "\"childcount\": 0,"
+                    "\"children\": null,"
+                    "\"topics\": 5"
+                "}"
+            "],"
+
+            "\"topics\": 789"
+        "}"
+        "]") + endString;
+    JsonParser<Forum> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 2 );
+    Forum forum = parser.itemList().at(1);
+
+    QVERIFY( forum.isValid() );
+    QCOMPARE( forum.id(), QLatin1String("876") );
+    QCOMPARE( forum.name(), QLatin1String("yheweq") );
+    QCOMPARE( forum.description(), QLatin1String("foobar") );
+    QCOMPARE( forum.date(), QDateTime::fromString(QLatin1String("2005-01-29T18:58:40+01:00"), Qt::ISODate) );
+    QCOMPARE( forum.icon(), QUrl( QLatin1String("https://forum.example.org/img/forum-icon.gif") ) );
+    QCOMPARE( forum.childCount(), 1 );
+    QCOMPARE( forum.children().size(), 1 );
+    QCOMPARE( forum.children().at(0).id(), QLatin1String("234") );
 }
 
 void JsonTest::testHomepageType()
