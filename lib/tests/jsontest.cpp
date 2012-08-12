@@ -43,6 +43,7 @@ private slots:
 
     void testAchievement();
     void testActivity();
+    void testCategory();
     void testComment();
     void testMessage();
     void testPerson();
@@ -203,6 +204,36 @@ void JsonTest::testActivity()
     QCOMPARE( activity.timestamp(), QDateTime::fromString(QLatin1String("2008-08-01T20:30:19+02:00"), Qt::ISODate) );
     QCOMPARE( activity.message(), QLatin1String("testy2 has updated: &quot;Extract And Compress&quot;") );
     QCOMPARE( activity.link(), QUrl(QLatin1String("https://www.KDE-Look.org/content/show.php?content=84206")) );
+}
+
+void JsonTest::testCategory()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 1,"
+            "\"name\": \"KDE Wallpaper 640x480\""
+        "},"
+        "{"
+            "\"id\": 2,"
+            "\"name\": \"KDE Wallpaper 800x600\""
+        "},"
+        "{"
+            "\"id\": 3,"
+            "\"name\": \"KDE Wallpaper 1024x768\""
+        "},"
+        "{"
+            "\"id\": 4,"
+            "\"name\": \"KDE Wallpaper 1280x1024\""
+        "}"
+        "]") + endString;
+    JsonParser<Category> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 4 );
+    Category category = parser.itemList().at(0);
+
+    QVERIFY( category.isValid() );
+    QCOMPARE( category.id(), QLatin1String("1") );
+    QCOMPARE( category.name(), QLatin1String("KDE Wallpaper 640x480") );
 }
 
 void JsonTest::testComment()

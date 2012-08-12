@@ -260,6 +260,21 @@ Activity JsonParser<Activity>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Category JsonParser<Category>::parseElement(const QJsonObject &object)
+{
+    Category category;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            category.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            category.setName( iter.value().toString() );
+        }
+    }
+    return category;
+}
+
+template <>
 Comment JsonParser<Comment>::parseElement(const QJsonObject &object)
 {
     Comment comment;
