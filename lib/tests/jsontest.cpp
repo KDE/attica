@@ -26,6 +26,7 @@
 #include "achievement.h"
 #include "activity.h"
 #include "comment.h"
+#include "license.h"
 #include "message.h"
 #include "person.h"
 
@@ -45,6 +46,7 @@ private slots:
     void testActivity();
     void testCategory();
     void testComment();
+    void testLicense();
     void testMessage();
     void testPerson();
 
@@ -274,6 +276,35 @@ void JsonTest::testComment()
     QCOMPARE( comment.date(), QDateTime::fromString(QLatin1String("2005-01-29T19:17:06+01:00"), Qt::ISODate) );
     QCOMPARE( comment.score(), 60 );
     QCOMPARE( comment.children().at(0).id(), QLatin1String("315") );
+}
+
+void JsonTest::testLicense()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 1000,"
+            "\"name\": null,"
+            "\"link\": null"
+        "},"
+        "{"
+            "\"id\": 3,"
+            "\"name\": \"Artistic 2.0\","
+            "\"link\": \"https://dev.perl.org/perl6/rfc/346.html\""
+        "},"
+        "{"
+            "\"id\": 6,"
+            "\"name\": \"BSD\","
+            "\"link\": \"https://www.opensource.org/licenses/bsd-license.php\""
+        "}"
+        "]") + endString;
+    JsonParser<License> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 3 );
+    License license = parser.itemList().at(1);
+
+    QCOMPARE( license.id(), 3u );
+    QCOMPARE( license.name(), QLatin1String("Artistic 2.0") );
+    QCOMPARE( license.url(), QUrl(QLatin1String("https://dev.perl.org/perl6/rfc/346.html")) );
 }
 
 void JsonTest::testMessage()

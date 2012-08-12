@@ -313,6 +313,24 @@ Comment JsonParser<Comment>::parseElement(const QJsonObject &object)
 }
 
 template <>
+License JsonParser<License>::parseElement(const QJsonObject &object)
+{
+    License license;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            license.setId( (uint) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            license.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("link")) {
+            license.setUrl( QUrl( iter.value().toString() ) );
+        }
+    }
+    return license;
+}
+
+template <>
 Message JsonParser<Message>::parseElement(const QJsonObject &object)
 {
     Message message;

@@ -30,6 +30,7 @@
 #include "activity.h"
 #include "category.h"
 #include "comment.h"
+#include "license.h"
 #include "message.h"
 #include "person.h"
 
@@ -62,6 +63,7 @@ template <> Achievement JsonParser<Achievement>::parseElement( const QJsonObject
 template <> Activity JsonParser<Activity>::parseElement( const QJsonObject &object );
 template <> Category JsonParser<Category>::parseElement( const QJsonObject &object );
 template <> Comment JsonParser<Comment>::parseElement( const QJsonObject &object );
+template <> License JsonParser<License>::parseElement( const QJsonObject &object );
 template <> Message JsonParser<Message>::parseElement( const QJsonObject &object );
 template <> Person JsonParser<Person>::parseElement( const QJsonObject &object );
 
@@ -70,6 +72,7 @@ template class JsonParser<Achievement>;
 template class JsonParser<Activity>;
 template class JsonParser<Category>;
 template class JsonParser<Comment>;
+template class JsonParser<License>;
 template class JsonParser<Message>;
 template class JsonParser<Person>;
 
