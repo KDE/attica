@@ -328,6 +328,21 @@ Distribution JsonParser<Distribution>::parseElement(const QJsonObject &object)
 }
 
 template <>
+HomePageType JsonParser<HomePageType>::parseElement(const QJsonObject &object)
+{
+    HomePageType type;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            type.setId( (uint) iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            type.setName( iter.value().toString() );
+        }
+    }
+    return type;
+}
+
+template <>
 License JsonParser<License>::parseElement(const QJsonObject &object)
 {
     License license;

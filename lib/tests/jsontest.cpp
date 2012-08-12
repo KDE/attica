@@ -27,6 +27,7 @@
 #include "activity.h"
 #include "comment.h"
 #include "distribution.h"
+#include "homepagetype.h"
 #include "license.h"
 #include "message.h"
 #include "person.h"
@@ -48,6 +49,7 @@ private slots:
     void testCategory();
     void testComment();
     void testDistribution();
+    void testHomepageType();
     void testLicense();
     void testMessage();
     void testPerson();
@@ -307,6 +309,31 @@ void JsonTest::testDistribution()
 
     QCOMPARE( distribution.id(), 2200u );
     QCOMPARE( distribution.name(), QLatin1String("Arch") );
+}
+
+void JsonTest::testHomepageType()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 0,"
+            "\"name\": \"&amp;nbsp;\""
+        "},"
+        "{"
+            "\"id\": 10,"
+            "\"name\": \"Blog\""
+        "},"
+        "{"
+            "\"id\": 20,"
+            "\"name\": \"Facebook\""
+        "}"
+        "]") + endString;
+    JsonParser<HomePageType> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 3 );
+    HomePageType type = parser.itemList().at(1);
+
+    QCOMPARE( type.id(), 10u );
+    QCOMPARE( type.name(), QLatin1String("Blog") );
 }
 
 void JsonTest::testLicense()
