@@ -383,6 +383,36 @@ Distribution JsonParser<Distribution>::parseElement(const QJsonObject &object)
 }
 
 template <>
+DownloadItem JsonParser<DownloadItem>::parseElement(const QJsonObject &object)
+{
+    DownloadItem item;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("downloadlink")) {
+            item.setUrl( QUrl(iter.value().toString()) );
+        }
+        else if (iter.key() == QLatin1String("mimetype")) {
+            item.setMimeType( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("packagename")) {
+            item.setPackageName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("packagerepository")) {
+            item.setPackageRepository( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("gpgfingerprint")) {
+            item.setGpgFingerprint( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("gpgsignature")) {
+            item.setGpgSignature( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("downloadway")) {
+            item.setType( DownloadDescription::Type( (int) iter.value().toDouble() ) );
+        }
+    }
+    return item;
+}
+
+template <>
 HomePageType JsonParser<HomePageType>::parseElement(const QJsonObject &object)
 {
     HomePageType type;

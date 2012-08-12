@@ -28,6 +28,7 @@
 #include "comment.h"
 #include "content.h"
 #include "distribution.h"
+#include "downloaditem.h"
 #include "homepagetype.h"
 #include "icon.h"
 #include "license.h"
@@ -52,6 +53,7 @@ private slots:
     void testComment();
     void testContent();
     void testDistribution();
+    void testDownloadItem();
     void testHomepageType();
     void testIcon();
     void testLicense();
@@ -440,6 +442,33 @@ void JsonTest::testDistribution()
 
     QCOMPARE( distribution.id(), 2200u );
     QCOMPARE( distribution.name(), QLatin1String("Arch") );
+}
+
+void JsonTest::testDownloadItem()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"details\": \"download\","
+            "\"downloadway\": 0,"
+            "\"downloadlink\": \"https://www......tar.gz\","
+            "\"mimetype\": \"image/jpeg\","
+            "\"packagename\": \"glibc-2.10.1-10.4.i686.rpm\","
+            "\"packagerepository\": \"https://download.opensuse.org/distribution/11.2/repo/oss/\","
+            "\"gpgsignature\": \"iEYEABECAAYFAkxT52oACgkQMNASEGDVgdegPAbDSMHn/xDQCfSplogMr9x0G0ZNqMUAn3WLVmXADVzWdEToTJ8B5wpdm3zb=A6Dy\","
+            "\"gpgfingerprint\": \"6AD9 150F D8CC 941B 4541  2DCC 68B7 AB89 5754 8D2D\""
+        "}"
+        "]") + endString;
+    JsonParser<DownloadItem> parser;
+    parser.parse( testData );
+    DownloadItem item = parser.item();
+
+    QCOMPARE( item.url(), QUrl( QLatin1String("https://www......tar.gz") ) );
+    QCOMPARE( item.mimeType(), QLatin1String("image/jpeg") );
+    QCOMPARE( item.packageName(), QLatin1String("glibc-2.10.1-10.4.i686.rpm") );
+    QCOMPARE( item.packageRepository(), QLatin1String("https://download.opensuse.org/distribution/11.2/repo/oss/") );
+    QCOMPARE( item.gpgFingerprint(), QLatin1String("6AD9 150F D8CC 941B 4541  2DCC 68B7 AB89 5754 8D2D") );
+    QCOMPARE( item.gpgSignature(), QLatin1String("iEYEABECAAYFAkxT52oACgkQMNASEGDVgdegPAbDSMHn/xDQCfSplogMr9x0G0ZNqMUAn3WLVmXADVzWdEToTJ8B5wpdm3zb=A6Dy") );
+    QCOMPARE( item.type(), DownloadDescription::FileDownload );
 }
 
 void JsonTest::testHomepageType()
