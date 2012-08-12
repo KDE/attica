@@ -413,6 +413,51 @@ DownloadItem JsonParser<DownloadItem>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Event JsonParser<Event>::parseElement(const QJsonObject &object)
+{
+    Event event;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            event.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            event.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("description")) {
+            event.setDescription( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("user")) {
+            event.setUser( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("startdate")) {
+            event.setStartDate( QDate::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("enddate")) {
+            event.setEndDate( QDate::fromString( iter.value().toString(), Qt::ISODate ) );
+        }
+        else if (iter.key() == QLatin1String("latitude")) {
+            event.setLatitude( iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("longitude")) {
+            event.setLongitude( iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("homepage")) {
+            event.setHomepage( QUrl( iter.value().toString() ) );
+        }
+        else if (iter.key() == QLatin1String("country")) {
+            event.setCountry( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("city")) {
+            event.setCity( iter.value().toString() );
+        }
+        else {
+            event.addExtendedAttribute( iter.key(), iter.value().toString() );
+        }
+    }
+    return event;
+}
+
+template <>
 HomePageType JsonParser<HomePageType>::parseElement(const QJsonObject &object)
 {
     HomePageType type;

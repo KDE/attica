@@ -29,6 +29,7 @@
 #include "content.h"
 #include "distribution.h"
 #include "downloaditem.h"
+#include "event.h"
 #include "homepagetype.h"
 #include "icon.h"
 #include "license.h"
@@ -54,6 +55,7 @@ private slots:
     void testContent();
     void testDistribution();
     void testDownloadItem();
+    void testEvent();
     void testHomepageType();
     void testIcon();
     void testLicense();
@@ -469,6 +471,54 @@ void JsonTest::testDownloadItem()
     QCOMPARE( item.gpgFingerprint(), QLatin1String("6AD9 150F D8CC 941B 4541  2DCC 68B7 AB89 5754 8D2D") );
     QCOMPARE( item.gpgSignature(), QLatin1String("iEYEABECAAYFAkxT52oACgkQMNASEGDVgdegPAbDSMHn/xDQCfSplogMr9x0G0ZNqMUAn3WLVmXADVzWdEToTJ8B5wpdm3zb=A6Dy") );
     QCOMPARE( item.type(), DownloadDescription::FileDownload );
+}
+
+void JsonTest::testEvent()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 6,"
+            "\"name\": \"bbb\","
+            "\"description\": \"here is the description text\","
+            "\"category\": \"Party\","
+            "\"startdate\": \"1970-01-01T00:00:00+01:00\","
+            "\"enddate\": \"1970-01-01T00:00:00+01:00\","
+            "\"user\": \"lpapp\","
+            "\"organizer\": null,"
+            "\"location\": null,"
+            "\"city\": null,"
+            "\"country\": \"Finland\","
+            "\"longitude\": 0,"
+            "\"latitude\": 0,"
+            "\"homepage\": null,"
+            "\"tel\": null,"
+            "\"fax\": null,"
+            "\"email\": null,"
+            "\"changed\": \"2009-05-18T18:49:15+02:00\","
+            "\"comments\": 1,"
+            "\"participants\": 2,"
+            "\"detailpage\": \"https://www.opendesktop.org/events/?id=6\","
+            "\"badge\": \"https://www.opendesktop.org/CONTENT/event-badge/0/6.png\","
+            "\"image\": null"
+        "}"
+        "]") + endString;
+    JsonParser<Event> parser;
+    parser.parse( testData );
+    Event event = parser.item();
+
+    QVERIFY( event.isValid() );
+    QCOMPARE( event.id(), QLatin1String("6") );
+    QCOMPARE( event.name(), QLatin1String("bbb") );
+    QCOMPARE( event.description(), QLatin1String("here is the description text") );
+    QCOMPARE( event.user(), QLatin1String("lpapp") );
+    QCOMPARE( event.startDate(), QDate::fromString(QLatin1String("1970-01-01T00:00:00+01:00"), Qt::ISODate) );
+    QCOMPARE( event.endDate(), QDate::fromString(QLatin1String("1970-01-01T00:00:00+01:00"), Qt::ISODate) );
+    QCOMPARE( event.latitude(), (qreal) 0.0 );
+    QCOMPARE( event.longitude(), (qreal) 0.0 );
+    QCOMPARE( event.homepage(), QUrl() );
+    QCOMPARE( event.country(), QLatin1String("Finland") );
+    QCOMPARE( event.city(), QString() );
+    QCOMPARE( event.extendedAttribute(QLatin1String("category")), QLatin1String("Party") );
 }
 
 void JsonTest::testHomepageType()
