@@ -337,6 +337,18 @@ BuildServiceJob JsonParser<BuildServiceJob>::parseElement(const QJsonObject &obj
 }
 
 template <>
+BuildServiceJobOutput JsonParser<BuildServiceJobOutput>::parseElement(const QJsonObject &object)
+{
+    BuildServiceJobOutput output;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("output")) {
+            output.setOutput( iter.value().toString() );
+        }
+    }
+    return output;
+}
+
+template <>
 Category JsonParser<Category>::parseElement(const QJsonObject &object)
 {
     Category category;

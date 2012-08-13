@@ -28,6 +28,7 @@
 #include "activity.h"
 #include "buildservice.h"
 #include "buildservicejob.h"
+#include "buildservicejoboutput.h"
 #include "comment.h"
 #include "content.h"
 #include "distribution.h"
@@ -62,6 +63,7 @@ private slots:
     void testActivity();
     void testBuildService();
     void testBuildServiceJob();
+    void testBuildServiceJobOutput();
     void testCategory();
     void testComment();
     void testContent();
@@ -317,6 +319,21 @@ void JsonTest::testBuildServiceJob()
     QCOMPARE( job.progress(), (qreal) 0.56 );
     QCOMPARE( job.url(), QLatin1String("https://bs.some.com/job/54322") );
     QCOMPARE( job.message(), QString() );
+}
+
+void JsonTest::testBuildServiceJobOutput()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"output\": \"-- Found GCC: /usr/bin/gcc\n-- Found X11: /usr/lib64/libX11.so\n(etc etc)\""
+        "}"
+        "]")+endString;
+    JsonParser<BuildServiceJobOutput> parser;
+    parser.parse( testData );
+    BuildServiceJobOutput output = parser.item();
+
+    QVERIFY( output.isValid() );
+    QCOMPARE( output.output(), QLatin1String("-- Found GCC: /usr/bin/gcc\n-- Found X11: /usr/lib64/libX11.so\n(etc etc)") );
 }
 
 void JsonTest::testCategory()
