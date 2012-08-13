@@ -27,6 +27,7 @@
 #include "achievement.h"
 #include "activity.h"
 #include "buildservice.h"
+#include "buildservicejob.h"
 #include "comment.h"
 #include "content.h"
 #include "distribution.h"
@@ -60,6 +61,7 @@ private slots:
     void testAchievement();
     void testActivity();
     void testBuildService();
+    void testBuildServiceJob();
     void testCategory();
     void testComment();
     void testContent();
@@ -285,6 +287,36 @@ void JsonTest::testBuildService()
     QCOMPARE( service.url(), QLatin1String("https://bs.some.com/user/new") );
     QCOMPARE( service.targets().size(), 3 );
     QCOMPARE( service.targets().at(1).name, QLatin1String("x86_64") );
+}
+
+void JsonTest::testBuildServiceJob()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 12,"
+            "\"project\": 122,"
+            "\"buildservice\": \"mbs\","
+            "\"target\": 2,"
+            "\"name\": \"armv5 job 15\","
+            "\"status\": 1,"
+            "\"progress\": 0.56,"
+            "\"url\": \"https://bs.some.com/job/54322\","
+            "\"message\": null"
+        "}"
+        "]") + endString;
+    JsonParser<BuildServiceJob> parser;
+    parser.parse( testData );
+    BuildServiceJob job = parser.item();
+
+    QVERIFY( job.isValid() );
+    QCOMPARE( job.id(), QLatin1String("12") );
+    QCOMPARE( job.projectId(), QLatin1String("122") );
+    QCOMPARE( job.buildServiceId(), QLatin1String("mbs") );
+    QCOMPARE( job.target(), QLatin1String("2") );
+    QCOMPARE( job.name(), QLatin1String("armv5 job 15") );
+    QCOMPARE( job.progress(), (qreal) 0.56 );
+    QCOMPARE( job.url(), QLatin1String("https://bs.some.com/job/54322") );
+    QCOMPARE( job.message(), QString() );
 }
 
 void JsonTest::testCategory()

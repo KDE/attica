@@ -301,6 +301,42 @@ BuildService JsonParser<BuildService>::parseElement(const QJsonObject &object)
 }
 
 template <>
+BuildServiceJob JsonParser<BuildServiceJob>::parseElement(const QJsonObject &object)
+{
+    BuildServiceJob job;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            job.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            job.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("url")) {
+            job.setUrl( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("project")) {
+            job.setProjectId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("buildservice")) {
+            job.setBuildServiceId( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("message")) {
+            job.setMessage( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("target")) {
+            job.setTarget( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("progress")) {
+            job.setProgress( iter.value().toDouble() );
+        }
+        else if (iter.key() == QLatin1String("status")) {
+            job.setStatus( (int) iter.value().toDouble() );
+        }
+    }
+    return job;
+}
+
+template <>
 Category JsonParser<Category>::parseElement(const QJsonObject &object)
 {
     Category category;
