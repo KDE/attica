@@ -42,6 +42,7 @@
 #include "license.h"
 #include "message.h"
 #include "person.h"
+#include "privatedata.h"
 #include "project.h"
 #include "remoteaccount.h"
 #include "topic.h"
@@ -78,6 +79,7 @@ private slots:
     void testLicense();
     void testMessage();
     void testPerson();
+    void testPrivateData();
     void testProject();
     void testRemoteAccount();
     void testTopic();
@@ -946,6 +948,32 @@ void JsonTest::testPerson()
     QCOMPARE( person.homepage(), QLatin1String("") );
     QCOMPARE( person.city(), QLatin1String("Helsinki") );
     QCOMPARE( person.extendedAttribute(QLatin1String("favouritemusic")), QLatin1String("Iron Maiden"));
+}
+
+void JsonTest::testPrivateData()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"app\": \"parley\","
+            "\"key\": \"language\","
+            "\"value\": \"english, german\","
+            "\"lastmodified\": \"2007-11-01T22:45:20+01:00\""
+        "},"
+        "{"
+            "\"app\": \"test\","
+            "\"key\": \"key\","
+            "\"value\": \"asd\","
+            "\"lastmodified\": \"2007-11-01T22:45:20+01:00\""
+        "}"
+        "]") +endString;
+    JsonParser<PrivateData> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 1 );
+    PrivateData data = parser.item();
+
+    QVERIFY( data.keys().contains(QLatin1String("key")) );
+    QCOMPARE( data.attribute(QLatin1String("language")), QLatin1String("english, german") );
+    QCOMPARE( data.timestamp(QLatin1String("key")), QDateTime::fromString(QLatin1String("2007-11-01T22:45:20+01:00"), Qt::ISODate) );
 }
 
 void JsonTest::testProject()

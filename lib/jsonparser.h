@@ -75,6 +75,8 @@ private:
     typename T::List m_result;
 };
 
+template <> void JsonParser<PrivateData>::parse( const QString &data );
+
 template <> AccountBalance JsonParser<AccountBalance>::parseElement( const QJsonObject &object );
 template <> Achievement JsonParser<Achievement>::parseElement( const QJsonObject &object );
 template <> Activity JsonParser<Activity>::parseElement( const QJsonObject &object );
@@ -120,6 +122,7 @@ template class JsonParser<KnowledgeBaseEntry>;
 template class JsonParser<License>;
 template class JsonParser<Message>;
 template class JsonParser<Person>;
+template class JsonParser<PrivateData>;
 template class JsonParser<Project>;
 template class JsonParser<RemoteAccount>;
 template class JsonParser<Topic>;

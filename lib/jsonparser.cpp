@@ -129,6 +129,43 @@ QStringList JsonParser<T>::intArrayToStringList( const QJsonArray &array )
 }
 
 template <>
+void JsonParser<PrivateData>::parse(const QString &data)
+{
+    m_result.clear();
+    QJsonValue dataField = getDataValue(data);
+    QVariantList list;
+    PrivateData privateData;
+    if (dataField.isArray()) {
+        list.append( dataField.toArray().toVariantList() );
+    }
+    else if (dataField.isObject()) {
+        list.append( dataField.toVariant() );
+    }
+    foreach (const QVariant &variant, list) {
+        QJsonObject object = QJsonObject::fromVariantMap( variant.toMap() );
+        QString key;
+        QString attribute;
+        QDateTime timestamp;
+        for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+            if (iter.key() == QLatin1String("key")) {
+                key = iter.value().toString();
+            }
+            else if (iter.key() == QLatin1String("value")) {
+                attribute = iter.value().toString();
+            }
+            else if (iter.key() == QLatin1String("lastmodified")) {
+                timestamp = QDateTime::fromString( iter.value().toString(), Qt::ISODate );
+            }
+        }
+        if (!key.isEmpty()) {
+            privateData.setAttribute( key, attribute );
+            privateData.setTimestamp( key, timestamp );
+        }
+    }
+    m_result.append(privateData);
+}
+
+template <>
 AccountBalance JsonParser<AccountBalance>::parseElement(const QJsonObject &object)
 {
     AccountBalance balance;
@@ -845,7 +882,7 @@ Topic JsonParser<Topic>::parseElement(const QJsonObject &object)
             topic.setId( QString::number( (int) iter.value().toDouble() ) );
         }
         else if (iter.key() == QLatin1String("forumid")) {
-            topic.setForumId( QString::number( (int) iter.value().toDouble() ) );\
+            topic.setForumId( QString::number( (int) iter.value().toDouble() ) );
         }
         else if (iter.key() == QLatin1String("user")) {
             topic.setUser( iter.value().toString() );
