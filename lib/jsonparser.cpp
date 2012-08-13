@@ -694,6 +694,48 @@ Person JsonParser<Person>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Project JsonParser<Project>::parseElement(const QJsonObject &object)
+{
+    Project project;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("projectid")) {
+            project.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            project.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("version")) {
+            project.setVersion( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("license")) {
+            project.setLicense( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("url")) {
+            project.setUrl( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("developers")) {
+            project.setDevelopers( iter.value().toString().split(QLatin1Char('\n')) );
+        }
+        else if (iter.key() == QLatin1String("summary")) {
+            project.setSummary( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("description")) {
+            project.setDescription( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("requirements")) {
+            project.setRequirements( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("specfile")) {
+            project.setSpecFile( iter.value().toString() );
+        }
+        else {
+            project.addExtendedAttribute( iter.key(), iter.value().toString() );
+        }
+    }
+    return project;
+}
+
+template <>
 Topic JsonParser<Topic>::parseElement(const QJsonObject &object)
 {
     Topic topic;

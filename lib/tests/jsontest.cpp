@@ -39,6 +39,7 @@
 #include "license.h"
 #include "message.h"
 #include "person.h"
+#include "project.h"
 #include "topic.h"
 
 #include <QtTest>
@@ -70,6 +71,7 @@ private slots:
     void testLicense();
     void testMessage();
     void testPerson();
+    void testProject();
     void testTopic();
 
 private:
@@ -855,6 +857,50 @@ void JsonTest::testPerson()
     QCOMPARE( person.homepage(), QLatin1String("") );
     QCOMPARE( person.city(), QLatin1String("Helsinki") );
     QCOMPARE( person.extendedAttribute(QLatin1String("favouritemusic")), QLatin1String("Iron Maiden"));
+}
+
+void JsonTest::testProject()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"projectid\": 12,"
+            "\"name\": \"A Project\","
+            "\"version\": \"1.0pre1\","
+            "\"license\": \"Creative Commons Attribution Share-Alike 2.0\","
+            "\"url\": \"https://somesite.com/\","
+            "\"developers\": \"Frank Karlitschek &lt;karlitschek@kde.org&gt;\nDan Jensen &lt;admin@leinir.dk&gt;\","
+            "\"summary\": \"A neat little project which does something\","
+            "\"description\": \"A long description of the project which even cleverly includes multiple lines\","
+            "\"requirements\": null,"
+            "\"specfile\": \"#\n# spec file for package a-project\n#\n# Copyright (C) 2010 Frank Karlitschek (mailto:karlitschek@kde.org)\n"
+                            "# Copyright (C) 2010 Dan Jensen (mailto:admin@leinir.dk)\n#\n\n""Name: a-project\n"
+                            "Summary: A neat little project which does something\n\nVersion: 1.0pre1\nRelease: 0\n"
+                            "License: Creative Commons Attribution Share-Alike 2.0\nUrl: https://somesite.com/\n"
+                            "BuildRoot: /var/tmp/%name-root\nSource: a-project-1.0pre1.tar.bz2\n\n%description\nA long description of the project\n\n"
+                            "which even cleverly includes multiple lines\n\n(etc etc...)\""
+        "}"
+        "]") + endString;
+    JsonParser<Project> parser;
+    parser.parse( testData );
+    Project project = parser.item();
+
+    QVERIFY( project.isValid() );
+    QCOMPARE( project.id(), QLatin1String("12") );
+    QCOMPARE( project.name(), QLatin1String("A Project") );
+    QCOMPARE( project.version(), QLatin1String("1.0pre1") );
+    QCOMPARE( project.license(), QLatin1String("Creative Commons Attribution Share-Alike 2.0") );
+    QCOMPARE( project.url(), QLatin1String("https://somesite.com/") );
+    QCOMPARE( project.developers(), QString(QLatin1String("Frank Karlitschek &lt;karlitschek@kde.org&gt;\nDan Jensen &lt;admin@leinir.dk&gt;")).split(QLatin1Char('\n')) );
+    QCOMPARE( project.summary(), QLatin1String("A neat little project which does something") );
+    QCOMPARE( project.description(), QLatin1String("A long description of the project which even cleverly includes multiple lines") );
+    QCOMPARE( project.requirements(), QString() );
+    QCOMPARE( project.specFile(), QLatin1String("#\n# spec file for package a-project\n#\n"
+                                            "# Copyright (C) 2010 Frank Karlitschek (mailto:karlitschek@kde.org)\n"
+                                            "# Copyright (C) 2010 Dan Jensen (mailto:admin@leinir.dk)\n#\n\nName: a-project\n"
+                                            "Summary: A neat little project which does something\n\nVersion: 1.0pre1\nRelease: 0\n"
+                                            "License: Creative Commons Attribution Share-Alike 2.0\nUrl: https://somesite.com/\n"
+                                            "BuildRoot: /var/tmp/%name-root\nSource: a-project-1.0pre1.tar.bz2\n\n%description\n"
+                                            "A long description of the project\n\nwhich even cleverly includes multiple lines\n\n(etc etc...)") );
 }
 
 void JsonTest::testTopic()
