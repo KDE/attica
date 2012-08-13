@@ -44,6 +44,7 @@
 #include "message.h"
 #include "person.h"
 #include "project.h"
+#include "remoteaccount.h"
 #include "topic.h"
 
 #include <QtCore/QJsonObject>
@@ -89,6 +90,7 @@ template <> License JsonParser<License>::parseElement( const QJsonObject &object
 template <> Message JsonParser<Message>::parseElement( const QJsonObject &object );
 template <> Person JsonParser<Person>::parseElement( const QJsonObject &object );
 template <> Project JsonParser<Project>::parseElement( const QJsonObject &object );
+template <> RemoteAccount JsonParser<RemoteAccount>::parseElement( const QJsonObject &object );
 template <> Topic JsonParser<Topic>::parseElement( const QJsonObject &object );
 
 template class JsonParser<NoneType>;
@@ -110,6 +112,7 @@ template class JsonParser<License>;
 template class JsonParser<Message>;
 template class JsonParser<Person>;
 template class JsonParser<Project>;
+template class JsonParser<RemoteAccount>;
 template class JsonParser<Topic>;
 
 }

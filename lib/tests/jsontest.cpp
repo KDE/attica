@@ -40,6 +40,7 @@
 #include "message.h"
 #include "person.h"
 #include "project.h"
+#include "remoteaccount.h"
 #include "topic.h"
 
 #include <QtTest>
@@ -72,6 +73,7 @@ private slots:
     void testMessage();
     void testPerson();
     void testProject();
+    void testRemoteAccount();
     void testTopic();
 
 private:
@@ -901,6 +903,31 @@ void JsonTest::testProject()
                                             "License: Creative Commons Attribution Share-Alike 2.0\nUrl: https://somesite.com/\n"
                                             "BuildRoot: /var/tmp/%name-root\nSource: a-project-1.0pre1.tar.bz2\n\n%description\n"
                                             "A long description of the project\n\nwhich even cleverly includes multiple lines\n\n(etc etc...)") );
+}
+
+void JsonTest::testRemoteAccount()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 7,"
+            "\"type\": 2,"
+            "\"typeid\": 1,"
+            "\"data\": null,"
+            "\"login\": \"lpapp\","
+            "\"password\": \"bet123ter\""
+        "}"
+        "]") + endString;
+    JsonParser<RemoteAccount> parser;
+    parser.parse( testData );
+    RemoteAccount account = parser.item();
+
+    QVERIFY( account.isValid() );
+    QCOMPARE( account.id(), QLatin1String("7") );
+    QCOMPARE( account.type(), QLatin1String("2") );
+    QCOMPARE( account.remoteServiceId(), QLatin1String("1") );
+    QCOMPARE( account.data(), QString() );
+    QCOMPARE( account.login(), QLatin1String("lpapp") );
+    QCOMPARE( account.password(), QLatin1String("bet123ter") );
 }
 
 void JsonTest::testTopic()

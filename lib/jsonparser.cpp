@@ -736,6 +736,33 @@ Project JsonParser<Project>::parseElement(const QJsonObject &object)
 }
 
 template <>
+RemoteAccount JsonParser<RemoteAccount>::parseElement(const QJsonObject &object)
+{
+    RemoteAccount account;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            account.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("type")) {
+            account.setType( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("typeid")) {
+            account.setRemoteServiceId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("data")) {
+            account.setData( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("login")) {
+            account.setLogin( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("password")) {
+            account.setPassword( iter.value().toString() );
+        }
+    }
+    return account;
+}
+
+template <>
 Topic JsonParser<Topic>::parseElement(const QJsonObject &object)
 {
     Topic topic;
