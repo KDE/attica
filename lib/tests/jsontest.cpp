@@ -26,6 +26,7 @@
 #include "accountbalance.h"
 #include "achievement.h"
 #include "activity.h"
+#include "buildservice.h"
 #include "comment.h"
 #include "content.h"
 #include "distribution.h"
@@ -58,6 +59,7 @@ private slots:
     void testAccountBalance();
     void testAchievement();
     void testActivity();
+    void testBuildService();
     void testCategory();
     void testComment();
     void testContent();
@@ -247,6 +249,42 @@ void JsonTest::testActivity()
     QCOMPARE( activity.timestamp(), QDateTime::fromString(QLatin1String("2008-08-01T20:30:19+02:00"), Qt::ISODate) );
     QCOMPARE( activity.message(), QLatin1String("testy2 has updated: &quot;Extract And Compress&quot;") );
     QCOMPARE( activity.link(), QUrl(QLatin1String("https://www.KDE-Look.org/content/show.php?content=84206")) );
+}
+
+void JsonTest::testBuildService()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 1,"
+            "\"name\": \"Some Build Service\","
+            "\"registrationurl\": \"https://bs.some.com/user/new\","
+
+            "\"supportedtargets\": ["
+                "{"
+                    "\"id\": 1,"
+                    "\"name\": \"i386\""
+                "},"
+                "{"
+                    "\"id\": 2,"
+                    "\"name\": \"x86_64\""
+                "},"
+                "{"
+                    "\"id\": 3,"
+                    "\"name\": \"armv5\""
+                "}"
+            "]"
+        "}"
+        "]") + endString;
+    JsonParser<BuildService> parser;
+    parser.parse( testData );
+    BuildService service = parser.item();
+
+    QVERIFY( service.isValid() );
+    QCOMPARE( service.id(), QLatin1String("1") );
+    QCOMPARE( service.name(), QLatin1String("Some Build Service") );
+    QCOMPARE( service.url(), QLatin1String("https://bs.some.com/user/new") );
+    QCOMPARE( service.targets().size(), 3 );
+    QCOMPARE( service.targets().at(1).name, QLatin1String("x86_64") );
 }
 
 void JsonTest::testCategory()

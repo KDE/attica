@@ -275,6 +275,32 @@ Activity JsonParser<Activity>::parseElement(const QJsonObject &object)
 }
 
 template <>
+BuildService JsonParser<BuildService>::parseElement(const QJsonObject &object)
+{
+    BuildService service;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            service.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            service.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("registrationurl")) {
+            service.setUrl( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("supportedtargets")) {
+            const QJsonArray& array = iter.value().toArray();
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                Target target = { (*arrayIter).toObject().value(QLatin1String("id")).toString(),
+                                                (*arrayIter).toObject().value(QLatin1String("name")).toString() };
+                service.addTarget( target );
+            }
+        }
+    }
+    return service;
+}
+
+template <>
 Category JsonParser<Category>::parseElement(const QJsonObject &object)
 {
     Category category;
