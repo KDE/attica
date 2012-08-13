@@ -847,6 +847,43 @@ Project JsonParser<Project>::parseElement(const QJsonObject &object)
 }
 
 template <>
+Publisher JsonParser<Publisher>::parseElement(const QJsonObject &object)
+{
+    Publisher publisher;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("id")) {
+            publisher.setId( QString::number( (int) iter.value().toDouble() ) );
+        }
+        else if (iter.key() == QLatin1String("name")) {
+            publisher.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("registrationurl")) {
+            publisher.setUrl( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("fields")) {
+            const QJsonArray& array = iter.value().toArray();
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                QJsonObject fieldObject = (*arrayIter).toObject();
+                Field field = { fieldObject.value(QLatin1String("fieldtype")).toString(),
+                                fieldObject.value(QLatin1String("name")).toString(),
+                                (int) fieldObject.value(QLatin1String("fieldsize")).toDouble(),
+                                fieldObject.value(QLatin1String("required")).toBool(),
+                                arrayToStringList( fieldObject.value(QLatin1String("options")).toArray() ) };
+                publisher.addField( field );
+            }
+        }
+        else if (iter.key() == QLatin1String("supportedtargets")) {
+            const QJsonArray& array = iter.value().toArray();
+            for (QJsonArray::ConstIterator arrayIter = array.constBegin(); arrayIter != array.constEnd(); ++arrayIter) {
+                Target target = { QString(), (*arrayIter).toObject().value(QLatin1String("target")).toString() };
+                publisher.addTarget( target );
+            }
+        }
+    }
+    return publisher;
+}
+
+template <>
 PublisherField JsonParser<PublisherField>::parseElement(const QJsonObject &object)
 {
     PublisherField field;

@@ -44,6 +44,7 @@
 #include "person.h"
 #include "privatedata.h"
 #include "project.h"
+#include "publisher.h"
 #include "publisherfield.h"
 #include "remoteaccount.h"
 #include "topic.h"
@@ -82,6 +83,7 @@ private slots:
     void testPerson();
     void testPrivateData();
     void testProject();
+    void testPublisher();
     void testPublisherField();
     void testRemoteAccount();
     void testTopic();
@@ -1022,36 +1024,90 @@ void JsonTest::testProject()
                                             "A long description of the project\n\nwhich even cleverly includes multiple lines\n\n(etc etc...)") );
 }
 
+void JsonTest::testPublisher()
+{
+    QString testData = startString + QLatin1String("["
+        "{"
+            "\"id\": 1,"
+            "\"name\": \"Some App Store\","
+            "\"registrationurl\": \"https://store.some.com/user/new\","
+
+            "\"fields\": ["
+                "{"
+                    "\"name\": \"Name\","
+                    "\"fieldtype\": \"string\","
+                    "\"options\": null,"
+                    "\"fieldsize\": 256,"
+                    "\"required\": true"
+                "},"
+                "{"
+                    "\"name\": \"Description\","
+                    "\"fieldtype\": \"longtext\","
+                    "\"options\": null,"
+                    "\"fieldsize\": 4294967296,"
+                    "\"required\": false"
+                "},"
+                "{"
+                    "\"name\": \"Category\","
+                    "\"fieldtype\": \"item\","
+
+                    "\"options\": ["
+                        "\"Game\","
+                        "\"Productivity\","
+                        "\"Gadget\""
+                    "],"
+
+                    "\"fieldsize\": 0,"
+                    "\"required\": true"
+                "}"
+            "],"
+
+            "\"supportedtargets\": ["
+                "{"
+                    "\"target\": \"i386\""
+                "},"
+                "{"
+                    "\"target\": \"x86_64\""
+                "},"
+                "{"
+                    "\"target\": \"armv5\""
+                "}"
+            "]"
+        "}"
+        "]") + endString;
+    JsonParser<Publisher> parser;
+    parser.parse( testData );
+    Publisher publisher = parser.item();
+
+    QVERIFY( publisher.isValid() );
+    QCOMPARE( publisher.id(), QLatin1String("1") );
+    QCOMPARE( publisher.name(), QLatin1String("Some App Store") );
+    QCOMPARE( publisher.url(), QLatin1String("https://store.some.com/user/new") );
+    QCOMPARE( publisher.fields().at(0).name, QLatin1String("Name") );
+    QCOMPARE( publisher.fields().at(1).type, QLatin1String("longtext") );
+    QCOMPARE( publisher.fields().at(2).options.at(0), QLatin1String("Game") );
+    QCOMPARE( publisher.fields().at(0).required, true );
+    QCOMPARE( publisher.targets().at(0).name, QLatin1String("i386") );
+}
+
 void JsonTest::testPublisherField()
 {
     QString testData = startString + QLatin1String("["
-            "{"
-                "\"name\": \"Name\","
-                "\"fieldtype\": \"string\","
-                "\"options\": null,"
-                "\"fieldsize\": 256,"
-                "\"required\": true"
-            "},"
-            "{"
-                "\"name\": \"Description\","
-                "\"fieldtype\": \"longtext\","
-                "\"options\": null,"
-                "\"fieldsize\": 4294967296,"
-                "\"required\": false"
-            "},"
-            "{"
-                "\"name\": \"Category\","
-                "\"fieldtype\": \"item\","
-
-                "\"options\": ["
-                    "\"Game\","
-                    "\"Productivity\","
-                    "\"Gadget\""
-                "],"
-
-                "\"fieldsize\": 0,"
-                "\"required\": true"
-            "}"
+        "{"
+            "\"name\": \"Name\","
+            "\"fieldtype\": \"string\","
+            "\"data\": \"A Project\""
+        "},"
+        "{"
+            "\"name\": \"Summary\","
+            "\"fieldtype\": \"string\","
+            "\"data\": \"A neat little project which does something\""
+        "},"
+        "{"
+            "\"name\": \"Category\","
+            "\"fieldtype\": \"item\","
+            "\"data\": \"Gadget\""
+        "}"
         "]")+endString;
     JsonParser<PublisherField> parser;
     parser.parse( testData );
@@ -1061,7 +1117,7 @@ void JsonTest::testPublisherField()
     QVERIFY( field.isValid() );
     QCOMPARE( field.name(), QLatin1String("Category") );
     QCOMPARE( field.type(), QLatin1String("item") );
-    QCOMPARE( field.data(), QString() );
+    QCOMPARE( field.data(), QLatin1String("Gadget") );
 }
 
 void JsonTest::testRemoteAccount()
