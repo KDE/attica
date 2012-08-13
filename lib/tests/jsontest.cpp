@@ -44,6 +44,7 @@
 #include "person.h"
 #include "privatedata.h"
 #include "project.h"
+#include "publisherfield.h"
 #include "remoteaccount.h"
 #include "topic.h"
 
@@ -81,6 +82,7 @@ private slots:
     void testPerson();
     void testPrivateData();
     void testProject();
+    void testPublisherField();
     void testRemoteAccount();
     void testTopic();
 
@@ -1018,6 +1020,48 @@ void JsonTest::testProject()
                                             "License: Creative Commons Attribution Share-Alike 2.0\nUrl: https://somesite.com/\n"
                                             "BuildRoot: /var/tmp/%name-root\nSource: a-project-1.0pre1.tar.bz2\n\n%description\n"
                                             "A long description of the project\n\nwhich even cleverly includes multiple lines\n\n(etc etc...)") );
+}
+
+void JsonTest::testPublisherField()
+{
+    QString testData = startString + QLatin1String("["
+            "{"
+                "\"name\": \"Name\","
+                "\"fieldtype\": \"string\","
+                "\"options\": null,"
+                "\"fieldsize\": 256,"
+                "\"required\": true"
+            "},"
+            "{"
+                "\"name\": \"Description\","
+                "\"fieldtype\": \"longtext\","
+                "\"options\": null,"
+                "\"fieldsize\": 4294967296,"
+                "\"required\": false"
+            "},"
+            "{"
+                "\"name\": \"Category\","
+                "\"fieldtype\": \"item\","
+
+                "\"options\": ["
+                    "\"Game\","
+                    "\"Productivity\","
+                    "\"Gadget\""
+                "],"
+
+                "\"fieldsize\": 0,"
+                "\"required\": true"
+            "}"
+        "]")+endString;
+    JsonParser<PublisherField> parser;
+    parser.parse( testData );
+    QCOMPARE( parser.itemList().size(), 3 );
+    PublisherField field = parser.itemList().at(2);
+
+    QVERIFY( field.isValid() );
+    QCOMPARE( field.name(), QLatin1String("Category") );
+    QCOMPARE( field.type(), QLatin1String("item") );
+    QCOMPARE( field.data(), QString() );
 }
 
 void JsonTest::testRemoteAccount()

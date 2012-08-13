@@ -847,6 +847,24 @@ Project JsonParser<Project>::parseElement(const QJsonObject &object)
 }
 
 template <>
+PublisherField JsonParser<PublisherField>::parseElement(const QJsonObject &object)
+{
+    PublisherField field;
+    for (QJsonObject::ConstIterator iter = object.constBegin(); iter != object.constEnd(); ++iter) {
+        if (iter.key() == QLatin1String("name")) {
+            field.setName( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("fieldtype")) {
+            field.setType( iter.value().toString() );
+        }
+        else if (iter.key() == QLatin1String("data")) {
+            field.setData( iter.value().toString() );
+        }
+    }
+    return field;
+}
+
+template <>
 RemoteAccount JsonParser<RemoteAccount>::parseElement(const QJsonObject &object)
 {
     RemoteAccount account;
