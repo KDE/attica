@@ -35,19 +35,20 @@ namespace Attica
 {
 class PlatformDependent;
 
+enum FormatType { Xml, Json };
+
 class ATTICA_EXPORT BasicJob: public QObject
 {
     Q_OBJECT
 public:
     enum JobType { Post, Put, Get, Delete };
-    enum ParserType { Xml };
 
-    BasicJob(JobType jobType, ParserType parserType);
+    BasicJob(JobType jobType, FormatType formatType);
     virtual ~BasicJob();
 
     Metadata metadata() const;
     JobType jobType() const;
-    ParserType parserType() const;
+    FormatType formatType() const;
 
 public Q_SLOTS:
     void start();

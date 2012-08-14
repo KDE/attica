@@ -136,6 +136,12 @@ class ATTICA_EXPORT Provider
     */
     QString name() const;
 
+    /**
+    Choose which format should be used in the communication with the server. The default is XML.
+    */
+    FormatType format();
+    void setFormat( FormatType format );
+
     enum SortMode {
         Newest,
         Alphabetical,

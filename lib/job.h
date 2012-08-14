@@ -47,9 +47,9 @@ template <class T>
 class ATTICA_EXPORT Job : public BasicJob
 {
 public:
-    Job(PlatformDependent *internals, JobType type, ParserType parser, const QNetworkRequest &request, QIODevice *data);
-    Job(PlatformDependent *internals, JobType type, ParserType parser, const QNetworkRequest &request, const StringMap &parameters = StringMap());
-    Job(PlatformDependent *internals, JobType type, ParserType parser, const QNetworkRequest &request, const QByteArray &data);
+    Job(PlatformDependent *internals, JobType type, FormatType format, const QNetworkRequest &request, QIODevice *data);
+    Job(PlatformDependent *internals, JobType type, FormatType format, const QNetworkRequest &request, const StringMap &parameters = StringMap());
+    Job(PlatformDependent *internals, JobType type, FormatType format, const QNetworkRequest &request, const QByteArray &data);
     virtual ~Job();
 
     T item() const;

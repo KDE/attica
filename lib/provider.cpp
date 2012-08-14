@@ -70,6 +70,7 @@ public:
     QUrl m_baseUrl;
     QUrl m_icon;
     QString m_name;
+    FormatType m_format;
     QString m_credentialsUserName;
     QString m_credentialsPassword;
     QString m_personVersion;
@@ -86,11 +87,13 @@ public:
     PlatformDependent* m_internals;
 
     Private()
-        :m_internals(0)
+        :m_format(Xml)
+        , m_internals(0)
     {}
 
     Private(const Private& other)
         : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
+        , m_format(other.m_format)
         , m_credentialsUserName(other.m_credentialsUserName)
         , m_credentialsPassword(other.m_credentialsPassword)
         , m_personVersion(other.m_personVersion)
@@ -205,6 +208,16 @@ QString Provider::name() const
     return d->m_name;
 }
 
+FormatType Provider::format()
+{
+    return d->m_format;
+}
+
+void Provider::setFormat(FormatType format)
+{
+    d->m_format = format;
+}
+
 bool Provider::hasCredentials()
 {
     if (!isValid()) {
@@ -259,7 +272,7 @@ Job<NoneType>* Provider::checkLogin(const QString& user, const QString& password
     postParameters.insert(QLatin1String( "login" ), user);
     postParameters.insert(QLatin1String( "password" ), password);
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "person/check" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "person/check" )), postParameters);
 }
 
 Job<NoneType>* Provider::registerAccount(const QString& id, const QString& password, const QString& mail, const QString& firstName, const QString& lastName)
@@ -276,7 +289,7 @@ Job<NoneType>* Provider::registerAccount(const QString& id, const QString& passw
     postParameters.insert(QLatin1String( "lastname" ), lastName);
     postParameters.insert(QLatin1String( "email" ), mail);
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "person/add" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "person/add" )), postParameters);
 }
 
 
@@ -413,7 +426,7 @@ Job<Achievement>* Provider::addNewAchievement(const QString& contentId, const Ac
     postParameters.insert(QLatin1String( "steps" ), QString::number(newAchievement.steps()));
     postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(newAchievement.visibility()));
 
-    return new Job<Achievement>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "achievements/content/" ) + contentId ), postParameters);
+    return new Job<Achievement>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "achievements/content/" ) + contentId ), postParameters);
 }
 
 Job<Achievement>* Provider::editAchievement(const QString& contentId, const QString& achievementId, const Achievement& achievement)
@@ -440,7 +453,7 @@ Job<Achievement>* Provider::editAchievement(const QString& contentId, const QStr
     postParameters.insert(QLatin1String( "steps" ), QString::number(achievement.steps()));
     postParameters.insert(QLatin1String( "visibility" ), Achievement::achievementVisibilityToString(achievement.visibility()));
 
-    return new Job<Achievement>(d->m_internals, BasicJob::Put, BasicJob::Xml, createRequest(QLatin1String( "achievement/content/" ) + contentId + achievementId), postParameters);
+    return new Job<Achievement>(d->m_internals, BasicJob::Put, d->m_format, createRequest(QLatin1String( "achievement/content/" ) + contentId + achievementId), postParameters);
 }
 
 Job<Achievement>* Provider::deleteAchievement(const QString& contentId, const QString& achievementId)
@@ -449,7 +462,7 @@ Job<Achievement>* Provider::deleteAchievement(const QString& contentId, const QS
         return 0;
     }
 
-    return new Job<Achievement>(d->m_internals, BasicJob::Delete, BasicJob::Xml, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
+    return new Job<Achievement>(d->m_internals, BasicJob::Delete, d->m_format, createRequest(QLatin1String( "achievements/progress/" ) + contentId + achievementId));
 }
 
 Job<Achievement>* Provider::setAchievementProgress(const QString& id, const QVariant& progress, const QDateTime& timestamp)
@@ -463,7 +476,7 @@ Job<Achievement>* Provider::setAchievementProgress(const QString& id, const QVar
     postParameters.insert(QLatin1String( "progress" ), progress.toString());
     postParameters.insert(QLatin1String( "timestamp" ), timestamp.toString());
 
-    return new Job<Achievement>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "achievements/progress/" ) + id), postParameters);
+    return new Job<Achievement>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "achievements/progress/" ) + id), postParameters);
 }
 
 Job<Achievement>* Provider::resetAchievementProgress(const QString& id)
@@ -472,7 +485,7 @@ Job<Achievement>* Provider::resetAchievementProgress(const QString& id)
         return 0;
     }
 
-    return new Job<Achievement>(d->m_internals, BasicJob::Delete, BasicJob::Xml, createRequest(QLatin1String( "achievements/progress/" ) + id));
+    return new Job<Achievement>(d->m_internals, BasicJob::Delete, d->m_format, createRequest(QLatin1String( "achievements/progress/" ) + id));
 }
 
 Job<Activity>* Provider::requestActivities()
@@ -495,7 +508,7 @@ Job<Project>* Provider::requestProjects()
 
     qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/project/list") );
-    return new Job<Project>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Project>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Project>* Provider::requestProject(const QString& id)
@@ -506,7 +519,7 @@ Job<Project>* Provider::requestProject(const QString& id)
 
     QUrl url = createUrl( QLatin1String("buildservice/project/get/") + id );
     qDebug() << url;
-    return new Job<Project>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Project>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 QMap<QString, QString> projectPostParameters(const Project& project)
@@ -551,7 +564,7 @@ Job<NoneType>* Provider::createProject(const Project& project)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String("buildservice/project/create")),
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String("buildservice/project/create")),
                        projectPostParameters(project));
 }
 
@@ -561,7 +574,7 @@ Job<NoneType>* Provider::editProject(const Project& project)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(
                        QLatin1String("buildservice/project/edit/") + project.id()),
                        projectPostParameters(project));
 }
@@ -572,7 +585,7 @@ Job<NoneType>* Provider::deleteProject(const Project& project)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(
                        QLatin1String("buildservice/project/delete/") + project.id()),
                        projectPostParameters(project));
 }
@@ -584,7 +597,7 @@ Job<BuildService>* Provider::requestBuildService(const QString& id)
     }
 
     QUrl url = createUrl( QLatin1String("buildservice/buildservices/get/") + id );
-    return new Job<BuildService>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<BuildService>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Publisher>* Provider::requestPublisher(const QString& id)
@@ -595,7 +608,7 @@ Job<Publisher>* Provider::requestPublisher(const QString& id)
 
     //qDebug() << "request publisher" << id;
     QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublisher/") + id );
-    return new Job<Publisher>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Publisher>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<NoneType>* Provider::savePublisherField(const Project& project, const PublisherField& field)
@@ -611,7 +624,7 @@ Job<NoneType>* Provider::savePublisherField(const Project& project, const Publis
 
     QString url = QLatin1String("buildservice/publishing/savefields/") + project.id();
     //qDebug() << "saving field values...";
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(url), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(url), postParameters);
 }
 
 Job<NoneType>* Provider::publishBuildJob(const BuildServiceJob& buildjob, const Publisher& publisher)
@@ -626,7 +639,7 @@ Job<NoneType>* Provider::publishBuildJob(const BuildServiceJob& buildjob, const 
     QString url = QLatin1String("buildservice/publishing/publishtargetresult/") +
                                                                     buildjob.id() + QLatin1Char('/') + publisher.id();
     //qDebug() << "pub'ing";
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(url), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(url), postParameters);
 }
 
 // Buildservices and their jobs
@@ -638,7 +651,7 @@ Job<BuildServiceJobOutput>* Provider::requestBuildServiceJobOutput(const QString
 
     QUrl url = createUrl( QLatin1String("buildservice/jobs/getoutput/") + id );
     qDebug() << url;
-    return new Job<BuildServiceJobOutput>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<BuildServiceJobOutput>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<BuildServiceJob>* Provider::requestBuildServiceJob(const QString &id)
@@ -649,7 +662,7 @@ Job<BuildServiceJob>* Provider::requestBuildServiceJob(const QString &id)
 
     QUrl url = createUrl( QLatin1String("buildservice/jobs/get/") + id );
     qDebug() << url;
-    return new Job<BuildServiceJob>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<BuildServiceJob>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 QMap<QString, QString> buildServiceJobPostParameters(const BuildServiceJob& buildjob)
@@ -681,7 +694,7 @@ Job<NoneType>* Provider::cancelBuildServiceJob(const BuildServiceJob& job)
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "b....................b";
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(
                        QLatin1String("buildservice/jobs/cancel/") + job.id()), postParameters);
 }
 
@@ -697,7 +710,7 @@ Job<NoneType>* Provider::createBuildServiceJob(const BuildServiceJob& job)
     // we add dummy data to the request
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
     qDebug() << "Creating new BSJ on" << job.buildServiceId();
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(
                        QLatin1String("buildservice/jobs/create/") +
                            job.projectId() + QLatin1Char('/') + job.buildServiceId()  + QLatin1Char('/') + job.target()),
                        postParameters);
@@ -711,7 +724,7 @@ Job<BuildService>* Provider::requestBuildServices()
 
     qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/buildservices/list") );
-    return new Job<BuildService>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<BuildService>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Publisher>* Provider::requestPublishers()
@@ -722,7 +735,7 @@ Job<Publisher>* Provider::requestPublishers()
 
     QUrl url = createUrl( QLatin1String("buildservice/publishing/getpublishingcapabilities") );
     //qDebug() << "request publishers" << url;
-    return new Job<Publisher>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Publisher>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<BuildServiceJob>* Provider::requestBuildServiceJobs(const Project &project)
@@ -733,7 +746,7 @@ Job<BuildServiceJob>* Provider::requestBuildServiceJobs(const Project &project)
 
     //qDebug() << "request projects";
     QUrl url = createUrl( QLatin1String("buildservice/jobs/list/") + project.id() );
-    return new Job<BuildServiceJob>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<BuildServiceJob>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<RemoteAccount>* Provider::requestRemoteAccounts()
@@ -744,7 +757,7 @@ Job<RemoteAccount>* Provider::requestRemoteAccounts()
 
     //qDebug() << "request remoteaccounts";
     QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/list/"));
-    return new Job<RemoteAccount>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<RemoteAccount>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<NoneType>* Provider::createRemoteAccount(const RemoteAccount& account)
@@ -763,7 +776,7 @@ Job<NoneType>* Provider::createRemoteAccount(const RemoteAccount& account)
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
     qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String("buildservice/remoteaccounts/add")),
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String("buildservice/remoteaccounts/add")),
                        postParameters);
 }
 
@@ -783,7 +796,7 @@ Job<NoneType>* Provider::editRemoteAccount(const RemoteAccount& account)
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
     qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new Job<NoneType>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()),
+    return new Job<NoneType>(d->m_internals, BasicJob::Get, d->m_format, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()),
                        postParameters);
 }
 
@@ -795,7 +808,7 @@ Job<RemoteAccount>* Provider::requestRemoteAccount(const QString &id)
 
     QUrl url = createUrl( QLatin1String("buildservice/remoteaccounts/get/") + id );
     qDebug() << url;
-    return new Job<RemoteAccount>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<RemoteAccount>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<NoneType>* Provider::deleteRemoteAccount(const QString& id)
@@ -805,7 +818,7 @@ Job<NoneType>* Provider::deleteRemoteAccount(const QString& id)
     }
 
     StringMap postParameters;
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(
                        QLatin1String("buildservice/remoteaccounts/remove/") + id),
                        postParameters);
 }
@@ -820,7 +833,7 @@ Job<NoneType>* Provider::uploadTarballToBuildService(const QString& projectId, c
     qDebug() << "Up'ing tarball" << url << projectId << fileName << payload;
     PostFileData postRequest(url);
     postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ), QLatin1String("source"));
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 // Activity
@@ -833,7 +846,7 @@ Job<NoneType>* Provider::postActivity(const QString& message)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String( "message" ), message);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "activity" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "activity" )), postParameters);
 }
 
 Job<NoneType>* Provider::inviteFriend(const QString& to, const QString& message)
@@ -844,7 +857,7 @@ Job<NoneType>* Provider::inviteFriend(const QString& to, const QString& message)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String( "message" ), message);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "friend/invite/" ) + to), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "friend/invite/" ) + to), postParameters);
 }
 
 
@@ -854,7 +867,7 @@ Job<NoneType>* Provider::approveFriendship(const QString& to)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "friend/approve/" ) + to));
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "friend/approve/" ) + to));
 }
 
 
@@ -864,7 +877,7 @@ Job<NoneType>* Provider::declineFriendship(const QString& to)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "friend/decline/" ) + to));
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "friend/decline/" ) + to));
 }
 
 Job<NoneType>* Provider::cancelFriendship(const QString& to)
@@ -873,7 +886,7 @@ Job<NoneType>* Provider::cancelFriendship(const QString& to)
         return 0;
     }
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "friend/cancel/" ) + to));
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "friend/cancel/" ) + to));
 }
 
 
@@ -888,7 +901,7 @@ Job<NoneType>* Provider::postLocation(qreal latitude, qreal longitude, const QSt
     postParameters.insert(QLatin1String( "longitude" ), QString::number(longitude));
     postParameters.insert(QLatin1String( "city" ), city);
     postParameters.insert(QLatin1String( "country" ), country);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "person/self" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "person/self" )), postParameters);
 }
 
 
@@ -929,7 +942,7 @@ Job<Message>* Provider::requestMessage(const Folder& folder, const QString& id)
         return 0;
     }
 
-    return new Job<Message>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(QLatin1String( "message/" ) + folder.id() + QLatin1Char( '/' ) + id));
+    return new Job<Message>(d->m_internals, BasicJob::Get, d->m_format, createRequest(QLatin1String( "message/" ) + folder.id() + QLatin1Char( '/' ) + id));
 }
 
 
@@ -943,7 +956,7 @@ Job<NoneType>* Provider::postMessage( const Message &message )
     postParameters.insert(QLatin1String( "message" ), message.body());
     postParameters.insert(QLatin1String( "subject" ), message.subject());
     postParameters.insert(QLatin1String( "to" ), message.to());
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "message/2" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "message/2" )), postParameters);
 }
 
 Job<Category>* Provider::requestCategories()
@@ -953,7 +966,7 @@ Job<Category>* Provider::requestCategories()
     }
 
     QUrl url = createUrl( QLatin1String( "content/categories" ) );
-    Job<Category> *job = new Job<Category>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Category> *job = new Job<Category>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -964,7 +977,7 @@ Job< License >* Provider::requestLicenses()
     }
 
     QUrl url = createUrl( QLatin1String( "content/licenses" ) );
-    Job<License> *job = new Job<License>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<License> *job = new Job<License>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -975,7 +988,7 @@ Job< Distribution >* Provider::requestDistributions()
     }
 
     QUrl url = createUrl( QLatin1String( "content/distributions" ) );
-    Job<Distribution> *job = new Job<Distribution>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Distribution> *job = new Job<Distribution>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -986,7 +999,7 @@ Job< HomePageType >* Provider::requestHomePageTypes()
     }
 
     QUrl url = createUrl( QLatin1String( "content/homepages" ) );
-    Job<HomePageType> *job = new Job<HomePageType>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<HomePageType> *job = new Job<HomePageType>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1054,7 +1067,7 @@ Job<Content>* Provider::searchContents(const Category::List& categories, const Q
     url.addQueryItem( QLatin1String( "page" ), QString::number(page) );
     url.addQueryItem( QLatin1String( "pagesize" ), QString::number(pageSize) );
 
-    Job<Content> *job = new Job<Content>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Content> *job = new Job<Content>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1065,7 +1078,7 @@ Job<Content>* Provider::requestContent(const QString& id)
     }
 
     QUrl url = createUrl( QLatin1String( "content/data/" ) + id );
-    Job<Content> *job = new Job<Content>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Content> *job = new Job<Content>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1083,7 +1096,7 @@ Job<Content>* Provider::addNewContent(const Category& category, const Content& c
 
     qDebug() << "Parameter map: " << pars;
 
-    return new Job<Content>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(url), pars);
+    return new Job<Content>(d->m_internals, BasicJob::Post, d->m_format, createRequest(url), pars);
 }
 
 
@@ -1102,7 +1115,7 @@ Job<Content>* Provider::editContent(const Category& updatedCategory, const QStri
 
     qDebug() << "Parameter map: " << pars;
 
-    return new Job<Content>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(url), pars);
+    return new Job<Content>(d->m_internals, BasicJob::Post, d->m_format, createRequest(url), pars);
 }
 
 /*
@@ -1126,7 +1139,7 @@ Job<NoneType>* Provider::deleteContent(const QString& contentId)
     QUrl url = createUrl(QLatin1String( "content/delete/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<NoneType>* Provider::setDownloadFile(const QString& contentId, const QString& fileName, const QByteArray& payload)
@@ -1140,7 +1153,7 @@ Job<NoneType>* Provider::setDownloadFile(const QString& contentId, const QString
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
     // FIXME mime type
     postRequest.addFile(fileName, payload, QLatin1String( "application/octet-stream" ));
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<NoneType>* Provider::deleteDownloadFile(const QString& contentId)
@@ -1152,7 +1165,7 @@ Job<NoneType>* Provider::deleteDownloadFile(const QString& contentId)
     QUrl url = createUrl(QLatin1String( "content/deletedownload/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<NoneType>* Provider::setPreviewImage(const QString& contentId, const QString& previewId, const QString& fileName, const QByteArray& image)
@@ -1169,7 +1182,7 @@ Job<NoneType>* Provider::setPreviewImage(const QString& contentId, const QString
     // FIXME mime type
     postRequest.addFile(fileName, image, QLatin1String( "application/octet-stream" ));
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<NoneType>* Provider::deletePreviewImage(const QString& contentId, const QString& previewId)
@@ -1182,7 +1195,7 @@ Job<NoneType>* Provider::deletePreviewImage(const QString& contentId, const QStr
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
     postRequest.addArgument(QLatin1String( "previewid" ), previewId);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<NoneType>* Provider::voteForContent(const QString& contentId, bool positiveVote)
@@ -1194,7 +1207,7 @@ Job<NoneType>* Provider::voteForContent(const QString& contentId, bool positiveV
     StringMap postParameters;
     postParameters.insert(QLatin1String( "vote" ), positiveVote ? QLatin1String( "good" ) : QLatin1String( "bad" ));
     qDebug() << "vote: " << positiveVote;
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "content/vote/" ) + contentId), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "content/vote/" ) + contentId), postParameters);
 }
 
 Job<NoneType>* Provider::voteForContent(const QString& contentId, uint rating)
@@ -1212,7 +1225,7 @@ Job<NoneType>* Provider::voteForContent(const QString& contentId, uint rating)
     StringMap postParameters;
     postParameters.insert(QLatin1String( "vote" ), QString::number(rating));
     qDebug() << "vote: " << QString::number(rating);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "content/vote/" ) + contentId), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "content/vote/" ) + contentId), postParameters);
 }
 
 Job<NoneType>* Provider::becomeFan(const QString& contentId)
@@ -1224,7 +1237,7 @@ Job<NoneType>* Provider::becomeFan(const QString& contentId)
     QUrl url = createUrl(QLatin1String( "fan/add/" ) + contentId);
     PostFileData postRequest(url);
     postRequest.addArgument(QLatin1String( "contentid" ), contentId);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<Person>* Provider::requestFans(const QString& contentId, uint page, uint pageSize)
@@ -1237,7 +1250,7 @@ Job<Person>* Provider::requestFans(const QString& contentId, uint page, uint pag
     url.addQueryItem( QLatin1String( "contentid" ), contentId );
     url.addQueryItem( QLatin1String( "page" ), QString::number(page) );
     url.addQueryItem( QLatin1String( "pagesize" ), QString::number(pageSize) );
-    Job<Person> *job = new Job<Person>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Person> *job = new Job<Person>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1294,7 +1307,7 @@ Job<NoneType>* Provider::postTopic(const QString& forumId, const QString& subjec
     postParameters.insert(QLatin1String( "subject" ), subject);
     postParameters.insert(QLatin1String( "content" ), content);
     postParameters.insert(QLatin1String( "forum" ), forumId);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "forum/topic/add" )), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "forum/topic/add" )), postParameters);
 }
 
 Job<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
@@ -1304,7 +1317,7 @@ Job<DownloadItem>* Provider::downloadLink(const QString& contentId, const QStrin
     }
 
     QUrl url = createUrl( QLatin1String( "content/download/" ) + contentId + QLatin1Char( '/' ) + itemId );
-    Job<DownloadItem> *job = new Job<DownloadItem>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<DownloadItem> *job = new Job<DownloadItem>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1315,7 +1328,7 @@ Job<KnowledgeBaseEntry>* Provider::requestKnowledgeBaseEntry(const QString& id)
     }
 
     QUrl url = createUrl( QLatin1String( "knowledgebase/data/" ) + id );
-    Job<KnowledgeBaseEntry> *job = new Job<KnowledgeBaseEntry>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<KnowledgeBaseEntry> *job = new Job<KnowledgeBaseEntry>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1354,7 +1367,7 @@ Job<KnowledgeBaseEntry>* Provider::searchKnowledgeBase(const Content& content, c
     url.addQueryItem( QLatin1String( "page" ), QString::number(page) );
     url.addQueryItem( QLatin1String( "pagesize" ), QString::number(pageSize) );
 
-    Job<KnowledgeBaseEntry> *job = new Job<KnowledgeBaseEntry>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<KnowledgeBaseEntry> *job = new Job<KnowledgeBaseEntry>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1364,7 +1377,7 @@ Job<Event>* Provider::requestEvent(const QString& id)
         return 0;
     }
 
-    Job<Event>* job = new Job<Event>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(QLatin1String( "event/data/" ) + id));
+    Job<Event>* job = new Job<Event>(d->m_internals, BasicJob::Get, d->m_format, createRequest(QLatin1String( "event/data/" ) + id));
     return job;
 }
 
@@ -1404,7 +1417,7 @@ Job<Event>* Provider::requestEvent(const QString& country, const QString& search
     url.addQueryItem(QLatin1String( "page" ), QString::number(page));
     url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
 
-    Job<Event>* job = new Job<Event>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Event>* job = new Job<Event>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1425,7 +1438,7 @@ Job<Comment>* Provider::requestComments(const Comment::Type commentType, const Q
     url.addQueryItem(QLatin1String( "page" ), QString::number(page));
     url.addQueryItem(QLatin1String( "pagesize" ), QString::number(pageSize));
 
-    Job<Comment>* job = new Job<Comment>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    Job<Comment>* job = new Job<Comment>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
     return job;
 }
 
@@ -1450,7 +1463,7 @@ Job<Comment>* Provider::addNewComment(const Comment::Type commentType, const QSt
     postParameters.insert(QLatin1String( "subject" ), subject);
     postParameters.insert(QLatin1String( "message" ), message);
 
-    return new Job<Comment>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(QLatin1String( "comments/add" )), postParameters);
+    return new Job<Comment>(d->m_internals, BasicJob::Post, d->m_format, createRequest(QLatin1String( "comments/add" )), postParameters);
 }
 
 Job<NoneType>* Provider::voteForComment(const QString & id, uint rating)
@@ -1463,7 +1476,7 @@ Job<NoneType>* Provider::voteForComment(const QString & id, uint rating)
     postParameters.insert(QLatin1String( "vote" ), QString::number(rating));
 
     QUrl url = createUrl(QLatin1String( "comments/vote/" ) + id);
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, createRequest(url), postParameters);
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, createRequest(url), postParameters);
 }
 
 Job<NoneType>* Provider::setPrivateData(const QString& app, const QString& key, const QString& value)
@@ -1477,7 +1490,7 @@ Job<NoneType>* Provider::setPrivateData(const QString& app, const QString& key, 
 
     postRequest.addArgument(QLatin1String( "value" ), value);
 
-    return new Job<NoneType>(d->m_internals, BasicJob::Post, BasicJob::Xml, postRequest.request(), postRequest.data());
+    return new Job<NoneType>(d->m_internals, BasicJob::Post, d->m_format, postRequest.request(), postRequest.data());
 }
 
 Job<PrivateData>* Provider::requestPrivateData(const QString& app, const QString& key)
@@ -1486,7 +1499,7 @@ Job<PrivateData>* Provider::requestPrivateData(const QString& app, const QString
         return 0;
     }
 
-    Job<PrivateData>* job = new Job<PrivateData>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(QLatin1String( "privatedata/getattribute/" ) + app + QLatin1String( "/" ) + key));
+    Job<PrivateData>* job = new Job<PrivateData>(d->m_internals, BasicJob::Get, d->m_format, createRequest(QLatin1String( "privatedata/getattribute/" ) + app + QLatin1String( "/" ) + key));
     return job;
 }
 
@@ -1496,6 +1509,9 @@ QUrl Provider::createUrl(const QString& path)
     if (!d->m_credentialsUserName.isEmpty()) {
         url.setUserName(d->m_credentialsUserName);
         url.setPassword(d->m_credentialsPassword);
+    }
+    if (d->m_format == Json) {
+        url.addEncodedQueryItem( "format", "json" );
     }
     return url;
 }
@@ -1521,47 +1537,47 @@ QNetworkRequest Provider::createRequest(const QString& path)
 
 Job<Person>* Provider::doRequestPerson(const QUrl& url)
 {
-    return new Job<Person>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Person>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<AccountBalance>* Provider::doRequestAccountBalance(const QUrl& url)
 {
-    return new Job<AccountBalance>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<AccountBalance>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Person>* Provider::doRequestPersonList(const QUrl& url)
 {
-    return new Job<Person>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Person>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Achievement>* Provider::doRequestAchievementList(const QUrl& url)
 {
-    return new Job<Achievement>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Achievement>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Activity>* Provider::doRequestActivityList(const QUrl& url)
 {
-    return new Job<Activity>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Activity>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Folder>* Provider::doRequestFolderList(const QUrl& url)
 {
-    return new Job<Folder>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Folder>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Forum>* Provider::doRequestForumList(const QUrl& url)
 {
-    return new Job<Forum>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Forum>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Topic>* Provider::doRequestTopicList(const QUrl& url)
 {
-    return new Job<Topic>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Topic>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 Job<Message>* Provider::doRequestMessageList(const QUrl& url)
 {
-    return new Job<Message>(d->m_internals, BasicJob::Get, BasicJob::Xml, createRequest(url));
+    return new Job<Message>(d->m_internals, BasicJob::Get, d->m_format, createRequest(url));
 }
 
 QString Provider::achievementServiceVersion() const

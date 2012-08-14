@@ -30,6 +30,7 @@
 
 #include "platformdependent.h"
 #include "iparser.h"
+#include "jsonparser.h"
 #include "xmlparser.h"
 
 
@@ -45,24 +46,24 @@ public:
     QByteArray m_byteArray;
     IParser<T> *m_parser;
 
-    Private(PlatformDependent *internals, JobType jobType, ParserType parserType, const QNetworkRequest &request)
+    Private(PlatformDependent *internals, const QNetworkRequest &request)
         : m_internals(internals), m_request(request), m_ioDevice(0), m_parser(0)
     {
     }
 };
 
 template <class T>
-Job<T>::Job(PlatformDependent *internals, JobType jobType, ParserType parserType, const QNetworkRequest &request, QIODevice *data)
-    : BasicJob(jobType, parserType)
-    , d(new Private(internals, jobType, parserType, request))
+Job<T>::Job(PlatformDependent *internals, JobType jobType, FormatType formatType, const QNetworkRequest &request, QIODevice *data)
+    : BasicJob(jobType, formatType)
+    , d(new Private(internals, request))
 {
     d->m_ioDevice = data;
 }
 
 template <class T>
-Job<T>::Job(PlatformDependent *internals, JobType jobType, ParserType parserType, const QNetworkRequest &request, const StringMap &parameters)
-    : BasicJob(jobType, parserType)
-    , d(new Private(internals, jobType, parserType, request))
+Job<T>::Job(PlatformDependent *internals, JobType jobType, FormatType formatType, const QNetworkRequest &request, const StringMap &parameters)
+    : BasicJob(jobType, formatType)
+    , d(new Private(internals, request))
 {
     // Create post data
     int j = 0;
@@ -77,9 +78,9 @@ Job<T>::Job(PlatformDependent *internals, JobType jobType, ParserType parserType
 }
 
 template <class T>
-Job<T>::Job(PlatformDependent *internals, JobType jobType, ParserType parserType, const QNetworkRequest &request, const QByteArray &data)
-    : BasicJob(jobType, parserType)
-    , d(new Private(internals, jobType, parserType, request))
+Job<T>::Job(PlatformDependent *internals, JobType jobType, FormatType formatType, const QNetworkRequest &request, const QByteArray &data)
+    : BasicJob(jobType, formatType)
+    , d(new Private(internals, request))
 {
     d->m_byteArray = data;
 }
@@ -132,9 +133,12 @@ QNetworkReply* Job<T>::executeRequest()
 template <class T>
 void Job<T>::parse(const QString &data)
 {
-    switch (parserType()) {
+    switch (formatType()) {
     case Xml:
         d->m_parser = new XmlParser<T>();
+        break;
+    case Json:
+        d->m_parser = new JsonParser<T>();
         break;
     }
     d->m_parser->parse(data);

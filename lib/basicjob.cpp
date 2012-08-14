@@ -38,10 +38,10 @@ public:
     Metadata m_metadata;
     QNetworkReply *m_reply;
     JobType m_jobType;
-    ParserType m_parserType;
+    FormatType m_formatType;
 
-    Private(JobType jobType, ParserType parserType)
-        : m_reply(0), m_jobType(jobType), m_parserType(parserType)
+    Private(JobType jobType, FormatType formatType)
+        : m_reply(0), m_jobType(jobType), m_formatType(formatType)
     {
     }
 
@@ -66,8 +66,8 @@ public:
     }
 };
 
-BasicJob::BasicJob(JobType jobType, ParserType parserType)
-    : d(new Private(jobType,parserType))
+BasicJob::BasicJob(JobType jobType, FormatType formatType)
+    : d(new Private(jobType,formatType))
 {
 }
 
@@ -80,9 +80,9 @@ BasicJob::JobType BasicJob::jobType() const
     return d->m_jobType;
 }
 
-BasicJob::ParserType BasicJob::parserType() const
+FormatType BasicJob::formatType() const
 {
-    return d->m_parserType;
+    return d->m_formatType;
 }
 
 void BasicJob::start()
