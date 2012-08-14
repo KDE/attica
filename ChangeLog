@@ -1,3 +1,15 @@
+0.4.1
+ - Add some Qt5 support in tests.
+ - Comment out some qDebug calls.
+ - Fix various Qt5 issues.
+
+0.4.0
+ - Bump soname from 0.3.0 to 0.4.0 for BIC change.
+ - Don't export non-public header files.
+ - Fix build of tests.
+ - Fix compile with Qt5.
+ - Don't output xml by default.
+
 0.3.0
  - Bump soname from .0 to .0.3 since we have a BIC change.
 
