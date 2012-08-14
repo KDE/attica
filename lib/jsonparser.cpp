@@ -243,15 +243,7 @@ Achievement JsonParser<Achievement>::parseElement(const QJsonObject &object)
             }
         }
         else if (iter.key() == QLatin1String("options")) {
-            QStringList options;
-            const QJsonArray &array = iter.value().toArray();
-            for (QJsonArray::ConstIterator iter = array.constBegin(); iter != array.constEnd(); ++iter) {
-                const QJsonObject &object = (*iter).toObject();
-                if (object.contains(QLatin1String("option"))) {
-                    options << object.value(QLatin1String("option")).toString();
-                }
-            }
-            achievement.setOptions( options );
+            achievement.setOptions( arrayToStringList( iter.value().toArray() ) );
         }
         else if (iter.key() == QLatin1String("steps")) {
             achievement.setSteps( (int) iter.value().toDouble() );
@@ -740,7 +732,7 @@ Message JsonParser<Message>::parseElement(const QJsonObject &object)
         if (iter.key() == QLatin1String("id")) {
             message.setId( QString::number( (int) iter.value().toDouble() ) );
         }
-        else if (iter.key() == QLatin1String("message from")) {
+        else if (iter.key() == QLatin1String("messagefrom")) {
             message.setFrom( iter.value().toString() );
         }
         else if (iter.key() == QLatin1String("messageto")) {
@@ -913,7 +905,7 @@ RemoteAccount JsonParser<RemoteAccount>::parseElement(const QJsonObject &object)
             account.setType( QString::number( (int) iter.value().toDouble() ) );
         }
         else if (iter.key() == QLatin1String("typeid")) {
-            account.setRemoteServiceId( QString::number( (int) iter.value().toDouble() ) );
+            account.setRemoteServiceId( iter.value().toString() );
         }
         else if (iter.key() == QLatin1String("data")) {
             account.setData( iter.value().toString() );
