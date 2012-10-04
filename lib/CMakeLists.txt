@@ -12,7 +12,6 @@ set(QT_MIN_VERSION "4.7.0")
 find_package(Qt5Transitional REQUIRED
     Core
     Network
-    Test
 )
 
 # TODO: Remove me once fixed in ECM module
@@ -189,6 +188,9 @@ endif(NOT WIN32)
 
 # Add the optional subdirectory with unit tests
 if (ATTICA_ENABLE_TESTS)
+    find_package(Qt5Transitional REQUIRED
+        Test
+    )
     add_subdirectory(tests)
 endif (ATTICA_ENABLE_TESTS)
 
