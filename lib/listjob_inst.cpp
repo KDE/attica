@@ -76,6 +76,8 @@
 #include "topic.h"
 #include "topicparser.h"
 
+#include "link.h"
+#include "linkparser.h"
 
 using namespace Attica;
 
@@ -160,3 +162,5 @@ template class Parser<PublisherField>;
 template class Parser<RemoteAccount>;
 template class Parser<Topic>;
 
+template class Parser<Link>;
+template class ItemPostJob<Link>;

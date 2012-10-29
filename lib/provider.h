@@ -42,6 +42,7 @@
 #include "comment.h"
 #include "distribution.h"
 #include "license.h"
+#include "link.h"
 
 class QDate;
 class QUrl;
@@ -66,6 +67,7 @@ class Folder;
 class HomePageType;
 class KnowledgeBaseEntry;
 class License;
+class Link;
 class Person;
 class PostJob;
 class Project;
@@ -659,6 +661,9 @@ class ATTICA_EXPORT Provider
     ListJob<Forum>* requestForums(uint page = 0, uint pageSize = 10);
     ListJob<Topic>* requestTopics(const QString& forum, const QString& search, const QString& description, SortMode mode, int page, int pageSize);
     PostJob* postTopic(const QString& forumId, const QString& subject, const QString& content);
+
+    // Cloud part of OCS
+    ItemPostJob<Link>* requestPublicShareLink(const QString& path);
 
   protected:
     QUrl createUrl(const QString& path);

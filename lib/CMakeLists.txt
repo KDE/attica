@@ -102,6 +102,8 @@ set(ocsclient_SRCS
    qtplatformdependent.cpp
    topic.cpp
    topicparser.cpp
+   link.cpp
+   linkparser.cpp
 )
 
 qt4_automoc(${ocsclient_SRCS})
@@ -172,6 +174,7 @@ install(FILES
     publisher.h
     publisherfield.h
     topic.h
+    link.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     DESTINATION include/attica COMPONENT Devel
 )

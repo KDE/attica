@@ -80,6 +80,7 @@
 #include "topicparser.h"
 #include "itemjob.h"
 #include "listjob.h"
+#include "link.h"
 
 #include <QtCore/QStringList>
 #include <QNetworkAccessManager>
@@ -1333,8 +1334,27 @@ PostJob* Provider::postTopic(const QString& forumId, const QString& subject, con
     postParameters.insert(QLatin1String( "subject" ), subject);
     postParameters.insert(QLatin1String( "content" ), content);
     postParameters.insert(QLatin1String( "forum" ), forumId);
+
+
     return new PostJob(d->m_internals, createRequest(QLatin1String( "forum/topic/add" )), postParameters);
 }
+
+ItemPostJob< Link >* Provider::requestPublicShareLink(const QString& path)
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    StringMap postParameters;
+    postParameters.insert(QLatin1String( "type" ), QLatin1String( "link" ));
+    postParameters.insert(QLatin1String( "path" ), path);
+
+    QString requestLink(QLatin1String("cloud/files/share/link/"));
+    requestLink.append(path);
+    ItemPostJob<Link> *job = new ItemPostJob<Link>(d->m_internals, createRequest(requestLink), postParameters);
+    return job;
+}
+
 
 ItemJob<DownloadItem>* Provider::downloadLink(const QString& contentId, const QString& itemId)
 {
