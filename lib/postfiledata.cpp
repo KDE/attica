@@ -49,7 +49,7 @@ PostFileData::PostFileData(const QUrl& url)
 {
     d->url = url;
     qsrand(QTime::currentTime().secsTo(QTime(0,0,0)));
-    d->boundary = "----------" + randomString(42 + 13).toAscii();
+    d->boundary = "----------" + randomString(42 + 13).toLatin1();
 }
 
 PostFileData::~PostFileData()
@@ -81,7 +81,7 @@ void PostFileData::addArgument(const QString& key, const QString& value)
     }
     QByteArray data(
         "--" + d->boundary + "\r\n"
-        "Content-Disposition: form-data; name=\"" + key.toAscii() +
+        "Content-Disposition: form-data; name=\"" + key.toLatin1() +
         "\"\r\n\r\n" + value.toUtf8() + "\r\n");
 
     d->buffer.append(data);
@@ -107,9 +107,9 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
     QByteArray data(
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"");
-    data.append(fieldName.toAscii());
+    data.append(fieldName.toLatin1());
     data.append("\"; filename=\"" + fileName.toUtf8()
-        + "\"\r\nContent-Type: " + mimeType.toAscii() + "\r\n\r\n");
+        + "\"\r\nContent-Type: " + mimeType.toLatin1() + "\r\n\r\n");
 
     d->buffer.append(data);
     d->buffer.append(file + QByteArray("\r\n"));

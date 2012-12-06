@@ -25,6 +25,7 @@
 #define POSTFILEDATA_H
 
 #include <QtCore/QByteArray>
+#include <QtCore/QIODevice>
 #include <QtNetwork/QNetworkRequest>
 
 namespace Attica {
