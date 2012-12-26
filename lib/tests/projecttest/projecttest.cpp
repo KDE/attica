@@ -23,12 +23,12 @@
 
 #include "projecttest.h"
 
-#include <QtGui/QLabel>
-#include <QtGui/QListWidgetItem>
-#include <QtGui/QMenu>
-#include <QtGui/QMenuBar>
-#include <QtGui/QAction>
-#include <QtGui/QVBoxLayout>
+#include <QLabel>
+#include <QListWidgetItem>
+#include <QMenu>
+#include <QMenuBar>
+#include <QAction>
+#include <QVBoxLayout>
 
 #include <QDebug>
 
