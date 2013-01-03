@@ -1,26 +1,21 @@
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
-
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
-set(QT_MIN_VERSION "4.7.0")
-find_package(Qt5Transitional REQUIRED
-    Core
-    Network
-)
-
-# TODO: Remove me once fixed in ECM module
-if(Qt5Core_FOUND)
-  # Avoid errors and build in PIC mode:
-  # qt5/qtbase/include/QtCore/qglobal.h:1765:4: error:
-  #   #error "You must build your code with position independent code if Qt was
-  #   built with -reduce-relocations. " "Compile your code with -fPIC or -fPIE."
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+find_package(Qt5Core QUIET)
+if (Qt5Core_FOUND)
+  find_package(ECM 0.0.6 REQUIRED NO_MODULE)
+  set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_MODULE_PATH})
+  find_package(Qt5Transitional REQUIRED Core Network)
+  include(GNUInstallDirs)
+  set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+else()
+  set(QT_MIN_VERSION "4.7.0")
+  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
+  set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
 endif()
 
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
