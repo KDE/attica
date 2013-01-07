@@ -21,7 +21,7 @@
 
 */
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include "projecttest.h"
 
 

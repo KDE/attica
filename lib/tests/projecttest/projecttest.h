@@ -27,7 +27,7 @@
 #include "ui_editproject.h"
 
 #include <QLabel>
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 #include <providermanager.h>
 #include <project.h>
