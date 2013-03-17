@@ -27,6 +27,7 @@
 #include <QtCore/QSharedPointer>
 #include <QtCore/QUrl>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
 
 #include "atticaclient_export.h"
 #include "metadata.h"
@@ -44,6 +45,11 @@ public:
     virtual ~BaseJob();
 
     Metadata metadata() const;
+
+    enum NetworkRequestCustomAttributes {
+        UserAttribute = QNetworkRequest::User + 1,
+        PasswordAttribute
+    };
 
 public Q_SLOTS:
     void start();
@@ -68,6 +74,7 @@ protected:
 
 private Q_SLOTS:
     void doWork();
+    void authenticationRequired(QNetworkReply*, QAuthenticator*);
 
 private:
     BaseJob(const BaseJob& other);

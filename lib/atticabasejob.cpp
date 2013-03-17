@@ -26,6 +26,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QTimer>
 #include <QtNetwork/QNetworkReply>
+#include <QAuthenticator>
 
 #include "platformdependent.h"
 
@@ -132,7 +133,14 @@ void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
-    //qDebug() << d->m_reply->url().toString();
+    connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)),
+            this, SLOT(authenticationRequired(QNetworkReply*, QAuthenticator*)));
+}
+
+void BaseJob::authenticationRequired(QNetworkReply* reply, QAuthenticator* auth)
+{
+    auth->setUser(reply->request().attribute((QNetworkRequest::Attribute) BaseJob::UserAttribute).toString());
+    auth->setPassword(reply->request().attribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute).toString());
 }
 
 void BaseJob::abort()

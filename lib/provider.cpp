@@ -1532,24 +1532,16 @@ ItemJob<PrivateData>* Provider::requestPrivateData(const QString& app, const QSt
 QUrl Provider::createUrl(const QString& path)
 {
     QUrl url(d->m_baseUrl.toString() + path);
-    if (!d->m_credentialsUserName.isEmpty()) {
-        url.setUserName(d->m_credentialsUserName);
-        url.setPassword(d->m_credentialsPassword);
-    }
     return url;
 }
 
 QNetworkRequest Provider::createRequest(const QUrl& url)
 {
     QNetworkRequest request(url);
-    //qDebug() << "OCS Request:" << url;
     if (!d->m_credentialsUserName.isEmpty()) {
-        QString concatenated = d->m_credentialsUserName + QLatin1Char( ':' ) + d->m_credentialsPassword;
-        QByteArray data = concatenated.toLocal8Bit().toBase64();
-        QString headerData = QLatin1String( "Basic " ) +QLatin1String( data );
-        request.setRawHeader("Authorization" ,headerData.toLocal8Bit() );
+        request.setAttribute((QNetworkRequest::Attribute) BaseJob::UserAttribute, QVariant(d->m_credentialsUserName));
+        request.setAttribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute, QVariant(d->m_credentialsPassword));
     }
-
     return request;
 }
 
