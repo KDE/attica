@@ -110,6 +110,7 @@ public:
     QString m_knowledgebaseVersion;
     QString m_eventVersion;
     QString m_commentVersion;
+    QString m_registerUrl;
     PlatformDependent* m_internals;
 
     Private()
@@ -132,13 +133,14 @@ public:
         , m_eventVersion(other.m_eventVersion)
         , m_commentVersion(other.m_commentVersion)
         , m_internals(other.m_internals)
+        , m_registerUrl(other.m_registerUrl)
     {
     }
 
 Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
         const QString& person, const QString& friendV, const QString& message, const QString& achievement,
         const QString& activity, const QString& content, const QString& fan, const QString& forum,
-        const QString& knowledgebase, const QString& event, const QString& comment)
+        const QString& knowledgebase, const QString& event, const QString& comment, const QString& registerUrl)
         : m_baseUrl(baseUrl), m_icon(icon), m_name(name)
         , m_personVersion(person)
         , m_friendVersion(friendV)
@@ -152,6 +154,7 @@ Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, 
         , m_eventVersion(event)
         , m_commentVersion(comment)
         , m_internals(internals)
+        , m_registerUrl(registerUrl)
     {
         if (m_baseUrl.isEmpty()) {
             return;
@@ -184,7 +187,17 @@ Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QStr
                    const QString& person, const QString& friendV, const QString& message, const QString& achievement,
                    const QString& activity, const QString& content, const QString& fan, const QString& forum,
                    const QString& knowledgebase, const QString& event, const QString& comment)
-    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content, fan, forum, knowledgebase, event, comment))
+    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
+                    fan, forum, knowledgebase, event, comment, QString()))
+{
+}
+
+Provider::Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
+                   const QString& person, const QString& friendV, const QString& message, const QString& achievement,
+                   const QString& activity, const QString& content, const QString& fan, const QString& forum,
+                   const QString& knowledgebase, const QString& event, const QString& comment, const QString& registerUrl)
+    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
+                    fan, forum, knowledgebase, event, comment, registerUrl))
 {
 }
 
@@ -306,6 +319,10 @@ PostJob* Provider::registerAccount(const QString& id, const QString& password, c
     return new PostJob(d->m_internals, createRequest(QLatin1String( "person/add" )), postParameters);
 }
 
+const QString& Provider::getRegisterAccountUrl() const
+{
+    return d->m_registerUrl;
+}
 
 ItemJob<Person>* Provider::requestPerson(const QString& id)
 {

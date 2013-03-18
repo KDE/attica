@@ -236,6 +236,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             QString knowledgebase;
             QString event;
             QString comment;
+            QString registerUrl;
 
             while (!xml.atEnd() && xml.readNext()) {
                 if (xml.isStartElement())
@@ -268,6 +269,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                         event = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
                     } else if (xml.name() == QLatin1String("comment")) {
                         comment = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                    } else if (xml.name() == QLatin1String("register")) {
+                        registerUrl = xml.readElementText();
                     }
                 } else if (xml.isEndElement() && xml.name() == QLatin1String("provider")) {
                     break;
@@ -276,7 +279,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             if (!baseUrl.isEmpty()) {
                 //qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon,
-                    person, friendV, message, achievement, activity, content, fan, forum, knowledgebase, event, comment));
+                    person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
+                    event, comment, registerUrl));
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }

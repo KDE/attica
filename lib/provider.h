@@ -660,6 +660,8 @@ class ATTICA_EXPORT Provider
     ListJob<Topic>* requestTopics(const QString& forum, const QString& search, const QString& description, SortMode mode, int page, int pageSize);
     PostJob* postTopic(const QString& forumId, const QString& subject, const QString& content);
 
+    const QString& getRegisterAccountUrl() const;
+
   protected:
     QUrl createUrl(const QString& path);
     QNetworkRequest createRequest(const QUrl& url);
@@ -685,6 +687,11 @@ class ATTICA_EXPORT Provider
              const QString& person, const QString& friendV, const QString& message, const QString& achievements,
              const QString& activity, const QString& content, const QString& fan, const QString& forum,
              const QString& knowledgebase, const QString& event, const QString& comment);
+    // kde-SC5: merge with the constructor above (i.e. remove the above one)
+    Provider(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, const QUrl& icon,
+             const QString& person, const QString& friendV, const QString& message, const QString& achievements,
+             const QString& activity, const QString& content, const QString& fan, const QString& forum,
+             const QString& knowledgebase, const QString& event, const QString& comment, const QString& registerUrl);
 
 friend class ProviderManager;
 };
