@@ -132,8 +132,8 @@ public:
         , m_knowledgebaseVersion(other.m_knowledgebaseVersion)
         , m_eventVersion(other.m_eventVersion)
         , m_commentVersion(other.m_commentVersion)
-        , m_internals(other.m_internals)
         , m_registerUrl(other.m_registerUrl)
+        , m_internals(other.m_internals)
     {
     }
 
@@ -153,8 +153,8 @@ Private(PlatformDependent* internals, const QUrl& baseUrl, const QString& name, 
         , m_knowledgebaseVersion(knowledgebase)
         , m_eventVersion(event)
         , m_commentVersion(comment)
-        , m_internals(internals)
         , m_registerUrl(registerUrl)
+        , m_internals(internals)
     {
         if (m_baseUrl.isEmpty()) {
             return;
