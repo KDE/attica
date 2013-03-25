@@ -11,7 +11,6 @@ endif()
 include_directories(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                     ${LIBATTICA_INCLUDE_DIRS}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/lib
                     ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(editproject_UI editproject.ui)

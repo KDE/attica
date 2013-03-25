@@ -59,6 +59,6 @@ void PersonTest::testParsing()
     QVERIFY(!person.isValid());
 }
 
-QTEST_MAIN(PersonTest);
+QTEST_MAIN(PersonTest)
 
 #include "persontest.moc"
