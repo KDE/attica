@@ -33,7 +33,7 @@
 #define LIBATTICA_VERSION_MINOR ${CMAKE_LIBATTICA_VERSION_MINOR}
 
 /// @brief The Attica release version number at compile time
-#define LIBATTICA_VERSION_RELEASE ${CMAKE_LIBATTICA_VERSION_RELEASE}
+#define LIBATTICA_VERSION_RELEASE ${CMAKE_LIBATTICA_VERSION_PATCH}
 
 /**
  * \brief Create a unique number from the major, minor and release number of a %Attica version
