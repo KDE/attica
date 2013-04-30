@@ -5,8 +5,9 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
+option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
 find_package(Qt5Core QUIET)
-if (Qt5Core_FOUND)
+if (Qt5Core_FOUND AND NOT QT4_BUILD)
   message(STATUS "Building with Qt5 support")
   find_package(ECM 0.0.6 REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_MODULE_PATH})
