@@ -5,24 +5,6 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
-option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
-if (NOT QT4_BUILD)
-  find_package(Qt5Core QUIET)
-endif()
-if (Qt5Core_FOUND)
-  message(STATUS "Building with Qt5 support")
-  find_package(ECM 0.0.6 REQUIRED NO_MODULE)
-  set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_MODULE_PATH})
-  find_package(Qt5Transitional REQUIRED Core Network)
-  include(GNUInstallDirs)
-  set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-else()
-  set(QT_MIN_VERSION "4.7.0")
-  find_package(Qt4 REQUIRED)
-  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-  set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
-endif()
-
 include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # mingw can't handle exported explicit template instantiations in a DLL
