@@ -111,7 +111,7 @@ endif()
 target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 
 
-install(TARGETS attica ARCHIVE DESTINATION ${LIB_DESTINATION}
+install(TARGETS attica EXPORT LibAtticaExport ARCHIVE DESTINATION ${LIB_DESTINATION}
                                LIBRARY DESTINATION ${LIB_DESTINATION}
                                RUNTIME DESTINATION bin)
 

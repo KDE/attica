@@ -74,3 +74,7 @@ install(FILES ${attica_BINARY_DIR}/LibAtticaConfig.cmake
               ${attica_BINARY_DIR}/LibAtticaConfigVersion.cmake
         DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
        )
+
+install(EXPORT LibAtticaExport FILE LibAtticaTargets.cmake
+        DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+        NAMESPACE LibAttica::)
