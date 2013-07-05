@@ -15,7 +15,7 @@ set(LibAttica_VERSION       @CMAKE_LIBATTICA_VERSION_STRING@)
 #########################################
 
 ########## Install dirs ##########
-set_and_check(LibAttica_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include")
+set_and_check(LibAttica_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
 set_and_check(LibAttica_LIBRARY_DIRS "@PACKAGE_LIB_DESTINATION@")
 ##################################
 
@@ -26,7 +26,7 @@ set(LibAttica_LIBRARIES        LibAttica::attica)
 ###########################################
 
 # The following variables are kept for compatibility purpose
-set(LIBATTICA_INCLUDE_DIR ${LibAttica_INCLUDE_DIR})
+set(LIBATTICA_INCLUDE_DIR ${LibAttica_INCLUDE_DIRS})
 set(LIBATTICA_LIBRARY_DIRS ${LibAttica_LIBRARY_DIRS})
 set(LIBATTICA_FOUND ${LibAttica_FOUND})
 set(LIBATTICA_LIBRARIES ${LibAttica_LIBRARIES})
