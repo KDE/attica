@@ -53,8 +53,6 @@ if (ATTICA_ENABLE_TESTS)
     enable_testing()
 endif (ATTICA_ENABLE_TESTS)
 
-set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
-
 add_subdirectory(lib)
 
 # Write LibAtticaConfigVersion.cmake
