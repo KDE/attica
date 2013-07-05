@@ -62,3 +62,15 @@ write_basic_package_version_file(${attica_BINARY_DIR}/LibAtticaConfigVersion.cma
                                  VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
                                  COMPATIBILITY SameMajorVersion
                                 )
+
+# Create the CMake Config files
+configure_package_config_file(LibAtticaConfig.cmake.in
+                              ${attica_BINARY_DIR}/LibAtticaConfig.cmake
+                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+                              PATH_VARS LIB_DESTINATION
+)
+
+install(FILES ${attica_BINARY_DIR}/LibAtticaConfig.cmake
+              ${attica_BINARY_DIR}/LibAtticaConfigVersion.cmake
+        DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+       )

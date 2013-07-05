@@ -1,0 +1,24 @@
+@PACKAGE_INIT@
+
+# Config file for LibAttica
+# The following variables are defined:
+# LibAttica_FOUND       - True if LibAttica has been found.
+# LibAttica_INCLUDE_DIR - The include directory.
+# LibAttica_LIBRARY_DIRS - The libraries directory.
+
+########## The LibAttica version ##########
+set(LibAttica_VERSION_MAJOR @CMAKE_LIBATTICA_VERSION_MAJOR@)
+set(LibAttica_VERSION_MINOR @CMAKE_LIBATTICA_VERSION_MINOR@)
+set(LibAttica_VERSION_PATCH @CMAKE_LIBATTICA_VERSION_PATCH@)
+set(LibAttica_VERSION       @CMAKE_LIBATTICA_VERSION_STRING@)
+#########################################
+
+########## Install dirs ##########
+set_and_check(LibAttica_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include/attica")
+set_and_check(LibAttica_LIBRARY_DIRS "@PACKAGE_LIB_DESTINATION@")
+##################################
+
+# The following variables are kept for compatibility purpose
+set(LIBATTICA_INCLUDE_DIR ${LibAttica_INCLUDE_DIR})
+set(LIBATTICA_LIBRARY_DIRS ${LibAttica_LIBRARY_DIRS})
+set(LIBATTICA_FOUND ${LibAttica_FOUND})
