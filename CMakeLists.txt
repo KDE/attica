@@ -5,6 +5,10 @@ option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
 if (NOT QT4_BUILD)
   find_package(Qt5Core QUIET)
 endif()
+
+# Used to create CMake config files
+include(CMakePackageConfigHelpers)
+
 if (Qt5Core_FOUND)
   message(STATUS "Building with Qt5 support")
   find_package(ECM 0.0.6 REQUIRED NO_MODULE)
@@ -53,3 +57,8 @@ set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
 
 add_subdirectory(lib)
 
+# Write LibAtticaConfigVersion.cmake
+write_basic_package_version_file(${attica_BINARY_DIR}/LibAtticaConfigVersion.cmake
+                                 VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
+                                 COMPATIBILITY SameMajorVersion
+                                )
