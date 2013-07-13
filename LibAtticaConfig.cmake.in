@@ -3,7 +3,7 @@
 # Config file for LibAttica
 # The following variables are defined:
 # LibAttica_FOUND        - True if LibAttica has been found.
-# LibAttica_INCLUDE_DIR  - The include directory.
+# LibAttica_INCLUDE_DIRS - The include directory.
 # LibAttica_LIBRARY_DIRS - The libraries directory.
 # LibAttica_LIBRARIES    - Libraries needed to use Attica.
 
@@ -30,3 +30,4 @@ set(LIBATTICA_INCLUDE_DIR ${LibAttica_INCLUDE_DIRS})
 set(LIBATTICA_LIBRARY_DIRS ${LibAttica_LIBRARY_DIRS})
 set(LIBATTICA_FOUND ${LibAttica_FOUND})
 set(LIBATTICA_LIBRARIES ${LibAttica_LIBRARIES})
+
