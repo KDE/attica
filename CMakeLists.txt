@@ -1,5 +1,5 @@
 project(attica)
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 2.8.11)
 
 option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
 if (NOT QT4_BUILD)
