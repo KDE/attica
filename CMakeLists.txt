@@ -9,18 +9,20 @@ endif()
 # Used to create CMake config files
 include(CMakePackageConfigHelpers)
 
+# Used to set installation paths
+include(GNUInstallDirs)
+
+# Set the different paths
+set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+
 if (Qt5Core_FOUND)
   message(STATUS "Building with Qt5 support")
   find_package(ECM 0.0.6 REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_MODULE_PATH})
   find_package(Qt5Transitional REQUIRED Core Network)
-  include(GNUInstallDirs)
-  set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 else()
   set(QT_MIN_VERSION "4.7.0")
   find_package(Qt4 REQUIRED)
-  set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-  set(LIB_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Library directory name" FORCE)
 endif()
 
 if (Qt5Core_FOUND)
