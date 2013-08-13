@@ -109,7 +109,7 @@ if(Qt5Core_FOUND)
 endif()
 
 target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-
+target_include_directories(attica INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}>)
 
 install(TARGETS attica EXPORT LibAtticaExport ARCHIVE DESTINATION ${LIB_DESTINATION}
                                LIBRARY DESTINATION ${LIB_DESTINATION}
