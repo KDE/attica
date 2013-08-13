@@ -15,7 +15,7 @@ set(LibAttica_VERSION       @CMAKE_LIBATTICA_VERSION_STRING@)
 #########################################
 
 ########## Install dirs ##########
-set_and_check(LibAttica_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
+set_and_check(LibAttica_INCLUDE_DIRS "@PACKAGE_INCLUDE_DESTINATION@")
 set_and_check(LibAttica_LIBRARY_DIRS "@PACKAGE_LIB_DESTINATION@")
 ##################################
 

@@ -13,7 +13,8 @@ include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
 # Set the different paths
-set(LIB_DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}")
+set(LIB_DESTINATION         "${CMAKE_INSTALL_FULL_LIBDIR}" CACHE PATH "Library directory name")
+set(INCLUDE_DESTINATION     "${CMAKE_INSTALL_FULL_INCLUDEDIR}" CACHE PATH "The subdirectory to the header prefix")
 
 if (Qt5Core_FOUND)
   message(STATUS "Building with Qt5 support")
@@ -67,7 +68,7 @@ write_basic_package_version_file(${attica_BINARY_DIR}/LibAtticaConfigVersion.cma
 configure_package_config_file(LibAtticaConfig.cmake.in
                               ${attica_BINARY_DIR}/LibAtticaConfig.cmake
                               INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
-                              PATH_VARS LIB_DESTINATION
+                              PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
 )
 
 install(FILES ${attica_BINARY_DIR}/LibAtticaConfig.cmake

@@ -160,7 +160,7 @@ install(FILES
     publisherfield.h
     topic.h
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
-    DESTINATION include/attica COMPONENT Devel
+    DESTINATION ${INCLUDE_DESTINATION}/attica COMPONENT Devel
 )
 
 # Install package config file
