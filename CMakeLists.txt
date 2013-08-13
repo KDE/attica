@@ -13,7 +13,7 @@ include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
 # Set the different paths
-set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+set(LIB_DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}")
 
 if (Qt5Core_FOUND)
   message(STATUS "Building with Qt5 support")
