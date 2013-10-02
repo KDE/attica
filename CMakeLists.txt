@@ -1,6 +1,8 @@
 project(attica)
 cmake_minimum_required(VERSION 2.8.11)
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+
 option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
 if (NOT QT4_BUILD)
   find_package(Qt5Core QUIET)
@@ -18,8 +20,6 @@ set(INCLUDE_DESTINATION     "${CMAKE_INSTALL_FULL_INCLUDEDIR}" CACHE PATH "The s
 
 if (Qt5Core_FOUND)
   message(STATUS "Building with Qt5 support")
-  find_package(ECM 0.0.6 REQUIRED NO_MODULE)
-  set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_MODULE_PATH})
   find_package(Qt5Transitional REQUIRED Core Network)
 else()
   set(QT_MIN_VERSION "4.7.0")
