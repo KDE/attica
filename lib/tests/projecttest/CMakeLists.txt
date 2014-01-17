@@ -24,4 +24,4 @@ qt4_automoc(${projecttest_SRCS} ${editproject_SRCS})
 
 add_executable(projecttest ${projecttest_SRCS} ${editproject_UI_H})
 
-target_link_libraries(projecttest ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} attica)
+target_link_libraries(projecttest ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${ATTICA_LIB_SONAME})

@@ -1,7 +1,7 @@
 prefix=${CMAKE_INSTALL_PREFIX}
 exec_prefix=${CMAKE_INSTALL_PREFIX}/bin
 libdir=${LIB_DESTINATION}
-includedir=${INCLUDE_DESTINATION}
+includedir=${INCLUDE_DESTINATION}/KF5Attica
 
 Name: lib${ATTICA_LIB_SONAME}
 Description: Qt library to access Open Collaboration Services

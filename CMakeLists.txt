@@ -30,10 +30,16 @@ if (Qt5Core_FOUND)
   set(CMAKE_LIBATTICA_VERSION_MAJOR 1)
   set(CMAKE_LIBATTICA_VERSION_MINOR 0)
   set(CMAKE_LIBATTICA_VERSION_PATCH 0)
+  set(ATTICA_LIB_SONAME KF5Attica)
+  set(ATTICA_LIB_SONAME_CAMEL KF5Attica)
+  set(ATTICA_LIB_NAMESPACE KF5)
 else()
   set(CMAKE_LIBATTICA_VERSION_MAJOR 0)
   set(CMAKE_LIBATTICA_VERSION_MINOR 4)
   set(CMAKE_LIBATTICA_VERSION_PATCH 2)
+  set(ATTICA_LIB_SONAME attica)
+  set(ATTICA_LIB_SONAME_CAMEL LibAttica)
+  set(ATTICA_LIB_NAMESPACE LibAttica)
 endif()
 set(CMAKE_LIBATTICA_VERSION_STRING  "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}")
 
@@ -59,23 +65,31 @@ endif (ATTICA_ENABLE_TESTS)
 add_subdirectory(lib)
 
 # Write LibAtticaConfigVersion.cmake
-write_basic_package_version_file(${attica_BINARY_DIR}/LibAtticaConfigVersion.cmake
+write_basic_package_version_file(${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}ConfigVersion.cmake
                                  VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
                                  COMPATIBILITY SameMajorVersion
                                 )
 
 # Create the CMake Config files
-configure_package_config_file(LibAtticaConfig.cmake.in
+if (Qt5Core_FOUND)
+  configure_package_config_file(LibAtticaConfig.cmake.in
                               ${attica_BINARY_DIR}/LibAtticaConfig.cmake
-                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
                               PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
-)
+  )
+else()
+  configure_package_config_file(KF5AtticaConfig.cmake.in
+                              ${attica_BINARY_DIR}/KF5AtticaConfig.cmake
+                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
+                              PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
+  )
+endif()
 
-install(FILES ${attica_BINARY_DIR}/LibAtticaConfig.cmake
-              ${attica_BINARY_DIR}/LibAtticaConfigVersion.cmake
-        DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+install(FILES ${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}Config.cmake
+              ${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}ConfigVersion.cmake
+        DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
        )
 
 install(EXPORT LibAtticaExport FILE LibAtticaTargets.cmake
-        DESTINATION ${LIB_DESTINATION}/cmake/LibAttica
+        DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
         NAMESPACE LibAttica::)

@@ -89,14 +89,14 @@ set(ocsclient_SRCS
 qt4_automoc(${ocsclient_SRCS})
 
 if (ATTICA_STATIC_BUILD)
-    add_library(attica STATIC ${ocsclient_SRCS})
-    set_target_properties(attica PROPERTIES
+    add_library(${ATTICA_LIB_SONAME} STATIC ${ocsclient_SRCS})
+    set_target_properties(${ATTICA_LIB_SONAME} PROPERTIES
         VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
         SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}
     )
 else (ATTICA_STATIC_BUILD)
-    add_library(attica SHARED ${ocsclient_SRCS})
-    set_target_properties(attica PROPERTIES
+    add_library(${ATTICA_LIB_SONAME} SHARED ${ocsclient_SRCS})
+    set_target_properties(${ATTICA_LIB_SONAME} PROPERTIES
         VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
         SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}
         LINK_INTERFACE_LIBRARIES ""
@@ -105,17 +105,16 @@ else (ATTICA_STATIC_BUILD)
 endif(ATTICA_STATIC_BUILD)
 
 if(Qt5Core_FOUND)
-  set_property(TARGET attica APPEND PROPERTY COMPILE_DEFINITIONS QT_DISABLE_DEPRECATED_BEFORE=0)
+  set_property(TARGET ${ATTICA_LIB_SONAME} APPEND PROPERTY COMPILE_DEFINITIONS QT_DISABLE_DEPRECATED_BEFORE=0)
 endif()
 
-target_link_libraries(attica ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-target_include_directories(attica INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}>)
-
-install(TARGETS attica EXPORT LibAtticaExport ARCHIVE DESTINATION ${LIB_DESTINATION}
+target_link_libraries(${ATTICA_LIB_SONAME} ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_include_directories(${ATTICA_LIB_SONAME} INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}>)
+ 
+install(TARGETS ${ATTICA_LIB_SONAME} EXPORT LibAtticaExport ARCHIVE DESTINATION ${LIB_DESTINATION}
                                LIBRARY DESTINATION ${LIB_DESTINATION}
                                RUNTIME DESTINATION bin)
-
-install(FILES
+set(ATTICA_HEADERS
     activity.h
     accountbalance.h
     achievement.h
@@ -159,18 +158,37 @@ install(FILES
     publisher.h
     publisherfield.h
     topic.h
-    ${CMAKE_CURRENT_BINARY_DIR}/version.h
-    DESTINATION ${INCLUDE_DESTINATION}/attica COMPONENT Devel
 )
+
+if (Qt5Core_FOUND)
+  install(FILES ${ATTICA_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+    DESTINATION ${INCLUDE_DESTINATION}/${ATTICA_LIB_SONAME}/attica/ COMPONENT Devel
+  )
+else()
+  install(FILES ${ATTICA_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+    DESTINATION ${INCLUDE_DESTINATION}/attica/ COMPONENT Devel
+  )
+endif()
 
 # Install package config file
 if(NOT WIN32)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libattica.pc.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/libattica.pc
+if (Qt5Core_FOUND)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libKF5Attica.pc.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
     )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libattica.pc
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
         DESTINATION ${LIB_DESTINATION}/pkgconfig
     )
+else()
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libattica.pc.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
+    )
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
+        DESTINATION ${LIB_DESTINATION}/pkgconfig
+    )
+endif()
 endif(NOT WIN32)
 
 # Add the optional subdirectory with unit tests
