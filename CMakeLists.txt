@@ -72,14 +72,14 @@ write_basic_package_version_file(${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}
 
 # Create the CMake Config files
 if (Qt5Core_FOUND)
-  configure_package_config_file(LibAtticaConfig.cmake.in
-                              ${attica_BINARY_DIR}/LibAtticaConfig.cmake
+  configure_package_config_file(KF5AtticaConfig.cmake.in
+                              ${attica_BINARY_DIR}/KF5AtticaConfig.cmake
                               INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
                               PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
   )
 else()
-  configure_package_config_file(KF5AtticaConfig.cmake.in
-                              ${attica_BINARY_DIR}/KF5AtticaConfig.cmake
+  configure_package_config_file(LibAtticaConfig.cmake.in
+                              ${attica_BINARY_DIR}/LibAtticaConfig.cmake
                               INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
                               PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
   )
