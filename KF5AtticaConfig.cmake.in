@@ -24,10 +24,3 @@ set_and_check(LibAttica_LIBRARY_DIRS "@PACKAGE_LIB_DESTINATION@")
 include("${CMAKE_CURRENT_LIST_DIR}/LibAtticaTargets.cmake")
 set(LibAttica_LIBRARIES        @ATTICA_LIB_NAMESPACE@::@ATTICA_LIB_SONAME@)
 ###########################################
-
-# The following variables are kept for compatibility purpose
-set(LIBATTICA_INCLUDE_DIR ${LibAttica_INCLUDE_DIRS})
-set(LIBATTICA_LIBRARY_DIRS ${LibAttica_LIBRARY_DIRS})
-set(LIBATTICA_FOUND ${LibAttica_FOUND})
-set(LIBATTICA_LIBRARIES ${LibAttica_LIBRARIES})
-
