@@ -90,6 +90,6 @@ install(FILES ${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}Config.cmake
         DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
        )
 
-install(EXPORT LibAtticaExport FILE LibAtticaTargets.cmake
+install(EXPORT LibAtticaExport FILE ${ATTICA_LIB_SONAME_CAMEL}Targets.cmake
         DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
-        NAMESPACE LibAttica::)
+        NAMESPACE ${ATTICA_LIB_NAMESPACE}::)
