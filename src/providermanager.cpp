@@ -222,7 +222,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == QLatin1String("provider")) {
-            QString baseUrl;
+            QUrl baseUrl;
             QString name;
             QUrl icon;
             QString person;
@@ -242,7 +242,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                 if (xml.isStartElement())
                 {
                     if (xml.name() == QLatin1String("location")) {
-                        baseUrl = xml.readElementText();
+                        baseUrl = QUrl(xml.readElementText());
                     } else if (xml.name() == QLatin1String("name")) {
                         name = xml.readElementText();
                     } else if (xml.name() == QLatin1String("icon")) {
@@ -278,7 +278,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             }
             if (!baseUrl.isEmpty()) {
                 //qDebug() << "Adding provider" << baseUrl;
-                d->m_providers.insert(baseUrl, Provider(d->m_internals, QUrl(baseUrl), name, icon,
+                d->m_providers.insert(baseUrl, Provider(d->m_internals, baseUrl, name, icon,
                     person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
                     event, comment, registerUrl));
                 emit providerAdded(d->m_providers.value(baseUrl));
@@ -301,7 +301,7 @@ QList<Provider> ProviderManager::providers() const {
 
 
 bool ProviderManager::contains(const QString& provider) const {
-    return d->m_providers.contains(provider);
+    return d->m_providers.contains(QUrl(provider));
 }
 
 

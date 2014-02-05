@@ -44,7 +44,7 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("homepage")) {
                 person.setHomepage(xml.readElementText());
             } else if (xml.name() == QLatin1String("avatarpic")) {
-                person.setAvatarUrl(xml.readElementText());
+                person.setAvatarUrl(QUrl(xml.readElementText()));
             } else if (xml.name() == QLatin1String("avatarpicfound")) {
                 QString value = xml.readElementText();
                 if (value.toInt()) {
@@ -69,7 +69,7 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
     }
 
     if (!hasAvatarPic) {
-        person.setAvatarUrl(QString());
+        person.setAvatarUrl(QUrl());
     }
 
     return person;

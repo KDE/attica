@@ -173,7 +173,7 @@ QString Content::description() const
 
 QUrl Content::detailpage() const
 {
-    return attribute(QLatin1String( "detailpage" ));
+    return QUrl(attribute(QLatin1String( "detailpage" )));
 }
 
 QString Attica::Content::changelog() const
@@ -270,7 +270,7 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
         num.clear();
     }
     homepage.setType(attribute(QLatin1String( "homepagetype" ) + num));
-    homepage.setUrl(attribute(QLatin1String( "homepage" ) + num));
+    homepage.setUrl(QUrl(attribute(QLatin1String( "homepage" ) + num)));
     return homepage;
 }
 

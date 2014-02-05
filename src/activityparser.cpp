@@ -43,7 +43,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("personid")) {
                 person.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("avatarpic")) {
-                person.setAvatarUrl(xml.readElementText());
+                person.setAvatarUrl(QUrl(xml.readElementText()));
             } else if (xml.name() == QLatin1String("firstname")) {
                 person.setFirstName(xml.readElementText());
             } else if (xml.name() == QLatin1String("lastname")) {
@@ -56,7 +56,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("message")) {
                 activity.setMessage(xml.readElementText());
             } else if (xml.name() == QLatin1String("link")) {
-                activity.setLink(xml.readElementText());
+                activity.setLink(QUrl(xml.readElementText()));
             }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("activity")) {
             break;

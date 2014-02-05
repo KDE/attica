@@ -46,7 +46,7 @@ DownloadItem DownloadItem::Parser::parseXml(QXmlStreamReader& xml)
         xml.readNext();
         if ( xml.isStartElement() ) {
             if ( xml.name() == QLatin1String("downloadlink" )) {
-                item.setUrl( xml.readElementText() );
+                item.setUrl(QUrl(xml.readElementText()));
             } else if ( xml.name() == QLatin1String("mimetype" )) {
                 item.setMimeType( xml.readElementText() );
             } else if ( xml.name() == QLatin1String("packagename" )) {

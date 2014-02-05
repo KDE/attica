@@ -55,7 +55,7 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("longitude")) {
                 event.setLongitude(xml.readElementText().toFloat());
             } else if (xml.name() == QLatin1String("homepage")) {
-                event.setHomepage(xml.readElementText());
+                event.setHomepage(QUrl(xml.readElementText()));
             } else if (xml.name() == QLatin1String("country")) {
                 event.setCountry(xml.readElementText());
             } else if (xml.name() == QLatin1String("city")) {

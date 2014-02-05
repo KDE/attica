@@ -41,7 +41,7 @@ License License::Parser::parseXml(QXmlStreamReader& xml)
             } else if ( xml.name() == QLatin1String("name" )) {
                 item.setName( xml.readElementText() );
             } else if ( xml.name() == QLatin1String("link" )) {
-                item.setUrl( xml.readElementText() );
+                item.setUrl( QUrl(xml.readElementText()) );
             }
         }
         if (xml.isEndElement() && xml.name() == QLatin1String("license")) {
