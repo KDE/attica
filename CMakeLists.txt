@@ -59,7 +59,7 @@ if (ATTICA_ENABLE_TESTS)
 endif (ATTICA_ENABLE_TESTS)
 
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/Attica")
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Attica")
 
 # Create the CMake Config files
 configure_package_config_file(
