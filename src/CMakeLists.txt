@@ -1,12 +1,3 @@
-
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
-
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
-
-include_directories( ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} )
-
 # mingw can't handle exported explicit template instantiations in a DLL
 if (MINGW)
   set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols ${CMAKE_SHARED_LINKER_FLAGS}")
@@ -14,8 +5,9 @@ endif (MINGW)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h)
+# TODO: use generate_export_header?
 
-set(ocsclient_SRCS
+set(attica_SRCS
    accountbalance.cpp
    accountbalanceparser.cpp
    achievement.cpp
@@ -86,38 +78,52 @@ set(ocsclient_SRCS
    topicparser.cpp
 )
 
-qt4_automoc(${ocsclient_SRCS})
-
 if (ATTICA_STATIC_BUILD)
-    add_library(${ATTICA_LIB_SONAME} STATIC ${ocsclient_SRCS})
-    set_target_properties(${ATTICA_LIB_SONAME} PROPERTIES
-        VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
-        SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}
+    add_library(KF5Attica STATIC ${attica_SRCS})
+    set_target_properties(KF5Attica PROPERTIES
+        VERSION ${ATTICA_VERSION_STRING}
+        SOVERSION ${ATTICA_VERSION_MAJOR}
     )
 else (ATTICA_STATIC_BUILD)
-    add_library(${ATTICA_LIB_SONAME} SHARED ${ocsclient_SRCS})
-    set_target_properties(${ATTICA_LIB_SONAME} PROPERTIES
-        VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
-        SOVERSION ${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}
-        LINK_INTERFACE_LIBRARIES ""
+    add_library(KF5Attica SHARED ${attica_SRCS})
+    set_target_properties(KF5Attica PROPERTIES
+        VERSION ${ATTICA_VERSION_STRING}
+        SOVERSION ${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}
         DEFINE_SYMBOL ATTICA_LIB_MAKEDLL
     )
 endif(ATTICA_STATIC_BUILD)
 
-if(Qt5Core_FOUND)
-  set_property(TARGET ${ATTICA_LIB_SONAME} APPEND PROPERTY COMPILE_DEFINITIONS QT_DISABLE_DEPRECATED_BEFORE=0)
-endif()
+add_library(KF5::Attica ALIAS KF5Attica)
 
-target_link_libraries(${ATTICA_LIB_SONAME} ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
-if (Qt5Core_FOUND)
-target_include_directories(${ATTICA_LIB_SONAME} INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}/${ATTICA_LIB_SONAME}>)
-else ()
-target_include_directories(${ATTICA_LIB_SONAME} INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}>)
-endif ()
-install(TARGETS ${ATTICA_LIB_SONAME} EXPORT LibAtticaExport ARCHIVE DESTINATION ${LIB_DESTINATION}
-                               LIBRARY DESTINATION ${LIB_DESTINATION}
-                               RUNTIME DESTINATION bin)
-set(ATTICA_HEADERS
+# OUCH?
+set_property(TARGET KF5Attica APPEND PROPERTY COMPILE_DEFINITIONS QT_DISABLE_DEPRECATED_BEFORE=0)
+
+target_link_libraries(KF5Attica
+PUBLIC
+  Qt5::Core
+  Qt5::Network
+)
+target_include_directories(KF5Attica INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}/KF5Attica>)
+set_target_properties(KF5Attica
+    PROPERTIES VERSION ${ATTICA_VERSION_STRING}
+    SOVERSION ${ATTICA_SOVERSION}
+    EXPORT_NAME "Attica"
+)
+
+install(TARGETS KF5Attica
+        EXPORT KF5AtticaTargets
+        ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+
+ecm_generate_headers(
+    Activity
+    # TODO: other classes
+
+    MODULE_NAME Attica
+    REQUIRED_HEADERS Attica_HEADERS
+)
+
+install(FILES
     activity.h
     accountbalance.h
     achievement.h
@@ -161,36 +167,30 @@ set(ATTICA_HEADERS
     publisher.h
     publisherfield.h
     topic.h
+    ${Attica_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/version.h
+    DESTINATION ${INCLUDE_DESTINATION}/Attica
+    COMPONENT Devel
 )
 
-if (Qt5Core_FOUND)
-  install(FILES ${ATTICA_HEADERS}
-    ${CMAKE_CURRENT_BINARY_DIR}/version.h
-    DESTINATION ${INCLUDE_DESTINATION}/${ATTICA_LIB_SONAME}/attica/ COMPONENT Devel
-  )
-else()
-  install(FILES ${ATTICA_HEADERS}
-    ${CMAKE_CURRENT_BINARY_DIR}/version.h
-    DESTINATION ${INCLUDE_DESTINATION}/attica/ COMPONENT Devel
-  )
-endif()
+include(ECMGeneratePriFile)
+ecm_generate_pri_file(
+    BASE_NAME Attica
+    LIB_NAME KF5Attica
+    DEPS "core"
+    FILENAME_VAR PRI_FILENAME
+)
+install(FILES ${PRI_FILENAME}
+        DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
+
 
 # Install package config file
 if(NOT WIN32)
-if (Qt5Core_FOUND)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libKF5Attica.pc.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
+        ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
     )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
         DESTINATION ${LIB_DESTINATION}/pkgconfig
     )
-else()
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libattica.pc.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
-    )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${ATTICA_LIB_SONAME}.pc
-        DESTINATION ${LIB_DESTINATION}/pkgconfig
-    )
-endif()
 endif(NOT WIN32)
 

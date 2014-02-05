@@ -1,59 +1,48 @@
-project(attica)
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 2.8.12)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+project(Attica)
 
-option(QT4_BUILD "Force building with Qt4 even if Qt5 is found")
-if (NOT QT4_BUILD)
-  find_package(Qt5Core QUIET)
-endif()
+# ECM setup
+find_package(ECM 0.0.10 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-# Used to create CMake config files
-include(CMakePackageConfigHelpers)
+include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+include(CMakePackageConfigHelpers) # Used to create CMake config files
+include(KDEInstallDirs) # Used to set installation paths
+include(KDEFrameworkCompilerSettings)
+include(KDECMakeSettings)
 
-# Used to set installation paths
-include(GNUInstallDirs)
+set(KF5_VERSION "4.96.0")
 
-# Set the different paths
-set(LIB_DESTINATION         "${CMAKE_INSTALL_FULL_LIBDIR}" CACHE PATH "Library directory name")
-set(INCLUDE_DESTINATION     "${CMAKE_INSTALL_FULL_INCLUDEDIR}" CACHE PATH "The subdirectory to the header prefix")
+ecm_setup_version(${KF5_VERSION}
+    VARIABLE_PREFIX ATTICA
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfigVersion.cmake"
+)
 
-if (Qt5Core_FOUND)
-  message(STATUS "Building with Qt5 support")
-  find_package(Qt5Transitional REQUIRED Core Network)
-else()
-  set(QT_MIN_VERSION "4.7.0")
-  find_package(Qt4 REQUIRED)
-endif()
+# Dependencies
+set(REQUIRED_QT_VERSION "5.2.0")
 
-if (Qt5Core_FOUND)
-  set(CMAKE_LIBATTICA_VERSION_MAJOR 1)
-  set(CMAKE_LIBATTICA_VERSION_MINOR 0)
-  set(CMAKE_LIBATTICA_VERSION_PATCH 0)
-  set(ATTICA_LIB_SONAME KF5Attica)
-  set(ATTICA_LIB_SONAME_CAMEL KF5Attica)
-  set(ATTICA_LIB_NAMESPACE KF5)
-else()
-  set(CMAKE_LIBATTICA_VERSION_MAJOR 0)
-  set(CMAKE_LIBATTICA_VERSION_MINOR 4)
-  set(CMAKE_LIBATTICA_VERSION_PATCH 2)
-  set(ATTICA_LIB_SONAME attica)
-  set(ATTICA_LIB_SONAME_CAMEL LibAttica)
-  set(ATTICA_LIB_NAMESPACE LibAttica)
-endif()
-set(CMAKE_LIBATTICA_VERSION_STRING  "${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}")
+# Required Qt5 components to build this framework
+find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 
-if(NOT MSVC)
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2 -g")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2")
-    set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -g3 -ggdb -O0" CACHE STRING "Debug options." FORCE)
-endif(NOT MSVC)
+set(ATTICA_LIB_SONAME KF5Attica)
+set(ATTICA_LIB_SONAME_CAMEL KF5Attica)
+set(ATTICA_LIB_NAMESPACE KF5)
+
+#if(NOT MSVC)
+    #set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2 -g")
+    #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -O2")
+    #set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS} -Wall -Wno-switch -g3 -ggdb -O0" CACHE STRING "Debug options." FORCE)
+#endif(NOT MSVC)
 
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # Enable static build
@@ -64,42 +53,35 @@ add_subdirectory(src)
 # Enable unit testing
 if (ATTICA_ENABLE_TESTS)
     enable_testing()
-    if(Qt5Core_FOUND)
-        find_package(Qt5Transitional REQUIRED
-            Test
-        )
-    endif()
+    find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Test)
     add_subdirectory(autotests)
     add_subdirectory(tests)
 endif (ATTICA_ENABLE_TESTS)
 
-
-# Write LibAtticaConfigVersion.cmake
-write_basic_package_version_file(${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}ConfigVersion.cmake
-                                 VERSION ${CMAKE_LIBATTICA_VERSION_STRING}
-                                 COMPATIBILITY SameMajorVersion
-                                )
+# Create a Config.cmake and a ConfigVersion.cmake file and install them
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/Attica")
 
 # Create the CMake Config files
-if (Qt5Core_FOUND)
-  configure_package_config_file(KF5AtticaConfig.cmake.in
-                              ${attica_BINARY_DIR}/KF5AtticaConfig.cmake
-                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
-                              PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
-  )
-else()
-  configure_package_config_file(LibAtticaConfig.cmake.in
-                              ${attica_BINARY_DIR}/LibAtticaConfig.cmake
-                              INSTALL_DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
-                              PATH_VARS LIB_DESTINATION INCLUDE_DESTINATION
-  )
-endif()
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/KF5AtticaConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
+    INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+)
 
-install(FILES ${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}Config.cmake
-              ${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}ConfigVersion.cmake
-        DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
-       )
+install(FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfigVersion.cmake"
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        COMPONENT Devel)
 
-install(EXPORT LibAtticaExport FILE ${ATTICA_LIB_SONAME_CAMEL}Targets.cmake
-        DESTINATION ${LIB_DESTINATION}/cmake/${ATTICA_LIB_SONAME_CAMEL}
-        NAMESPACE ${ATTICA_LIB_NAMESPACE}::)
+install(EXPORT KF5AtticaTargets
+        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+        FILE KF5AtticaTargets.cmake
+        NAMESPACE KF5::)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
+        DESTINATION "${INCLUDE_INSTALL_DIR}"
+        COMPONENT Devel)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+

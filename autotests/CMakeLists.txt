@@ -1,11 +1,12 @@
-macro(ATTICA_TESTS)
+macro(ATTICA_AUTOTESTS)
     foreach(_testname ${ARGN})
-        qt4_generate_moc(${_testname}.cpp ${CMAKE_CURRENT_BINARY_DIR}/${_testname}.moc)
-        add_executable(${_testname} ${_testname}.cpp ${_testname}.moc)
-        target_link_libraries(${_testname} ${QT_QTTEST_LIBRARY} ${QT_QTCORE_LIBRARY} ${ATTICA_LIB_SONAME})
-        add_test(${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname})
+        add_executable(${_testname} ${_testname}.cpp)
+        target_link_libraries(${_testname} Qt5::Test ${ATTICA_LIB_SONAME})
+        add_test(attica-${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname})
     endforeach(_testname)
-endmacro(ATTICA_TESTS)
+endmacro(ATTICA_AUTOTESTS)
 
-ATTICA_TESTS(persontest )
-#             attributestest)
+ATTICA_AUTOTESTS(
+  persontest
+# attributestest
+)
