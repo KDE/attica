@@ -103,72 +103,71 @@ PUBLIC
   Qt5::Core
   Qt5::Network
 )
-target_include_directories(KF5Attica INTERFACE $<INSTALL_INTERFACE:${INCLUDE_DESTINATION}/KF5Attica>)
+target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/Attica>")
+
 set_target_properties(KF5Attica
     PROPERTIES VERSION ${ATTICA_VERSION_STRING}
     SOVERSION ${ATTICA_SOVERSION}
     EXPORT_NAME "Attica"
 )
 
+ecm_generate_headers(
+  Activity
+  AccountBalance
+  Achievement
+  Comment
+  Content
+  Category
+  DeleteJob
+  Distribution
+  DownloadDescription
+  DownloadItem
+  Event
+  Folder
+  Forum
+  GetJob
+  HomePageEntry
+  HomePageType
+  Icon
+  ItemJob
+  KnowledgeBaseEntry
+  ListJob
+  License
+  Message
+  Metadata
+  Person
+  PrivateData
+  PostJob
+  Project
+  PutJob
+  RemoteAccount
+  BuildService
+  BuildServiceJob
+  BuildServiceJobOutput
+  ProviderManager
+  Provider
+  Publisher
+  PublisherField
+  Topic
+
+  MODULE_NAME Attica
+  REQUIRED_HEADERS Attica_HEADERS
+)
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Attica DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+
 install(TARGETS KF5Attica
         EXPORT KF5AtticaTargets
         ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-
-ecm_generate_headers(
-    Activity
-    # TODO: other classes
-
-    MODULE_NAME Attica
-    REQUIRED_HEADERS Attica_HEADERS
-)
-
 install(FILES
-    activity.h
-    accountbalance.h
-    achievement.h
     atticabasejob.h
-    ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     atticautils.h
-    comment.h
-    content.h
-    category.h
-    deletejob.h
-    distribution.h
-    downloaddescription.h
-    downloaditem.h
-    event.h
-    folder.h
-    forum.h
-    getjob.h
-    homepageentry.h
-    homepagetype.h
-    icon.h
-    itemjob.h
-    knowledgebaseentry.h
-    listjob.h
-    license.h
-    message.h
-    metadata.h
-    person.h
     #interface for external platform plugins
     platformdependent.h
     platformdependent_v2.h
-    privatedata.h
-    postjob.h
-    project.h
-    putjob.h
-    remoteaccount.h
-    buildservice.h
-    buildservicejob.h
-    buildservicejoboutput.h
-    providermanager.h
-    provider.h
-    publisher.h
-    publisherfield.h
-    topic.h
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
+    ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
     DESTINATION ${INCLUDE_DESTINATION}/Attica
     COMPONENT Devel
 )
