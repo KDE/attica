@@ -168,7 +168,7 @@ install(FILES
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
-    DESTINATION ${INCLUDE_DESTINATION}/Attica
+    DESTINATION ${INCLUDE_INSTALL_DIR}/Attica
     COMPONENT Devel
 )
 
@@ -189,7 +189,7 @@ if(NOT WIN32)
         ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
     )
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
-        DESTINATION ${LIB_DESTINATION}/pkgconfig
+       DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
     )
 endif(NOT WIN32)
 
