@@ -160,8 +160,8 @@ install(TARGETS KF5Attica
         ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
-    atticabasejob.h
-    atticautils.h
+    atticabasejob.h # TODO: rename to basejob.h, add atticabasejob.h forwarding to basejob.h for compat
+    atticautils.h   # TODO: not exported, this should probably NOT be installed at all?
     #interface for external platform plugins
     platformdependent.h
     platformdependent_v2.h

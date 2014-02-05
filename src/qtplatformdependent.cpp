@@ -23,7 +23,7 @@
 
 */
 
-#include "qtplatformdependent.h"
+#include "qtplatformdependent_p.h"
 
 #include <QtCore/QUrl>
 #include <QtCore/QStringList>

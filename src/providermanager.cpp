@@ -40,7 +40,7 @@
 #endif // QT_VERSION
 
 #include "platformdependent.h"
-#include "qtplatformdependent.h"
+#include "qtplatformdependent_p.h"
 #include <QLibraryInfo>
 
 
