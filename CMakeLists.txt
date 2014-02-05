@@ -53,16 +53,26 @@ add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 
+add_subdirectory(src)
+
 # Enable unit testing
-option(ATTICA_ENABLE_TESTS "Enable tests" ON)
 if (ATTICA_ENABLE_TESTS)
     enable_testing()
+    if(Qt5Core_FOUND)
+        find_package(Qt5Transitional REQUIRED
+            Test
+        )
+    endif()
+    add_subdirectory(autotests)
+    add_subdirectory(tests)
 endif (ATTICA_ENABLE_TESTS)
 
-add_subdirectory(lib)
 
 # Write LibAtticaConfigVersion.cmake
 write_basic_package_version_file(${attica_BINARY_DIR}/${ATTICA_LIB_SONAME_CAMEL}ConfigVersion.cmake

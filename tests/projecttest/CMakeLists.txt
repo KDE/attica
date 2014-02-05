@@ -9,9 +9,7 @@ if (Qt5Core_FOUND)
 endif()
 
 include_directories(${KDE4_INCLUDES}
-                    ${QT_INCLUDES}
-                    ${LIBATTICA_INCLUDE_DIRS}
-                    ${CMAKE_CURRENT_BINARY_DIR} )
+                    ${QT_INCLUDES})
 
 set(editproject_UI editproject.ui)
 QT4_WRAP_UI(editproject_UI_H ${editproject_UI})

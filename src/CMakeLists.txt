@@ -194,13 +194,3 @@ else()
 endif()
 endif(NOT WIN32)
 
-# Add the optional subdirectory with unit tests
-if (ATTICA_ENABLE_TESTS)
-    if(Qt5Core_FOUND)
-        find_package(Qt5Transitional REQUIRED
-            Test
-        )
-    endif()
-    add_subdirectory(tests)
-endif (ATTICA_ENABLE_TESTS)
-
