@@ -1,5 +1,6 @@
-Attica 
-============
+# Attica
+
+## Introduction
 
 Attica is a Qt library that implements the Open Collaboration Services API version 1.6.
 The REST API is defined here:
@@ -9,3 +10,8 @@ It grants easy access to the services such as querying information about persons
 The library is used in KNewStuff3 as content provider.
 In order to integrate with KDE's Plasma Desktop, a platform plugin exists in kdebase.
 
+## Links
+
+- Mailing list: <https://mail.kde.org/mailman/listinfo/kde-frameworks-devel>
+- IRC channel: #kde-devel on Freenode
+- Git repository: <https://projects.kde.org/projects/frameworks/attica/repository>
