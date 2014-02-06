@@ -151,6 +151,7 @@ ecm_generate_headers(
   Topic
 
   MODULE_NAME Attica
+  PREFIX Attica
   REQUIRED_HEADERS Attica_HEADERS
 )
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Attica DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
@@ -168,7 +169,7 @@ install(FILES
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
-    DESTINATION ${INCLUDE_INSTALL_DIR}/Attica
+    DESTINATION ${INCLUDE_INSTALL_DIR}/Attica/attica
     COMPONENT Devel
 )
 
