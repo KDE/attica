@@ -23,10 +23,9 @@
 
 #include "privatedataparser.h"
 
-
 using namespace Attica;
 
-PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
+PrivateData PrivateData::Parser::parseXml(QXmlStreamReader &xml)
 {
     PrivateData data;
     QString key;
@@ -51,8 +50,8 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader& xml)
     return data;
 }
 
-
-QStringList PrivateData::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "privatedata" ));
+QStringList PrivateData::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("privatedata"));
 }
 

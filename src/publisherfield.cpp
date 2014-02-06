@@ -25,15 +25,16 @@
 
 using namespace Attica;
 
-class PublisherField::Private : public QSharedData {
-    public:
-        QString name;
-        QString type;
-        QString data;
+class PublisherField::Private : public QSharedData
+{
+public:
+    QString name;
+    QString type;
+    QString data;
 
-        Private()
-        {
-        }
+    Private()
+    {
+    }
 };
 
 PublisherField::PublisherField()
@@ -41,12 +42,12 @@ PublisherField::PublisherField()
 {
 }
 
-PublisherField::PublisherField(const PublisherField& other)
+PublisherField::PublisherField(const PublisherField &other)
     : d(other.d)
 {
 }
 
-PublisherField& PublisherField::operator=(const Attica::PublisherField & other)
+PublisherField &PublisherField::operator=(const Attica::PublisherField &other)
 {
     d = other.d;
     return *this;

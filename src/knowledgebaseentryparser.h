@@ -28,17 +28,16 @@
 #include "knowledgebaseentry.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
 private:
-    KnowledgeBaseEntry parseXml(QXmlStreamReader& xml);
+    KnowledgeBaseEntry parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

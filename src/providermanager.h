@@ -1,9 +1,9 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -30,8 +30,8 @@
 #include "provider.h"
 #include "atticaclient_export.h"
 
-namespace Attica {
-
+namespace Attica
+{
 
 /**
  * Attica ProviderManager
@@ -62,21 +62,21 @@ public:
     };
     Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
 
-    ProviderManager(const ProviderFlags& flags = NoFlags);
+    ProviderManager(const ProviderFlags &flags = NoFlags);
     ~ProviderManager();
-    
-    /** 
+
+    /**
      * Load available providers from configuration
      */
     void loadDefaultProviders();
-    
+
     /**
      * The list of provider files that get loaded by loadDefaultProviders.
      * Each of these files can contain multiple providers.
      * @return list of provider file urls
      */
     QList<QUrl> defaultProviderFiles();
-    
+
     /**
     * Add a provider file to the default providers (xml that contains provider descriptions).
       Provider files contain information about each provider:
@@ -104,10 +104,10 @@ public:
      </pre>
     * @param url the url of the provider file
     */
-    void addProviderFileToDefaultProviders(const QUrl& url);
-    
-    void removeProviderFileFromDefaultProviders(const QUrl& url);
-    
+    void addProviderFileToDefaultProviders(const QUrl &url);
+
+    void removeProviderFileFromDefaultProviders(const QUrl &url);
+
     /**
      * Suppresses the authentication, so that the application can take care of authenticating itself
      */
@@ -121,40 +121,40 @@ public:
     /**
      * Parse a xml file containing a provider description
      */
-    void addProviderFromXml(const QString& providerXml);
-    void addProviderFile(const QUrl& file);
+    void addProviderFromXml(const QString &providerXml);
+    void addProviderFile(const QUrl &file);
     QList<QUrl> providerFiles() const;
 
     QList<Provider> providers() const;
-    bool contains(const QString& provider) const;
-    Provider providerByUrl(const QUrl& url) const;
+    bool contains(const QString &provider) const;
+    Provider providerByUrl(const QUrl &url) const;
 
 Q_SIGNALS:
-    void providerAdded(const Attica::Provider& provider);
+    void providerAdded(const Attica::Provider &provider);
     void defaultProvidersLoaded();
-    void authenticationCredentialsMissing(const Provider& provider);
+    void authenticationCredentialsMissing(const Provider &provider);
 
 private Q_SLOTS:
-    void fileFinished(const QString& url);
-    void authenticate(QNetworkReply*, QAuthenticator*);
-    void proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator);
+    void fileFinished(const QString &url);
+    void authenticate(QNetworkReply *, QAuthenticator *);
+    void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
     void slotLoadDefaultProvidersInternal();
 
 private:
-    ProviderManager(const ProviderManager& other);
-    ProviderManager& operator=(const ProviderManager& other);
+    ProviderManager(const ProviderManager &other);
+    ProviderManager &operator=(const ProviderManager &other);
 
     void initNetworkAccesssManager();
-    PlatformDependent* loadPlatformDependent(const ProviderFlags& flags);
+    PlatformDependent *loadPlatformDependent(const ProviderFlags &flags);
 
-    void parseProviderFile(const QString& xmlString, const QString& url);
+    void parseProviderFile(const QString &xmlString, const QString &url);
 
     class Private;
-    Private* const d;
+    Private *const d;
 };
 
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS( Attica::ProviderManager::ProviderFlags )
+Q_DECLARE_OPERATORS_FOR_FLAGS(Attica::ProviderManager::ProviderFlags)
 
 #endif

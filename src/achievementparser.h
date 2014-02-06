@@ -27,20 +27,19 @@
 #include "achievement.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Achievement::Parser : public Attica::Parser<Achievement>
 {
 private:
-    Achievement parseXml(QXmlStreamReader& xml);
-    QStringList parseXmlOptions(QXmlStreamReader& xml);
-    QStringList parseXmlDependencies(QXmlStreamReader& xml);
-    QVariant parseXmlProgress(QXmlStreamReader& xml);
+    Achievement parseXml(QXmlStreamReader &xml);
+    QStringList parseXmlOptions(QXmlStreamReader &xml);
+    QStringList parseXmlDependencies(QXmlStreamReader &xml);
+    QVariant parseXmlProgress(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

@@ -34,7 +34,7 @@ namespace Attica
 
 class ATTICA_EXPORT Cloud
 {
-  public:
+public:
     typedef QList<Cloud> List;
     class Parser;
 
@@ -49,7 +49,7 @@ class ATTICA_EXPORT Cloud
      * @param other the Cloud to copy from
      */
 
-    Cloud(const Cloud& other);
+    Cloud(const Cloud &other);
 
     /**
      * Assignment operator.
@@ -57,7 +57,7 @@ class ATTICA_EXPORT Cloud
      * @return pointer to this Activity
      */
 
-    Cloud& operator=(const Cloud& other);
+    Cloud &operator=(const Cloud &other);
 
     /**
      * Destructor.
@@ -71,7 +71,7 @@ class ATTICA_EXPORT Cloud
      * @param name the new name
      */
 
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /**
      * Gets the name of the Cloud service.
@@ -87,7 +87,7 @@ class ATTICA_EXPORT Cloud
      * @param url the new url
      */
 
-    void setUrl(const QString& url);
+    void setUrl(const QString &url);
 
     /**
      * Gets the url of the Cloud service.
@@ -103,7 +103,7 @@ class ATTICA_EXPORT Cloud
      * @param icon the new icon
      */
 
-    void setIcon(const QUrl& icon);
+    void setIcon(const QUrl &icon);
 
     /**
      * Gets the icon of the Cloud service.
@@ -183,7 +183,7 @@ class ATTICA_EXPORT Cloud
      * @param privateKey the new privateKey
      */
 
-    void setKey(const QString& privateKey);
+    void setKey(const QString &privateKey);
 
     /**
      * Gets the private key of the Cloud service.
@@ -193,7 +193,7 @@ class ATTICA_EXPORT Cloud
 
     QString key() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

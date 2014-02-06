@@ -28,7 +28,7 @@
 
 using namespace Attica;
 
-Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
+Comment Comment::Parser::parseXml(QXmlStreamReader &xml)
 {
     Comment comment;
 
@@ -62,7 +62,7 @@ Comment Comment::Parser::parseXml(QXmlStreamReader& xml)
     return comment;
 }
 
-QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader& xml)
+QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader &xml)
 {
     QList<Comment> children;
 
@@ -84,5 +84,5 @@ QList<Comment> Comment::Parser::parseXmlChildren(QXmlStreamReader& xml)
 
 QStringList Comment::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "comment" ));
+    return QStringList(QLatin1String("comment"));
 }

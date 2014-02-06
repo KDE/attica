@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-Project Project::Parser::parseXml(QXmlStreamReader& xml)
+Project Project::Parser::parseXml(QXmlStreamReader &xml)
 {
     Project project;
 
@@ -72,7 +72,7 @@ Project Project::Parser::parseXml(QXmlStreamReader& xml)
     return project;
 }
 
-
-QStringList Project::Parser::xmlElement() const {
+QStringList Project::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("project")) << QLatin1String("user");
 }

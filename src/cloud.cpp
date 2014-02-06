@@ -24,16 +24,17 @@
 
 using namespace Attica;
 
-class Cloud::Private : public QSharedData {
-    public:
-        QString m_name;
-        QString m_url;
-        QUrl m_icon;
-        qulonglong m_quota;
-        qulonglong m_free;
-        qulonglong m_used;
-        float m_relative;
-        QString m_key;
+class Cloud::Private : public QSharedData
+{
+public:
+    QString m_name;
+    QString m_url;
+    QUrl m_icon;
+    qulonglong m_quota;
+    qulonglong m_free;
+    qulonglong m_used;
+    float m_relative;
+    QString m_key;
 };
 
 Cloud::Cloud()
@@ -41,12 +42,12 @@ Cloud::Cloud()
 {
 }
 
-Cloud::Cloud(const Attica::Cloud& other)
+Cloud::Cloud(const Attica::Cloud &other)
     : d(other.d)
 {
 }
 
-Cloud& Cloud::operator=(const Attica::Cloud& other)
+Cloud &Cloud::operator=(const Attica::Cloud &other)
 {
     d = other.d;
     return *this;
@@ -56,7 +57,7 @@ Cloud::~Cloud()
 {
 }
 
-void Cloud::setName(const QString& name)
+void Cloud::setName(const QString &name)
 {
     d->m_name = name;
 }
@@ -66,7 +67,7 @@ QString Cloud::name() const
     return d->m_name;
 }
 
-void Cloud::setUrl(const QString& url)
+void Cloud::setUrl(const QString &url)
 {
     d->m_url = url;
 }
@@ -76,7 +77,7 @@ QString Cloud::url() const
     return d->m_url;
 }
 
-void Cloud::setIcon(const QUrl& icon)
+void Cloud::setIcon(const QUrl &icon)
 {
     d->m_icon = icon;
 }
@@ -126,7 +127,7 @@ float Cloud::relative() const
     return d->m_relative;
 }
 
-void Cloud::setKey(const QString& key)
+void Cloud::setKey(const QString &key)
 {
     d->m_key = key;
 }

@@ -22,27 +22,26 @@
 
 */
 
-
 #include "homepagetypeparser.h"
 
 using namespace Attica;
 
 QStringList HomePageType::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "homepagetype" ));
+    return QStringList(QLatin1String("homepagetype"));
 }
 
-HomePageType HomePageType::Parser::parseXml(QXmlStreamReader& xml)
+HomePageType HomePageType::Parser::parseXml(QXmlStreamReader &xml)
 {
     HomePageType item;
 
-    while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
-        if ( xml.isStartElement() ) {
-            if ( xml.name() == QLatin1String("id") ) {
-                item.setId( xml.readElementText().toInt() );
-            } else if ( xml.name() == QLatin1String("name") ) {
-                item.setName( xml.readElementText() );
+        if (xml.isStartElement()) {
+            if (xml.name() == QLatin1String("id")) {
+                item.setId(xml.readElementText().toInt());
+            } else if (xml.name() == QLatin1String("name")) {
+                item.setName(xml.readElementText());
             }
         }
         if (xml.isEndElement() && xml.name() == QLatin1String("homepagetype")) {

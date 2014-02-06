@@ -32,39 +32,39 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT BuildServiceJob
 {
-  public:
+public:
     typedef QList<BuildServiceJob> List;
     class Parser;
 
     BuildServiceJob();
-    BuildServiceJob(const BuildServiceJob& other);
-    BuildServiceJob& operator=(const BuildServiceJob& other);
+    BuildServiceJob(const BuildServiceJob &other);
+    BuildServiceJob &operator=(const BuildServiceJob &other);
     ~BuildServiceJob();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setName( const QString & );
+    void setName(const QString &);
     QString name() const;
 
-    void setUrl( const QString & );
+    void setUrl(const QString &);
     QString url() const;
 
-    void setProjectId( const QString & );
+    void setProjectId(const QString &);
     QString projectId() const;
 
-    void setBuildServiceId( const QString & );
+    void setBuildServiceId(const QString &);
     QString buildServiceId() const;
 
-    void setMessage( const QString & );
+    void setMessage(const QString &);
     QString message() const;
 
-    void setTarget( const QString & );
+    void setTarget(const QString &);
     QString target() const;
 
     void setProgress(const qreal);
@@ -76,7 +76,7 @@ class ATTICA_EXPORT BuildServiceJob
     bool isFailed() const;
 
     bool isValid() const;
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

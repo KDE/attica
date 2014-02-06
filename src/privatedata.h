@@ -33,8 +33,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT PrivateData
 {
@@ -42,12 +42,12 @@ public:
     class Parser;
 
     typedef QList<PrivateData> List; // nonsense
-    
+
     PrivateData();
-    PrivateData(const PrivateData& other);
-    PrivateData& operator=(const PrivateData& other);
+    PrivateData(const PrivateData &other);
+    PrivateData &operator=(const PrivateData &other);
     ~PrivateData();
-    
+
     /**
      * Sets an attribute referenced by \key to \value.
      */

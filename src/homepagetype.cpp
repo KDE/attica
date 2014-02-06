@@ -22,32 +22,31 @@
 
 */
 
-
 #include "homepagetype.h"
 
 using namespace Attica;
 
-class HomePageType::Private :public QSharedData
+class HomePageType::Private : public QSharedData
 {
 public:
     int id;
     QString name;
-    
-    Private() :id(-1)
+
+    Private() : id(-1)
     {}
 };
 
 HomePageType::HomePageType()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-HomePageType::HomePageType(const Attica::HomePageType& other)
-    :d(other.d)
+HomePageType::HomePageType(const Attica::HomePageType &other)
+    : d(other.d)
 {
 }
 
-HomePageType& HomePageType::operator=(const Attica::HomePageType& other)
+HomePageType &HomePageType::operator=(const Attica::HomePageType &other)
 {
     d = other.d;
     return *this;
@@ -71,7 +70,7 @@ QString HomePageType::name() const
     return d->name;
 }
 
-void HomePageType::setName(const QString& name)
+void HomePageType::setName(const QString &name)
 {
     d->name = name;
 }

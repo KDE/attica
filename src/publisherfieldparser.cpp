@@ -25,7 +25,7 @@
 
 using namespace Attica;
 
-PublisherField PublisherField::Parser::parseXml(QXmlStreamReader& xml)
+PublisherField PublisherField::Parser::parseXml(QXmlStreamReader &xml)
 {
     PublisherField fld;
     while (!xml.atEnd()) {
@@ -46,6 +46,7 @@ PublisherField PublisherField::Parser::parseXml(QXmlStreamReader& xml)
     return fld;
 }
 
-QStringList PublisherField::Parser::xmlElement() const {
+QStringList PublisherField::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("field"));
 }

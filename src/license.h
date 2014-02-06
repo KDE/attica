@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2010 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -19,7 +19,6 @@
 
 */
 
-
 #ifndef ATTICA_LICENSE_H
 #define ATTICA_LICENSE_H
 
@@ -27,8 +26,9 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
-         
-namespace Attica {
+
+namespace Attica
+{
 /**
     The License class contains information about one license that the server offers.
     It consists of an integer id, a name and a link to a webpage describing the license.
@@ -38,50 +38,50 @@ class ATTICA_EXPORT License
 public:
     typedef QList<License> List;
     class Parser;
-    
+
     /**
     * Creates an empty License
     */
     License();
-    
+
     /**
     * Copy constructor.
     * @param other the License to copy from
     */
-    License(const License& other);
-    
+    License(const License &other);
+
     /**
     * Assignment operator.
     * @param other the License to assign from
     * @return pointer to this License
     */
-    License& operator=(const License& other);
-    
+    License &operator=(const License &other);
+
     /**
     * Destructor.
     */
     ~License();
-    
+
     /*
     <id>3</id>
     <name>Artistic 2.0</name>
     <link>http://dev.perl.org/perl6/rfc/346.html</link>
     */
-    
+
     uint id() const;
     void setId(uint id);
-    
+
     QString name() const;
-    void setName(const QString& name);
-    
+    void setName(const QString &name);
+
     QUrl url() const;
-    void setUrl(const QUrl& url);
+    void setUrl(const QUrl &url);
 
 private:
     class Private;
     QSharedDataPointer<Private> d;
 };
-         
+
 }
 
 #endif

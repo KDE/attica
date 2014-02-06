@@ -28,19 +28,18 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>
 
-
 namespace Attica
 {
 
 class ATTICA_EXPORT Topic
 {
-  public:
+public:
     typedef QList<Topic> List;
     class Parser;
 
     Topic();
-    Topic(const Topic& other);
-    Topic& operator=(const Topic& other);
+    Topic(const Topic &other);
+    Topic &operator=(const Topic &other);
     ~Topic();
 
     void setId(const QString &id);
@@ -66,7 +65,7 @@ class ATTICA_EXPORT Topic
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

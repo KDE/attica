@@ -25,30 +25,31 @@
 
 using namespace Attica;
 
-class Folder::Private : public QSharedData {
-    public:
-        QString m_id;  
-        QString m_name;
-        int m_messageCount;
-        QString m_type;
+class Folder::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_name;
+    int m_messageCount;
+    QString m_type;
 
-        Private()
-            : m_messageCount(0)
-        {
-        }
+    Private()
+        : m_messageCount(0)
+    {
+    }
 };
 
 Folder::Folder()
-  : d(new Private)
+    : d(new Private)
 {
 }
 
-Folder::Folder(const Folder& other)
+Folder::Folder(const Folder &other)
     : d(other.d)
 {
 }
 
-Folder& Folder::operator=(const Folder& other)
+Folder &Folder::operator=(const Folder &other)
 {
     d = other.d;
     return *this;
@@ -58,48 +59,47 @@ Folder::~Folder()
 {
 }
 
-
-void Folder::setId( const QString &u )
+void Folder::setId(const QString &u)
 {
-  d->m_id = u;
+    d->m_id = u;
 }
 
 QString Folder::id() const
 {
-  return d->m_id;
+    return d->m_id;
 }
 
-void Folder::setName( const QString &name )
+void Folder::setName(const QString &name)
 {
-  d->m_name = name;
+    d->m_name = name;
 }
 
 QString Folder::name() const
 {
-  return d->m_name;
+    return d->m_name;
 }
 
-void Folder::setMessageCount( int c )
+void Folder::setMessageCount(int c)
 {
-  d->m_messageCount = c;
+    d->m_messageCount = c;
 }
 
 int Folder::messageCount() const
 {
-  return d->m_messageCount;
+    return d->m_messageCount;
 }
 
-void Folder::setType( const QString &v )
+void Folder::setType(const QString &v)
 {
-  d->m_type = v;
+    d->m_type = v;
 }
 
 QString Folder::type() const
 {
-  return d->m_type;
+    return d->m_type;
 }
 
-
-bool Folder::isValid() const {
-  return !(d->m_id.isEmpty());
+bool Folder::isValid() const
+{
+    return !(d->m_id.isEmpty());
 }

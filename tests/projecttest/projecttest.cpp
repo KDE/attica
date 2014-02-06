@@ -62,10 +62,10 @@ ProjectTest::ProjectTest() : QMainWindow(),
     connect(m_editor->buildServices, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
             this, SLOT(selectedBuildServiceChanged(QListWidgetItem*,QListWidgetItem*)));
 
-    QAction* a = new QAction(this);
-    a->setText( QLatin1String("Quit") );
-    connect(a, SIGNAL(triggered()), SLOT(close()) );
-    menuBar()->addMenu( QLatin1String("File") )->addAction( a );
+    QAction *a = new QAction(this);
+    a->setText(QLatin1String("Quit"));
+    connect(a, SIGNAL(triggered()), SLOT(close()));
+    menuBar()->addMenu(QLatin1String("File"))->addAction(a);
 
     initOcs();
 }
@@ -83,7 +83,7 @@ void ProjectTest::initOcs()
     //connect(m_serviceUpdates.data(), SIGNAL(mapped(QString)), SLOT(serviceUpdates(QString)));
 }
 
-void ProjectTest::providerAdded(const Attica::Provider& provider)
+void ProjectTest::providerAdded(const Attica::Provider &provider)
 {
     qDebug() << "providerAdded" << provider.baseUrl();
     setStatus(QLatin1String("Provider found:") + provider.baseUrl().toString());
@@ -107,7 +107,7 @@ void ProjectTest::providerAdded(const Attica::Provider& provider)
 
 void ProjectTest::getProject(QString id)
 {
-    ItemJob<Project>* job = m_provider.requestProject(id);
+    ItemJob<Project> *job = m_provider.requestProject(id);
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectResult(Attica::BaseJob*)));
     job->start();
     setStatus(QString(QLatin1String("Loading project %")).arg(id));
@@ -117,33 +117,33 @@ void ProjectTest::getProject(QString id)
 
 void ProjectTest::listProjects()
 {
-    ListJob<Project>* job = m_provider.requestProjects();
+    ListJob<Project> *job = m_provider.requestProjects();
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectListResult(Attica::BaseJob*)));
     job->start();
 }
 
 void ProjectTest::listBuildServices()
 {
-    ListJob<BuildService>* job = m_provider.requestBuildServices();
+    ListJob<BuildService> *job = m_provider.requestBuildServices();
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceListResult(Attica::BaseJob*)));
     job->start();
 }
 
 void ProjectTest::listBuildServiceJobs(const Project &p)
 {
-    ListJob<BuildServiceJob>* job = m_provider.requestBuildServiceJobs(p);
+    ListJob<BuildServiceJob> *job = m_provider.requestBuildServiceJobs(p);
     connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceJobListResult(Attica::BaseJob*)));
     job->start();
 }
 
-void ProjectTest::projectResult(Attica::BaseJob* j)
+void ProjectTest::projectResult(Attica::BaseJob *j)
 {
     qDebug() << "Project job returned";
     QString output;
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ItemJob<Project> *itemJob = static_cast<Attica::ItemJob<Project> *>( j );
+        Attica::ItemJob<Project> *itemJob = static_cast<Attica::ItemJob<Project> *>(j);
         Attica::Project p = itemJob->result();
         output.append(QLatin1String("Project loaded."));
 
@@ -158,7 +158,7 @@ void ProjectTest::projectResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::projectToUi(const Project& p)
+void ProjectTest::projectToUi(const Project &p)
 {
     m_editor->id->setText(p.id());
     m_editor->name->setText(p.name());
@@ -185,7 +185,7 @@ Project ProjectTest::uiToProject()
     project.setUrl(m_editor->url->text());
     QStringList _d = m_editor->developers->text().split(QLatin1Char(','));
     QStringList devs;
-    foreach (const QString& dev, _d) {
+    foreach (const QString &dev, _d) {
         devs << dev.trimmed();
     }
     project.setDevelopers(devs);
@@ -199,7 +199,7 @@ Project ProjectTest::uiToProject()
 
 void ProjectTest::save()
 {
-    Attica::PostJob* postjob = m_provider.editProject(uiToProject());
+    Attica::PostJob *postjob = m_provider.editProject(uiToProject());
     connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(saveProjectResult(Attica::BaseJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
@@ -207,7 +207,7 @@ void ProjectTest::save()
 
 void ProjectTest::create()
 {
-    Attica::PostJob* postjob = m_provider.createProject(uiToProject());
+    Attica::PostJob *postjob = m_provider.createProject(uiToProject());
     connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(createProjectResult(Attica::BaseJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
@@ -215,13 +215,13 @@ void ProjectTest::create()
 
 void ProjectTest::deleteProject()
 {
-    Attica::PostJob* postjob = m_provider.deleteProject(uiToProject());
+    Attica::PostJob *postjob = m_provider.deleteProject(uiToProject());
     connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(deleteProjectResult(Attica::BaseJob*)));
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
 
-void ProjectTest::createProjectResult(Attica::BaseJob* j)
+void ProjectTest::createProjectResult(Attica::BaseJob *j)
 {
     qDebug() << "createProject() job returned";
     QString output;
@@ -241,7 +241,7 @@ void ProjectTest::createProjectResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::saveProjectResult(Attica::BaseJob* j)
+void ProjectTest::saveProjectResult(Attica::BaseJob *j)
 {
     qDebug() << "editProject() job returned";
     QString output;
@@ -261,7 +261,7 @@ void ProjectTest::saveProjectResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
+void ProjectTest::deleteProjectResult(Attica::BaseJob *j)
 {
     qDebug() << "deleteProject() job returned";
     QString output;
@@ -282,18 +282,18 @@ void ProjectTest::deleteProjectResult(Attica::BaseJob* j)
     projectToUi(Project());
 }
 
-void ProjectTest::projectListResult(Attica::BaseJob* j)
+void ProjectTest::projectListResult(Attica::BaseJob *j)
 {
     qDebug() << "Project list job returned";
     QString output = QLatin1String("<b>Projects:</b>");
     m_mainWidget->setEnabled(true);
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<Project> *listJob = static_cast<Attica::ListJob<Project> *>( j );
+        Attica::ListJob<Project> *listJob = static_cast<Attica::ListJob<Project> *>(j);
         qDebug() << "Yay, no errors ...";
         QStringList projectIds;
 
-        foreach (const Project& p, listJob->itemList()) {
+        foreach (const Project &p, listJob->itemList()) {
             m_projects[p.id()] = p;
             qDebug() << "New project:" << p.id() << p.name();
             output.append(QString(QLatin1String("<br />%1 (%2)")).arg(p.name(), p.id()));
@@ -315,21 +315,21 @@ void ProjectTest::projectListResult(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
+void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
 {
     qDebug() << "BuildService list job returned";
     QString output = QLatin1String("<b>BuildServices:</b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<BuildService> *listJob = static_cast<Attica::ListJob<BuildService> *>( j );
+        Attica::ListJob<BuildService> *listJob = static_cast<Attica::ListJob<BuildService> *>(j);
         qDebug() << "Yay, no errors ...";
 
-        foreach (const BuildService& bs, listJob->itemList()) {
+        foreach (const BuildService &bs, listJob->itemList()) {
             m_buildServices[bs.id()] = bs;
             qDebug() << "New OBS:" << bs.id() << bs.name() << bs.url();
             output.append(QString(QLatin1String("<br />%1 (%2) at %3")).arg(bs.name(), bs.id(), bs.url()));
-            QListWidgetItem* new_bs = new QListWidgetItem(bs.name(), m_editor->buildServices);
+            QListWidgetItem *new_bs = new QListWidgetItem(bs.name(), m_editor->buildServices);
             new_bs->setData(Qt::UserRole, QVariant(bs.id()));
 
             m_editor->accountsServers->insertItem(0, bs.name(), bs.id());
@@ -351,21 +351,21 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob* j)
     //setBuildStatus(output);
 }
 
-void ProjectTest::buildServiceJobListResult(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
 {
     qDebug() << "BuildServiceJobList list job returned";
     QString output = QLatin1String("<b>BuildServiceJobs: </b>");
     //m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<BuildServiceJob> *listJob = static_cast<Attica::ListJob<BuildServiceJob> *>( j );
+        Attica::ListJob<BuildServiceJob> *listJob = static_cast<Attica::ListJob<BuildServiceJob> *>(j);
         qDebug() << "Yay, no errors. Items found:" << listJob->itemList().count();
 
-        foreach (const BuildServiceJob& bsj, listJob->itemList()) {
+        foreach (const BuildServiceJob &bsj, listJob->itemList()) {
             m_buildServiceJobs[bsj.id()] = bsj;
             qDebug() << "New BuildServiceJob:" << bsj.id() << bsj.name() << bsj.target();
             output.append(QString(QLatin1String("<br />%1 (%2) for %3")).arg(bsj.name(), bsj.id(), bsj.target()));
-            QListWidgetItem* new_bsj = new QListWidgetItem(bsj.name(), m_editor->buildServiceJobs);
+            QListWidgetItem *new_bsj = new QListWidgetItem(bsj.name(), m_editor->buildServiceJobs);
             new_bsj->setData(Qt::UserRole, QVariant(bsj.id()));
         }
         if (!listJob->itemList().count()) {
@@ -382,13 +382,13 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob* j)
     //setBuildStatus(output);
 }
 
-void ProjectTest::selectedBuildServiceChanged( QListWidgetItem * current, QListWidgetItem * previous )
+void ProjectTest::selectedBuildServiceChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
 
     qDebug() << "current item changed to " << current->data(Qt::UserRole).toString();
     m_editor->targets->clear();
     QList<Target> targetlist = m_buildServices[current->data(Qt::UserRole).toString()].targets();
-    foreach (const Target& t, targetlist) {
+    foreach (const Target &t, targetlist) {
         //m_editor->targets->insertItems(0, m_buildServices[current->data(Qt::UserRole).toString()].targets());
         m_editor->targets->insertItem(0, t.name, t.id);
         // FIXME: target id.
@@ -410,7 +410,7 @@ void ProjectTest::createBuildServiceJob()
     qDebug() << "Target:" << b.target();
     qDebug() << "Buildservice:" << b.buildServiceId();
     //*/
-    Attica::PostJob* j = m_provider.createBuildServiceJob(b);
+    Attica::PostJob *j = m_provider.createBuildServiceJob(b);
     connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCreated(Attica::BaseJob*)));
     j->start();
     setStatus(QLatin1String("Starting a build job on the server."));
@@ -422,12 +422,12 @@ void ProjectTest::cancelBuildServiceJob()
     qDebug() << "Cancelling build job:" << bsj_id;
     BuildServiceJob b = BuildServiceJob();
     b.setId(bsj_id);
-    Attica::PostJob* j = m_provider.cancelBuildServiceJob(b);
+    Attica::PostJob *j = m_provider.cancelBuildServiceJob(b);
     connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCanceled(Attica::BaseJob*)));
     j->start();
 }
 
-void ProjectTest::buildServiceJobCanceled(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobCanceled(Attica::BaseJob *j)
 {
     //m_mainWidget->setEnabled(true); // fixme: tab
     QString output;
@@ -446,7 +446,7 @@ void ProjectTest::buildServiceJobCanceled(Attica::BaseJob* j)
     setStatus(output);
 }
 
-void ProjectTest::buildServiceJobCreated(Attica::BaseJob* j)
+void ProjectTest::buildServiceJobCreated(Attica::BaseJob *j)
 {
     qDebug() << "JOB CREATED!!!!!!!!!!!!!!!!";
     //m_mainWidget->setEnabled(true); // fixme: tab

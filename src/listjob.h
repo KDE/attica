@@ -27,28 +27,27 @@
 #include "atticaclient_export.h"
 #include "getjob.h"
 
-
 class QNetworkRequest;
 
-namespace Attica {
-    class Provider;
+namespace Attica
+{
+class Provider;
 
 template <class T>
 class ATTICA_EXPORT ListJob : public GetJob
 {
-    public:
-        typename T::List itemList() const;
+public:
+    typename T::List itemList() const;
 
-    protected:
-        virtual void parse(const QString& xml);
+protected:
+    virtual void parse(const QString &xml);
 
-    private:
-        ListJob(PlatformDependent* internals, const QNetworkRequest& request);
-        typename T::List m_itemList;
-        friend class Attica::Provider;
+private:
+    ListJob(PlatformDependent *internals, const QNetworkRequest &request);
+    typename T::List m_itemList;
+    friend class Attica::Provider;
 };
 
 }
-
 
 #endif

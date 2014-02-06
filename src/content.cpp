@@ -27,40 +27,40 @@
 
 using namespace Attica;
 
-class Content::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_name;
-        int m_downloads;
-        int m_numberOfComments;
-        int m_rating;
-        QDateTime m_created;
-        QDateTime m_updated;
-        QList<Icon> m_icons;
-        QList<QUrl> m_videos;
+class Content::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_name;
+    int m_downloads;
+    int m_numberOfComments;
+    int m_rating;
+    QDateTime m_created;
+    QDateTime m_updated;
+    QList<Icon> m_icons;
+    QList<QUrl> m_videos;
 
-        QMap<QString,QString> m_extendedAttributes;
+    QMap<QString, QString> m_extendedAttributes;
 
-        Private()
-            : m_downloads(0),
-              m_numberOfComments(0), 
-              m_rating(0)
-        {
-        }
+    Private()
+        : m_downloads(0),
+          m_numberOfComments(0),
+          m_rating(0)
+    {
+    }
 };
 
-
 Content::Content()
-  : d(new Private)
+    : d(new Private)
 {
 }
 
-Content::Content(const Attica::Content& other)
+Content::Content(const Attica::Content &other)
     : d(other.d)
 {
 }
 
-Content& Content::operator=(const Attica::Content & other)
+Content &Content::operator=(const Attica::Content &other)
 {
     d = other.d;
     return *this;
@@ -70,127 +70,126 @@ Content::~Content()
 {
 }
 
-
-void Content::setId( const QString &u )
+void Content::setId(const QString &u)
 {
-  d->m_id = u;
+    d->m_id = u;
 }
 
 QString Content::id() const
 {
-  return d->m_id;
+    return d->m_id;
 }
 
-void Content::setName( const QString &name )
+void Content::setName(const QString &name)
 {
-  d->m_name = name;
+    d->m_name = name;
 }
 
 QString Content::name() const
 {
-  return d->m_name;
+    return d->m_name;
 }
 
-void Content::setRating( int v )
+void Content::setRating(int v)
 {
-  d->m_rating = v;
+    d->m_rating = v;
 }
 
 int Content::rating() const
 {
-  return d->m_rating;
+    return d->m_rating;
 }
 
-void Content::setDownloads( int v )
+void Content::setDownloads(int v)
 {
-  d->m_downloads = v;
+    d->m_downloads = v;
 }
 
 int Content::downloads() const
 {
-  return d->m_downloads;
+    return d->m_downloads;
 }
 
 void Content::setNumberOfComments(int v)
 {
-  d->m_numberOfComments = v;
+    d->m_numberOfComments = v;
 }
 
 int Content::numberOfComments() const
 {
-  return d->m_numberOfComments;
+    return d->m_numberOfComments;
 }
 
-void Content::setCreated( const QDateTime &date )
+void Content::setCreated(const QDateTime &date)
 {
-  d->m_created = date;
+    d->m_created = date;
 }
 
 QDateTime Content::created() const
 {
-  return d->m_created;
+    return d->m_created;
 }
 
-void Content::setUpdated( const QDateTime &date )
+void Content::setUpdated(const QDateTime &date)
 {
-  d->m_updated = date;
+    d->m_updated = date;
 }
 
 QDateTime Content::updated() const
 {
-  return d->m_updated;
+    return d->m_updated;
 }
 
-void Content::addAttribute( const QString &key, const QString &value )
+void Content::addAttribute(const QString &key, const QString &value)
 {
-  d->m_extendedAttributes.insert( key, value );
+    d->m_extendedAttributes.insert(key, value);
 }
 
-QString Content::attribute( const QString &key ) const
+QString Content::attribute(const QString &key) const
 {
-  return d->m_extendedAttributes.value( key );
+    return d->m_extendedAttributes.value(key);
 }
 
-QMap<QString,QString> Content::attributes() const
+QMap<QString, QString> Content::attributes() const
 {
-  return d->m_extendedAttributes;
+    return d->m_extendedAttributes;
 }
 
 bool Content::isValid() const
 {
-  return !(d->m_id.isEmpty());
+    return !(d->m_id.isEmpty());
 }
 
 QString Content::summary() const
 {
-    return attribute(QLatin1String( "summary" ));
+    return attribute(QLatin1String("summary"));
 }
 
 QString Content::description() const
 {
-    return attribute(QLatin1String( "description" ));
+    return attribute(QLatin1String("description"));
 }
 
 QUrl Content::detailpage() const
 {
-    return QUrl(attribute(QLatin1String( "detailpage" )));
+    return QUrl(attribute(QLatin1String("detailpage")));
 }
 
 QString Attica::Content::changelog() const
 {
-    return attribute(QLatin1String( "changelog" ));
+    return attribute(QLatin1String("changelog"));
 
 }
 
 QString Attica::Content::depend() const
 {
-    return attribute(QLatin1String( "depend" ));
+    return attribute(QLatin1String("depend"));
 }
 
 QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() const
 {
     QList<Attica::DownloadDescription> descriptions;
-    QMap<QString,QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
+    QMap<QString, QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
     while (iter != d->m_extendedAttributes.constEnd()) {
         QString key = iter.key();
         if (key.startsWith(QLatin1String("downloadname"))) {
@@ -215,33 +214,33 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     DownloadDescription desc;
 
     Attica::DownloadDescription::Type downloadType = Attica::DownloadDescription::LinkDownload;
-    if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "0" )) {
+    if (attribute(QLatin1String("downloadway") + num) == QLatin1String("0")) {
         downloadType = Attica::DownloadDescription::FileDownload;
-    } else if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "1" )) {
+    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1String("1")) {
         downloadType = Attica::DownloadDescription::LinkDownload;
-    } else if (attribute(QLatin1String( "downloadway" ) + num) == QLatin1String( "2" )) {
+    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1String("2")) {
         downloadType = Attica::DownloadDescription::PackageDownload;
     }
     desc.setType(downloadType);
     desc.setId(number);
-    desc.setName(attribute(QLatin1String( "downloadname" ) + num));
-    desc.setDistributionType(attribute(QLatin1String( "downloadtype" ) + num));
-    desc.setHasPrice(attribute(QLatin1String( "downloadbuy" ) + num) == QLatin1String( "1" ));
-    desc.setLink(attribute(QLatin1String( "downloadlink" ) + num));
-    desc.setPriceReason(attribute(QLatin1String( "downloadreason" ) + num));
-    desc.setPriceAmount(attribute(QLatin1String( "downloadprice" ) + num));
-    desc.setSize(attribute(QLatin1String( "downloadsize" ) + num).toUInt());
-    desc.setGpgFingerprint(attribute(QLatin1String( "downloadgpgfingerprint" ) + num));
-    desc.setGpgSignature(attribute(QLatin1String( "downloadgpgsignature" ) + num));
-    desc.setPackageName(attribute(QLatin1String( "downloadpackagename" ) + num));
-    desc.setRepository(attribute(QLatin1String( "downloadrepository" ) + num));
+    desc.setName(attribute(QLatin1String("downloadname") + num));
+    desc.setDistributionType(attribute(QLatin1String("downloadtype") + num));
+    desc.setHasPrice(attribute(QLatin1String("downloadbuy") + num) == QLatin1String("1"));
+    desc.setLink(attribute(QLatin1String("downloadlink") + num));
+    desc.setPriceReason(attribute(QLatin1String("downloadreason") + num));
+    desc.setPriceAmount(attribute(QLatin1String("downloadprice") + num));
+    desc.setSize(attribute(QLatin1String("downloadsize") + num).toUInt());
+    desc.setGpgFingerprint(attribute(QLatin1String("downloadgpgfingerprint") + num));
+    desc.setGpgSignature(attribute(QLatin1String("downloadgpgsignature") + num));
+    desc.setPackageName(attribute(QLatin1String("downloadpackagename") + num));
+    desc.setRepository(attribute(QLatin1String("downloadrepository") + num));
     return desc;
 }
 
 QList<HomePageEntry> Attica::Content::homePageEntries()
 {
     QList<Attica::HomePageEntry> homepages;
-    QMap<QString,QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
+    QMap<QString, QString>::const_iterator iter = d->m_extendedAttributes.constBegin();
     while (iter != d->m_extendedAttributes.constEnd()) {
         QString key = iter.key();
         if (key.startsWith(QLatin1String("homepagetype"))) {
@@ -266,42 +265,42 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
     QString num(QString::number(number));
     HomePageEntry homepage;
 
-    if (number == 1 && attribute(QLatin1String( "homepage1" )).isEmpty()) {
+    if (number == 1 && attribute(QLatin1String("homepage1")).isEmpty()) {
         num.clear();
     }
-    homepage.setType(attribute(QLatin1String( "homepagetype" ) + num));
-    homepage.setUrl(QUrl(attribute(QLatin1String( "homepage" ) + num)));
+    homepage.setType(attribute(QLatin1String("homepagetype") + num));
+    homepage.setUrl(QUrl(attribute(QLatin1String("homepage") + num)));
     return homepage;
 }
 
 QString Attica::Content::version() const
 {
-    return attribute(QLatin1String( "version" ));
+    return attribute(QLatin1String("version"));
 }
 
 QString Attica::Content::author() const
 {
-    return attribute(QLatin1String( "personid" ));
+    return attribute(QLatin1String("personid"));
 }
 
 QString Attica::Content::license() const
 {
-    return attribute(QLatin1String( "licensetype" ));
+    return attribute(QLatin1String("licensetype"));
 }
 
 QString Attica::Content::licenseName() const
 {
-    return attribute(QLatin1String( "license" ));
+    return attribute(QLatin1String("license"));
 }
 
-QString Attica::Content::previewPicture(const QString& number) const
+QString Attica::Content::previewPicture(const QString &number) const
 {
-    return attribute(QLatin1String( "previewpic" ) + number);
+    return attribute(QLatin1String("previewpic") + number);
 }
 
-QString Attica::Content::smallPreviewPicture(const QString& number) const
+QString Attica::Content::smallPreviewPicture(const QString &number) const
 {
-    return attribute(QLatin1String( "smallpreviewpic" ) + number);
+    return attribute(QLatin1String("smallpreviewpic") + number);
 }
 
 QList<Icon> Attica::Content::icons()

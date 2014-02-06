@@ -25,8 +25,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore/QSharedData>
 
-namespace Attica {
-class DownloadDescription::Private :public QSharedData
+namespace Attica
+{
+class DownloadDescription::Private : public QSharedData
 {
 public:
     int id;
@@ -53,16 +54,16 @@ public:
 using namespace Attica;
 
 DownloadDescription::DownloadDescription()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-DownloadDescription::DownloadDescription(const Attica::DownloadDescription& other)
-    :d(other.d)
+DownloadDescription::DownloadDescription(const Attica::DownloadDescription &other)
+    : d(other.d)
 {
 }
 
-DownloadDescription& DownloadDescription::operator=(const Attica::DownloadDescription& other)
+DownloadDescription &DownloadDescription::operator=(const Attica::DownloadDescription &other)
 {
     d = other.d;
     return *this;
@@ -87,7 +88,7 @@ void DownloadDescription::setId(int id)
     d->id = id;
 }
 
-void DownloadDescription::setCategory(const QString& category)
+void DownloadDescription::setCategory(const QString &category)
 {
     d->category = category;
 }
@@ -97,7 +98,7 @@ QString Attica::DownloadDescription::distributionType()
     return d->distributionType;
 }
 
-void DownloadDescription::setDistributionType(const QString& distributionType)
+void DownloadDescription::setDistributionType(const QString &distributionType)
 {
     d->distributionType = distributionType;
 }
@@ -141,7 +142,7 @@ QString Attica::DownloadDescription::link()
     return d->link;
 }
 
-void DownloadDescription::setLink(const QString& link)
+void DownloadDescription::setLink(const QString &link)
 {
     d->link = link;
 }
@@ -151,7 +152,7 @@ QString Attica::DownloadDescription::name()
     return d->name;
 }
 
-void DownloadDescription::setName(const QString& name)
+void DownloadDescription::setName(const QString &name)
 {
     d->name = name;
 }
@@ -161,7 +162,7 @@ QString Attica::DownloadDescription::priceAmount()
     return d->priceAmount;
 }
 
-void DownloadDescription::setPriceAmount(const QString& priceAmount)
+void DownloadDescription::setPriceAmount(const QString &priceAmount)
 {
     d->priceAmount = priceAmount;
 }
@@ -171,7 +172,7 @@ QString Attica::DownloadDescription::priceReason()
     return d->priceReason;
 }
 
-void Attica::DownloadDescription::setPriceReason(const QString& priceReason)
+void Attica::DownloadDescription::setPriceReason(const QString &priceReason)
 {
     d->priceReason = priceReason;
 }
@@ -191,7 +192,7 @@ QString Attica::DownloadDescription::gpgFingerprint()
     return d->gpgFingerprint;
 }
 
-void Attica::DownloadDescription::setGpgFingerprint(const QString& fingerprint)
+void Attica::DownloadDescription::setGpgFingerprint(const QString &fingerprint)
 {
     d->gpgFingerprint = fingerprint;
 }
@@ -201,7 +202,7 @@ QString Attica::DownloadDescription::gpgSignature()
     return d->gpgSignature;
 }
 
-void Attica::DownloadDescription::setGpgSignature(const QString& signature)
+void Attica::DownloadDescription::setGpgSignature(const QString &signature)
 {
     d->gpgSignature = signature;
 }
@@ -211,7 +212,7 @@ QString Attica::DownloadDescription::packageName()
     return d->packageName;
 }
 
-void Attica::DownloadDescription::setPackageName(const QString& packageName)
+void Attica::DownloadDescription::setPackageName(const QString &packageName)
 {
     d->packageName = packageName;
 }
@@ -221,7 +222,7 @@ QString Attica::DownloadDescription::repository()
     return d->repository;
 }
 
-void Attica::DownloadDescription::setRepository(const QString& repository)
+void Attica::DownloadDescription::setRepository(const QString &repository)
 {
     d->repository = repository;
 }

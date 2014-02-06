@@ -1,8 +1,8 @@
 /*
     This file is part of KDE.
-    
+
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -21,7 +21,6 @@
 
 */
 
-
 #ifndef ATTICA_DOWNLOADITEM_H
 #define ATTICA_DOWNLOADITEM_H
 
@@ -31,48 +30,49 @@
 #include "atticaclient_export.h"
 #include "downloaddescription.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT DownloadItem
 {
 public:
     typedef QList<DownloadItem> List;
     class Parser;
-    
+
     /**
     * Creates an empty DownloadItem
     */
     DownloadItem();
-    
+
     /**
     * Copy constructor.
     * @param other the DownloadItem to copy from
     */
-    DownloadItem(const DownloadItem& other);
-    
+    DownloadItem(const DownloadItem &other);
+
     /**
     * Assignment operator.
     * @param other the DownloadItem to assign from
     * @return pointer to this DownloadItem
     */
-    DownloadItem& operator=(const DownloadItem& other);
-    
+    DownloadItem &operator=(const DownloadItem &other);
+
     /**
     * Destructor.
     */
     ~DownloadItem();
-    
-    void setUrl(const QUrl& url);
+
+    void setUrl(const QUrl &url);
     QUrl url() const;
-    void setMimeType(const QString& mimeType);
+    void setMimeType(const QString &mimeType);
     QString mimeType() const;
-    void setPackageName(const QString& packageName);
+    void setPackageName(const QString &packageName);
     QString packageName() const;
-    void setPackageRepository(const QString& packageRepository);
+    void setPackageRepository(const QString &packageRepository);
     QString packageRepository() const;
-    void setGpgFingerprint(const QString& gpgFingerprint);
+    void setGpgFingerprint(const QString &gpgFingerprint);
     QString gpgFingerprint() const;
-    void setGpgSignature(const QString& gpgSignature);
+    void setGpgSignature(const QString &gpgSignature);
     QString gpgSignature() const;
     void setType(Attica::DownloadDescription::Type type);
     Attica::DownloadDescription::Type type();

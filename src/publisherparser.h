@@ -27,17 +27,16 @@
 #include "publisher.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Publisher::Parser : public Attica::Parser<Publisher>
 {
 private:
-    Publisher parseXml(QXmlStreamReader& xml);
+    Publisher parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

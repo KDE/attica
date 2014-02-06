@@ -23,10 +23,9 @@
 
 #include "categoryparser.h"
 
-
 using namespace Attica;
 
-Category Category::Parser::parseXml(QXmlStreamReader& xml)
+Category Category::Parser::parseXml(QXmlStreamReader &xml)
 {
     Category category;
 
@@ -47,7 +46,7 @@ Category Category::Parser::parseXml(QXmlStreamReader& xml)
     return category;
 }
 
-
-QStringList Category::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "category" ));
+QStringList Category::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("category"));
 }

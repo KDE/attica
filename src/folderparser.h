@@ -27,17 +27,16 @@
 #include "folder.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Folder::Parser : public Attica::Parser<Folder>
 {
 private:
-    Folder parseXml(QXmlStreamReader& xml);
+    Folder parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

@@ -25,20 +25,21 @@
 
 using namespace Attica;
 
-class Topic::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_forumId;
-        QString m_user;
-        QDateTime m_date;
-        QString m_subject;
-        QString m_content;
-        int m_comments;
+class Topic::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_forumId;
+    QString m_user;
+    QDateTime m_date;
+    QString m_subject;
+    QString m_content;
+    int m_comments;
 
-        Private()
-            : m_comments(0)
-        {
-        }
+    Private()
+        : m_comments(0)
+    {
+    }
 };
 
 Topic::Topic()
@@ -46,13 +47,12 @@ Topic::Topic()
 {
 }
 
-
-Topic::Topic(const Topic& other)
+Topic::Topic(const Topic &other)
     : d(other.d)
 {
 }
 
-Topic& Topic::operator=(const Topic& other)
+Topic &Topic::operator=(const Topic &other)
 {
     d = other.d;
     return *this;

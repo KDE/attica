@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2010 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -19,33 +19,32 @@
 
 */
 
-
 #include "license.h"
 
 using namespace Attica;
 
-class License::Private :public QSharedData
+class License::Private : public QSharedData
 {
 public:
     int id;
     QString name;
     QUrl url;
-    
-    Private() :id(-1)
+
+    Private() : id(-1)
     {}
 };
 
 License::License()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-License::License(const Attica::License& other)
-    :d(other.d)
+License::License(const Attica::License &other)
+    : d(other.d)
 {
 }
 
-License& License::operator=(const Attica::License& other)
+License &License::operator=(const Attica::License &other)
 {
     d = other.d;
     return *this;
@@ -69,12 +68,12 @@ QString License::name() const
     return d->name;
 }
 
-void License::setName(const QString& name)
+void License::setName(const QString &name)
 {
     d->name = name;
 }
 
-void License::setUrl(const QUrl& url)
+void License::setUrl(const QUrl &url)
 {
     d->url = url;
 }

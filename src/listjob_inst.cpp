@@ -76,7 +76,6 @@
 #include "topic.h"
 #include "topicparser.h"
 
-
 using namespace Attica;
 
 template class ListJob<Achievement>;

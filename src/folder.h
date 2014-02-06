@@ -28,7 +28,6 @@
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QString>
 
-
 namespace Attica
 {
 
@@ -50,14 +49,14 @@ public:
      * Copy constructor.
      * @param other the Folder to copy from
      */
-    Folder(const Folder& other);
+    Folder(const Folder &other);
 
     /**
      * Assignment operator.
      * @param other the Folder to assign from
      * @return pointer to this Folder
      */
-    Folder& operator=(const Folder& other);
+    Folder &operator=(const Folder &other);
 
     /**
      * Destructor.
@@ -69,7 +68,7 @@ public:
      * The id uniquely identifies a Folder with the OCS API.
      * @param id the new id
      */
-    void setId(const QString& id);
+    void setId(const QString &id);
 
     /**
      * Gets the id of the Folder.
@@ -82,7 +81,7 @@ public:
      * Sets the name of the Folder.
      * @param name the new name
      */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /**
      * Gets the name of the Folder.
@@ -106,7 +105,7 @@ public:
      * Sets the type of the folder
      * @param type the new type
      */
-    void setType(const QString& type);
+    void setType(const QString &type);
 
     /**
      * Gets the type of the Folder.
@@ -126,6 +125,5 @@ private:
 };
 
 }
-
 
 #endif

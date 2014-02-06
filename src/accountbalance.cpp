@@ -18,12 +18,11 @@
     License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "accountbalance.h"
 
 using namespace Attica;
 
-class AccountBalance::Private :public QSharedData
+class AccountBalance::Private : public QSharedData
 {
 public:
     QString balance;
@@ -31,16 +30,16 @@ public:
 };
 
 AccountBalance::AccountBalance()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-AccountBalance::AccountBalance(const Attica::AccountBalance& other)
-    :d(other.d)
+AccountBalance::AccountBalance(const Attica::AccountBalance &other)
+    : d(other.d)
 {
 }
 
-AccountBalance& AccountBalance::operator=(const Attica::AccountBalance& other)
+AccountBalance &AccountBalance::operator=(const Attica::AccountBalance &other)
 {
     d = other.d;
     return *this;
@@ -49,7 +48,7 @@ AccountBalance& AccountBalance::operator=(const Attica::AccountBalance& other)
 AccountBalance::~AccountBalance()
 {}
 
-void AccountBalance::setBalance(const QString& balance)
+void AccountBalance::setBalance(const QString &balance)
 {
     d->balance = balance;
 }
@@ -59,7 +58,7 @@ QString AccountBalance::balance() const
     return d->balance;
 }
 
-void AccountBalance::setCurrency(const QString& currency)
+void AccountBalance::setCurrency(const QString &currency)
 {
     d->currency = currency;
 }

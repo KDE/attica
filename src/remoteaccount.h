@@ -32,41 +32,41 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT RemoteAccount
 {
-  public:
+public:
     typedef QList<RemoteAccount> List;
     class Parser;
 
     RemoteAccount();
-    RemoteAccount(const RemoteAccount& other);
-    RemoteAccount& operator=(const RemoteAccount& other);
+    RemoteAccount(const RemoteAccount &other);
+    RemoteAccount &operator=(const RemoteAccount &other);
     ~RemoteAccount();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setType( const QString & );
+    void setType(const QString &);
     QString type() const;
 
-    void setRemoteServiceId( const QString & );
+    void setRemoteServiceId(const QString &);
     QString remoteServiceId() const;
 
-    void setData( const QString & );
+    void setData(const QString &);
     QString data() const;
 
-    void setLogin( const QString & );
+    void setLogin(const QString &);
     QString login() const;
 
-    void setPassword( const QString & );
+    void setPassword(const QString &);
     QString password() const;
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

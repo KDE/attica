@@ -22,33 +22,32 @@
 
 */
 
-
 #include "icon.h"
 
 using namespace Attica;
 
-class Icon::Private :public QSharedData
+class Icon::Private : public QSharedData
 {
 public:
     QUrl url;
     uint width;
     uint height;
-    
+
     Private() : width(0), height(0)
     {}
 };
 
 Icon::Icon()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-Icon::Icon(const Attica::Icon& other)
-    :d(other.d)
+Icon::Icon(const Attica::Icon &other)
+    : d(other.d)
 {
 }
 
-Icon& Icon::operator=(const Attica::Icon& other)
+Icon &Icon::operator=(const Attica::Icon &other)
 {
     d = other.d;
     return *this;
@@ -62,7 +61,7 @@ QUrl Icon::url() const
     return d->url;
 }
 
-void Icon::setUrl(const QUrl& url)
+void Icon::setUrl(const QUrl &url)
 {
     d->url = url;
 }

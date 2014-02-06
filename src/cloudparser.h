@@ -27,17 +27,16 @@
 #include "cloud.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Cloud::Parser : public Attica::Parser<Cloud>
 {
 private:
-    Cloud parseXml(QXmlStreamReader& xml);
+    Cloud parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

@@ -23,35 +23,34 @@
 
 #include "remoteaccount.h"
 
-
 using namespace Attica;
 
-class RemoteAccount::Private : public QSharedData {
-    public:
-        QString id;
-        QString type;
-        QString remoteServiceId;
-        QString data;
-        QString login;
-        QString password;
+class RemoteAccount::Private : public QSharedData
+{
+public:
+    QString id;
+    QString type;
+    QString remoteServiceId;
+    QString data;
+    QString login;
+    QString password;
 
-        Private()
-        {
-        }
+    Private()
+    {
+    }
 };
 
-
 RemoteAccount::RemoteAccount()
-  : d(new Private)
+    : d(new Private)
 {
 }
 
-RemoteAccount::RemoteAccount(const RemoteAccount& other)
+RemoteAccount::RemoteAccount(const RemoteAccount &other)
     : d(other.d)
 {
 }
 
-RemoteAccount& RemoteAccount::operator=(const Attica::RemoteAccount & other)
+RemoteAccount &RemoteAccount::operator=(const Attica::RemoteAccount &other)
 {
     d = other.d;
     return *this;
@@ -61,7 +60,7 @@ RemoteAccount::~RemoteAccount()
 {
 }
 
-void RemoteAccount::setId( const QString &u )
+void RemoteAccount::setId(const QString &u)
 {
     d->id = u;
 }
@@ -71,7 +70,7 @@ QString RemoteAccount::id() const
     return d->id;
 }
 
-void RemoteAccount::setType( const QString &arg )
+void RemoteAccount::setType(const QString &arg)
 {
     d->type = arg;
 }
@@ -81,7 +80,7 @@ QString RemoteAccount::type() const
     return d->type;
 }
 
-void RemoteAccount::setRemoteServiceId( const QString &arg )
+void RemoteAccount::setRemoteServiceId(const QString &arg)
 {
     d->remoteServiceId = arg;
 }
@@ -91,7 +90,7 @@ QString RemoteAccount::remoteServiceId() const
     return d->remoteServiceId;
 }
 
-void RemoteAccount::setData( const QString &arg )
+void RemoteAccount::setData(const QString &arg)
 {
     d->data = arg;
 }
@@ -101,7 +100,7 @@ QString RemoteAccount::data() const
     return d->data;
 }
 
-void RemoteAccount::setLogin( const QString &arg )
+void RemoteAccount::setLogin(const QString &arg)
 {
     d->login = arg;
 }
@@ -111,7 +110,7 @@ QString RemoteAccount::login() const
     return d->login;
 }
 
-void RemoteAccount::setPassword( const QString &arg )
+void RemoteAccount::setPassword(const QString &arg)
 {
     d->password = arg;
 }
@@ -120,7 +119,6 @@ QString RemoteAccount::password() const
 {
     return d->password;
 }
-
 
 bool RemoteAccount::isValid() const
 {

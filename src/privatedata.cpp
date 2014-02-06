@@ -25,34 +25,33 @@
 
 #include <QStringList>
 
-
 using namespace Attica;
 
-class PrivateData::Private : public QSharedData {
-    public:
-        QMap<QString, QString> m_attributes;
-        QMap<QString, QDateTime> m_attributesTimestamp;
+class PrivateData::Private : public QSharedData
+{
+public:
+    QMap<QString, QString> m_attributes;
+    QMap<QString, QDateTime> m_attributesTimestamp;
 
-        Provider *m_provider;
+    Provider *m_provider;
 
-        Private()
-            : m_provider(0)
-        {
-        }
+    Private()
+        : m_provider(0)
+    {
+    }
 };
 
-
 PrivateData::PrivateData()
-  : d(new Private)
+    : d(new Private)
 {
 }
 
-PrivateData::PrivateData(const PrivateData& other)
+PrivateData::PrivateData(const PrivateData &other)
     : d(other.d)
 {
 }
 
-PrivateData& PrivateData::operator=(const Attica::PrivateData & other)
+PrivateData &PrivateData::operator=(const Attica::PrivateData &other)
 {
     d = other.d;
     return *this;

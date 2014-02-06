@@ -31,19 +31,18 @@
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QUrl>
 
-
 namespace Attica
 {
 
 class ATTICA_EXPORT Forum
 {
-  public:
+public:
     typedef QList<Forum> List;
     class Parser;
 
     Forum();
-    Forum(const Forum& other);
-    Forum& operator=(const Forum& other);
+    Forum(const Forum &other);
+    Forum &operator=(const Forum &other);
     ~Forum();
 
     void setId(const QString &id);
@@ -72,7 +71,7 @@ class ATTICA_EXPORT Forum
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

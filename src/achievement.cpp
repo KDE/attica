@@ -27,14 +27,15 @@ using namespace Attica;
 
 Achievement::Type Achievement::stringToAchievementType(const QString &achievementTypeString)
 {
-    if (achievementTypeString == QLatin1String("flowing"))
+    if (achievementTypeString == QLatin1String("flowing")) {
         return Achievement::FlowingAchievement;
-    else if (achievementTypeString == QLatin1String("stepped"))
+    } else if (achievementTypeString == QLatin1String("stepped")) {
         return Achievement::SteppedAchievement;
-    else if (achievementTypeString == QLatin1String("namedsteps"))
+    } else if (achievementTypeString == QLatin1String("namedsteps")) {
         return Achievement::NamedstepsAchievement;
-    else if (achievementTypeString == QLatin1String("set"))
+    } else if (achievementTypeString == QLatin1String("set")) {
         return Achievement::SetAchievement;
+    }
 
     Q_ASSERT(false);
     return Achievement::FlowingAchievement;
@@ -42,7 +43,7 @@ Achievement::Type Achievement::stringToAchievementType(const QString &achievemen
 
 QString Achievement::achievementTypeToString(const Achievement::Type type)
 {
-    switch(type) {
+    switch (type) {
     case Achievement::FlowingAchievement:
         return QLatin1String("flowing");
         break;
@@ -63,12 +64,13 @@ QString Achievement::achievementTypeToString(const Achievement::Type type)
 
 Achievement::Visibility Achievement::stringToAchievementVisibility(const QString &achievementVisibilityString)
 {
-    if (achievementVisibilityString == QLatin1String("visible"))
+    if (achievementVisibilityString == QLatin1String("visible")) {
         return Achievement::VisibleAchievement;
-    else if (achievementVisibilityString == QLatin1String("dependents"))
+    } else if (achievementVisibilityString == QLatin1String("dependents")) {
         return Achievement::DependentsAchievement;
-    else if (achievementVisibilityString == QLatin1String("secret"))
+    } else if (achievementVisibilityString == QLatin1String("secret")) {
         return Achievement::SecretAchievement;
+    }
 
     Q_ASSERT(false);
     return Achievement::VisibleAchievement;
@@ -76,7 +78,7 @@ Achievement::Visibility Achievement::stringToAchievementVisibility(const QString
 
 QString Achievement::achievementVisibilityToString(const Achievement::Visibility visibility)
 {
-    switch(visibility) {
+    switch (visibility) {
     case Achievement::VisibleAchievement:
         return QLatin1String("visible");
         break;
@@ -92,27 +94,28 @@ QString Achievement::achievementVisibilityToString(const Achievement::Visibility
     return QString();
 }
 
-class Achievement::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_contentId;
-        QString m_name;
-        QString m_description;
-        QString m_explanation;
-        int m_points;
-        QUrl m_image;
-        QStringList m_dependencies;
-        Achievement::Visibility m_visibility;
-        Achievement::Type m_type;
-        QStringList m_options;
-        int m_steps;
-        QVariant m_progress;
+class Achievement::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_contentId;
+    QString m_name;
+    QString m_description;
+    QString m_explanation;
+    int m_points;
+    QUrl m_image;
+    QStringList m_dependencies;
+    Achievement::Visibility m_visibility;
+    Achievement::Type m_type;
+    QStringList m_options;
+    int m_steps;
+    QVariant m_progress;
 
-        Private()
-            : m_points(0),
-              m_steps(0)
-        {
-        }
+    Private()
+        : m_points(0),
+          m_steps(0)
+    {
+    }
 };
 
 Achievement::Achievement()
@@ -120,12 +123,12 @@ Achievement::Achievement()
 {
 }
 
-Achievement::Achievement(const Achievement& other)
+Achievement::Achievement(const Achievement &other)
     : d(other.d)
 {
 }
 
-Achievement& Achievement::operator=(const Attica::Achievement & other)
+Achievement &Achievement::operator=(const Attica::Achievement &other)
 {
     d = other.d;
     return *this;
@@ -287,5 +290,5 @@ QVariant Achievement::progress() const
 
 bool Achievement::isValid() const
 {
-  return !(d->m_id.isEmpty());
+    return !(d->m_id.isEmpty());
 }

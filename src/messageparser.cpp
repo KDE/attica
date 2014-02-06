@@ -23,10 +23,10 @@
 
 #include "messageparser.h"
 
-
 using namespace Attica;
 
-Message Message::Parser::parseXml(QXmlStreamReader& xml) {
+Message Message::Parser::parseXml(QXmlStreamReader &xml)
+{
     Message message;
 
     while (!xml.atEnd()) {
@@ -58,7 +58,7 @@ Message Message::Parser::parseXml(QXmlStreamReader& xml) {
     return message;
 }
 
-
-QStringList Message::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "message" ));
+QStringList Message::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("message"));
 }

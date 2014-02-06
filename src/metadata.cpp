@@ -27,7 +27,7 @@
 
 using namespace Attica;
 
-class Metadata::Private :public QSharedData
+class Metadata::Private : public QSharedData
 {
 public:
     Error error;
@@ -49,17 +49,17 @@ public:
     QString resultingId;
 
     Private()
-        // values that make sense for single item jobs
-        :error(NoError)
-        ,statusCode(0)
-        ,totalItems(1)
-        ,itemsPerPage(1)
+    // values that make sense for single item jobs
+        : error(NoError)
+        , statusCode(0)
+        , totalItems(1)
+        , itemsPerPage(1)
     {
     }
 };
 
 Metadata::Metadata()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
@@ -67,36 +67,33 @@ Metadata::~Metadata()
 {
 }
 
-Metadata::Metadata(const Attica::Metadata& other)
-    :d(other.d)
+Metadata::Metadata(const Attica::Metadata &other)
+    : d(other.d)
 {
 }
 
-Metadata& Metadata::operator=(const Attica::Metadata& other)
+Metadata &Metadata::operator=(const Attica::Metadata &other)
 {
     d = other.d;
     return *this;
 }
-
 
 Metadata::Error Metadata::error() const
 {
     return d->error;
 }
 
-
 void Metadata::setError(Metadata::Error error)
 {
     d->error = error;
 }
-
 
 QString Metadata::message()
 {
     return d->message;
 }
 
-void Metadata::setMessage(const QString& message)
+void Metadata::setMessage(const QString &message)
 {
     d->message = message;
 }
@@ -106,7 +103,7 @@ QString Metadata::resultingId()
     return d->resultingId;
 }
 
-void Metadata::setResultingId(const QString& id)
+void Metadata::setResultingId(const QString &id)
 {
     d->resultingId = id;
 }
@@ -126,7 +123,7 @@ QString Metadata::statusString() const
     return d->statusString;
 }
 
-void Metadata::setStatusString(const QString& status)
+void Metadata::setStatusString(const QString &status)
 {
     d->statusString = status;
 }

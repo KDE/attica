@@ -27,12 +27,13 @@
 #include "downloaditem.h"
 #include "parser.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class DownloadItem::Parser : public Attica::Parser<DownloadItem>
 {
 private:
-    DownloadItem parseXml(QXmlStreamReader& xml);
+    DownloadItem parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 

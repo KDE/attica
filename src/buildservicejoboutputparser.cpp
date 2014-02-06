@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-BuildServiceJobOutput BuildServiceJobOutput::Parser::parseXml(QXmlStreamReader& xml)
+BuildServiceJobOutput BuildServiceJobOutput::Parser::parseXml(QXmlStreamReader &xml)
 {
     BuildServiceJobOutput buildservicejoboutput;
 
@@ -45,6 +45,7 @@ BuildServiceJobOutput BuildServiceJobOutput::Parser::parseXml(QXmlStreamReader& 
     return buildservicejoboutput;
 }
 
-QStringList BuildServiceJobOutput::Parser::xmlElement() const {
+QStringList BuildServiceJobOutput::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("output"));
 }

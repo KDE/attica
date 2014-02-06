@@ -26,16 +26,15 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
-
+namespace Attica
+{
 
 /**
  * Represents the money in the account of the user
  */
 class ATTICA_EXPORT AccountBalance
 {
-  public:
+public:
     typedef QList<AccountBalance> List;
     class Parser;
 
@@ -48,26 +47,25 @@ class ATTICA_EXPORT AccountBalance
      * Copy constructor.
      * @param other the AccountBalance to copy from
      */
-    AccountBalance(const AccountBalance& other);
+    AccountBalance(const AccountBalance &other);
 
     /**
      * Assignment operator.
      * @param other the AccountBalance to assign from
      * @return pointer to this AccountBalance
      */
-    AccountBalance& operator=(const AccountBalance& other);
+    AccountBalance &operator=(const AccountBalance &other);
 
     /**
      * Destructor.
      */
     ~AccountBalance();
 
-
     /**
      * Sets the currency in use.
      * @param currency the new currency (Euro, US Dollar)
      */
-    void setCurrency(const QString & currency);
+    void setCurrency(const QString &currency);
 
     /**
      * Gets the currency.
@@ -79,7 +77,7 @@ class ATTICA_EXPORT AccountBalance
      * Sets the balance.
      * @param balance
      */
-    void setBalance(const QString& name);
+    void setBalance(const QString &name);
 
     /**
      * Gets the balance.
@@ -87,7 +85,7 @@ class ATTICA_EXPORT AccountBalance
      */
     QString balance() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

@@ -31,13 +31,12 @@
 
 #include <QtCore/QUrl>
 
-
 namespace Attica
 {
 
 class ATTICA_EXPORT Comment
 {
-  public:
+public:
     typedef QList<Comment> List;
     class Parser;
 
@@ -50,8 +49,8 @@ class ATTICA_EXPORT Comment
     static QString commentTypeToString(const Comment::Type type);
 
     Comment();
-    Comment(const Comment& other);
-    Comment& operator=(const Comment& other);
+    Comment(const Comment &other);
+    Comment &operator=(const Comment &other);
     ~Comment();
 
     void setId(const QString &id);
@@ -88,7 +87,7 @@ class ATTICA_EXPORT Comment
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

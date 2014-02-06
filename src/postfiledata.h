@@ -28,32 +28,33 @@
 #include <QtCore/QIODevice>
 #include <QtNetwork/QNetworkRequest>
 
-namespace Attica {
-    class PostFileDataPrivate;
+namespace Attica
+{
+class PostFileDataPrivate;
 
 class PostFileData
 {
-    public:
-        /**
-         * Prepare a QNetworkRequest and QByteArray for sending a HTTP POST.
-         * Parameters and files can be added with addArgument() and addFile()
-         * Do not add anything after calling request or data for the first time.
-         */
-        PostFileData(const QUrl& url);
-        ~PostFileData();
-        
-        void addArgument(const QString& key, const QString& value);
-        void addFile(const QString& fileName, QIODevice* file, const QString& mimeType);
-        void addFile(const QString& fileName, const QByteArray& file, const QString& mimeType, const QString& fieldName=QLatin1String("localfile"));
-        
-        QNetworkRequest request();
-        QByteArray data();
-        
-    private:
-        void finish();
-        QString randomString(int length);
-        PostFileDataPrivate* d;
-        Q_DISABLE_COPY(PostFileData)
+public:
+    /**
+     * Prepare a QNetworkRequest and QByteArray for sending a HTTP POST.
+     * Parameters and files can be added with addArgument() and addFile()
+     * Do not add anything after calling request or data for the first time.
+     */
+    PostFileData(const QUrl &url);
+    ~PostFileData();
+
+    void addArgument(const QString &key, const QString &value);
+    void addFile(const QString &fileName, QIODevice *file, const QString &mimeType);
+    void addFile(const QString &fileName, const QByteArray &file, const QString &mimeType, const QString &fieldName = QLatin1String("localfile"));
+
+    QNetworkRequest request();
+    QByteArray data();
+
+private:
+    void finish();
+    QString randomString(int length);
+    PostFileDataPrivate *d;
+    Q_DISABLE_COPY(PostFileData)
 };
 
 }

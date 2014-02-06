@@ -30,7 +30,7 @@ using namespace Attica;
 
 QString Comment::commentTypeToString(const Comment::Type type)
 {
-    switch(type) {
+    switch (type) {
     case ContentComment:
         return QLatin1String("1");
         break;
@@ -49,23 +49,23 @@ QString Comment::commentTypeToString(const Comment::Type type)
     return QString();
 }
 
+class Comment::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_subject;
+    QString m_text;
+    int m_childCount;
+    QString m_user;
+    QDateTime m_date;
+    int m_score;
+    QList<Comment> m_children;
 
-class Comment::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_subject;
-        QString m_text;
-        int m_childCount;
-        QString m_user;
-        QDateTime m_date;
-        int m_score;
-        QList<Comment> m_children;
-
-        Private()
-            : m_childCount(0),
-              m_score(0)
-        {
-        }
+    Private()
+        : m_childCount(0),
+          m_score(0)
+    {
+    }
 };
 
 Comment::Comment()
@@ -73,12 +73,12 @@ Comment::Comment()
 {
 }
 
-Comment::Comment(const Comment& other)
+Comment::Comment(const Comment &other)
     : d(other.d)
 {
 }
 
-Comment& Comment::operator=(const Attica::Comment & other)
+Comment &Comment::operator=(const Attica::Comment &other)
 {
     d = other.d;
     return *this;
@@ -108,7 +108,7 @@ QString Comment::subject() const
     return d->m_subject;
 }
 
-void Comment::setText(const QString& text)
+void Comment::setText(const QString &text)
 {
     d->m_text = text;
 }
@@ -170,5 +170,5 @@ QList<Comment> Comment::children() const
 
 bool Comment::isValid() const
 {
-  return !(d->m_id.isEmpty());
+    return !(d->m_id.isEmpty());
 }

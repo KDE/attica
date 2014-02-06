@@ -27,20 +27,16 @@
 
 #include "platformdependent.h"
 
-
 using namespace Attica;
 
-
-GetJob::GetJob(PlatformDependent* internals, const QNetworkRequest& request)
+GetJob::GetJob(PlatformDependent *internals, const QNetworkRequest &request)
     : BaseJob(internals), m_request(request)
 {
 }
 
-
-QNetworkReply* GetJob::executeRequest()
+QNetworkReply *GetJob::executeRequest()
 {
     return internals()->get(m_request);
 }
-
 
 #include "getjob.moc"

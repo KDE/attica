@@ -24,31 +24,32 @@
 
 */
 
-
 #include "postfiledata.h"
 
 #include <QDebug>
 #include <QDateTime>
 
-namespace Attica {
-class PostFileDataPrivate {
-    public:
-        QByteArray buffer;
-        QByteArray boundary;
-        QUrl url;
-        bool finished;
+namespace Attica
+{
+class PostFileDataPrivate
+{
+public:
+    QByteArray buffer;
+    QByteArray boundary;
+    QUrl url;
+    bool finished;
 
-        PostFileDataPrivate()
-            :finished(false)
-        {
-        }
+    PostFileDataPrivate()
+        : finished(false)
+    {
+    }
 };
 
-PostFileData::PostFileData(const QUrl& url)
-    :d(new PostFileDataPrivate)
+PostFileData::PostFileData(const QUrl &url)
+    : d(new PostFileDataPrivate)
 {
     d->url = url;
-    qsrand(QTime::currentTime().secsTo(QTime(0,0,0)));
+    qsrand(QTime::currentTime().secsTo(QTime(0, 0, 0)));
     d->boundary = "----------" + randomString(42 + 13).toLatin1();
 }
 
@@ -59,22 +60,27 @@ PostFileData::~PostFileData()
 
 QString PostFileData::randomString(int length)
 {
-   if (length <=0 ) return QString();
+    if (length <= 0) {
+        return QString();
+    }
 
-   QString str; str.resize( length );
-   int i = 0;
-   while (length--)
-   {
-      int r=qrand() % 62;
-      r+=48;
-      if (r>57) r+=7;
-      if (r>90) r+=6;
-      str[i++] =  char(r);
-   }
-   return str;
+    QString str; str.resize(length);
+    int i = 0;
+    while (length--) {
+        int r = qrand() % 62;
+        r += 48;
+        if (r > 57) {
+            r += 7;
+        }
+        if (r > 90) {
+            r += 6;
+        }
+        str[i++] =  char(r);
+    }
+    return str;
 }
 
-void PostFileData::addArgument(const QString& key, const QString& value)
+void PostFileData::addArgument(const QString &key, const QString &value)
 {
     if (d->finished) {
         qWarning() << "PostFileData::addFile: should not add data after calling request() or data()";
@@ -98,7 +104,7 @@ void PostFileData::addFile(const QString& fileName, QIODevice* file, const QStri
 }
 */
 
-void PostFileData::addFile(const QString& fileName, const QByteArray& file, const QString& mimeType, const QString& fieldName)
+void PostFileData::addFile(const QString &fileName, const QByteArray &file, const QString &mimeType, const QString &fieldName)
 {
     if (d->finished) {
         qWarning() << "PostFileData::addFile: should not add data after calling request() or data()";
@@ -109,7 +115,7 @@ void PostFileData::addFile(const QString& fileName, const QByteArray& file, cons
         "Content-Disposition: form-data; name=\"");
     data.append(fieldName.toLatin1());
     data.append("\"; filename=\"" + fileName.toUtf8()
-        + "\"\r\nContent-Type: " + mimeType.toLatin1() + "\r\n\r\n");
+                + "\"\r\nContent-Type: " + mimeType.toLatin1() + "\r\n\r\n");
 
     d->buffer.append(data);
     d->buffer.append(file + QByteArray("\r\n"));

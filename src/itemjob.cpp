@@ -27,13 +27,13 @@
 using namespace Attica;
 
 template <class T>
-ItemJob<T>::ItemJob(PlatformDependent* internals, const QNetworkRequest& request)
+ItemJob<T>::ItemJob(PlatformDependent *internals, const QNetworkRequest &request)
     : GetJob(internals, request)
 {
 }
 
 template <class T>
-void ItemJob<T>::parse(const QString& xml)
+void ItemJob<T>::parse(const QString &xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
@@ -47,13 +47,13 @@ T ItemJob<T>::result() const
 }
 
 template <class T>
-ItemDeleteJob<T>::ItemDeleteJob(PlatformDependent* internals, const QNetworkRequest& request)
+ItemDeleteJob<T>::ItemDeleteJob(PlatformDependent *internals, const QNetworkRequest &request)
     : DeleteJob(internals, request)
 {
 }
 
 template <class T>
-void ItemDeleteJob<T>::parse(const QString& xml)
+void ItemDeleteJob<T>::parse(const QString &xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
@@ -67,19 +67,19 @@ T ItemDeleteJob<T>::result() const
 }
 
 template <class T>
-ItemPostJob<T>::ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* data)
+ItemPostJob<T>::ItemPostJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *data)
     : PostJob(internals, request, data)
 {
 }
 
 template <class T>
-ItemPostJob<T>::ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters)
+ItemPostJob<T>::ItemPostJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
     : PostJob(internals, request, parameters)
 {
 }
 
 template <class T>
-void ItemPostJob<T>::parse(const QString& xml)
+void ItemPostJob<T>::parse(const QString &xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);
@@ -93,19 +93,19 @@ T ItemPostJob<T>::result() const
 }
 
 template <class T>
-ItemPutJob<T>::ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* data)
+ItemPutJob<T>::ItemPutJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *data)
     : PutJob(internals, request, data)
 {
 }
 
 template <class T>
-ItemPutJob<T>::ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters)
+ItemPutJob<T>::ItemPutJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
     : PutJob(internals, request, parameters)
 {
 }
 
 template <class T>
-void ItemPutJob<T>::parse(const QString& xml)
+void ItemPutJob<T>::parse(const QString &xml)
 {
     typename T::Parser p;
     m_item = p.parse(xml);

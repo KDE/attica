@@ -43,22 +43,23 @@
 #include "qtplatformdependent_p.h"
 #include <QLibraryInfo>
 
-
 using namespace Attica;
 
 #if QT_VERSION < 0x040700
-uint qHash(const QUrl& key) {
+uint qHash(const QUrl &key)
+{
     return qHash(key.toString());
 }
 #endif
 
-class ProviderManager::Private {
+class ProviderManager::Private
+{
 public:
-    PlatformDependent* m_internals;
+    PlatformDependent *m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSignalMapper m_downloadMapping;
-    QHash<QString, QNetworkReply*> m_downloads;
+    QHash<QString, QNetworkReply *> m_downloads;
     QPluginLoader m_pluginLoader;
     bool m_authenticationSuppressed;
 
@@ -73,20 +74,18 @@ public:
     }
 };
 
-
-PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& flags)
+PlatformDependent *ProviderManager::loadPlatformDependent(const ProviderFlags &flags)
 {
     // OS specific stuff
-    #if defined Q_WS_WIN
-    #define PATH_SEPARATOR ';'
-    #define LIB_EXTENSION "dll"
-    #else
-    #define PATH_SEPARATOR ':'
-    #define LIB_EXTENSION "so"
-    #endif
+#if defined Q_WS_WIN
+#define PATH_SEPARATOR ';'
+#define LIB_EXTENSION "dll"
+#else
+#define PATH_SEPARATOR ':'
+#define LIB_EXTENSION "so"
+#endif
 
-    if (flags & ProviderManager::DisablePlugins)
-    {
+    if (flags & ProviderManager::DisablePlugins) {
         //qDebug() << "Disabling provider plugins per application request";
         return new QtPlatformDependent;
     }
@@ -96,28 +95,28 @@ PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& f
     paths.append(QLibraryInfo::location(QLibraryInfo::PluginsPath));
 
     // old plugin location, required for attica < 0.1.5
-    QString program(QLatin1String( "kde4-config" ));
+    QString program(QLatin1String("kde4-config"));
     QStringList arguments;
-    arguments << QLatin1String( "--path" ) << QLatin1String( "lib" );
+    arguments << QLatin1String("--path") << QLatin1String("lib");
 
     QProcess process;
     process.start(program, arguments);
     process.waitForFinished();
 
     /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
-    paths.append(QString(QLatin1String( process.readAllStandardOutput() )).trimmed().split(QLatin1Char( PATH_SEPARATOR )));
+    paths.append(QString(QLatin1String(process.readAllStandardOutput())).trimmed().split(QLatin1Char(PATH_SEPARATOR)));
     //qDebug() << "Plugin paths: " << paths;
 
-    QString pluginName(QLatin1String( "attica_kde" ));
+    QString pluginName(QLatin1String("attica_kde"));
 
-    foreach(const QString& path, paths) {
-        QString libraryPath(path + QLatin1Char( '/' ) + pluginName + QLatin1Char( '.' ) + QLatin1String( LIB_EXTENSION ));
+    foreach (const QString &path, paths) {
+        QString libraryPath(path + QLatin1Char('/') + pluginName + QLatin1Char('.') + QLatin1String(LIB_EXTENSION));
         //qDebug() << "Trying to load Attica plugin: " << libraryPath;
         if (QFile::exists(libraryPath)) {
             d->m_pluginLoader.setFileName(libraryPath);
-            QObject* plugin = d->m_pluginLoader.instance();
+            QObject *plugin = d->m_pluginLoader.instance();
             if (plugin) {
-                PlatformDependent* platformDependent = qobject_cast<PlatformDependent*>(plugin);
+                PlatformDependent *platformDependent = qobject_cast<PlatformDependent *>(plugin);
                 if (platformDependent) {
                     //qDebug() << "Using Attica with KDE support";
                     return platformDependent;
@@ -129,8 +128,7 @@ PlatformDependent* ProviderManager::loadPlatformDependent(const ProviderFlags& f
     return new QtPlatformDependent;
 }
 
-
-ProviderManager::ProviderManager(const ProviderFlags& flags)
+ProviderManager::ProviderManager(const ProviderFlags &flags)
     : d(new Private)
 {
     d->m_internals = loadPlatformDependent(flags);
@@ -156,7 +154,7 @@ void ProviderManager::clear()
 
 void ProviderManager::slotLoadDefaultProvidersInternal()
 {
-    foreach (const QUrl& url, d->m_internals->getDefaultProviderFiles()) {
+    foreach (const QUrl &url, d->m_internals->getDefaultProviderFiles()) {
         addProviderFile(url);
     }
     if (d->m_downloads.isEmpty()) {
@@ -174,18 +172,18 @@ ProviderManager::~ProviderManager()
     delete d;
 }
 
-void ProviderManager::addProviderFileToDefaultProviders(const QUrl& url)
+void ProviderManager::addProviderFileToDefaultProviders(const QUrl &url)
 {
     d->m_internals->addDefaultProviderFile(url);
     addProviderFile(url);
 }
 
-void ProviderManager::removeProviderFileFromDefaultProviders(const QUrl& url)
+void ProviderManager::removeProviderFileFromDefaultProviders(const QUrl &url)
 {
     d->m_internals->removeDefaultProviderFile(url);
 }
 
-void ProviderManager::addProviderFile(const QUrl& url)
+void ProviderManager::addProviderFile(const QUrl &url)
 {
     QString localFile = url.toLocalFile();
     if (!localFile.isEmpty()) {
@@ -194,10 +192,10 @@ void ProviderManager::addProviderFile(const QUrl& url)
             qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
             return;
         }
-        addProviderFromXml(QLatin1String( file.readAll() ));
+        addProviderFromXml(QLatin1String(file.readAll()));
     } else {
         if (!d->m_downloads.contains(url.toString())) {
-            QNetworkReply* reply = d->m_internals->get(QNetworkRequest(url));
+            QNetworkReply *reply = d->m_internals->get(QNetworkRequest(url));
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
             d->m_downloads.insert(url.toString(), reply);
@@ -205,19 +203,19 @@ void ProviderManager::addProviderFile(const QUrl& url)
     }
 }
 
-void ProviderManager::fileFinished(const QString& url)
+void ProviderManager::fileFinished(const QString &url)
 {
-    QNetworkReply* reply = d->m_downloads.take(url);
-    parseProviderFile(QLatin1String ( reply->readAll() ), url);
+    QNetworkReply *reply = d->m_downloads.take(url);
+    parseProviderFile(QLatin1String(reply->readAll()), url);
     reply->deleteLater();
 }
 
-void ProviderManager::addProviderFromXml(const QString& providerXml)
+void ProviderManager::addProviderFromXml(const QString &providerXml)
 {
     parseProviderFile(providerXml, QString());
 }
 
-void ProviderManager::parseProviderFile(const QString& xmlString, const QString& url)
+void ProviderManager::parseProviderFile(const QString &xmlString, const QString &url)
 {
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
@@ -239,8 +237,7 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             QString registerUrl;
 
             while (!xml.atEnd() && xml.readNext()) {
-                if (xml.isStartElement())
-                {
+                if (xml.isStartElement()) {
                     if (xml.name() == QLatin1String("location")) {
                         baseUrl = QUrl(xml.readElementText());
                     } else if (xml.name() == QLatin1String("name")) {
@@ -248,27 +245,27 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
                     } else if (xml.name() == QLatin1String("icon")) {
                         icon = QUrl(xml.readElementText());
                     } else if (xml.name() == QLatin1String("person")) {
-                        person = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        person = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("friend")) {
-                        friendV = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        friendV = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("message")) {
-                        message = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        message = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("achievement")) {
-                        achievement = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        achievement = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("activity")) {
-                        activity = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        activity = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("content")) {
-                        content = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        content = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("fan")) {
-                        fan = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        fan = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("forum")) {
-                        forum = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        forum = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("knowledgebase")) {
-                        knowledgebase = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        knowledgebase = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("event")) {
-                        event = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        event = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("comment")) {
-                        comment = xml.attributes().value(QLatin1String( "ocsversion" )).toString();
+                        comment = xml.attributes().value(QLatin1String("ocsversion")).toString();
                     } else if (xml.name() == QLatin1String("register")) {
                         registerUrl = xml.readElementText();
                     }
@@ -279,8 +276,8 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
             if (!baseUrl.isEmpty()) {
                 //qDebug() << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, baseUrl, name, icon,
-                    person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
-                    event, comment, registerUrl));
+                                                        person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
+                                                        event, comment, registerUrl));
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }
@@ -291,30 +288,31 @@ void ProviderManager::parseProviderFile(const QString& xmlString, const QString&
     }
 }
 
-Provider ProviderManager::providerByUrl(const QUrl& url) const {
+Provider ProviderManager::providerByUrl(const QUrl &url) const
+{
     return d->m_providers.value(url);
 }
 
-QList<Provider> ProviderManager::providers() const {
+QList<Provider> ProviderManager::providers() const
+{
     return d->m_providers.values();
 }
 
-
-bool ProviderManager::contains(const QString& provider) const {
+bool ProviderManager::contains(const QString &provider) const
+{
     return d->m_providers.contains(QUrl(provider));
 }
 
-
-QList<QUrl> ProviderManager::providerFiles() const {
+QList<QUrl> ProviderManager::providerFiles() const
+{
     return d->m_providerFiles.keys();
 }
 
-
-void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
+void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
 {
     QUrl baseUrl;
     QList<QUrl> urls = d->m_providers.keys();
-    foreach (const QUrl& url, urls) {
+    foreach (const QUrl &url, urls) {
         if (url.isParentOf(reply->url())) {
             baseUrl = url;
             break;
@@ -348,17 +346,14 @@ void ProviderManager::authenticate(QNetworkReply* reply, QAuthenticator* auth)
     reply->abort();
 }
 
-
-void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy& proxy, QAuthenticator* authenticator)
+void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator)
 {
 }
-
 
 void ProviderManager::initNetworkAccesssManager()
 {
     connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
     connect(d->m_internals->nam(), SIGNAL(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)));
 }
-
 
 #include "providermanager.moc"

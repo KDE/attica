@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader& xml)
+BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader &xml)
 {
     BuildServiceJob buildservicejob;
 
@@ -65,7 +65,7 @@ BuildServiceJob BuildServiceJob::Parser::parseXml(QXmlStreamReader& xml)
     return buildservicejob;
 }
 
-
-QStringList BuildServiceJob::Parser::xmlElement() const {
+QStringList BuildServiceJob::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("buildjob")) << QLatin1String("user");
 }

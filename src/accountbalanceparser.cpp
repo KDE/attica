@@ -31,25 +31,23 @@
 
 using namespace Attica;
 
-
 QStringList AccountBalance::Parser::xmlElement() const
 {
     return QStringList(QLatin1String("person"));
 }
 
-
-AccountBalance AccountBalance::Parser::parseXml(QXmlStreamReader& xml)
+AccountBalance AccountBalance::Parser::parseXml(QXmlStreamReader &xml)
 {
     AccountBalance item;
 
-    while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
-        if ( xml.isStartElement() ) {
-            if ( xml.name() == QLatin1String("balance") ) {
-                item.setBalance( xml.readElementText() );
+        if (xml.isStartElement()) {
+            if (xml.name() == QLatin1String("balance")) {
+                item.setBalance(xml.readElementText());
             }
-            if ( xml.name() == QLatin1String("currency") ) {
-                item.setCurrency( xml.readElementText() );
+            if (xml.name() == QLatin1String("currency")) {
+                item.setCurrency(xml.readElementText());
             }
         }
     }

@@ -22,7 +22,6 @@
 
 */
 
-
 #ifndef ATTICA_ICON_H
 #define ATTICA_ICON_H
 
@@ -30,8 +29,9 @@
 #include <QtCore/QUrl>
 
 #include "atticaclient_export.h"
-         
-namespace Attica {
+
+namespace Attica
+{
 /**
     The Icon class contains information about an icon.
     It consists of a Url and icon size information.
@@ -40,33 +40,33 @@ class ATTICA_EXPORT Icon
 {
 public:
     typedef QList<Icon> List;
-    
+
     /**
     * Creates an empty Icon
     */
     Icon();
-    
+
     /**
     * Copy constructor.
     * @param other the Icon to copy from
     */
-    Icon(const Icon& other);
-    
+    Icon(const Icon &other);
+
     /**
     * Assignment operator.
     * @param other the Icon to assign from
     * @return pointer to this Icon
     */
-    Icon& operator=(const Icon& other);
-    
+    Icon &operator=(const Icon &other);
+
     /**
     * Destructor.
     */
     ~Icon();
-    
+
     QUrl url() const;
-    void setUrl(const QUrl& url);
-    
+    void setUrl(const QUrl &url);
+
     uint width() const;
     void setWidth(uint width);
 
@@ -77,7 +77,7 @@ private:
     class Private;
     QSharedDataPointer<Private> d;
 };
-         
+
 }
 
 #endif

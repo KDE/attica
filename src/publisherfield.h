@@ -27,7 +27,8 @@
 #include "buildservice.h"
 #include "atticaclient_export.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT PublisherField
 {
@@ -36,24 +37,24 @@ public:
     class Parser;
 
     PublisherField();
-    PublisherField(const PublisherField& other);
-    PublisherField& operator=(const PublisherField& other);
+    PublisherField(const PublisherField &other);
+    PublisherField &operator=(const PublisherField &other);
     ~PublisherField();
 
-    void setName(const QString& value);
+    void setName(const QString &value);
     QString name() const;
 
-    void setType(const QString& value);
+    void setType(const QString &value);
     QString type() const;
 
-    void setData(const QString& value);
+    void setData(const QString &value);
     QString data() const;
 
     bool isValid() const;
 
 private:
-  class Private;
-  QSharedDataPointer<Private> d;
+    class Private;
+    QSharedDataPointer<Private> d;
 };
 
 } // namespace Attica

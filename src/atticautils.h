@@ -27,12 +27,14 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QString>
 
-namespace Attica {
+namespace Attica
+{
 
-class Utils {
+class Utils
+{
 public:
     /// parses the QtDateTime in ISO 8601 format correctly (recognizes TZ properly)
-    static QDateTime parseQtDateTimeIso8601(const QString & str);
+    static QDateTime parseQtDateTimeIso8601(const QString &str);
 };
 
 }

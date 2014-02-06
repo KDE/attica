@@ -29,27 +29,27 @@
 
 #include "listjob.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 template <class T>
-class ATTICA_EXPORT Parser {
+class ATTICA_EXPORT Parser
+{
 public:
-    T parse(const QString& xml);
-    typename T::List parseList(const QString& xml);
+    T parse(const QString &xml);
+    typename T::List parseList(const QString &xml);
     Metadata metadata() const;
     virtual ~Parser();
 
 protected:
     virtual QStringList xmlElement() const = 0;
-    virtual T parseXml(QXmlStreamReader& xml) = 0;
+    virtual T parseXml(QXmlStreamReader &xml) = 0;
 
 private:
-    void parseMetadataXml(QXmlStreamReader& xml);
+    void parseMetadataXml(QXmlStreamReader &xml);
     Metadata m_metadata;
 };
 
 }
-
 
 #endif

@@ -28,7 +28,7 @@
 
 using namespace Attica;
 
-Content Content::Parser::parseXml(QXmlStreamReader& xml)
+Content Content::Parser::parseXml(QXmlStreamReader &xml)
 {
     Content content;
 
@@ -37,32 +37,32 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
 
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("id")) {
-                content.setId( xml.readElementText());
+                content.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("name")) {
-                content.setName( xml.readElementText());
+                content.setName(xml.readElementText());
             } else if (xml.name() == QLatin1String("score")) {
-                content.setRating( xml.readElementText().toInt());
+                content.setRating(xml.readElementText().toInt());
             } else if (xml.name() == QLatin1String("downloads")) {
-                content.setDownloads( xml.readElementText().toInt());
+                content.setDownloads(xml.readElementText().toInt());
             } else if (xml.name() == QLatin1String("comments")) {
                 content.setNumberOfComments(xml.readElementText().toInt());
             } else if (xml.name() == QLatin1String("created")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
-                content.setCreated( QDateTime::fromString( dateString, Qt::ISODate));
+                content.setCreated(QDateTime::fromString(dateString, Qt::ISODate));
             } else if (xml.name() == QLatin1String("changed")) {
                 // Qt doesn't accept +-Timezone modifiers, truncate if the string contains them
                 QString dateString = xml.readElementText().left(19);
-                content.setUpdated( QDateTime::fromString( dateString, Qt::ISODate));
+                content.setUpdated(QDateTime::fromString(dateString, Qt::ISODate));
             } else if (xml.name() == QLatin1String("icon")) {
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
                 QXmlStreamAttributes attributes = xml.attributes();
-                if (attributes.hasAttribute(QLatin1String( "width" ))) {
-                    icon.setWidth(attributes.value(QLatin1String( "width" )).toString().toInt());
+                if (attributes.hasAttribute(QLatin1String("width"))) {
+                    icon.setWidth(attributes.value(QLatin1String("width")).toString().toInt());
                 }
-                if (attributes.hasAttribute(QLatin1String( "height" ))) {
-                    icon.setHeight(attributes.value(QLatin1String( "height" )).toString().toInt());
+                if (attributes.hasAttribute(QLatin1String("height"))) {
+                    icon.setHeight(attributes.value(QLatin1String("height")).toString().toInt());
                 }
                 // append the icon to the current list of icons
                 QList<Icon> icons;
@@ -94,7 +94,7 @@ Content Content::Parser::parseXml(QXmlStreamReader& xml)
     return content;
 }
 
-
-QStringList Content::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "content" ));
+QStringList Content::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("content"));
 }

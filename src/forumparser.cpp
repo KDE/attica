@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-Forum Forum::Parser::parseXml(QXmlStreamReader& xml)
+Forum Forum::Parser::parseXml(QXmlStreamReader &xml)
 {
     Forum forum;
 
@@ -60,7 +60,7 @@ Forum Forum::Parser::parseXml(QXmlStreamReader& xml)
     return forum;
 }
 
-QList<Forum> Forum::Parser::parseXmlChildren(QXmlStreamReader& xml)
+QList<Forum> Forum::Parser::parseXmlChildren(QXmlStreamReader &xml)
 {
     QList<Forum> children;
 
@@ -82,5 +82,5 @@ QList<Forum> Forum::Parser::parseXmlChildren(QXmlStreamReader& xml)
 
 QStringList Forum::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "forum" ));
+    return QStringList(QLatin1String("forum"));
 }

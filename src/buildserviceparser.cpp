@@ -21,14 +21,12 @@
 
 */
 
-
-
 #include "buildserviceparser.h"
 #include <qdebug.h>
 
 using namespace Attica;
 
-BuildService BuildService::Parser::parseXml(QXmlStreamReader& xml)
+BuildService BuildService::Parser::parseXml(QXmlStreamReader &xml)
 {
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft
@@ -74,14 +72,15 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader& xml)
                 }
             }
         } else if (xml.isEndElement()
-               && ((xml.name() == QLatin1String("buildservice"))
-               || (xml.name() == QLatin1String("user")))) {
+                   && ((xml.name() == QLatin1String("buildservice"))
+                       || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }
     return buildservice;
 }
 
-QStringList BuildService::Parser::xmlElement() const {
+QStringList BuildService::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("buildservice")) << QLatin1String("user");
 }

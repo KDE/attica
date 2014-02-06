@@ -29,16 +29,16 @@
 
 #include "atticaclient_export.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT Person::Parser : public Attica::Parser<Person>
 {
 private:
-    Person parseXml(QXmlStreamReader& xml);
+    Person parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

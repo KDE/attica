@@ -29,22 +29,21 @@
 #include "atticaclient_export.h"
 #include "atticabasejob.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT DeleteJob : public Attica::BaseJob
 {
     Q_OBJECT
 
 protected:
-    DeleteJob(PlatformDependent* internals, const QNetworkRequest& request);
+    DeleteJob(PlatformDependent *internals, const QNetworkRequest &request);
 
 private:
-    virtual QNetworkReply* executeRequest();
+    virtual QNetworkReply *executeRequest();
     const QNetworkRequest m_request;
 };
 
 }
-
 
 #endif

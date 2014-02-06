@@ -24,10 +24,9 @@
 
 #include "knowledgebaseentryparser.h"
 
-
 using namespace Attica;
 
-KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
+KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader &xml)
 {
     KnowledgeBaseEntry knowledgeBase;
 
@@ -44,7 +43,7 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("user")) {
                 knowledgeBase.setUser(xml.readElementText());
             } else if (xml.name() == QLatin1String("changed")) {
-                knowledgeBase.setChanged(QDateTime::fromString( xml.readElementText(), Qt::ISODate ));
+                knowledgeBase.setChanged(QDateTime::fromString(xml.readElementText(), Qt::ISODate));
             } else if (xml.name() == QLatin1String("description")) {
                 knowledgeBase.setDescription(xml.readElementText());
             } else if (xml.name() == QLatin1String("answer")) {
@@ -68,7 +67,7 @@ KnowledgeBaseEntry KnowledgeBaseEntry::Parser::parseXml(QXmlStreamReader& xml)
     return knowledgeBase;
 }
 
-
-QStringList KnowledgeBaseEntry::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "content" ));
+QStringList KnowledgeBaseEntry::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("content"));
 }

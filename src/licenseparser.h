@@ -1,6 +1,6 @@
 /*
     Copyright (c) 2010 Frederik Gladhorn <gladhorn@kde.org>
-    
+
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -19,22 +19,22 @@
 
 */
 
-
 #ifndef ATTICA_LICENSE_PARSER_H
 #define ATTICA_LICENSE_PARSER_H
 
 #include "license.h"
 #include "parser.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class License::Parser : public Attica::Parser<License>
 {
 private:
-    License parseXml(QXmlStreamReader& xml);
+    License parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
-         
+
 }
 
 #endif

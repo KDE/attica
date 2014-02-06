@@ -28,18 +28,17 @@
 #include "comment.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Comment::Parser : public Attica::Parser<Comment>
 {
 private:
-    Comment parseXml(QXmlStreamReader& xml);
-    QList<Comment> parseXmlChildren(QXmlStreamReader& xml);
+    Comment parseXml(QXmlStreamReader &xml);
+    QList<Comment> parseXmlChildren(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

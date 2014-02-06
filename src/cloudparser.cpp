@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-Cloud Cloud::Parser::parseXml(QXmlStreamReader& xml)
+Cloud Cloud::Parser::parseXml(QXmlStreamReader &xml)
 {
     Cloud cloud;
 
@@ -38,7 +38,7 @@ Cloud Cloud::Parser::parseXml(QXmlStreamReader& xml)
                 cloud.setName(xml.readElementText());
             } else if (xml.name() == QLatin1String("url")) {
                 cloud.setUrl(xml.readElementText());
-            // TODO: there should be usage for the attica icon class
+                // TODO: there should be usage for the attica icon class
             } else if (xml.name() == QLatin1String("icon")) {
                 cloud.setIcon(QUrl(xml.readElementText()));
             } else if (xml.name() == QLatin1String("quota")) {
@@ -62,5 +62,5 @@ Cloud Cloud::Parser::parseXml(QXmlStreamReader& xml)
 
 QStringList Cloud::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "cloud" ));
+    return QStringList(QLatin1String("cloud"));
 }

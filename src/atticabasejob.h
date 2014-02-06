@@ -34,8 +34,9 @@
 
 class QNetworkReply;
 
-namespace Attica {
-    class PlatformDependent;
+namespace Attica
+{
+class PlatformDependent;
 
 class ATTICA_EXPORT BaseJob : public QObject
 {
@@ -56,32 +57,32 @@ public Q_SLOTS:
     void abort();
 
 Q_SIGNALS:
-    void finished(Attica::BaseJob* job);
+    void finished(Attica::BaseJob *job);
 
 protected Q_SLOTS:
     void dataFinished();
 
 protected:
-    BaseJob(PlatformDependent* internals);
+    BaseJob(PlatformDependent *internals);
 
-    void setMetadata(const Metadata& data) const;
+    void setMetadata(const Metadata &data) const;
 
-    virtual QNetworkReply* executeRequest() = 0;
-    virtual void parse(const QString& xml) = 0;
-    PlatformDependent* internals();
+    virtual QNetworkReply *executeRequest() = 0;
+    virtual void parse(const QString &xml) = 0;
+    PlatformDependent *internals();
     void setError(int errorCode);
-    void setErrorString(const QString& errorString);
+    void setErrorString(const QString &errorString);
 
 private Q_SLOTS:
     void doWork();
-    void authenticationRequired(QNetworkReply*, QAuthenticator*);
+    void authenticationRequired(QNetworkReply *, QAuthenticator *);
 
 private:
-    BaseJob(const BaseJob& other);
-    BaseJob& operator=(const BaseJob& other);
+    BaseJob(const BaseJob &other);
+    BaseJob &operator=(const BaseJob &other);
 
     class Private;
-    Private* d;
+    Private *d;
 };
 
 }

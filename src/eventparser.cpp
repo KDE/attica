@@ -25,10 +25,9 @@
 
 #include <QtCore/QRegExp>
 
-
 using namespace Attica;
 
-Event Event::Parser::parseXml(QXmlStreamReader& xml)
+Event Event::Parser::parseXml(QXmlStreamReader &xml)
 {
     Event event;
 
@@ -45,10 +44,10 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("user")) {
                 event.setUser(xml.readElementText());
             } else if (xml.name() == QLatin1String("startdate")) {
-                QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
+                QString date = xml.readElementText().remove(QRegExp(QLatin1String("\\+.*$")));
                 event.setStartDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == QLatin1String("enddate")) {
-                QString date = xml.readElementText().remove(QRegExp(QLatin1String( "\\+.*$" )));
+                QString date = xml.readElementText().remove(QRegExp(QLatin1String("\\+.*$")));
                 event.setEndDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == QLatin1String("latitude")) {
                 event.setLatitude(xml.readElementText().toFloat());
@@ -71,7 +70,7 @@ Event Event::Parser::parseXml(QXmlStreamReader& xml)
     return event;
 }
 
-
-QStringList Event::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "event" ));
+QStringList Event::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("event"));
 }

@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader& xml)
+RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader &xml)
 {
     RemoteAccount remoteaccount;
 
@@ -57,7 +57,7 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader& xml)
     return remoteaccount;
 }
 
-
-QStringList RemoteAccount::Parser::xmlElement() const {
+QStringList RemoteAccount::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("remoteaccount")) << QLatin1String("user");
 }

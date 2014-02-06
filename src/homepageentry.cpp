@@ -22,32 +22,31 @@
 
 */
 
-
 #include "homepageentry.h"
 
 using namespace Attica;
 
-class HomePageEntry::Private :public QSharedData
+class HomePageEntry::Private : public QSharedData
 {
 public:
     QString type;
     QUrl url;
-    
+
     Private()
     {}
 };
 
 HomePageEntry::HomePageEntry()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-HomePageEntry::HomePageEntry(const Attica::HomePageEntry& other)
-    :d(other.d)
+HomePageEntry::HomePageEntry(const Attica::HomePageEntry &other)
+    : d(other.d)
 {
 }
 
-HomePageEntry& HomePageEntry::operator=(const Attica::HomePageEntry& other)
+HomePageEntry &HomePageEntry::operator=(const Attica::HomePageEntry &other)
 {
     d = other.d;
     return *this;
@@ -61,7 +60,7 @@ QString HomePageEntry::type() const
     return d->type;
 }
 
-void HomePageEntry::setType(const QString& type)
+void HomePageEntry::setType(const QString &type)
 {
     d->type = type;
 }
@@ -71,7 +70,7 @@ QUrl HomePageEntry::url() const
     return d->url;
 }
 
-void HomePageEntry::setUrl(const QUrl& url)
+void HomePageEntry::setUrl(const QUrl &url)
 {
     d->url = url;
 }

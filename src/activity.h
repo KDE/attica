@@ -30,17 +30,17 @@
 #include "atticaclient_export.h"
 #include "person.h"
 
-
 class QDateTime;
 
-namespace Attica {
+namespace Attica
+{
 
 /**
  * Represents a single news item (also known as activity)
  */
 class ATTICA_EXPORT Activity
 {
-  public:
+public:
     typedef QList<Activity> List;
     class Parser;
 
@@ -53,14 +53,14 @@ class ATTICA_EXPORT Activity
      * Copy constructor.
      * @param other the Activity to copy from
      */
-    Activity(const Activity& other);
+    Activity(const Activity &other);
 
     /**
      * Assignment operator.
      * @param other the Activity to assign from
      * @return pointer to this Activity
      */
-    Activity& operator=(const Activity& other);
+    Activity &operator=(const Activity &other);
 
     /**
      * Destructor.
@@ -72,7 +72,7 @@ class ATTICA_EXPORT Activity
      * The id uniquely identifies an Activity with the OCS API.
      * @param id the new id
      */
-    void setId(const QString& id);
+    void setId(const QString &id);
 
     /**
      * Gets the id of the Activity.
@@ -85,7 +85,7 @@ class ATTICA_EXPORT Activity
      * Sets the user bound to the Activity.
      * @param id the new user
      */
-    void setAssociatedPerson(const Person& associatedPerson);
+    void setAssociatedPerson(const Person &associatedPerson);
 
     /**
      * Gets the user bound to the Activity.
@@ -97,7 +97,7 @@ class ATTICA_EXPORT Activity
      * Sets the timestamp the Activity has been published.
      * @param timestamp the new timestamp
      */
-    void setTimestamp(const QDateTime& timestamp);
+    void setTimestamp(const QDateTime &timestamp);
 
     /**
      * Gets the timestamp the Activity has been published.
@@ -109,7 +109,7 @@ class ATTICA_EXPORT Activity
      * Sets the message of the Activity.
      * @param message the new message
      */
-    void setMessage(const QString& message);
+    void setMessage(const QString &message);
 
     /**
      * Gets the message of the Activity.
@@ -121,7 +121,7 @@ class ATTICA_EXPORT Activity
      * Sets the link to further information about this Activity.
      * @param link the new link
      */
-    void setLink(const QUrl& link);
+    void setLink(const QUrl &link);
 
     /**
      * Gets the link to further information about this Activity.
@@ -135,7 +135,7 @@ class ATTICA_EXPORT Activity
      */
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

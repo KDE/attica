@@ -30,8 +30,9 @@
 #include "postjob.h"
 #include "putjob.h"
 
-namespace Attica {
-    class Provider;
+namespace Attica
+{
+class Provider;
 
 template <class T>
 class ATTICA_EXPORT ItemJob : public GetJob
@@ -40,12 +41,11 @@ public:
     T result() const;
 
 private:
-    ItemJob(PlatformDependent*, const QNetworkRequest& request);
-    virtual void parse(const QString& xml);
+    ItemJob(PlatformDependent *, const QNetworkRequest &request);
+    virtual void parse(const QString &xml);
     T m_item;
     friend class Attica::Provider;
 };
-
 
 template <class T>
 class ATTICA_EXPORT ItemDeleteJob : public DeleteJob
@@ -54,12 +54,11 @@ public:
     T result() const;
 
 private:
-    ItemDeleteJob(PlatformDependent*, const QNetworkRequest& request);
-    virtual void parse(const QString& xml);
+    ItemDeleteJob(PlatformDependent *, const QNetworkRequest &request);
+    virtual void parse(const QString &xml);
     T m_item;
     friend class Attica::Provider;
 };
-
 
 template <class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
@@ -68,14 +67,13 @@ public:
     T result() const;
 
 private:
-    ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice * data);
-    ItemPostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+    ItemPostJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *data);
+    ItemPostJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters = StringMap());
 
-    virtual void parse(const QString& xml);
+    virtual void parse(const QString &xml);
     T m_item;
     friend class Attica::Provider;
 };
-
 
 template <class T>
 class ATTICA_EXPORT ItemPutJob : public PutJob
@@ -84,15 +82,14 @@ public:
     T result() const;
 
 private:
-    ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice * data);
-    ItemPutJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
+    ItemPutJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *data);
+    ItemPutJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters = StringMap());
 
-    virtual void parse(const QString& xml);
+    virtual void parse(const QString &xml);
     T m_item;
     friend class Attica::Provider;
 };
 
 }
-
 
 #endif

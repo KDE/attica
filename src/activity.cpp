@@ -25,28 +25,28 @@
 
 #include <QDateTime>
 
-
 using namespace Attica;
 
-class Activity::Private : public QSharedData {
-    public:
-        QString m_id;
-        Person m_associatedPerson;
-        QDateTime m_timestamp;
-        QString m_message;
-        QUrl m_link;
+class Activity::Private : public QSharedData
+{
+public:
+    QString m_id;
+    Person m_associatedPerson;
+    QDateTime m_timestamp;
+    QString m_message;
+    QUrl m_link;
 };
 
 Activity::Activity() : d(new Private)
 {
 }
 
-Activity::Activity(const Attica::Activity& other)
+Activity::Activity(const Attica::Activity &other)
     : d(other.d)
 {
 }
 
-Activity& Activity::operator=(const Attica::Activity & other)
+Activity &Activity::operator=(const Attica::Activity &other)
 {
     d = other.d;
     return *this;
@@ -56,8 +56,7 @@ Activity::~Activity()
 {
 }
 
-
-void Activity::setId( const QString &id )
+void Activity::setId(const QString &id)
 {
     d->m_id = id;
 }
@@ -67,7 +66,7 @@ QString Activity::id() const
     return d->m_id;
 }
 
-void Activity::setAssociatedPerson(const Person& associatedPerson)
+void Activity::setAssociatedPerson(const Person &associatedPerson)
 {
     d->m_associatedPerson = associatedPerson;
 }
@@ -77,37 +76,37 @@ Person Activity::associatedPerson() const
     return d->m_associatedPerson;
 }
 
-void Activity::setTimestamp( const QDateTime &date )
+void Activity::setTimestamp(const QDateTime &date)
 {
-  d->m_timestamp = date;
+    d->m_timestamp = date;
 }
 
 QDateTime Activity::timestamp() const
 {
-  return d->m_timestamp;
+    return d->m_timestamp;
 }
 
-void Activity::setMessage( const QString &c )
+void Activity::setMessage(const QString &c)
 {
-  d->m_message = c;
+    d->m_message = c;
 }
 
 QString Activity::message() const
 {
-  return d->m_message;
+    return d->m_message;
 }
 
-void Activity::setLink( const QUrl &v )
+void Activity::setLink(const QUrl &v)
 {
-  d->m_link = v;
+    d->m_link = v;
 }
 
 QUrl Activity::link() const
 {
-  return d->m_link;
+    return d->m_link;
 }
 
-
-bool Activity::isValid() const {
-  return !(d->m_id.isEmpty());
+bool Activity::isValid() const
+{
+    return !(d->m_id.isEmpty());
 }

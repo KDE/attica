@@ -25,22 +25,23 @@
 
 using namespace Attica;
 
-class Forum::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_name;
-        QString m_description;
-        QDateTime m_date;
-        QUrl m_icon;
-        int m_childCount;
-        int m_topics;
-        QList<Forum> m_children;
+class Forum::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_name;
+    QString m_description;
+    QDateTime m_date;
+    QUrl m_icon;
+    int m_childCount;
+    int m_topics;
+    QList<Forum> m_children;
 
-        Private()
-            : m_childCount(0),
-              m_topics(0)
-        {
-        }
+    Private()
+        : m_childCount(0),
+          m_topics(0)
+    {
+    }
 };
 
 Forum::Forum()
@@ -48,12 +49,12 @@ Forum::Forum()
 {
 }
 
-Forum::Forum(const Forum& other)
+Forum::Forum(const Forum &other)
     : d(other.d)
 {
 }
 
-Forum& Forum::operator=(const Attica::Forum &other)
+Forum &Forum::operator=(const Attica::Forum &other)
 {
     d = other.d;
     return *this;
@@ -145,5 +146,5 @@ int Forum::topics() const
 
 bool Forum::isValid() const
 {
-  return !(d->m_id.isEmpty());
+    return !(d->m_id.isEmpty());
 }

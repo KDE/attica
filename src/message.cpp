@@ -25,34 +25,34 @@
 
 using namespace Attica;
 
-class Message::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_from;
-        QString m_to;
-        QDateTime m_sent;
-        Status m_status;
-        QString m_subject;
-        QString m_body;
+class Message::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_from;
+    QString m_to;
+    QDateTime m_sent;
+    Status m_status;
+    QString m_subject;
+    QString m_body;
 
-        Private()
-            : m_status(Unread)
-        {
-        }
+    Private()
+        : m_status(Unread)
+    {
+    }
 };
 
-
 Message::Message()
-  : d(new Private)
+    : d(new Private)
 {
 }
 
-Message::Message(const Message& other)
+Message::Message(const Message &other)
     : d(other.d)
 {
 }
 
-Message& Message::operator=(const Attica::Message & other)
+Message &Message::operator=(const Attica::Message &other)
 {
     d = other.d;
     return *this;
@@ -62,78 +62,77 @@ Message::~Message()
 {
 }
 
-
-void Message::setId( const QString &u )
+void Message::setId(const QString &u)
 {
-  d->m_id = u;
+    d->m_id = u;
 }
 
 QString Message::id() const
 {
-  return d->m_id;
+    return d->m_id;
 }
 
-void Message::setFrom( const QString &n )
+void Message::setFrom(const QString &n)
 {
-  d->m_from = n;
+    d->m_from = n;
 }
 
 QString Message::from() const
 {
-  return d->m_from;
+    return d->m_from;
 }
-  
-void Message::setTo( const QString &n )
+
+void Message::setTo(const QString &n)
 {
-  d->m_to = n;
+    d->m_to = n;
 }
 
 QString Message::to() const
 {
-  return d->m_to;
+    return d->m_to;
 }
-    
-void Message::setSent( const QDateTime &date )
+
+void Message::setSent(const QDateTime &date)
 {
-  d->m_sent = date;
+    d->m_sent = date;
 }
 
 QDateTime Message::sent() const
 {
-  return d->m_sent;
+    return d->m_sent;
 }
 
-void Message::setStatus( Message::Status s )
+void Message::setStatus(Message::Status s)
 {
-  d->m_status = s;
+    d->m_status = s;
 }
 
 Message::Status Message::status() const
 {
-  return d->m_status;
+    return d->m_status;
 }
 
-void Message::setSubject( const QString &subject )
+void Message::setSubject(const QString &subject)
 {
-  d->m_subject = subject;
+    d->m_subject = subject;
 }
 
 QString Message::subject() const
 {
-  return d->m_subject;
+    return d->m_subject;
 }
 
-void Message::setBody( const QString &body )
+void Message::setBody(const QString &body)
 {
-  d->m_body = body;
+    d->m_body = body;
 }
 
 QString Message::body() const
 {
-  return d->m_body;
+    return d->m_body;
 }
 
-
-bool Message::isValid() const {
-  return !(d->m_id.isEmpty());
+bool Message::isValid() const
+{
+    return !(d->m_id.isEmpty());
 }

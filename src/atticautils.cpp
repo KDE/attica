@@ -26,19 +26,19 @@
 
 using namespace Attica;
 
-QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
+QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 {
     QDateTime result;
     QStringList list;
     QString datetime;
 
     int tzsign = 0;
-    if (str.indexOf(QLatin1String( "+" )) != -1) {
-        list = str.split(QLatin1String( "+" ));
+    if (str.indexOf(QLatin1String("+")) != -1) {
+        list = str.split(QLatin1String("+"));
         datetime = list[0];
         tzsign = 1;
-    } else if (str.indexOf(QLatin1String( "-" )) != -1) {
-        list = str.split(QLatin1String( "-" ));
+    } else if (str.indexOf(QLatin1String("-")) != -1) {
+        list = str.split(QLatin1String("-"));
         datetime = list[0];
         tzsign = -1;
     } else {
@@ -46,7 +46,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
     }
 
     // parse date time
-    result = QDateTime::fromString( datetime, Qt::ISODate );
+    result = QDateTime::fromString(datetime, Qt::ISODate);
     result.setTimeSpec(Qt::UTC);
 
     // parse timezone
@@ -55,8 +55,8 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
         int hh = 0;
         int mm = 0;
         int tzsecs = 0;
-        if (tz.indexOf(QLatin1String( ":" )) != -1) {
-            QStringList tzlist = tz.split(QLatin1String( ":" ));
+        if (tz.indexOf(QLatin1String(":")) != -1) {
+            QStringList tzlist = tz.split(QLatin1String(":"));
             if (tzlist.count() == 2) {
                 hh = tzlist[0].toInt();
                 mm = tzlist[1].toInt();
@@ -67,7 +67,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString & str)
         }
 
         tzsecs = 60 * 60 * hh + 60 * mm;
-        result = result.addSecs( - tzsecs * tzsign );
+        result = result.addSecs(- tzsecs * tzsign);
     }
 
     return result;

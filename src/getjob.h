@@ -29,22 +29,21 @@
 #include "atticaclient_export.h"
 #include "atticabasejob.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT GetJob : public Attica::BaseJob
 {
     Q_OBJECT
 
 protected:
-    GetJob(PlatformDependent* internals, const QNetworkRequest& request);
-    
+    GetJob(PlatformDependent *internals, const QNetworkRequest &request);
+
 private:
-    virtual QNetworkReply* executeRequest();
+    virtual QNetworkReply *executeRequest();
     const QNetworkRequest m_request;
 };
 
 }
-
 
 #endif

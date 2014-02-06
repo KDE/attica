@@ -22,32 +22,31 @@
 
 */
 
-
 #include "distribution.h"
 
 using namespace Attica;
 
-class Distribution::Private :public QSharedData
+class Distribution::Private : public QSharedData
 {
 public:
     int id;
     QString name;
-    
-    Private() :id(-1)
+
+    Private() : id(-1)
     {}
 };
 
 Distribution::Distribution()
-    :d(new Private)
+    : d(new Private)
 {
 }
 
-Distribution::Distribution(const Attica::Distribution& other)
-    :d(other.d)
+Distribution::Distribution(const Attica::Distribution &other)
+    : d(other.d)
 {
 }
 
-Distribution& Distribution::operator=(const Attica::Distribution& other)
+Distribution &Distribution::operator=(const Attica::Distribution &other)
 {
     d = other.d;
     return *this;
@@ -71,7 +70,7 @@ QString Distribution::name() const
     return d->name;
 }
 
-void Distribution::setName(const QString& name)
+void Distribution::setName(const QString &name)
 {
     d->name = name;
 }

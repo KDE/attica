@@ -27,18 +27,17 @@
 #include "forum.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Forum::Parser : public Attica::Parser<Forum>
 {
 private:
-    Forum parseXml(QXmlStreamReader& xml);
-    QList<Forum> parseXmlChildren(QXmlStreamReader& xml);
+    Forum parseXml(QXmlStreamReader &xml);
+    QList<Forum> parseXmlChildren(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

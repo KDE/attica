@@ -27,17 +27,16 @@
 #include "project.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Project::Parser : public Attica::Parser<Project>
 {
 private:
-    Project parseXml(QXmlStreamReader& xml);
+    Project parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

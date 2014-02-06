@@ -22,22 +22,22 @@
 
 */
 
-
 #ifndef ATTICA_DISTRIBUTION_PARSER_H
 #define ATTICA_DISTRIBUTION_PARSER_H
 
 #include "distribution.h"
 #include "parser.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class Distribution::Parser : public Attica::Parser<Distribution>
 {
 private:
-    Distribution parseXml(QXmlStreamReader& xml);
+    Distribution parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
-         
+
 }
 
 #endif

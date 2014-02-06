@@ -27,15 +27,13 @@
 
 using namespace Attica;
 
-
 template <class T>
 Parser<T>::~Parser()
 {
 }
 
-
 template <class T>
-T Parser<T>::parse(const QString& xmlString)
+T Parser<T>::parse(const QString &xmlString)
 {
     QStringList elements = xmlElement();
     T item;
@@ -44,7 +42,7 @@ T Parser<T>::parse(const QString& xmlString)
 
     while (!xml.atEnd()) {
         xml.readNext();
-        
+
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("meta")) {
                 parseMetadataXml(xml);
@@ -61,63 +59,62 @@ T Parser<T>::parse(const QString& xmlString)
     return item;
 }
 
-
 template <class T>
-typename T::List Parser<T>::parseList(const QString& xmlString)
+typename T::List Parser<T>::parseList(const QString &xmlString)
 {
-/*
-        QString testxml = QString("<?xml version=\"1.0\"?>\
-<ocs>\
- <meta>\
-  <status>ok</status>\
-  <statuscode>100</statuscode>\
-  <message></message>\
- </meta>\
- <data>\
-  <buildservice>\
-   <id>obs</id>\
-   <name>openSUSE Build Service</name>\
-   <registrationurl>foobar.com</registrationurl>\
-   <supportedtargets>\
-    <target>openSUSE 11.2 32bit Intel</target>\
-    <target>openSUSE 11.3 64bit Intel</target>\
-    <target>openSUSE 11.3 32bit Intel</target>\
-    <target>openSUSE 11.3 64bit Intel</target>\
-   </supportedtargets>\
-  </buildservice>\
-  <buildservice>\
-   <id>mbs</id>\
-   <name>MeeGo Build Service</name>\
-   <registrationurl>foobar42.com</registrationurl>\
-   <supportedtargets>\
-    <target>MeeGo 1.0 Intel</target>\
-    <target>MeeGo 1.0 ARM</target>\
-    <target>MeeGo 1.1 Intel</target>\
-    <target>MeeGo 1.1 ARM</target>\
-   </supportedtargets>\
-  </buildservice>\
-  <buildservice>\
-   <id>sbs</id>\
-   <name>Sebas' Build Service</name>\
-   <registrationurl>foobar42.com</registrationurl>\
-   <supportedtargets>\
-    <target>sebasix 1.3 33bit</target>\
-    <target>sebasis 4.4 14bit</target>\
-    <target>sebasix 1.3 65bit</target>\
-    <target>sebasis 4.4 37bit</target>\
-   </supportedtargets>\
-  </buildservice>\
- </data>\
-</ocs>\
- ");
+    /*
+            QString testxml = QString("<?xml version=\"1.0\"?>\
+    <ocs>\
+     <meta>\
+      <status>ok</status>\
+      <statuscode>100</statuscode>\
+      <message></message>\
+     </meta>\
+     <data>\
+      <buildservice>\
+       <id>obs</id>\
+       <name>openSUSE Build Service</name>\
+       <registrationurl>foobar.com</registrationurl>\
+       <supportedtargets>\
+        <target>openSUSE 11.2 32bit Intel</target>\
+        <target>openSUSE 11.3 64bit Intel</target>\
+        <target>openSUSE 11.3 32bit Intel</target>\
+        <target>openSUSE 11.3 64bit Intel</target>\
+       </supportedtargets>\
+      </buildservice>\
+      <buildservice>\
+       <id>mbs</id>\
+       <name>MeeGo Build Service</name>\
+       <registrationurl>foobar42.com</registrationurl>\
+       <supportedtargets>\
+        <target>MeeGo 1.0 Intel</target>\
+        <target>MeeGo 1.0 ARM</target>\
+        <target>MeeGo 1.1 Intel</target>\
+        <target>MeeGo 1.1 ARM</target>\
+       </supportedtargets>\
+      </buildservice>\
+      <buildservice>\
+       <id>sbs</id>\
+       <name>Sebas' Build Service</name>\
+       <registrationurl>foobar42.com</registrationurl>\
+       <supportedtargets>\
+        <target>sebasix 1.3 33bit</target>\
+        <target>sebasis 4.4 14bit</target>\
+        <target>sebasix 1.3 65bit</target>\
+        <target>sebasis 4.4 37bit</target>\
+       </supportedtargets>\
+      </buildservice>\
+     </data>\
+    </ocs>\
+     ");
 
-    qDebug() << "parsing list:" << xmlString;
-    */
+        qDebug() << "parsing list:" << xmlString;
+        */
     QStringList elements = xmlElement();
     typename T::List items;
 
     //QXmlStreamReader xml( xmlString );
-    QXmlStreamReader xml( xmlString );
+    QXmlStreamReader xml(xmlString);
 
     while (!xml.atEnd()) {
         xml.readNext();
@@ -146,15 +143,13 @@ typename T::List Parser<T>::parseList(const QString& xmlString)
         qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
     }
 
-
     return items;
 }
 
-
 template <class T>
-void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
+void Parser<T>::parseMetadataXml(QXmlStreamReader &xml)
 {
-    while ( !xml.atEnd() ) {
+    while (!xml.atEnd()) {
         xml.readNext();
         if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
             break;
@@ -180,6 +175,7 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader& xml)
 }
 
 template <class T>
-Metadata Parser<T>::metadata() const {
+Metadata Parser<T>::metadata() const
+{
     return m_metadata;
 }

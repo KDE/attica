@@ -28,9 +28,8 @@
 
 using namespace Attica;
 
-
 template <class T>
-ListJob<T>::ListJob(PlatformDependent* internals, const QNetworkRequest& request)
+ListJob<T>::ListJob(PlatformDependent *internals, const QNetworkRequest &request)
     : GetJob(internals, request)
 {
 }
@@ -42,7 +41,7 @@ typename T::List ListJob<T>::itemList() const
 }
 
 template <class T>
-void ListJob<T>::parse(const QString& xml)
+void ListJob<T>::parse(const QString &xml)
 {
     typename T::Parser parser;
     m_itemList = parser.parseList(xml);

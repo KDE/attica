@@ -23,10 +23,9 @@
 
 #include "personparser.h"
 
-
 using namespace Attica;
 
-Person Person::Parser::parseXml(QXmlStreamReader& xml)
+Person Person::Parser::parseXml(QXmlStreamReader &xml)
 {
     Person person;
     bool hasAvatarPic = false;
@@ -75,7 +74,7 @@ Person Person::Parser::parseXml(QXmlStreamReader& xml)
     return person;
 }
 
-
-QStringList Person::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "person" )) << QLatin1String( "user" );
+QStringList Person::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("person")) << QLatin1String("user");
 }

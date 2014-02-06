@@ -32,23 +32,24 @@
 // workaround to get initialization working with gcc < 4.4
 typedef QMap<QString, QString> StringMap;
 
-namespace Attica {
-    class Provider;
+namespace Attica
+{
+class Provider;
 
 class ATTICA_EXPORT PutJob : public BaseJob
 {
     Q_OBJECT
 
 protected:
-    PutJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* data);
-    PutJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters = StringMap());
-    PutJob(PlatformDependent* internals, const QNetworkRequest& request, const QByteArray& byteArray);
+    PutJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *data);
+    PutJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters = StringMap());
+    PutJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray);
 
 private:
-    virtual QNetworkReply* executeRequest();
-    virtual void parse(const QString&);
+    virtual QNetworkReply *executeRequest();
+    virtual void parse(const QString &);
 
-    QIODevice* m_ioDevice;
+    QIODevice *m_ioDevice;
     QByteArray m_byteArray;
 
     QString m_responseData;
@@ -61,6 +62,5 @@ private:
 };
 
 }
-
 
 #endif

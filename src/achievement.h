@@ -30,13 +30,12 @@
 #include <QtCore/QUrl>
 #include <QtCore/QVariant>
 
-
 namespace Attica
 {
 
 class ATTICA_EXPORT Achievement
 {
-  public:
+public:
     typedef QList<Achievement> List;
     class Parser;
 
@@ -58,8 +57,8 @@ class ATTICA_EXPORT Achievement
     static QString achievementVisibilityToString(const Achievement::Visibility visibility);
 
     Achievement();
-    Achievement(const Achievement& other);
-    Achievement& operator=(const Achievement& other);
+    Achievement(const Achievement &other);
+    Achievement &operator=(const Achievement &other);
     ~Achievement();
 
     void setId(const QString &id);
@@ -107,7 +106,7 @@ class ATTICA_EXPORT Achievement
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

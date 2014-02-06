@@ -30,22 +30,21 @@
 
 #include "platformdependent.h"
 
-
 using namespace Attica;
 
 class BaseJob::Private
 {
 public:
     Metadata m_metadata;
-    PlatformDependent* m_internals;
-    QNetworkReply* m_reply;
+    PlatformDependent *m_internals;
+    QNetworkReply *m_reply;
 
-    Private(PlatformDependent* internals)
+    Private(PlatformDependent *internals)
         : m_internals(internals), m_reply(0)
     {
     }
 
-    bool redirection(QUrl & newUrl) const
+    bool redirection(QUrl &newUrl) const
     {
         if (m_reply == 0 || m_reply->error() != QNetworkReply::NoError) {
             return false;
@@ -53,9 +52,9 @@ public:
 
         int httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (httpStatusCode == 301 || // Moved Permanently
-            httpStatusCode == 302 || // Found
-            httpStatusCode == 303 || // See Other
-            httpStatusCode == 307) { // Temporary Redirect
+                httpStatusCode == 302 || // Found
+                httpStatusCode == 303 || // See Other
+                httpStatusCode == 307) { // Temporary Redirect
             QNetworkRequest request = m_reply->request();
             newUrl = request.url();
             newUrl.setPath(m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString());
@@ -66,11 +65,10 @@ public:
     }
 };
 
-BaseJob::BaseJob(PlatformDependent* internals)
+BaseJob::BaseJob(PlatformDependent *internals)
     : d(new Private(internals))
 {
 }
-
 
 BaseJob::~BaseJob()
 {
@@ -123,7 +121,6 @@ void BaseJob::dataFinished()
     deleteLater();
 }
 
-
 void BaseJob::start()
 {
     QTimer::singleShot(0, this, SLOT(doWork()));
@@ -133,11 +130,11 @@ void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
-    connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)),
-            this, SLOT(authenticationRequired(QNetworkReply*, QAuthenticator*)));
+    connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)),
+            this, SLOT(authenticationRequired(QNetworkReply*,QAuthenticator*)));
 }
 
-void BaseJob::authenticationRequired(QNetworkReply* reply, QAuthenticator* auth)
+void BaseJob::authenticationRequired(QNetworkReply *reply, QAuthenticator *auth)
 {
     auth->setUser(reply->request().attribute((QNetworkRequest::Attribute) BaseJob::UserAttribute).toString());
     auth->setPassword(reply->request().attribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute).toString());
@@ -152,18 +149,17 @@ void BaseJob::abort()
     deleteLater();
 }
 
-PlatformDependent* BaseJob::internals()
+PlatformDependent *BaseJob::internals()
 {
     return d->m_internals;
 }
-
 
 Metadata BaseJob::metadata() const
 {
     return d->m_metadata;
 }
 
-void BaseJob::setMetadata(const Attica::Metadata& data) const
+void BaseJob::setMetadata(const Attica::Metadata &data) const
 {
     d->m_metadata = data;
 }

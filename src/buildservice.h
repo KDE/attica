@@ -32,41 +32,39 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 struct Target {
     QString id;
     QString name;
 };
 
-
-    
 class ATTICA_EXPORT BuildService
 {
-  public:
+public:
     typedef QList<BuildService> List;
     class Parser;
 
     BuildService();
-    BuildService(const BuildService& other);
-    BuildService& operator=(const BuildService& other);
+    BuildService(const BuildService &other);
+    BuildService &operator=(const BuildService &other);
     ~BuildService();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setName( const QString & );
+    void setName(const QString &);
     QString name() const;
 
-    void setUrl( const QString & );
+    void setUrl(const QString &);
     QString url() const;
 
     void addTarget(const Target &);
     QList<Target> targets() const;
 
     bool isValid() const;
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

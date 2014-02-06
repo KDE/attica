@@ -25,13 +25,14 @@
 
 using namespace Attica;
 
-class BuildServiceJobOutput::Private : public QSharedData {
-    public:
-        QString output;
+class BuildServiceJobOutput::Private : public QSharedData
+{
+public:
+    QString output;
 
-        Private()
-        {
-        }
+    Private()
+    {
+    }
 };
 
 BuildServiceJobOutput::BuildServiceJobOutput()
@@ -39,12 +40,12 @@ BuildServiceJobOutput::BuildServiceJobOutput()
 {
 }
 
-BuildServiceJobOutput::BuildServiceJobOutput(const BuildServiceJobOutput& other)
+BuildServiceJobOutput::BuildServiceJobOutput(const BuildServiceJobOutput &other)
     : d(other.d)
 {
 }
 
-BuildServiceJobOutput& BuildServiceJobOutput::operator=(const Attica::BuildServiceJobOutput & other)
+BuildServiceJobOutput &BuildServiceJobOutput::operator=(const Attica::BuildServiceJobOutput &other)
 {
     d = other.d;
     return *this;

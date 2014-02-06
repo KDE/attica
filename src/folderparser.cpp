@@ -23,10 +23,9 @@
 
 #include "folderparser.h"
 
-
 using namespace Attica;
 
-Folder Folder::Parser::parseXml(QXmlStreamReader& xml)
+Folder Folder::Parser::parseXml(QXmlStreamReader &xml)
 {
     Folder folder;
 
@@ -51,7 +50,7 @@ Folder Folder::Parser::parseXml(QXmlStreamReader& xml)
     return folder;
 }
 
-
-QStringList Folder::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "folder" ));
+QStringList Folder::Parser::xmlElement() const
+{
+    return QStringList(QLatin1String("folder"));
 }

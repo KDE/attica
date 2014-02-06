@@ -29,46 +29,46 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT Message
 {
-  public:
+public:
     typedef QList<Message> List;
     class Parser;
 
-    enum Status { Unread = 0, Read = 1 , Answered = 2};
+    enum Status { Unread = 0, Read = 1, Answered = 2};
 
     Message();
-    Message(const Message& other);
-    Message& operator=(const Message& other);
+    Message(const Message &other);
+    Message &operator=(const Message &other);
     ~Message();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setFrom( const QString & );
+    void setFrom(const QString &);
     QString from() const;
-    
-    void setTo( const QString & );
+
+    void setTo(const QString &);
     QString to() const;
-    
-    void setSent( const QDateTime & );
+
+    void setSent(const QDateTime &);
     QDateTime sent() const;
 
-    void setStatus( Status );
+    void setStatus(Status);
     Status status() const;
 
-    void setSubject( const QString & );
+    void setSubject(const QString &);
     QString subject() const;
 
-    void setBody( const QString & );
+    void setBody(const QString &);
     QString body() const;
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

@@ -29,30 +29,31 @@
 
 #include "atticaclient_export.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT BuildServiceJobOutput
 {
 public:
-  typedef QList<BuildServiceJobOutput> List;
-  class Parser;
+    typedef QList<BuildServiceJobOutput> List;
+    class Parser;
 
-  BuildServiceJobOutput();
-  BuildServiceJobOutput(const BuildServiceJobOutput& other);
-  BuildServiceJobOutput& operator=(const BuildServiceJobOutput& other);
-  ~BuildServiceJobOutput();
+    BuildServiceJobOutput();
+    BuildServiceJobOutput(const BuildServiceJobOutput &other);
+    BuildServiceJobOutput &operator=(const BuildServiceJobOutput &other);
+    ~BuildServiceJobOutput();
 
-  void setOutput( const QString & output);
-  QString output() const;
+    void setOutput(const QString &output);
+    QString output() const;
 
-  bool isRunning() const;
-  bool isCompleted() const;
-  bool isFailed() const;
+    bool isRunning() const;
+    bool isCompleted() const;
+    bool isFailed() const;
 
-  bool isValid() const;
+    bool isValid() const;
 private:
-  class Private;
-  QSharedDataPointer<Private> d;
+    class Private;
+    QSharedDataPointer<Private> d;
 };
 
 } // namespace Attica

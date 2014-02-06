@@ -27,18 +27,17 @@
 #include "privatedata.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class PrivateData::Parser : public Attica::Parser<PrivateData>
 {
 private:
-    PrivateData parseXml(QXmlStreamReader& xml);
+    PrivateData parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif
 

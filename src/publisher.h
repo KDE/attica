@@ -33,8 +33,8 @@
 #include "buildservice.h"
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 struct Field {
     QString type;
@@ -44,25 +44,24 @@ struct Field {
     QStringList options;
 };
 
-
 class ATTICA_EXPORT Publisher
 {
-  public:
+public:
     typedef QList<Publisher> List;
     class Parser;
 
     Publisher();
-    Publisher(const Publisher& other);
-    Publisher& operator=(const Publisher& other);
+    Publisher(const Publisher &other);
+    Publisher &operator=(const Publisher &other);
     ~Publisher();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setName( const QString & );
+    void setName(const QString &);
     QString name() const;
 
-    void setUrl( const QString & );
+    void setUrl(const QString &);
     QString url() const;
 
     void addField(const Field &);
@@ -72,7 +71,7 @@ class ATTICA_EXPORT Publisher
     QList<Target> targets() const;
 
     bool isValid() const;
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

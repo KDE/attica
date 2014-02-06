@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-Topic Topic::Parser::parseXml(QXmlStreamReader& xml)
+Topic Topic::Parser::parseXml(QXmlStreamReader &xml)
 {
     Topic topic;
 
@@ -59,5 +59,5 @@ Topic Topic::Parser::parseXml(QXmlStreamReader& xml)
 
 QStringList Topic::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "topic" ));
+    return QStringList(QLatin1String("topic"));
 }

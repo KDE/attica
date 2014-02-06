@@ -30,26 +30,24 @@
 
 #include "platformdependent.h"
 
-
 using namespace Attica;
 
-
-PostJob::PostJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* iodevice)
+PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *iodevice)
     : BaseJob(internals), m_ioDevice(iodevice), m_request(request)
 {
 }
 
-Attica::PostJob::PostJob(PlatformDependent* internals, const QNetworkRequest& request, const QByteArray& byteArray)
-    : BaseJob(internals), m_ioDevice(0) , m_byteArray(byteArray), m_request(request)
+Attica::PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray)
+    : BaseJob(internals), m_ioDevice(0), m_byteArray(byteArray), m_request(request)
 {
 }
 
-PostJob::PostJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters)
+PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
     : BaseJob(internals), m_ioDevice(0), m_request(request)
 {
     // Create post data
     int j = 0;
-    for(StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
+    for (StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
         if (j++ > 0) {
             m_byteArray.append('&');
         }
@@ -59,7 +57,7 @@ PostJob::PostJob(PlatformDependent* internals, const QNetworkRequest& request, c
     }
 }
 
-QNetworkReply* PostJob::executeRequest()
+QNetworkReply *PostJob::executeRequest()
 {
     if (m_ioDevice) {
         return internals()->post(m_request, m_ioDevice);
@@ -68,18 +66,17 @@ QNetworkReply* PostJob::executeRequest()
     }
 }
 
-
-void PostJob::parse(const QString& xmlString)
+void PostJob::parse(const QString &xmlString)
 {
     //qDebug() << "PostJob::parse" << xmlString;
-    QXmlStreamReader xml( xmlString );
+    QXmlStreamReader xml(xmlString);
     Metadata data;
     while (!xml.atEnd()) {
         xml.readNext();
 
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("meta")) {
-                while ( !xml.atEnd() ) {
+                while (!xml.atEnd()) {
                     xml.readNext();
                     if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
                         break;
@@ -98,7 +95,7 @@ void PostJob::parse(const QString& xmlString)
                     }
                 }
             } else if (xml.name() == QLatin1String("data")) {
-                while ( !xml.atEnd() ) {
+                while (!xml.atEnd()) {
                     xml.readNext();
                     if (xml.isEndElement() && xml.name() == QLatin1String("data")) {
                         break;
@@ -116,6 +113,5 @@ void PostJob::parse(const QString& xmlString)
     }
     setMetadata(data);
 }
-
 
 #include "postjob.moc"

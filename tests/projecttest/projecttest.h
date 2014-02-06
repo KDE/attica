@@ -32,40 +32,41 @@
 #include <providermanager.h>
 #include <project.h>
 
-namespace Attica {
-    class Project;
-    class BaseJob;
-    class Provider;
+namespace Attica
+{
+class Project;
+class BaseJob;
+class Provider;
 }
 
 class ProjectTest : public QMainWindow
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     ProjectTest();
     virtual ~ProjectTest();
 
 private Q_SLOTS:
-    void providerAdded(const Attica::Provider& provider);
+    void providerAdded(const Attica::Provider &provider);
 
-    void projectListResult(Attica::BaseJob*);
-    void projectResult(Attica::BaseJob*);
-    void createProjectResult(Attica::BaseJob* j);
-    void saveProjectResult(Attica::BaseJob* j);
-    void deleteProjectResult(Attica::BaseJob* j);
+    void projectListResult(Attica::BaseJob *);
+    void projectResult(Attica::BaseJob *);
+    void createProjectResult(Attica::BaseJob *j);
+    void saveProjectResult(Attica::BaseJob *j);
+    void deleteProjectResult(Attica::BaseJob *j);
 
-    void buildServiceListResult(Attica::BaseJob*);
-    void buildServiceJobListResult(Attica::BaseJob*);
+    void buildServiceListResult(Attica::BaseJob *);
+    void buildServiceJobListResult(Attica::BaseJob *);
 
     void save();
     void create();
     void deleteProject(); // don't clashs with keyword
 
-    void selectedBuildServiceChanged(QListWidgetItem* current, QListWidgetItem* previous);
+    void selectedBuildServiceChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void createBuildServiceJob();
-    void buildServiceJobCreated(Attica::BaseJob* j);
+    void buildServiceJobCreated(Attica::BaseJob *j);
     void cancelBuildServiceJob();
-    void buildServiceJobCanceled(Attica::BaseJob* j);
+    void buildServiceJobCanceled(Attica::BaseJob *j);
 
     void updateCurrentProject();
 
@@ -79,7 +80,7 @@ private:
 
     void setStatus(QString status);
     Attica::Project uiToProject();
-    void projectToUi(const Attica::Project& p);
+    void projectToUi(const Attica::Project &p);
     QString currentProject();
 
     Attica::ProviderManager m_pm;
@@ -88,9 +89,9 @@ private:
 
     QString m_currentProjectId;
 
-    QWidget* m_mainWidget;
+    QWidget *m_mainWidget;
 
-    Ui::EditProject* m_editor;
+    Ui::EditProject *m_editor;
 
     QHash<QString, Attica::BuildService> m_buildServices;
     QHash<QString, Attica::BuildServiceJob> m_buildServiceJobs;

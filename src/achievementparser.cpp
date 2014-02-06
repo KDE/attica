@@ -26,7 +26,7 @@
 
 using namespace Attica;
 
-Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
+Achievement Achievement::Parser::parseXml(QXmlStreamReader &xml)
 {
     Achievement achievement;
 
@@ -61,7 +61,7 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
             } else if (xml.name() == QLatin1String("steps")) {
                 achievement.setSteps(xml.readElementText().toInt());
             } else if (xml.name() == QLatin1String("progress")) {
-                switch(achievement.type()) {
+                switch (achievement.type()) {
                 case Achievement::FlowingAchievement:
                     achievement.setProgress(QVariant(xml.readElementText().toFloat()));
                     break;
@@ -71,12 +71,11 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
                 case Achievement::NamedstepsAchievement:
                     achievement.setProgress(QVariant(xml.readElementText()));
                     break;
-                case Achievement::SetAchievement:
-                    {
+                case Achievement::SetAchievement: {
                     QVariant progress = parseXmlProgress(xml);
                     achievement.setProgress(progress);
-                    }
-                    break;
+                }
+                break;
                 default:
                     break;
                 }
@@ -89,7 +88,7 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader& xml)
     return achievement;
 }
 
-QStringList Achievement::Parser::parseXmlDependencies(QXmlStreamReader& xml)
+QStringList Achievement::Parser::parseXmlDependencies(QXmlStreamReader &xml)
 {
     QStringList dependencies;
 
@@ -97,8 +96,9 @@ QStringList Achievement::Parser::parseXmlDependencies(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == QLatin1String("achievement_id"))
+            if (xml.name() == QLatin1String("achievement_id")) {
                 dependencies.append(xml.readElementText());
+            }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("dependencies")) {
             break;
         }
@@ -107,7 +107,7 @@ QStringList Achievement::Parser::parseXmlDependencies(QXmlStreamReader& xml)
     return dependencies;
 }
 
-QStringList Achievement::Parser::parseXmlOptions(QXmlStreamReader& xml)
+QStringList Achievement::Parser::parseXmlOptions(QXmlStreamReader &xml)
 {
     QStringList options;
 
@@ -115,8 +115,9 @@ QStringList Achievement::Parser::parseXmlOptions(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == QLatin1String("option"))
+            if (xml.name() == QLatin1String("option")) {
                 options.append(xml.readElementText());
+            }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
             break;
         }
@@ -125,7 +126,7 @@ QStringList Achievement::Parser::parseXmlOptions(QXmlStreamReader& xml)
     return options;
 }
 
-QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader& xml)
+QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader &xml)
 {
     QStringList progress;
 
@@ -133,8 +134,9 @@ QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader& xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-            if (xml.name() == QLatin1String("reached"))
+            if (xml.name() == QLatin1String("reached")) {
                 progress.append(xml.readElementText());
+            }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("progress")) {
             break;
         }
@@ -145,5 +147,5 @@ QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader& xml)
 
 QStringList Achievement::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String( "achievement" ));
+    return QStringList(QLatin1String("achievement"));
 }

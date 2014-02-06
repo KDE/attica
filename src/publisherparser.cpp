@@ -21,14 +21,12 @@
 
 */
 
-
-
 #include "publisherparser.h"
 #include <qdebug.h>
 
 using namespace Attica;
 
-Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
+Publisher Publisher::Parser::parseXml(QXmlStreamReader &xml)
 {
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft
@@ -66,13 +64,10 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                                     } else if (xml.name() == QLatin1String("required")) {
                                         t.required = xml.readElementText() == QLatin1String("true");
                                     } else if (xml.name() == QLatin1String("options")) {
-                                        while (!xml.atEnd())
-                                        {
+                                        while (!xml.atEnd()) {
                                             xml.readNextStartElement();
-                                            if(xml.isStartElement())
-                                            {
-                                                if(xml.name() == QLatin1String("option"))
-                                                {
+                                            if (xml.isStartElement()) {
+                                                if (xml.name() == QLatin1String("option")) {
                                                     t.options << xml.readElementText();
                                                 }
                                             } else if (xml.isEndElement() && xml.name() == QLatin1String("options")) {
@@ -109,14 +104,15 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader& xml)
                 }
             }
         } else if (xml.isEndElement()
-               && ((xml.name() == QLatin1String("publisher"))
-               || (xml.name() == QLatin1String("user")))) {
+                   && ((xml.name() == QLatin1String("publisher"))
+                       || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }
     return publisher;
 }
 
-QStringList Publisher::Parser::xmlElement() const {
+QStringList Publisher::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("publisher")) << QLatin1String("user");
 }

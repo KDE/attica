@@ -29,8 +29,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT DownloadDescription
 {
@@ -43,9 +43,9 @@ public:
     };
 
     DownloadDescription();
-    DownloadDescription(const DownloadDescription& other);
-    
-    DownloadDescription& operator=(const DownloadDescription& other);
+    DownloadDescription(const DownloadDescription &other);
+
+    DownloadDescription &operator=(const DownloadDescription &other);
     ~DownloadDescription();
 
     /**
@@ -72,17 +72,17 @@ public:
     void setType(Attica::DownloadDescription::Type type);
     Q_DECL_DEPRECATED void setDownloadtypLink(bool isLink);
     void setHasPrice(bool hasPrice);
-    void setCategory(const QString& category);
-    void setName(const QString& name);
-    void setLink(const QString& link);
-    void setDistributionType(const QString& distributionType);
-    void setPriceReason(const QString& priceReason);
-    void setPriceAmount(const QString& priceAmount);
+    void setCategory(const QString &category);
+    void setName(const QString &name);
+    void setLink(const QString &link);
+    void setDistributionType(const QString &distributionType);
+    void setPriceReason(const QString &priceReason);
+    void setPriceAmount(const QString &priceAmount);
     void setSize(uint size);
-    void setGpgFingerprint(const QString& fingerprint);
-    void setGpgSignature(const QString& signature);
-    void setPackageName(const QString& packageName);
-    void setRepository(const QString& repository);
+    void setGpgFingerprint(const QString &fingerprint);
+    void setGpgSignature(const QString &signature);
+    void setPackageName(const QString &packageName);
+    void setRepository(const QString &repository);
 
 private:
     class Private;

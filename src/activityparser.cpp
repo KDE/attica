@@ -26,14 +26,13 @@
 #include <QtCore/QDateTime>
 #include <QRegExp>
 
-
 using namespace Attica;
 
-Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
+Activity Activity::Parser::parseXml(QXmlStreamReader &xml)
 {
     Activity activity;
     Person person;
-    
+
     while (!xml.atEnd()) {
         xml.readNext();
 
@@ -67,7 +66,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader& xml)
     return activity;
 }
 
-
-QStringList Activity::Parser::xmlElement() const {
+QStringList Activity::Parser::xmlElement() const
+{
     return QStringList(QLatin1String("activity"));
 }

@@ -36,17 +36,18 @@
 
 class QDateTime;
 
-namespace Attica {
-    
+namespace Attica
+{
+
 /**
  * Represents a single content
  */
 class ATTICA_EXPORT Content
 {
-  public:
+public:
     typedef QList<Content> List;
     class Parser;
-  
+
     /**
      * Creates an empty Content
      */
@@ -56,14 +57,14 @@ class ATTICA_EXPORT Content
      * Copy constructor.
      * @param other the Content to copy from
      */
-    Content(const Content& other);
+    Content(const Content &other);
 
     /**
      * Assignment operator.
      * @param other the Content to assign from
      * @return pointer to this Content
      */
-    Content& operator=(const Content& other);
+    Content &operator=(const Content &other);
 
     /**
      * Destructor.
@@ -75,7 +76,7 @@ class ATTICA_EXPORT Content
      * The id uniquely identifies a Content with the OCS API.
      * @param id the new id
      */
-    void setId(const QString& id);
+    void setId(const QString &id);
 
     /**
      * Gets the id of the Content.
@@ -88,7 +89,7 @@ class ATTICA_EXPORT Content
      * Sets the name of the Content.
      * @param name the new name
      */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
     /**
      * Gets the name of the Content.
@@ -107,13 +108,13 @@ class ATTICA_EXPORT Content
      * @return the rating in the range 0-100
      */
     int rating() const;
-    
+
     /**
      * Sets the number of downloads for the Content.
      * @param downloads the new number of downloads
      */
     void setDownloads(int downloads);
-    
+
     /**
      * Gets the number of downloads for the Content (how often this has been downloaded from the server).
      * @return the number of downloads
@@ -136,8 +137,8 @@ class ATTICA_EXPORT Content
      * Sets the date and time the Content has been created.
      * @param created the new creation date and time
      */
-    void setCreated(const QDateTime& created);
-    
+    void setCreated(const QDateTime &created);
+
     /**
      * Gets the date and time the Content has been created.
      * @return the date and time of the last update
@@ -148,7 +149,7 @@ class ATTICA_EXPORT Content
      * Sets the time the Content has been last updated.
      * @param updated the new date and time of the last update
      */
-    void setUpdated(const QDateTime& updated);
+    void setUpdated(const QDateTime &updated);
 
     /**
      * Gets the date and time the Content has been last updated.
@@ -199,8 +200,8 @@ class ATTICA_EXPORT Content
       */
     QList<HomePageEntry> homePageEntries();
 
-    QString previewPicture(const QString& number = QLatin1String("1")) const;
-    QString smallPreviewPicture(const QString& number = QLatin1String("1")) const;
+    QString previewPicture(const QString &number = QLatin1String("1")) const;
+    QString smallPreviewPicture(const QString &number = QLatin1String("1")) const;
     QString license() const;
     QString licenseName() const;
     QString author() const;
@@ -231,29 +232,28 @@ class ATTICA_EXPORT Content
      * @param key the key of the attribute
      * @param value the value of the attribute
      */
-    void addAttribute( const QString &key, const QString &value );
+    void addAttribute(const QString &key, const QString &value);
 
     /**
      * Get an attribute that is not included in the basis set of attributes exposed by the Content class.
      * @param key the key of the attribute
      * @return the value of the attribute with the specified key, or an empty string, if the key has not been found
      */
-    QString attribute( const QString &key ) const;
+    QString attribute(const QString &key) const;
 
     /**
      * Get all attributes that are not included in the basis set of attributes exposed by the Content class.
      * @return the attribute mappings
      */
-    QMap<QString,QString> attributes() const;
+    QMap<QString, QString> attributes() const;
 
-    
     /**
      * Checks whether this Content has an id
      * @return @c true if an id has been set, @c false otherwise
      */
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

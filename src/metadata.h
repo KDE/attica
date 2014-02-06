@@ -29,10 +29,10 @@
 
 #include "atticaclient_export.h"
 
+namespace Attica
+{
+class BaseJob;
 
-namespace Attica {
-    class BaseJob;
-    
 /**
     *Status messages from the server
     */
@@ -40,9 +40,9 @@ class ATTICA_EXPORT Metadata
 {
 public:
     Metadata();
-    Metadata(const Metadata& other);
+    Metadata(const Metadata &other);
     ~Metadata();
-    Metadata& operator=(const Metadata& other);
+    Metadata &operator=(const Metadata &other);
 
     enum Error {
         NoError = 0,
@@ -69,30 +69,30 @@ public:
      * The status of the job, for example "Ok"
      */
     QString statusString() const;
-    void setStatusString(const QString& status);
+    void setStatusString(const QString &status);
 
     /// An optional additional message from the server
     QString message();
-    void setMessage(const QString& message);
-    
+    void setMessage(const QString &message);
+
     /// The number of items returned by this job (only relevant for list jobs)
     int totalItems();
     void setTotalItems(int items);
-        
+
     /// The number of items per page the server was asked for
     int itemsPerPage();
     void setItemsPerPage(int itemsPerPage);
 
     /// The resulting ID when a PostJob created a new item.
     QString resultingId();
-    void setResultingId(const QString& id);
+    void setResultingId(const QString &id);
 
-    private:
-        class Private;
-        QSharedDataPointer<Private> d;
+private:
+    class Private;
+    QSharedDataPointer<Private> d;
 
-        friend class Attica::BaseJob;
-    };
+    friend class Attica::BaseJob;
+};
 
 }
 

@@ -31,58 +31,58 @@
 
 #include "atticaclient_export.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class ATTICA_EXPORT Person
 {
-  public:
+public:
     typedef QList<Person> List;
     class Parser;
 
     Person();
-    Person(const Person& other);
-    Person& operator=(const Person& other);
+    Person(const Person &other);
+    Person &operator=(const Person &other);
     ~Person();
 
-    void setId( const QString & );
+    void setId(const QString &);
     QString id() const;
 
-    void setFirstName( const QString & );
+    void setFirstName(const QString &);
     QString firstName() const;
-    
-    void setLastName( const QString & );
+
+    void setLastName(const QString &);
     QString lastName() const;
-    
-    void setBirthday( const QDate & );
+
+    void setBirthday(const QDate &);
     QDate birthday() const;
 
-    void setCountry( const QString & );
+    void setCountry(const QString &);
     QString country() const;
 
-    void setLatitude( qreal );
+    void setLatitude(qreal);
     qreal latitude() const;
 
-    void setLongitude( qreal );
+    void setLongitude(qreal);
     qreal longitude() const;
 
-    void setAvatarUrl( const QUrl & );
+    void setAvatarUrl(const QUrl &);
     QUrl avatarUrl() const;
 
-    void setHomepage( const QString & );
+    void setHomepage(const QString &);
     QString homepage() const;
 
-    void setCity( const QString & );
+    void setCity(const QString &);
     QString city() const;
 
-    void addExtendedAttribute( const QString &key, const QString &value );
-    QString extendedAttribute( const QString &key ) const;
+    void addExtendedAttribute(const QString &key, const QString &value);
+    QString extendedAttribute(const QString &key) const;
 
-    QMap<QString,QString> extendedAttributes() const;
+    QMap<QString, QString> extendedAttributes() const;
 
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

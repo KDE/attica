@@ -34,8 +34,8 @@
 #include <QtCore/QThread>
 #include <QtNetwork/QNetworkAccessManager>
 
-
-namespace Attica {
+namespace Attica
+{
 
 class QtPlatformDependent : public Attica::PlatformDependentV2
 {
@@ -43,34 +43,33 @@ public:
     QtPlatformDependent();
     virtual ~QtPlatformDependent();
 
-    virtual void setNetworkAccessManager(QNetworkAccessManager* nam);
-    virtual QNetworkAccessManager* nam();
+    virtual void setNetworkAccessManager(QNetworkAccessManager *nam);
+    virtual QNetworkAccessManager *nam();
 
     virtual QList<QUrl> getDefaultProviderFiles() const;
-    virtual void addDefaultProviderFile(const QUrl& url);
-    virtual void removeDefaultProviderFile(const QUrl& url);
-    virtual void enableProvider(const QUrl& baseUrl, bool enabled) const;
-    virtual bool isEnabled(const QUrl& baseUrl) const;
+    virtual void addDefaultProviderFile(const QUrl &url);
+    virtual void removeDefaultProviderFile(const QUrl &url);
+    virtual void enableProvider(const QUrl &baseUrl, bool enabled) const;
+    virtual bool isEnabled(const QUrl &baseUrl) const;
 
-    virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data);
-    virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data);
-    virtual QNetworkReply* get(const QNetworkRequest& request);
-    virtual bool hasCredentials(const QUrl& baseUrl) const;
-    virtual bool saveCredentials(const QUrl& baseUrl, const QString& user, const QString& password);
-    virtual bool loadCredentials(const QUrl& baseUrl, QString& user, QString& password);
-    virtual bool askForCredentials(const QUrl& baseUrl, QString& user, QString& password);
-    virtual QNetworkReply* deleteResource(const QNetworkRequest& request);
-    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data);
-    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data);
+    virtual QNetworkReply *post(const QNetworkRequest &request, const QByteArray &data);
+    virtual QNetworkReply *post(const QNetworkRequest &request, QIODevice *data);
+    virtual QNetworkReply *get(const QNetworkRequest &request);
+    virtual bool hasCredentials(const QUrl &baseUrl) const;
+    virtual bool saveCredentials(const QUrl &baseUrl, const QString &user, const QString &password);
+    virtual bool loadCredentials(const QUrl &baseUrl, QString &user, QString &password);
+    virtual bool askForCredentials(const QUrl &baseUrl, QString &user, QString &password);
+    virtual QNetworkReply *deleteResource(const QNetworkRequest &request);
+    virtual QNetworkReply *put(const QNetworkRequest &request, const QByteArray &data);
+    virtual QNetworkReply *put(const QNetworkRequest &request, QIODevice *data);
 
 private:
     QMutex m_accessMutex;
-    QHash<QThread*, QNetworkAccessManager*> m_threadNamHash;
-    QSet<QThread*> m_ourNamSet;
+    QHash<QThread *, QNetworkAccessManager *> m_threadNamHash;
+    QSet<QThread *> m_ourNamSet;
     QHash<QString, QPair <QString, QString> > m_passwords;
 };
 
 }
-
 
 #endif

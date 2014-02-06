@@ -30,26 +30,24 @@
 
 #include "platformdependent_v2.h"
 
-
 using namespace Attica;
 
-
-PutJob::PutJob(PlatformDependent* internals, const QNetworkRequest& request, QIODevice* iodevice)
+PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *iodevice)
     : BaseJob(internals), m_ioDevice(iodevice), m_request(request)
 {
 }
 
-Attica::PutJob::PutJob(PlatformDependent* internals, const QNetworkRequest& request, const QByteArray& byteArray)
-    : BaseJob(internals), m_ioDevice(0) , m_byteArray(byteArray), m_request(request)
+Attica::PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray)
+    : BaseJob(internals), m_ioDevice(0), m_byteArray(byteArray), m_request(request)
 {
 }
 
-PutJob::PutJob(PlatformDependent* internals, const QNetworkRequest& request, const StringMap& parameters)
+PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
     : BaseJob(internals), m_ioDevice(0), m_request(request)
 {
     // Create put data
     int j = 0;
-    for(StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
+    for (StringMap::const_iterator i = parameters.begin(); i != parameters.end(); ++i) {
         if (j++ > 0) {
             m_byteArray.append('&');
         }
@@ -59,11 +57,12 @@ PutJob::PutJob(PlatformDependent* internals, const QNetworkRequest& request, con
     }
 }
 
-QNetworkReply* PutJob::executeRequest()
+QNetworkReply *PutJob::executeRequest()
 {
-    Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2*>(internals());
-    if (!platformDependentV2)
+    Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2 *>(internals());
+    if (!platformDependentV2) {
         return 0;
+    }
 
     if (m_ioDevice) {
         return platformDependentV2->put(m_request, m_ioDevice);
@@ -72,18 +71,17 @@ QNetworkReply* PutJob::executeRequest()
     }
 }
 
-
-void PutJob::parse(const QString& xmlString)
+void PutJob::parse(const QString &xmlString)
 {
     //qDebug() << "PutJob::parse" << xmlString;
-    QXmlStreamReader xml( xmlString );
+    QXmlStreamReader xml(xmlString);
     Metadata data;
     while (!xml.atEnd()) {
         xml.readNext();
 
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("meta")) {
-                while ( !xml.atEnd() ) {
+                while (!xml.atEnd()) {
                     xml.readNext();
                     if (xml.isEndElement() && xml.name() == QLatin1String("meta")) {
                         break;
@@ -102,7 +100,7 @@ void PutJob::parse(const QString& xmlString)
                     }
                 }
             } else if (xml.name() == QLatin1String("data")) {
-                while ( !xml.atEnd() ) {
+                while (!xml.atEnd()) {
                     xml.readNext();
                     if (xml.isEndElement() && xml.name() == QLatin1String("data")) {
                         break;
@@ -120,6 +118,5 @@ void PutJob::parse(const QString& xmlString)
     }
     setMetadata(data);
 }
-
 
 #include "putjob.moc"

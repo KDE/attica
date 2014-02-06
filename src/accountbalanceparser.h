@@ -27,12 +27,13 @@
 #include "accountbalance.h"
 #include "parser.h"
 
-namespace Attica {
+namespace Attica
+{
 
 class AccountBalance::Parser : public Attica::Parser<AccountBalance>
 {
 private:
-    AccountBalance parseXml(QXmlStreamReader& xml);
+    AccountBalance parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 

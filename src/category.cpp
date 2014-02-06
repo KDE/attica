@@ -25,26 +25,25 @@
 
 #include <QtCore/QString>
 
-
 using namespace Attica;
 
-class Category::Private : public QSharedData {
-    public:
-        QString m_id;
-        QString m_name;
+class Category::Private : public QSharedData
+{
+public:
+    QString m_id;
+    QString m_name;
 };
-
 
 Category::Category() : d(new Private)
 {
 }
 
-Category::Category(const Attica::Category& other)
+Category::Category(const Attica::Category &other)
     : d(other.d)
 {
 }
 
-Category& Category::operator=(const Attica::Category & other)
+Category &Category::operator=(const Attica::Category &other)
 {
     d = other.d;
     return *this;
@@ -54,28 +53,27 @@ Category::~Category()
 {
 }
 
-
-void Category::setId( const QString &u )
+void Category::setId(const QString &u)
 {
-  d->m_id = u;
+    d->m_id = u;
 }
 
 QString Category::id() const
 {
-  return d->m_id;
+    return d->m_id;
 }
 
-void Category::setName( const QString &name )
+void Category::setName(const QString &name)
 {
-  d->m_name = name;
+    d->m_name = name;
 }
 
 QString Category::name() const
 {
-  return d->m_name;
+    return d->m_name;
 }
 
-
-bool Category::isValid() const {
-  return !(d->m_id.isEmpty());
+bool Category::isValid() const
+{
+    return !(d->m_id.isEmpty());
 }

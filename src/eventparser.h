@@ -27,17 +27,16 @@
 #include "event.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Event::Parser : public Attica::Parser<Event>
 {
 private:
-    Event parseXml(QXmlStreamReader& xml);
+    Event parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

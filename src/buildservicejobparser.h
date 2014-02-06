@@ -27,17 +27,16 @@
 #include "buildservicejob.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class BuildServiceJob::Parser : public Attica::Parser<BuildServiceJob>
 {
 private:
-    BuildServiceJob parseXml(QXmlStreamReader& xml);
+    BuildServiceJob parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

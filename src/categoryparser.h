@@ -27,17 +27,16 @@
 #include "category.h"
 #include "parser.h"
 
-
-namespace Attica {
+namespace Attica
+{
 
 class Category::Parser : public Attica::Parser<Category>
 {
 private:
-    Category parseXml(QXmlStreamReader& xml);
+    Category parseXml(QXmlStreamReader &xml);
     QStringList xmlElement() const;
 };
 
 }
-
 
 #endif

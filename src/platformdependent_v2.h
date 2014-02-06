@@ -38,20 +38,20 @@ class QString;
 class QUrl;
 class QStringList;
 
-namespace Attica {
+namespace Attica
+{
 
 class PlatformDependentV2: public PlatformDependent
 {
 public:
     virtual ~PlatformDependentV2();
-    virtual QNetworkReply* deleteResource(const QNetworkRequest& request) = 0;
-    virtual QNetworkReply* put(const QNetworkRequest& request, QIODevice* data) = 0;
-    virtual QNetworkReply* put(const QNetworkRequest& request, const QByteArray& data) = 0;
+    virtual QNetworkReply *deleteResource(const QNetworkRequest &request) = 0;
+    virtual QNetworkReply *put(const QNetworkRequest &request, QIODevice *data) = 0;
+    virtual QNetworkReply *put(const QNetworkRequest &request, const QByteArray &data) = 0;
 };
 
 }
 
 Q_DECLARE_INTERFACE(Attica::PlatformDependentV2, "org.kde.Attica.InternalsV2/1.2")
-
 
 #endif
