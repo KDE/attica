@@ -76,7 +76,8 @@
 #include "topic.h"
 #include "topicparser.h"
 
-using namespace Attica;
+namespace Attica
+{
 
 template class ListJob<Achievement>;
 template class ListJob<Activity>;
@@ -159,3 +160,4 @@ template class Parser<PublisherField>;
 template class Parser<RemoteAccount>;
 template class Parser<Topic>;
 
+}
