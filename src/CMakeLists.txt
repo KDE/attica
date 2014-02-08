@@ -83,12 +83,16 @@ if (ATTICA_STATIC_BUILD)
     set_target_properties(KF5Attica PROPERTIES
         VERSION ${ATTICA_VERSION_STRING}
         SOVERSION ${ATTICA_VERSION_MAJOR}
+        SOVERSION ${ATTICA_SOVERSION}
+        EXPORT_NAME "Attica"
     )
 else (ATTICA_STATIC_BUILD)
     add_library(KF5Attica SHARED ${attica_SRCS})
     set_target_properties(KF5Attica PROPERTIES
         VERSION ${ATTICA_VERSION_STRING}
-        SOVERSION ${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}
+        #SOVERSION ${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}
+        SOVERSION ${ATTICA_SOVERSION}
+        EXPORT_NAME "Attica"
         DEFINE_SYMBOL ATTICA_LIB_MAKEDLL
     )
 endif(ATTICA_STATIC_BUILD)
@@ -105,11 +109,6 @@ PUBLIC
 )
 target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/Attica>")
 
-set_target_properties(KF5Attica
-    PROPERTIES VERSION ${ATTICA_VERSION_STRING}
-    SOVERSION ${ATTICA_SOVERSION}
-    EXPORT_NAME "Attica"
-)
 
 ecm_generate_headers(
   Activity
