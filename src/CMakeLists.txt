@@ -6,6 +6,7 @@ endif (MINGW)
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h)
 # TODO: use generate_export_header?
+#generate_export_header(KF5Attica BASE_NAME Attica)
 
 set(attica_SRCS
    accountbalance.cpp
@@ -110,7 +111,8 @@ PUBLIC
 target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/Attica>")
 
 
-ecm_generate_headers(
+ecm_generate_headers(Attica_CamelCase_HEADERS
+  HEADER_NAMES
   Activity
   AccountBalance
   Achievement
@@ -149,11 +151,10 @@ ecm_generate_headers(
   PublisherField
   Topic
 
-  MODULE_NAME Attica
   PREFIX Attica
   REQUIRED_HEADERS Attica_HEADERS
 )
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Attica DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/Attica/Attica COMPONENT Devel)
 
 install(TARGETS KF5Attica
         EXPORT KF5AtticaTargets
