@@ -10,7 +10,7 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(CMakePackageConfigHelpers) # Used to create CMake config files
+include(ECMPackageConfigHelpers) # Used to create CMake config files
 include(KDEInstallDirs) # Used to set installation paths
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
@@ -60,7 +60,7 @@ endif (ATTICA_ENABLE_TESTS)
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Attica")
 
 # Create the CMake Config files
-configure_package_config_file(
+ecm_configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KF5AtticaConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
     INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
