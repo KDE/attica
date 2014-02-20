@@ -49,12 +49,10 @@ option(ATTICA_STATIC_BUILD "Build a static library" Off)
 add_subdirectory(src)
 
 # Enable unit testing
-if (ATTICA_ENABLE_TESTS)
-    enable_testing()
-    find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Test)
+if (BUILD_TESTING)
     add_subdirectory(autotests)
     add_subdirectory(tests)
-endif (ATTICA_ENABLE_TESTS)
+endif ()
 
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5Attica")
