@@ -108,7 +108,7 @@ PUBLIC
   Qt5::Core
   Qt5::Network
 )
-target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/Attica>")
+target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/Attica>")
 
 
 ecm_generate_headers(Attica_CamelCase_HEADERS
@@ -154,11 +154,11 @@ ecm_generate_headers(Attica_CamelCase_HEADERS
   PREFIX Attica
   REQUIRED_HEADERS Attica_HEADERS
 )
-install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/Attica/Attica COMPONENT Devel)
+install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/Attica/Attica COMPONENT Devel)
 
 install(TARGETS KF5Attica
         EXPORT KF5AtticaTargets
-        ${INSTALL_TARGETS_DEFAULT_ARGS})
+        ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
     atticabasejob.h # TODO: rename to basejob.h, add atticabasejob.h forwarding to basejob.h for compat
@@ -169,7 +169,7 @@ install(FILES
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
-    DESTINATION ${INCLUDE_INSTALL_DIR}/Attica/attica
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/Attica/attica
     COMPONENT Devel
 )
 
