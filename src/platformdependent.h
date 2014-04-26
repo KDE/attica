@@ -61,7 +61,7 @@ public:
     virtual QNetworkReply* get(const QNetworkRequest& request) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, QIODevice* data) = 0;
     virtual QNetworkReply* post(const QNetworkRequest& request, const QByteArray& data) = 0;
-    virtual void setNam(QNetworkAccessManager* nam) {}
+    virtual void setNam(QNetworkAccessManager*) {}
     virtual QNetworkAccessManager* nam() = 0;
 };
 
