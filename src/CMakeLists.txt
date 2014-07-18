@@ -100,9 +100,6 @@ endif(ATTICA_STATIC_BUILD)
 
 add_library(KF5::Attica ALIAS KF5Attica)
 
-# OUCH?
-set_property(TARGET KF5Attica APPEND PROPERTY COMPILE_DEFINITIONS QT_DISABLE_DEPRECATED_BEFORE=0)
-
 target_link_libraries(KF5Attica
 PUBLIC
   Qt5::Core

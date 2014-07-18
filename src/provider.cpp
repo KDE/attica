@@ -85,6 +85,7 @@
 #include <QNetworkAccessManager>
 #include <QDebug>
 #include <QUrl>
+#include <QUrlQuery>
 #include <QNetworkReply>
 #include <QtCore/QFile>
 
@@ -357,8 +358,10 @@ ListJob<Person> *Provider::requestPersonSearchByName(const QString &name)
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("person/data"));
-    url.addQueryItem(QLatin1String("name"), name);
+    QUrl url = createUrl(QStringLiteral("person/data"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("name"), name);
+    url.setQuery(q);
     return doRequestPersonList(url);
 }
 
@@ -368,14 +371,16 @@ ListJob<Person> *Provider::requestPersonSearchByLocation(qreal latitude, qreal l
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("person/data"));
-    url.addQueryItem(QLatin1String("latitude"), QString::number(latitude));
-    url.addQueryItem(QLatin1String("longitude"), QString::number(longitude));
+    QUrl url = createUrl(QStringLiteral("person/data"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("latitude"), QString::number(latitude));
+    q.addQueryItem(QStringLiteral("longitude"), QString::number(longitude));
     if (distance > 0.0) {
-        url.addQueryItem(QLatin1String("distance"), QString::number(distance));
+        q.addQueryItem(QStringLiteral("distance"), QString::number(distance));
     }
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestPersonList(url);
 }
@@ -387,8 +392,10 @@ ListJob<Person> *Provider::requestFriends(const QString &id, int page, int pageS
     }
 
     QUrl url = createUrl(QLatin1String("friend/data/") + id);
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrlQuery q(url);
+    q.addQueryItem(QLatin1String("page"), QString::number(page));
+    q.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestPersonList(url);
 }
@@ -399,9 +406,11 @@ ListJob<Person> *Provider::requestSentInvitations(int page, int pageSize)
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("friend/sentinvitations"));
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrl url = createUrl(QStringLiteral("friend/sentinvitations"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestPersonList(url);
 }
@@ -412,9 +421,11 @@ ListJob<Person> *Provider::requestReceivedInvitations(int page, int pageSize)
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("friend/receivedinvitations"));
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrl url = createUrl(QStringLiteral("friend/receivedinvitations"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestPersonList(url);
 }
@@ -425,8 +436,10 @@ ListJob<Achievement> *Provider::requestAchievements(const QString &contentId, co
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("achievements/content/") + contentId + achievementId);
-    url.addQueryItem(QLatin1String("user_id"), userId);
+    QUrl url = createUrl(QStringLiteral("achievements/content/") + contentId + achievementId);
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("user_id"), userId);
+    url.setQuery(q);
     return doRequestAchievementList(url);
 }
 
@@ -968,8 +981,10 @@ ListJob<Message> *Provider::requestMessages(const Folder &folder, Message::Statu
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("message/") + folder.id());
-    url.addQueryItem(QLatin1String("status"), QString::number(status));
+    QUrl url = createUrl(QStringLiteral("message/") + folder.id());
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("status"), QString::number(status));
+    url.setQuery(q);
     return doRequestMessageList(url);
 }
 
@@ -1055,31 +1070,31 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("content/data"));
-
+    QUrl url = createUrl(QStringLiteral("content/data"));
+    QUrlQuery q(url);
     QStringList categoryIds;
     foreach (const Category &category, categories) {
         categoryIds.append(category.id());
     }
-    url.addQueryItem(QLatin1String("categories"), categoryIds.join(QLatin1String("x")));
+    q.addQueryItem(QStringLiteral("categories"), categoryIds.join(QLatin1String("x")));
 
     QStringList distributionIds;
     foreach (const Distribution &distribution, distributions) {
         distributionIds.append(QString(distribution.id()));
     }
-    url.addQueryItem(QLatin1String("distribution"), distributionIds.join(QLatin1String(",")));
+    q.addQueryItem(QStringLiteral("distribution"), distributionIds.join(QLatin1String(",")));
 
     QStringList licenseIds;
     foreach (const License &license, licenses) {
         licenseIds.append(QString(license.id()));
     }
-    url.addQueryItem(QLatin1String("license"), licenseIds.join(QLatin1String(",")));
+    q.addQueryItem(QStringLiteral("license"), licenseIds.join(QLatin1String(",")));
 
     if (!person.isEmpty()) {
-        url.addQueryItem(QLatin1String("user"), person);
+        q.addQueryItem(QStringLiteral("user"), person);
     }
 
-    url.addQueryItem(QLatin1String("search"), search);
+    q.addQueryItem(QStringLiteral("search"), search);
     QString sortModeString;
     switch (sortMode) {
     case Newest:
@@ -1097,12 +1112,13 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
     }
 
     if (!sortModeString.isEmpty()) {
-        url.addQueryItem(QLatin1String("sortmode"), sortModeString);
+        q.addQueryItem(QStringLiteral("sortmode"), sortModeString);
     }
 
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
 
+    url.setQuery(q);
     ListJob<Content> *job = new ListJob<Content>(d->m_internals, createRequest(url));
     return job;
 }
@@ -1281,10 +1297,12 @@ ListJob<Person> *Provider::requestFans(const QString &contentId, uint page, uint
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("fan/data/") + contentId);
-    url.addQueryItem(QLatin1String("contentid"), contentId);
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrl url = createUrl(QStringLiteral("fan/data/") + contentId);
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("contentid"), contentId);
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
     ListJob<Person> *job = new ListJob<Person>(d->m_internals, createRequest(url));
     return job;
 }
@@ -1295,9 +1313,11 @@ ListJob<Forum> *Provider::requestForums(uint page, uint pageSize)
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("forum/list"));
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrl url = createUrl(QStringLiteral("forum/list"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestForumList(url);
 }
@@ -1308,10 +1328,11 @@ ListJob<Topic> *Provider::requestTopics(const QString &forum, const QString &sea
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("forum/topics/list"));
-    url.addQueryItem(QLatin1String("forum"), forum);
-    url.addQueryItem(QLatin1String("search"), search);
-    url.addQueryItem(QLatin1String("description"), description);
+    QUrl url = createUrl(QStringLiteral("forum/topics/list"));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("forum"), forum);
+    q.addQueryItem(QStringLiteral("search"), search);
+    q.addQueryItem(QStringLiteral("description"), description);
     QString sortModeString;
     switch (mode) {
     case Newest:
@@ -1324,10 +1345,11 @@ ListJob<Topic> *Provider::requestTopics(const QString &forum, const QString &sea
         break;
     }
     if (!sortModeString.isEmpty()) {
-        url.addQueryItem(QLatin1String("sortmode"), sortModeString);
+        q.addQueryItem(QStringLiteral("sortmode"), sortModeString);
     }
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     return doRequestTopicList(url);
 }
@@ -1373,12 +1395,13 @@ ListJob<KnowledgeBaseEntry> *Provider::searchKnowledgeBase(const Content &conten
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("knowledgebase/data"));
+    QUrl url = createUrl(QStringLiteral("knowledgebase/data"));
+    QUrlQuery q(url);
     if (content.isValid()) {
-        url.addQueryItem(QLatin1String("content"), content.id());
+        q.addQueryItem(QStringLiteral("content"), content.id());
     }
 
-    url.addQueryItem(QLatin1String("search"), search);
+    q.addQueryItem(QStringLiteral("search"), search);
     QString sortModeString;
     switch (sortMode) {
     case Newest:
@@ -1396,11 +1419,12 @@ ListJob<KnowledgeBaseEntry> *Provider::searchKnowledgeBase(const Content &conten
         break;
     }
     if (!sortModeString.isEmpty()) {
-        url.addQueryItem(QLatin1String("sortmode"), sortModeString);
+        q.addQueryItem(QStringLiteral("sortmode"), sortModeString);
     }
 
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     ListJob<KnowledgeBaseEntry> *job = new ListJob<KnowledgeBaseEntry>(d->m_internals, createRequest(url));
     return job;
@@ -1422,10 +1446,11 @@ ListJob<Event> *Provider::requestEvent(const QString &country, const QString &se
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("event/data"));
+    QUrl url = createUrl(QStringLiteral("event/data"));
+    QUrlQuery q(url);
 
     if (!search.isEmpty()) {
-        url.addQueryItem(QLatin1String("search"), search);
+        q.addQueryItem(QStringLiteral("search"), search);
     }
 
     QString sortModeString;
@@ -1440,17 +1465,18 @@ ListJob<Event> *Provider::requestEvent(const QString &country, const QString &se
         break;
     }
     if (!sortModeString.isEmpty()) {
-        url.addQueryItem(QLatin1String("sortmode"), sortModeString);
+        q.addQueryItem(QStringLiteral("sortmode"), sortModeString);
     }
 
     if (!country.isEmpty()) {
-        url.addQueryItem(QLatin1String("country"), country);
+        q.addQueryItem(QStringLiteral("country"), country);
     }
 
-    url.addQueryItem(QLatin1String("startat"), startAt.toString(Qt::ISODate));
+    q.addQueryItem(QStringLiteral("startat"), startAt.toString(Qt::ISODate));
 
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     ListJob<Event> *job = new ListJob<Event>(d->m_internals, createRequest(url));
     return job;
@@ -1470,8 +1496,10 @@ ListJob<Comment> *Provider::requestComments(const Comment::Type commentType, con
 
     QUrl url = createUrl(QLatin1String("comments/data/") + commentTypeString + QLatin1String("/") + id + QLatin1String("/") + id2);
 
-    url.addQueryItem(QLatin1String("page"), QString::number(page));
-    url.addQueryItem(QLatin1String("pagesize"), QString::number(pageSize));
+    QUrlQuery q(url);
+    q.addQueryItem(QStringLiteral("page"), QString::number(page));
+    q.addQueryItem(QStringLiteral("pagesize"), QString::number(pageSize));
+    url.setQuery(q);
 
     ListJob<Comment> *job = new ListJob<Comment>(d->m_internals, createRequest(url));
     return job;
