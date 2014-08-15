@@ -1,5 +1,5 @@
 maintainer:
-description: Attica is a Qt library that implements the Open Collaboration Services API version 1.6.
+description: Open Collaboration Services API
 tier: 1
 type: functional
 platforms:
