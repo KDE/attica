@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2009 Eckhart Wrner <ewoerner@kde.org>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
 
     This library is free software; you can redistribute it and/or
@@ -217,6 +217,7 @@ void ProviderManager::addProviderFromXml(const QString &providerXml)
 
 void ProviderManager::parseProviderFile(const QString &xmlString, const QString &url)
 {
+    Q_UNUSED(url)
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == QLatin1String("provider")) {
@@ -348,6 +349,8 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
 
 void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator)
 {
+    Q_UNUSED(proxy)
+    Q_UNUSED(authenticator)
 }
 
 void ProviderManager::initNetworkAccesssManager()

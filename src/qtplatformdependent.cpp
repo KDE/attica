@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
+    Copyright (c) 2009 Eckhart Wrner <ewoerner@kde.org>
     Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
     Copyright (c) 2012 Jeff Mitchell <mitchell@kde.org>
 
@@ -108,11 +108,14 @@ void QtPlatformDependent::removeDefaultProviderFile(const QUrl &)
 
 void QtPlatformDependent::enableProvider(const QUrl &baseUrl, bool enabled) const
 {
+    Q_UNUSED(baseUrl)
+    Q_UNUSED(enabled)
     qWarning() << "attica-qt does not support disabling of providers yet";
 }
 
 bool QtPlatformDependent::isEnabled(const QUrl &baseUrl) const
 {
+    Q_UNUSED(baseUrl)
     return true;
 }
 
@@ -170,6 +173,9 @@ bool QtPlatformDependent::loadCredentials(const QUrl &baseUrl, QString &user, QS
 
 bool Attica::QtPlatformDependent::askForCredentials(const QUrl &baseUrl, QString &user, QString &password)
 {
+    Q_UNUSED(baseUrl)
+    Q_UNUSED(user)
+    Q_UNUSED(password)
     return false;
 }
 

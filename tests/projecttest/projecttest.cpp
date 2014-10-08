@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright 2010 Sebastian Kügler <sebas@kde.org>
+    Copyright 2010 Sebastian Kgler <sebas@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -384,7 +384,7 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
 
 void ProjectTest::selectedBuildServiceChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-
+    Q_UNUSED(previous)
     qDebug() << "current item changed to " << current->data(Qt::UserRole).toString();
     m_editor->targets->clear();
     QList<Target> targetlist = m_buildServices[current->data(Qt::UserRole).toString()].targets();
