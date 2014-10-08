@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wrner <ewoerner@kde.org>
+    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2011 Laszlo Papp <djszapi@archlinux.us>
     Copyright (c) 2012 Jeff Mitchell <mitchell@kde.org>
 

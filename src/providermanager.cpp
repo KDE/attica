@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright (c) 2009 Eckhart Wrner <ewoerner@kde.org>
+    Copyright (c) 2009 Eckhart Wörner <ewoerner@kde.org>
     Copyright (c) 2009 Frederik Gladhorn <gladhorn@kde.org>
 
     This library is free software; you can redistribute it and/or

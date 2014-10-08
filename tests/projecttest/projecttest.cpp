@@ -1,7 +1,7 @@
 /*
     This file is part of KDE.
 
-    Copyright 2010 Sebastian Kgler <sebas@kde.org>
+    Copyright 2010 Sebastian Kügler <sebas@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
