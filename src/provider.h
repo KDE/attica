@@ -77,7 +77,7 @@ class RemoteAccount;
 
 /**
  * The Provider class represents one Open Collaboration Service provider.
- * Use the ProviderManager to instanciate a Provider.
+ * Use the ProviderManager to instantiate a Provider.
  *
  * Accessing functions of the Provider returns a Job class that
  * takes care of accessing the server and parsing the result.
