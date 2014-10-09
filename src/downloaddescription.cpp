@@ -83,6 +83,16 @@ int DownloadDescription::id()
     return d->id;
 }
 
+QString Attica::DownloadDescription::category() const
+{
+    return d->category;
+}
+
+int DownloadDescription::id() const
+{
+    return d->id;
+}
+
 void DownloadDescription::setId(int id)
 {
     d->id = id;
@@ -98,6 +108,11 @@ QString Attica::DownloadDescription::distributionType()
     return d->distributionType;
 }
 
+QString Attica::DownloadDescription::distributionType() const
+{
+    return d->distributionType;
+}
+
 void DownloadDescription::setDistributionType(const QString &distributionType)
 {
     d->distributionType = distributionType;
@@ -108,12 +123,22 @@ bool Attica::DownloadDescription::hasPrice()
     return d->hasPrice;
 }
 
+bool Attica::DownloadDescription::hasPrice() const
+{
+    return d->hasPrice;
+}
+
 void DownloadDescription::setHasPrice(bool hasPrice)
 {
     d->hasPrice = hasPrice;
 }
 
 Attica::DownloadDescription::Type DownloadDescription::type()
+{
+    return d->type;
+}
+
+Attica::DownloadDescription::Type DownloadDescription::type() const
 {
     return d->type;
 }
@@ -142,12 +167,22 @@ QString Attica::DownloadDescription::link()
     return d->link;
 }
 
+QString Attica::DownloadDescription::link() const
+{
+    return d->link;
+}
+
 void DownloadDescription::setLink(const QString &link)
 {
     d->link = link;
 }
 
 QString Attica::DownloadDescription::name()
+{
+    return d->name;
+}
+
+QString Attica::DownloadDescription::name() const
 {
     return d->name;
 }
@@ -162,12 +197,22 @@ QString Attica::DownloadDescription::priceAmount()
     return d->priceAmount;
 }
 
+QString Attica::DownloadDescription::priceAmount() const
+{
+    return d->priceAmount;
+}
+
 void DownloadDescription::setPriceAmount(const QString &priceAmount)
 {
     d->priceAmount = priceAmount;
 }
 
 QString Attica::DownloadDescription::priceReason()
+{
+    return d->priceReason;
+}
+
+QString Attica::DownloadDescription::priceReason() const
 {
     return d->priceReason;
 }
@@ -182,12 +227,22 @@ uint Attica::DownloadDescription::size()
     return d->size;
 }
 
+uint Attica::DownloadDescription::size() const
+{
+    return d->size;
+}
+
 void Attica::DownloadDescription::setSize(uint size)
 {
     d->size = size;
 }
 
 QString Attica::DownloadDescription::gpgFingerprint()
+{
+    return d->gpgFingerprint;
+}
+
+QString Attica::DownloadDescription::gpgFingerprint() const
 {
     return d->gpgFingerprint;
 }
@@ -202,6 +257,11 @@ QString Attica::DownloadDescription::gpgSignature()
     return d->gpgSignature;
 }
 
+QString Attica::DownloadDescription::gpgSignature() const
+{
+    return d->gpgSignature;
+}
+
 void Attica::DownloadDescription::setGpgSignature(const QString &signature)
 {
     d->gpgSignature = signature;
@@ -212,12 +272,22 @@ QString Attica::DownloadDescription::packageName()
     return d->packageName;
 }
 
+QString Attica::DownloadDescription::packageName() const
+{
+    return d->packageName;
+}
+
 void Attica::DownloadDescription::setPackageName(const QString &packageName)
 {
     d->packageName = packageName;
 }
 
 QString Attica::DownloadDescription::repository()
+{
+    return d->repository;
+}
+
+QString Attica::DownloadDescription::repository() const
 {
     return d->repository;
 }

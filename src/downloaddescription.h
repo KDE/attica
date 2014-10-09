@@ -52,21 +52,37 @@ public:
       The id of the description - as one Content can have multiple download descriptions associated.
       This will simply be 1, 2, ...
       */
-    int id();
-    Attica::DownloadDescription::Type type();
+    Q_DECL_DEPRECATED int id();
+    int id() const;
+
+    // TODO KF6 remove deprecated methods.
+    Q_DECL_DEPRECATED Attica::DownloadDescription::Type type();
+    Attica::DownloadDescription::Type type() const;
     Q_DECL_DEPRECATED bool isDownloadtypLink();
-    bool hasPrice();
-    QString category();
-    QString name();
-    QString link();
-    QString distributionType();
-    QString priceReason();
-    QString priceAmount();
-    uint size();
-    QString gpgFingerprint();
-    QString gpgSignature();
-    QString packageName();
-    QString repository();
+    Q_DECL_DEPRECATED bool hasPrice();
+    bool hasPrice() const;
+    Q_DECL_DEPRECATED QString category();
+    QString category() const;
+    Q_DECL_DEPRECATED QString name();
+    QString name() const;
+    Q_DECL_DEPRECATED QString link();
+    QString link() const;
+    Q_DECL_DEPRECATED QString distributionType();
+    QString distributionType() const;
+    Q_DECL_DEPRECATED QString priceReason();
+    QString priceReason() const;
+    Q_DECL_DEPRECATED QString priceAmount();
+    QString priceAmount() const;
+    Q_DECL_DEPRECATED uint size();
+    uint size() const;
+    Q_DECL_DEPRECATED QString gpgFingerprint();
+    QString gpgFingerprint() const;
+    Q_DECL_DEPRECATED QString gpgSignature();
+    QString gpgSignature() const;
+    Q_DECL_DEPRECATED QString packageName();
+    QString packageName() const;
+    Q_DECL_DEPRECATED QString repository();
+    QString repository() const;
 
     void setId(int id);
     void setType(Attica::DownloadDescription::Type type);
