@@ -33,6 +33,7 @@
 #include <QtCore/QProcess>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkProxy>
 #if QT_VERSION >= 0x050000
 #include <QtCore/QXmlStreamReader>
 #else
