@@ -27,6 +27,7 @@
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>
+#include <QtCore/QMap>
 
 #include <QtCore/QUrl>
 
