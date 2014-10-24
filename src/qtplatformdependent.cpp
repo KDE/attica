@@ -49,7 +49,7 @@ QtPlatformDependent::~QtPlatformDependent()
     }
 }
 
-void QtPlatformDependent::setNetworkAccessManager(QNetworkAccessManager *nam)
+void QtPlatformDependent::setNam(QNetworkAccessManager *nam)
 {
     if (!nam) {
         return;

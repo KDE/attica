@@ -40,7 +40,7 @@ public:
     typename T::List itemList() const;
 
 protected:
-    virtual void parse(const QString &xml);
+    void parse(const QString &xml) Q_DECL_OVERRIDE;
 
 private:
     ListJob(PlatformDependent *internals, const QNetworkRequest &request);

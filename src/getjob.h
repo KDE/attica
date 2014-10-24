@@ -40,7 +40,7 @@ protected:
     GetJob(PlatformDependent *internals, const QNetworkRequest &request);
 
 private:
-    virtual QNetworkReply *executeRequest();
+    QNetworkReply *executeRequest() Q_DECL_OVERRIDE;
     const QNetworkRequest m_request;
 };
 
