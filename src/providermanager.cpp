@@ -24,6 +24,7 @@
 
 #include "providermanager.h"
 
+#include <QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QPluginLoader>
@@ -93,7 +94,7 @@ PlatformDependent *ProviderManager::loadPlatformDependent(const ProviderFlags &f
 
     // use qt plugin dir, if that is not found, fall back to kde plugin path (the old way)
     QStringList paths;
-    paths.append(QLibraryInfo::location(QLibraryInfo::PluginsPath));
+    paths.append(QCoreApplication::libraryPaths());
 
     // old plugin location, required for attica < 0.1.5
     QString program(QLatin1String("kde4-config"));
