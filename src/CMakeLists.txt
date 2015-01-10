@@ -105,7 +105,7 @@ PUBLIC
   Qt5::Core
   Qt5::Network
 )
-target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/Attica>")
+target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/Attica>")
 
 
 ecm_generate_headers(Attica_CamelCase_HEADERS
@@ -151,7 +151,7 @@ ecm_generate_headers(Attica_CamelCase_HEADERS
   PREFIX Attica
   REQUIRED_HEADERS Attica_HEADERS
 )
-install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/Attica/Attica COMPONENT Devel)
+install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/Attica COMPONENT Devel)
 
 install(TARGETS KF5Attica
         EXPORT KF5AtticaTargets
@@ -166,12 +166,12 @@ install(FILES
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/Attica/attica
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/attica
     COMPONENT Devel
 )
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME Attica LIB_NAME KF5Attica DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/Attica)
+ecm_generate_pri_file(BASE_NAME Attica LIB_NAME KF5Attica DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica)
 install(FILES ${PRI_FILENAME}
         DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
@@ -182,7 +182,7 @@ if(NOT WIN32)
         ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
     )
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
-       DESTINATION ${LIB_INSTALL_DIR}/pkgconfig
+       DESTINATION ${KDE_INSTALL_LIBDIR}/pkgconfig
     )
 endif(NOT WIN32)
 
