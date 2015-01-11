@@ -39,4 +39,3 @@ QNetworkReply *GetJob::executeRequest()
     return internals()->get(m_request);
 }
 
-#include "getjob.moc"

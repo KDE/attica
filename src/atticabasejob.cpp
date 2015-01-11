@@ -164,4 +164,3 @@ void BaseJob::setMetadata(const Attica::Metadata &data) const
     d->m_metadata = data;
 }
 
-#include "atticabasejob.moc"

@@ -487,4 +487,3 @@ void ProjectTest::updateCurrentProject()
     listBuildServiceJobs(p);
 }
 
-#include "projecttest.moc"

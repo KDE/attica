@@ -119,4 +119,3 @@ void PutJob::parse(const QString &xmlString)
     setMetadata(data);
 }
 
-#include "putjob.moc"

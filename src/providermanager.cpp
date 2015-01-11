@@ -361,4 +361,3 @@ void ProviderManager::initNetworkAccesssManager()
     connect(d->m_internals->nam(), SIGNAL(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)));
 }
 
-#include "providermanager.moc"
