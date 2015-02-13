@@ -35,8 +35,8 @@ namespace Attica
 class ATTICA_EXPORT Person::Parser : public Attica::Parser<Person>
 {
 private:
-    Person parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    Person parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

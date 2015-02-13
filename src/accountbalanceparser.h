@@ -33,8 +33,8 @@ namespace Attica
 class AccountBalance::Parser : public Attica::Parser<AccountBalance>
 {
 private:
-    AccountBalance parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    AccountBalance parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

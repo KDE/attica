@@ -33,8 +33,8 @@ namespace Attica
 class Activity::Parser : public Attica::Parser<Activity>
 {
 private:
-    Activity parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    Activity parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

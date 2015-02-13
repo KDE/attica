@@ -33,8 +33,8 @@ namespace Attica
 class BuildServiceJob::Parser : public Attica::Parser<BuildServiceJob>
 {
 private:
-    BuildServiceJob parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    BuildServiceJob parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

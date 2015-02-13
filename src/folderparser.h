@@ -33,8 +33,8 @@ namespace Attica
 class Folder::Parser : public Attica::Parser<Folder>
 {
 private:
-    Folder parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    Folder parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

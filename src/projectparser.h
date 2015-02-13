@@ -33,8 +33,8 @@ namespace Attica
 class Project::Parser : public Attica::Parser<Project>
 {
 private:
-    Project parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    Project parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

@@ -43,8 +43,8 @@ namespace Attica
 class Message::Parser : public Attica::Parser<Message>
 {
 private:
-    Message parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    Message parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

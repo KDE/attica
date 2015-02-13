@@ -31,8 +31,8 @@ namespace Attica
 class License::Parser : public Attica::Parser<License>
 {
 private:
-    License parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    License parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

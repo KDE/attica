@@ -33,8 +33,8 @@ namespace Attica
 class RemoteAccount::Parser : public Attica::Parser<RemoteAccount>
 {
 private:
-    RemoteAccount parseXml(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    RemoteAccount parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }

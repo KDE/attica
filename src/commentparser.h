@@ -34,9 +34,9 @@ namespace Attica
 class Comment::Parser : public Attica::Parser<Comment>
 {
 private:
-    Comment parseXml(QXmlStreamReader &xml);
+    Comment parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
     QList<Comment> parseXmlChildren(QXmlStreamReader &xml);
-    QStringList xmlElement() const;
+    QStringList xmlElement() const Q_DECL_OVERRIDE;
 };
 
 }
