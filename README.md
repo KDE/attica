@@ -1,5 +1,7 @@
 # Attica
 
+Open Collaboration Service client library
+
 ## Introduction
 
 Attica is a Qt library that implements the Open Collaboration Services API version 1.6.
