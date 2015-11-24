@@ -33,16 +33,12 @@ QString Comment::commentTypeToString(const Comment::Type type)
     switch (type) {
     case ContentComment:
         return QLatin1String("1");
-        break;
     case ForumComment:
         return QLatin1String("4");
-        break;
     case KnowledgeBaseComment:
         return QLatin1String("7");
-        break;
     case EventComment:
         return QLatin1String("8");
-        break;
     }
 
     Q_ASSERT(false);

@@ -46,16 +46,12 @@ QString Achievement::achievementTypeToString(const Achievement::Type type)
     switch (type) {
     case Achievement::FlowingAchievement:
         return QLatin1String("flowing");
-        break;
     case Achievement::SteppedAchievement:
         return QLatin1String("stepped");
-        break;
     case Achievement::NamedstepsAchievement:
         return QLatin1String("namedsteps");
-        break;
     case Achievement::SetAchievement:
         return QLatin1String("set");
-        break;
     }
 
     Q_ASSERT(false);
@@ -81,13 +77,10 @@ QString Achievement::achievementVisibilityToString(const Achievement::Visibility
     switch (visibility) {
     case Achievement::VisibleAchievement:
         return QLatin1String("visible");
-        break;
     case Achievement::DependentsAchievement:
         return QLatin1String("dependents");
-        break;
     case Achievement::SecretAchievement:
         return QLatin1String("secret");
-        break;
     }
 
     Q_ASSERT(false);
