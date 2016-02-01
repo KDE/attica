@@ -5,5 +5,5 @@ set_package_properties(Qt5Test PROPERTIES PURPOSE "Required for autotests")
 
 ecm_add_tests(
   persontest.cpp
-  LINK_LIBRARIES Qt5::Test ${ATTICA_LIB_SONAME}
+  LINK_LIBRARIES Qt5::Test KF5::Attica
 )
