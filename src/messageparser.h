@@ -24,15 +24,7 @@
 #ifndef ATTICA_MESSAGEPARSER_H
 #define ATTICA_MESSAGEPARSER_H
 
-#ifndef QT_VERSION
-#include <QtCore/qglobal.h>
-#endif
-
-#if QT_VERSION >= 0x050000
 #include <QtCore/QXmlStreamReader>
-#else
-#include <QtXml/QXmlStreamReader>
-#endif // QT_VERSION
 
 #include "message.h"
 #include "parser.h"

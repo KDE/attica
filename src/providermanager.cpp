@@ -35,24 +35,13 @@
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
-#if QT_VERSION >= 0x050000
 #include <QtCore/QXmlStreamReader>
-#else
-#include <QtXml/QXmlStreamReader>
-#endif // QT_VERSION
 
 #include "platformdependent.h"
 #include "qtplatformdependent_p.h"
 #include <QLibraryInfo>
 
 using namespace Attica;
-
-#if QT_VERSION < 0x040700
-uint qHash(const QUrl &key)
-{
-    return qHash(key.toString());
-}
-#endif
 
 class ProviderManager::Private
 {
