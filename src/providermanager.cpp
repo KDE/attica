@@ -51,7 +51,6 @@ public:
     QHash<QUrl, QList<QString> > m_providerFiles;
     QSignalMapper m_downloadMapping;
     QHash<QString, QNetworkReply *> m_downloads;
-    QPluginLoader m_pluginLoader;
     bool m_authenticationSuppressed;
 
     Private()
@@ -67,56 +66,14 @@ public:
 
 PlatformDependent *ProviderManager::loadPlatformDependent(const ProviderFlags &flags)
 {
-    // OS specific stuff
-#if defined Q_WS_WIN
-#define PATH_SEPARATOR ';'
-#define LIB_EXTENSION "dll"
-#else
-#define PATH_SEPARATOR ':'
-#define LIB_EXTENSION "so"
-#endif
-
     if (flags & ProviderManager::DisablePlugins) {
-        //qDebug() << "Disabling provider plugins per application request";
         return new QtPlatformDependent;
     }
 
-    // use qt plugin dir, if that is not found, fall back to kde plugin path (the old way)
-    QStringList paths;
-    paths.append(QCoreApplication::libraryPaths());
+    QPluginLoader loader(QStringLiteral("attica_kde"));
+    PlatformDependent * ret = qobject_cast<PlatformDependent *>(loader.instance());
 
-    // old plugin location, required for attica < 0.1.5
-    QString program(QLatin1String("kde4-config"));
-    QStringList arguments;
-    arguments << QLatin1String("--path") << QLatin1String("lib");
-
-    QProcess process;
-    process.start(program, arguments);
-    process.waitForFinished();
-
-    /* Try to find the KDE plugin. This can be extended to include other platform specific plugins. */
-    paths.append(QString(QLatin1String(process.readAllStandardOutput())).trimmed().split(QLatin1Char(PATH_SEPARATOR)));
-    //qDebug() << "Plugin paths: " << paths;
-
-    QString pluginName(QLatin1String("attica_kde"));
-
-    foreach (const QString &path, paths) {
-        QString libraryPath(path + QLatin1Char('/') + pluginName + QLatin1Char('.') + QLatin1String(LIB_EXTENSION));
-        //qDebug() << "Trying to load Attica plugin: " << libraryPath;
-        if (QFile::exists(libraryPath)) {
-            d->m_pluginLoader.setFileName(libraryPath);
-            QObject *plugin = d->m_pluginLoader.instance();
-            if (plugin) {
-                PlatformDependent *platformDependent = qobject_cast<PlatformDependent *>(plugin);
-                if (platformDependent) {
-                    //qDebug() << "Using Attica with KDE support";
-                    return platformDependent;
-                }
-            }
-        }
-    }
-    //qDebug() << "Using Attica without KDE support";
-    return new QtPlatformDependent;
+    return ret ? ret : new QtPlatformDependent;
 }
 
 ProviderManager::ProviderManager(const ProviderFlags &flags)
