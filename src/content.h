@@ -210,6 +210,12 @@ public:
       Get all icons for this content.
       */
     QList<Icon> icons();
+
+    /**
+      Get all icons for this content.
+      */
+    QList<Icon> icons() const;
+
     /**
      * Set list of icons.
      * @param icons list of icons for this content

@@ -308,6 +308,11 @@ QList<Icon> Attica::Content::icons()
     return d->m_icons;
 }
 
+QList<Icon> Attica::Content::icons() const
+{
+    return d->m_icons;
+}
+
 void Attica::Content::setIcons(QList<Icon> icons)
 {
     d->m_icons = icons;
