@@ -27,7 +27,7 @@ ecm_setup_version(${KF5_VERSION}
     SOVERSION 5)
 
 # Dependencies
-set(REQUIRED_QT_VERSION "5.3.0")
+set(REQUIRED_QT_VERSION 5.4.0)
 
 # Required Qt5 components to build this framework
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
