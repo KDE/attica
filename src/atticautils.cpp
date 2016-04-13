@@ -62,8 +62,8 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
                 mm = tzlist[1].toInt();
             }
         } else {
-            hh = tz.left(2).toInt();
-            mm = tz.mid(2).toInt();
+            hh = tz.leftRef(2).toInt();
+            mm = tz.midRef(2).toInt();
         }
 
         tzsecs = 60 * 60 * hh + 60 * mm;

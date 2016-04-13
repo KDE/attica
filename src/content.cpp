@@ -195,7 +195,7 @@ QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() co
         if (key.startsWith(QLatin1String("downloadname"))) {
             bool ok;
             // remove "downloadlink", get the rest as number
-            int num = key.right(key.size() - 12).toInt(&ok);
+            int num = key.rightRef(key.size() - 12).toInt(&ok);
             if (ok) {
                 // check if the download actually has a name
                 if (!iter.value().isEmpty()) {
@@ -246,7 +246,7 @@ QList<HomePageEntry> Attica::Content::homePageEntries()
         if (key.startsWith(QLatin1String("homepagetype"))) {
             bool ok;
             // remove "homepage", get the rest as number
-            int num = key.right(key.size() - 12).toInt(&ok);
+            int num = key.rightRef(key.size() - 12).toInt(&ok);
             if (ok) {
                 // check if the homepage actually has a valid type
                 if (!iter.value().isEmpty()) {

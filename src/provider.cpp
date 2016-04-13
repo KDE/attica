@@ -1494,7 +1494,7 @@ ListJob<Comment> *Provider::requestComments(const Comment::Type commentType, con
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("comments/data/") + commentTypeString + QLatin1String("/") + id + QLatin1String("/") + id2);
+    QUrl url = createUrl(QLatin1String("comments/data/") + commentTypeString + QLatin1Char('/') + id + QLatin1Char('/') + id2);
 
     QUrlQuery q(url);
     q.addQueryItem(QStringLiteral("page"), QString::number(page));
@@ -1548,7 +1548,7 @@ PostJob *Provider::setPrivateData(const QString &app, const QString &key, const 
         return 0;
     }
 
-    QUrl url = createUrl(QLatin1String("privatedata/setattribute/") + app + QLatin1String("/") + key);
+    QUrl url = createUrl(QLatin1String("privatedata/setattribute/") + app + QLatin1Char('/') + key);
     PostFileData postRequest(url);
 
     postRequest.addArgument(QLatin1String("value"), value);
@@ -1562,7 +1562,7 @@ ItemJob<PrivateData> *Provider::requestPrivateData(const QString &app, const QSt
         return 0;
     }
 
-    ItemJob<PrivateData> *job = new ItemJob<PrivateData>(d->m_internals, createRequest(QLatin1String("privatedata/getattribute/") + app + QLatin1String("/") + key));
+    ItemJob<PrivateData> *job = new ItemJob<PrivateData>(d->m_internals, createRequest(QLatin1String("privatedata/getattribute/") + app + QLatin1Char('/') + key));
     return job;
 }
 
