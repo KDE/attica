@@ -133,9 +133,8 @@ void ProviderManager::removeProviderFileFromDefaultProviders(const QUrl &url)
 
 void ProviderManager::addProviderFile(const QUrl &url)
 {
-    QString localFile = url.toLocalFile();
-    if (!localFile.isEmpty()) {
-        QFile file(localFile);
+    if (url.isLocalFile()) {
+        QFile file(url.toLocalFile());
         if (!file.open(QIODevice::ReadOnly)) {
             qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
             return;
