@@ -56,8 +56,13 @@ public:
                 httpStatusCode == 303 || // See Other
                 httpStatusCode == 307) { // Temporary Redirect
             QNetworkRequest request = m_reply->request();
-            newUrl = request.url();
-            newUrl.setPath(m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toString());
+            QUrl redirectUrl(m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl());
+            if (redirectUrl.isRelative()) {
+                QUrl baseUrl(request.url());
+                newUrl = baseUrl.resolved(redirectUrl);
+            } else {
+                newUrl = redirectUrl;
+            }
             return true;
         }
 
