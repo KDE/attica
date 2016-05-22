@@ -11,3 +11,7 @@ libraries:
  - qmake: Attica
    cmake: "KF5::Attica"
 cmakename: KF5Attica
+
+public_lib: true
+group: Frameworks
+subgroup: Tier 1
