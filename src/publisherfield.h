@@ -25,7 +25,7 @@
 #define PUBLISHERFIELD_H
 
 #include "buildservice.h"
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 namespace Attica
 {

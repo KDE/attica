@@ -23,7 +23,7 @@
 #ifndef ATTICA_TOPIC_H
 #define ATTICA_TOPIC_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>

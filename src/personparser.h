@@ -27,7 +27,7 @@
 #include "person.h"
 #include "parser.h"
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 namespace Attica
 {

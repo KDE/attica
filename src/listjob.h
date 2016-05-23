@@ -24,7 +24,7 @@
 #ifndef LISTJOB_H
 #define LISTJOB_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include "getjob.h"
 
 class QNetworkRequest;

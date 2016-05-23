@@ -4,9 +4,6 @@ if (MINGW)
 endif (MINGW)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
-configure_file(atticaclient_export.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h)
-# TODO: use generate_export_header?
-#generate_export_header(KF5Attica BASE_NAME Attica)
 
 set(attica_SRCS
    accountbalance.cpp
@@ -79,26 +76,15 @@ set(attica_SRCS
    topicparser.cpp
 )
 
-if (ATTICA_STATIC_BUILD)
-    add_library(KF5Attica STATIC ${attica_SRCS})
-    set_target_properties(KF5Attica PROPERTIES
-        VERSION ${ATTICA_VERSION_STRING}
-        SOVERSION ${ATTICA_VERSION_MAJOR}
-        SOVERSION ${ATTICA_SOVERSION}
-        EXPORT_NAME "Attica"
-    )
-else (ATTICA_STATIC_BUILD)
-    add_library(KF5Attica SHARED ${attica_SRCS})
-    set_target_properties(KF5Attica PROPERTIES
-        VERSION ${ATTICA_VERSION_STRING}
-        #SOVERSION ${ATTICA_VERSION_MAJOR}.${ATTICA_VERSION_MINOR}
-        SOVERSION ${ATTICA_SOVERSION}
-        EXPORT_NAME "Attica"
-        DEFINE_SYMBOL ATTICA_LIB_MAKEDLL
-    )
-endif(ATTICA_STATIC_BUILD)
+add_library(KF5Attica ${attica_SRCS})
+set_target_properties(KF5Attica PROPERTIES
+    VERSION ${ATTICA_VERSION_STRING}
+    SOVERSION ${ATTICA_SOVERSION}
+    EXPORT_NAME "Attica"
+)
 
 add_library(KF5::Attica ALIAS KF5Attica)
+generate_export_header(KF5Attica BASE_NAME Attica)
 
 target_link_libraries(KF5Attica
 PUBLIC
@@ -165,7 +151,7 @@ install(FILES
     platformdependent_v2.h
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
-    ${CMAKE_CURRENT_BINARY_DIR}/atticaclient_export.h
+    ${CMAKE_CURRENT_BINARY_DIR}/attica_export.h
     DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/attica
     COMPONENT Devel
 )

@@ -23,7 +23,7 @@
 #ifndef ATTICA_FORUM_H
 #define ATTICA_FORUM_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include "topic.h"
 

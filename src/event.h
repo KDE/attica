@@ -24,7 +24,7 @@
 #ifndef ATTICA_EVENT_H
 #define ATTICA_EVENT_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include <QtCore/QDate>
 #include <QtCore/QList>

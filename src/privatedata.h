@@ -31,7 +31,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QUrl>
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 namespace Attica
 {

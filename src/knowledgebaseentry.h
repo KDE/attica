@@ -23,7 +23,7 @@
 #ifndef ATTICA_KNOWLEDGEBASEENTRY_H
 #define ATTICA_KNOWLEDGEBASEENTRY_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>

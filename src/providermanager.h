@@ -28,7 +28,7 @@
 #include <QtCore/QUrl>
 
 #include "provider.h"
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 namespace Attica
 {

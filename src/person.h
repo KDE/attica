@@ -29,7 +29,7 @@
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QUrl>
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 namespace Attica
 {

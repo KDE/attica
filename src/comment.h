@@ -24,7 +24,7 @@
 #ifndef ATTICA_COMMENT_H
 #define ATTICA_COMMENT_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSharedDataPointer>

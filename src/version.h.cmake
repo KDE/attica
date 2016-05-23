@@ -21,7 +21,7 @@
 #ifndef _ATTICA_VERSION_H_
 #define _ATTICA_VERSION_H_
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 /// @brief Attica version as string at compile time.
 #define LIBATTICA_VERSION_STRING "${CMAKE_LIBATTICA_VERSION_STRING}"

@@ -26,7 +26,7 @@
 
 #include <QtNetwork/QNetworkRequest>
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include "atticabasejob.h"
 
 // workaround to get initialization working with gcc < 4.4

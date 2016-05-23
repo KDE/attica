@@ -29,7 +29,7 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include "metadata.h"
 
 class QNetworkReply;

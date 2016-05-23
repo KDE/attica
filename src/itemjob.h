@@ -24,7 +24,7 @@
 #ifndef ATTICA_ITEMJOB_H
 #define ATTICA_ITEMJOB_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include "getjob.h"
 #include "deletejob.h"
 #include "postjob.h"

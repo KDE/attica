@@ -23,7 +23,7 @@
 #ifndef ATTICA_FOLDER_H
 #define ATTICA_FOLDER_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include <QtCore/QList>
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QString>

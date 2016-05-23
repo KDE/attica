@@ -33,7 +33,7 @@
 #include <QtCore/QUrl>
 
 #include "achievement.h"
-#include "atticaclient_export.h"
+#include "attica_export.h"
 #include "category.h"
 #include "forum.h"
 #include "itemjob.h"

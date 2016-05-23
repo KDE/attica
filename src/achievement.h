@@ -23,7 +23,7 @@
 #ifndef ATTICA_ACHIEVEMENT_H
 #define ATTICA_ACHIEVEMENT_H
 
-#include "atticaclient_export.h"
+#include "attica_export.h"
 
 #include <QtCore/QSharedDataPointer>
 #include <QtCore/QStringList>
