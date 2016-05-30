@@ -91,6 +91,15 @@
 
 using namespace Attica;
 
+QDebug operator<<(QDebug s, const Attica::Provider& prov)
+{
+    if (prov.isValid())
+        s.nospace() << "Provider(" << prov.name() << ':' << prov.baseUrl() << ')';
+    else
+        s.nospace() << "Provider(Invalid)";
+    return s.space();
+}
+
 class Provider::Private : public QSharedData
 {
 public:

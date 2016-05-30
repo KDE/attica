@@ -24,8 +24,16 @@
 #include "category.h"
 
 #include <QtCore/QString>
+#include <QtCore/QDebug>
 
 using namespace Attica;
+
+QDebug operator<<(QDebug s, const Attica::Category& cat)
+{
+    const QString name = cat.isValid() ? cat.name() : QStringLiteral("Invalid");
+    s.nospace() << "Category(" << name << ')';
+    return s.space();
+}
 
 class Category::Private : public QSharedData
 {
