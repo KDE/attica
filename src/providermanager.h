@@ -125,9 +125,27 @@ public:
     void addProviderFile(const QUrl &file);
     QList<QUrl> providerFiles() const;
 
+    /**
+     * @returns all loaded providers
+     */
     QList<Provider> providers() const;
-    bool contains(const QString &provider) const;
+
+    ATTICA_DEPRECATED bool contains(const QString &provider) const;
+
+    /**
+     * @returns whether there's a provider with base url @p provider
+     */
+    bool contains(const QUrl &provider) const;
+
+    /**
+     * @returns the provider with @p url base url.
+     */
     Provider providerByUrl(const QUrl &url) const;
+
+    /**
+     * @returns the provider for a given provider @p url.
+     */
+    Provider providerFor(const QUrl &url) const;
 
 Q_SIGNALS:
     void providerAdded(const Attica::Provider &provider);
@@ -147,7 +165,7 @@ private:
     void initNetworkAccesssManager();
     PlatformDependent *loadPlatformDependent(const ProviderFlags &flags);
 
-    void parseProviderFile(const QString &xmlString, const QString &url);
+    void parseProviderFile(const QString &xmlString, const QUrl &url);
 
     class Private;
     Private *const d;

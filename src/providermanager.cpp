@@ -48,7 +48,7 @@ class ProviderManager::Private
 public:
     PlatformDependent *m_internals;
     QHash<QUrl, Provider> m_providers;
-    QHash<QUrl, QList<QString> > m_providerFiles;
+    QHash<QUrl, QUrl> m_providerTargets;
     QSignalMapper m_downloadMapping;
     QHash<QString, QNetworkReply *> m_downloads;
     bool m_authenticationSuppressed;
@@ -96,7 +96,7 @@ void ProviderManager::setAuthenticationSuppressed(bool suppressed)
 
 void ProviderManager::clear()
 {
-    d->m_providerFiles.clear();
+    d->m_providerTargets.clear();
     d->m_providers.clear();
 }
 
@@ -139,7 +139,7 @@ void ProviderManager::addProviderFile(const QUrl &url)
             qWarning() << "ProviderManager::addProviderFile: could not open provider file: " << url.toString();
             return;
         }
-        addProviderFromXml(QLatin1String(file.readAll()));
+        parseProviderFile(QLatin1String(file.readAll()), url);
     } else {
         if (!d->m_downloads.contains(url.toString())) {
             QNetworkReply *reply = d->m_internals->get(QNetworkRequest(url));
@@ -153,18 +153,17 @@ void ProviderManager::addProviderFile(const QUrl &url)
 void ProviderManager::fileFinished(const QString &url)
 {
     QNetworkReply *reply = d->m_downloads.take(url);
-    parseProviderFile(QLatin1String(reply->readAll()), url);
+    parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
     reply->deleteLater();
 }
 
 void ProviderManager::addProviderFromXml(const QString &providerXml)
 {
-    parseProviderFile(providerXml, QString());
+    parseProviderFile(providerXml, QUrl());
 }
 
-void ProviderManager::parseProviderFile(const QString &xmlString, const QString &url)
+void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &url)
 {
-    Q_UNUSED(url)
     QXmlStreamReader xml(xmlString);
     while (!xml.atEnd() && xml.readNext()) {
         if (xml.isStartElement() && xml.name() == QLatin1String("provider")) {
@@ -226,14 +225,24 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QString 
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, baseUrl, name, icon,
                                                         person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
                                                         event, comment, registerUrl));
+                d->m_providerTargets[url] = baseUrl;
                 emit providerAdded(d->m_providers.value(baseUrl));
             }
         }
     }
 
+    if (xml.error() != QXmlStreamReader::NoError) {
+        qDebug() << "error:" << xml.errorString() << "in" << url;
+    }
+
     if (d->m_downloads.isEmpty()) {
         emit defaultProvidersLoaded();
     }
+}
+
+Provider ProviderManager::providerFor(const QUrl &url) const
+{
+    return providerByUrl(d->m_providerTargets.value(url));
 }
 
 Provider ProviderManager::providerByUrl(const QUrl &url) const
@@ -253,7 +262,7 @@ bool ProviderManager::contains(const QString &provider) const
 
 QList<QUrl> ProviderManager::providerFiles() const
 {
-    return d->m_providerFiles.keys();
+    return d->m_providerTargets.keys();
 }
 
 void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
