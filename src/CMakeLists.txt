@@ -76,6 +76,8 @@ set(attica_SRCS
    topicparser.cpp
 )
 
+ecm_qt_declare_logging_category(attica_SRCS HEADER attica_debug.h IDENTIFIER ATTICA CATEGORY_NAME org.kde.attica)
+
 add_library(KF5Attica ${attica_SRCS})
 set_target_properties(KF5Attica PROPERTIES
     VERSION ${ATTICA_VERSION_STRING}

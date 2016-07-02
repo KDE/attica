@@ -28,6 +28,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QAuthenticator>
 
+#include <attica_debug.h>
 #include "platformdependent.h"
 
 using namespace Attica;
@@ -60,8 +61,10 @@ public:
             if (redirectUrl.isRelative()) {
                 QUrl baseUrl(request.url());
                 newUrl = baseUrl.resolved(redirectUrl);
+                qCDebug(ATTICA) << "resolving relative URL redirection to" << newUrl.toString();
             } else {
                 newUrl = redirectUrl;
+                qCDebug(ATTICA) << "resolving absolute URL redirection to" << newUrl.toString();
             }
             return true;
         }

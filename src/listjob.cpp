@@ -23,7 +23,7 @@
 
 #include "listjob.h"
 
-#include <QDebug>
+#include <attica_debug.h>
 #include <QXmlStreamReader>
 
 using namespace Attica;
@@ -32,6 +32,7 @@ template <class T>
 ListJob<T>::ListJob(PlatformDependent *internals, const QNetworkRequest &request)
     : GetJob(internals, request)
 {
+    qCDebug(ATTICA) << "creating list job:" << request.url();
 }
 
 template <class T>
@@ -46,5 +47,5 @@ void ListJob<T>::parse(const QString &xml)
     typename T::Parser parser;
     m_itemList = parser.parseList(xml);
     setMetadata(parser.metadata());
+    qCDebug(ATTICA) << "received categories:" << m_itemList.size();
 }
-

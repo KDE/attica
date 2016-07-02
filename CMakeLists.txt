@@ -14,6 +14,7 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMPackageConfigHelpers) # Used to create CMake config files
+include(ECMQtDeclareLoggingCategory)
 include(KDEInstallDirs) # Used to set installation paths
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
