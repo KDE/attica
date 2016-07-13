@@ -142,7 +142,9 @@ void ProviderManager::addProviderFile(const QUrl &url)
         parseProviderFile(QLatin1String(file.readAll()), url);
     } else {
         if (!d->m_downloads.contains(url.toString())) {
-            QNetworkReply *reply = d->m_internals->get(QNetworkRequest(url));
+            QNetworkRequest req(url);
+            req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+            QNetworkReply *reply = d->m_internals->get(req);
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
             d->m_downloads.insert(url.toString(), reply);
