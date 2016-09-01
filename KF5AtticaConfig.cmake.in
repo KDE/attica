@@ -2,6 +2,7 @@
 
 # Required components to use this framework
 find_dependency(Qt5Core "@REQUIRED_QT_VERSION@")
+find_dependency(Qt5Network "@REQUIRED_QT_VERSION@")
 
 include("${CMAKE_CURRENT_LIST_DIR}/KF5AtticaTargets.cmake")
 
