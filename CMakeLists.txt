@@ -19,7 +19,7 @@ include(KDEInstallDirs) # Used to set installation paths
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 
-set(KF5_VERSION "5.28.0") # handled by release scripts
+set(KF5_VERSION "5.29.0") # handled by release scripts
 
 ecm_setup_version(${KF5_VERSION}
     VARIABLE_PREFIX ATTICA
