@@ -57,12 +57,14 @@ Content Content::Parser::parseXml(QXmlStreamReader &xml)
             } else if (xml.name() == QLatin1String("icon")) {
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
-                QXmlStreamAttributes attributes = xml.attributes();
-                if (attributes.hasAttribute(QLatin1String("width"))) {
-                    icon.setWidth(attributes.value(QLatin1String("width")).toString().toInt());
+                const QXmlStreamAttributes attributes = xml.attributes();
+                const QStringRef width = attributes.value(QLatin1String("width"));
+                const QStringRef height = attributes.value(QLatin1String("height"));
+                if (!width.isEmpty()) {
+                    icon.setWidth(width.toInt());
                 }
-                if (attributes.hasAttribute(QLatin1String("height"))) {
-                    icon.setHeight(attributes.value(QLatin1String("height")).toString().toInt());
+                if (!height.isEmpty()) {
+                    icon.setHeight(height.toInt());
                 }
                 // append the icon to the current list of icons
                 QList<Icon> icons;
