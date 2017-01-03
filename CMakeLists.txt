@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(Attica)
+set(KF5_VERSION "5.30.0") # handled by release scripts
+project(Attica VERSION ${KF5_VERSION})
 
 # ECM setup
 include(FeatureSummary)
@@ -19,9 +20,8 @@ include(KDEInstallDirs) # Used to set installation paths
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 
-set(KF5_VERSION "5.30.0") # handled by release scripts
 
-ecm_setup_version(${KF5_VERSION}
+ecm_setup_version(PROJECT
     VARIABLE_PREFIX ATTICA
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfigVersion.cmake"
