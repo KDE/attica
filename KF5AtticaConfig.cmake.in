@@ -1,6 +1,7 @@
 @PACKAGE_INIT@
 
 # Required components to use this framework
+include(CMakeFindDependencyMacro)
 find_dependency(Qt5Core "@REQUIRED_QT_VERSION@")
 find_dependency(Qt5Network "@REQUIRED_QT_VERSION@")
 
