@@ -14,7 +14,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(ECMPackageConfigHelpers) # Used to create CMake config files
+include(CMakePackageConfigHelpers) # Used to create CMake config files
 include(ECMQtDeclareLoggingCategory)
 include(KDEInstallDirs) # Used to set installation paths
 include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
@@ -53,7 +53,7 @@ endif ()
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Attica")
 
 # Create the CMake Config files
-ecm_configure_package_config_file(
+configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/KF5AtticaConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
     INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
