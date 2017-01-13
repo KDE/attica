@@ -95,6 +95,24 @@ public:
      */
     bool isValid() const;
 
+    /**
+     * Sets the display name of the Category.
+     * This name is guaranteed to be user friendly, while name may be
+     * internal for the server
+     * @param name the new name
+     * @since 5.31
+     */
+    void setDisplayName(const QString &name);
+
+    /**
+     * Gets the display name of the Category.
+     * This name is guaranteed to be user friendly, while name may be
+     * internal for the server
+     * @return the name
+     * @since 5.31
+     */
+    QString displayName() const;
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

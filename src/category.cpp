@@ -40,6 +40,7 @@ class Category::Private : public QSharedData
 public:
     QString m_id;
     QString m_name;
+    QString m_displayName;
 };
 
 Category::Category() : d(new Private)
@@ -79,6 +80,16 @@ void Category::setName(const QString &name)
 QString Category::name() const
 {
     return d->m_name;
+}
+
+void Category::setDisplayName(const QString &name)
+{
+    d->m_displayName = name;
+}
+
+QString Category::displayName() const
+{
+    return d->m_displayName;
 }
 
 bool Category::isValid() const

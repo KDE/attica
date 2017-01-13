@@ -37,6 +37,8 @@ Category Category::Parser::parseXml(QXmlStreamReader &xml)
                 category.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("name")) {
                 category.setName(xml.readElementText());
+            } else if (xml.name() == QLatin1String("display_name")) {
+                category.setDisplayName(xml.readElementText());
             }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("category")) {
             break;
