@@ -41,13 +41,13 @@ public:
     QNetworkReply *m_reply;
 
     Private(PlatformDependent *internals)
-        : m_internals(internals), m_reply(0)
+        : m_internals(internals), m_reply(nullptr)
     {
     }
 
     bool redirection(QUrl &newUrl) const
     {
-        if (m_reply == 0 || m_reply->error() != QNetworkReply::NoError) {
+        if (m_reply == nullptr || m_reply->error() != QNetworkReply::NoError) {
             return false;
         }
 

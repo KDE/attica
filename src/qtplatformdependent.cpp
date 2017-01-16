@@ -57,7 +57,7 @@ void QtPlatformDependent::setNam(QNetworkAccessManager *nam)
 
     QMutexLocker l(&m_accessMutex);
     QThread *currThread = QThread::currentThread();
-    QNetworkAccessManager *oldNam = 0;
+    QNetworkAccessManager *oldNam = nullptr;
     if (m_threadNamHash.contains(currThread) && m_ourNamSet.contains(currThread)) {
         oldNam = m_threadNamHash[ currThread ];
     }

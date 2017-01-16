@@ -38,7 +38,7 @@ QNetworkReply *DeleteJob::executeRequest()
 {
     Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2 *>(internals());
     if (!platformDependentV2) {
-        return 0;
+        return nullptr;
     }
 
     return platformDependentV2->deleteResource(m_request);

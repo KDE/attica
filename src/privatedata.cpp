@@ -36,7 +36,7 @@ public:
     Provider *m_provider;
 
     Private()
-        : m_provider(0)
+        : m_provider(nullptr)
     {
     }
 };

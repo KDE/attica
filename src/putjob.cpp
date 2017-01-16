@@ -38,12 +38,12 @@ PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, QIO
 }
 
 Attica::PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray)
-    : BaseJob(internals), m_ioDevice(0), m_byteArray(byteArray), m_request(request)
+    : BaseJob(internals), m_ioDevice(nullptr), m_byteArray(byteArray), m_request(request)
 {
 }
 
 PutJob::PutJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
-    : BaseJob(internals), m_ioDevice(0), m_request(request)
+    : BaseJob(internals), m_ioDevice(nullptr), m_request(request)
 {
     // Create put data
     int j = 0;
@@ -61,7 +61,7 @@ QNetworkReply *PutJob::executeRequest()
 {
     Attica::PlatformDependentV2 *platformDependentV2 = dynamic_cast<Attica::PlatformDependentV2 *>(internals());
     if (!platformDependentV2) {
-        return 0;
+        return nullptr;
     }
 
     if (m_ioDevice) {

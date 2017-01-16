@@ -42,7 +42,7 @@
 using namespace Attica;
 
 ProjectTest::ProjectTest() : QMainWindow(),
-    m_mainWidget(0)
+    m_mainWidget(nullptr)
 {
     m_mainWidget = new QWidget();
     setCentralWidget(m_mainWidget);

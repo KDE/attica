@@ -54,7 +54,7 @@ public:
     bool m_authenticationSuppressed;
 
     Private()
-        : m_internals(0)
+        : m_internals(nullptr)
         , m_authenticationSuppressed(false)
     {
     }

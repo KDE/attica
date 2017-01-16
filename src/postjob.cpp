@@ -38,12 +38,12 @@ PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, Q
 }
 
 Attica::PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray)
-    : BaseJob(internals), m_ioDevice(0), m_byteArray(byteArray), m_request(request)
+    : BaseJob(internals), m_ioDevice(nullptr), m_byteArray(byteArray), m_request(request)
 {
 }
 
 PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
-    : BaseJob(internals), m_ioDevice(0), m_request(request)
+    : BaseJob(internals), m_ioDevice(nullptr), m_request(request)
 {
     // Create post data
     int j = 0;
