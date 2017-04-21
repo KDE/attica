@@ -699,6 +699,6 @@ private:
 };
 }
 
-static QDebug operator<<(QDebug s, const Attica::Provider& prov);
+QDebug operator<<(QDebug s, const Attica::Provider& prov);
 
 #endif
