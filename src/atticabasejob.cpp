@@ -121,7 +121,7 @@ void BaseJob::dataFinished()
     } else {
         d->m_metadata.setError(Metadata::NetworkError);
         d->m_metadata.setStatusCode(d->m_reply->error());
-        d->m_metadata.setStatusString(QLatin1String("Network error"));
+        d->m_metadata.setStatusString(d->m_reply->errorString());
     }
     emit finished(this);
 
@@ -140,6 +140,10 @@ void BaseJob::doWork()
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
     connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)),
             this, SLOT(authenticationRequired(QNetworkReply*,QAuthenticator*)));
+    connect(d->m_reply, static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
+      [](QNetworkReply::NetworkError code){
+          qCDebug(ATTICA) << "error found" << code;
+    });
 }
 
 void BaseJob::authenticationRequired(QNetworkReply *reply, QAuthenticator *auth)
