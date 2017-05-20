@@ -139,6 +139,16 @@ ecm_generate_headers(Attica_CamelCase_HEADERS
   PREFIX Attica
   REQUIRED_HEADERS Attica_HEADERS
 )
+
+set(Attica_HEADERS
+    ${Attica_HEADERS}
+    atticabasejob.h # TODO: rename to basejob.h, add atticabasejob.h forwarding to basejob.h for compat
+    atticautils.h   # TODO: not exported, this should probably NOT be installed at all?
+    #interface for external platform plugins
+    platformdependent.h
+    platformdependent_v2.h
+)
+
 install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/Attica COMPONENT Devel)
 
 install(TARGETS KF5Attica
@@ -146,17 +156,35 @@ install(TARGETS KF5Attica
         ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
-    atticabasejob.h # TODO: rename to basejob.h, add atticabasejob.h forwarding to basejob.h for compat
-    atticautils.h   # TODO: not exported, this should probably NOT be installed at all?
-    #interface for external platform plugins
-    platformdependent.h
-    platformdependent_v2.h
     ${Attica_HEADERS}
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
     ${CMAKE_CURRENT_BINARY_DIR}/attica_export.h
     DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/attica
     COMPONENT Devel
 )
+
+if(BUILD_QCH)
+    ecm_add_qch(
+        KF5Attica_QCH
+        NAME Attica
+        BASE_NAME KF5Attica
+        VERSION ${KF5_VERSION}
+        ORG_DOMAIN org.kde
+        SOURCES # using only public headers, to cover only public API
+            ${Attica_HEADERS}
+        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
+        LINK_QCHS
+            Qt5Core_QCH
+            Qt5Network_QCH
+        BLANK_MACROS
+            ATTICA_EXPORT
+            ATTICA_DEPRECATED
+            ATTICA_DEPRECATED_EXPORT
+        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        COMPONENT Devel
+    )
+endif()
 
 include(ECMGeneratePriFile)
 ecm_generate_pri_file(BASE_NAME Attica LIB_NAME KF5Attica DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica)
