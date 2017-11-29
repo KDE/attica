@@ -143,9 +143,7 @@ void ProviderManager::addProviderFile(const QUrl &url)
     } else {
         if (!d->m_downloads.contains(url.toString())) {
             QNetworkRequest req(url);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
             req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
-#endif
             QNetworkReply *reply = d->m_internals->get(req);
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
