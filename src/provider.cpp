@@ -1584,6 +1584,7 @@ QUrl Provider::createUrl(const QString &path)
 QNetworkRequest Provider::createRequest(const QUrl &url)
 {
     QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader,QStringLiteral("application/x-www-form-urlencoded"));
     if (!d->m_credentialsUserName.isEmpty()) {
         request.setAttribute((QNetworkRequest::Attribute) BaseJob::UserAttribute, QVariant(d->m_credentialsUserName));
         request.setAttribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute, QVariant(d->m_credentialsPassword));
