@@ -28,11 +28,11 @@
 
 #include "platformdependent_v2.h"
 
-#include <QtCore/QHash>
-#include <QtCore/QMutex>
-#include <QtCore/QSet>
-#include <QtCore/QThread>
-#include <QtNetwork/QNetworkAccessManager>
+#include <QHash>
+#include <QMutex>
+#include <QSet>
+#include <QThread>
+#include <QNetworkAccessManager>
 
 namespace Attica
 {

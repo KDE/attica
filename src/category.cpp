@@ -23,8 +23,8 @@
 
 #include "category.h"
 
-#include <QtCore/QString>
-#include <QtCore/QDebug>
+#include <QString>
+#include <QDebug>
 
 using namespace Attica;
 

@@ -23,7 +23,7 @@
 
 #include "eventparser.h"
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 
 using namespace Attica;
 

@@ -23,11 +23,11 @@
 #ifndef ATTICA_CONTENT_H
 #define ATTICA_CONTENT_H
 
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QMap>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QList>
+#include <QString>
+#include <QMap>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 #include "downloaddescription.h"

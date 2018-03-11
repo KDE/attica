@@ -24,8 +24,8 @@
 #ifndef ATTICA_PLATFORMDEPENDENT_V2_H
 #define ATTICA_PLATFORMDEPENDENT_V2_H
 
-#include <QtCore/QList>
-#include <QtCore/QtPlugin>
+#include <QList>
+#include <QtPlugin>
 
 #include <platformdependent.h>
 

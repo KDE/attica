@@ -24,8 +24,8 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DOWNLOADDESCRIPTION_H
 #define DOWNLOADDESCRIPTION_H
 
-#include <QtCore/QSharedData>
-#include <QtCore/QString>
+#include <QSharedData>
+#include <QString>
 
 #include "attica_export.h"
 

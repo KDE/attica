@@ -23,7 +23,7 @@
 
 #include "getjob.h"
 
-#include <QtNetwork/QNetworkAccessManager>
+#include <QNetworkAccessManager>
 
 #include "platformdependent.h"
 #include <attica_debug.h>

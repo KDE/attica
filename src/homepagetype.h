@@ -25,8 +25,8 @@
 #ifndef ATTICA_HOMEPAGETYPE_H
 #define ATTICA_HOMEPAGETYPE_H
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

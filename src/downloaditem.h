@@ -24,8 +24,8 @@
 #ifndef ATTICA_DOWNLOADITEM_H
 #define ATTICA_DOWNLOADITEM_H
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 #include "downloaddescription.h"

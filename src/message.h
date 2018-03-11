@@ -23,9 +23,9 @@
 #ifndef ATTICA_MESSAGE_H
 #define ATTICA_MESSAGE_H
 
-#include <QtCore/QDateTime>
-#include <QtCore/QList>
-#include <QtCore/QSharedDataPointer>
+#include <QDateTime>
+#include <QList>
+#include <QSharedDataPointer>
 
 #include "attica_export.h"
 

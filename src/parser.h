@@ -24,8 +24,8 @@
 #ifndef ATTICA_PARSER_H
 #define ATTICA_PARSER_H
 
-#include <QtCore/QStringList>
-#include <QtCore/QXmlStreamReader>
+#include <QStringList>
+#include <QXmlStreamReader>
 
 #include "listjob.h"
 

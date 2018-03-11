@@ -81,13 +81,13 @@
 #include "itemjob.h"
 #include "listjob.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <QNetworkAccessManager>
 #include <QDebug>
 #include <QUrl>
 #include <QUrlQuery>
 #include <QNetworkReply>
-#include <QtCore/QFile>
+#include <QFile>
 
 using namespace Attica;
 

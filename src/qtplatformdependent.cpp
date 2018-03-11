@@ -25,9 +25,9 @@
 
 #include "qtplatformdependent_p.h"
 
-#include <QtCore/QUrl>
-#include <QtCore/QStringList>
-#include <QtCore/QDebug>
+#include <QUrl>
+#include <QStringList>
+#include <QDebug>
 
 using namespace Attica;
 

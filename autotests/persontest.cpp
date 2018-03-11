@@ -21,7 +21,7 @@
 
 */
 
-#include <QtTest/QtTest>
+#include <QtTest>
 #include <personparser.h>
 
 using namespace Attica;

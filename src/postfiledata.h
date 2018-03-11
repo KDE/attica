@@ -24,9 +24,9 @@
 #ifndef POSTFILEDATA_H
 #define POSTFILEDATA_H
 
-#include <QtCore/QByteArray>
-#include <QtCore/QIODevice>
-#include <QtNetwork/QNetworkRequest>
+#include <QByteArray>
+#include <QIODevice>
+#include <QNetworkRequest>
 
 namespace Attica
 {

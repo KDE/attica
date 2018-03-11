@@ -25,17 +25,17 @@
 #include "providermanager.h"
 
 #include <QCoreApplication>
-#include <QtCore/QDebug>
-#include <QtCore/QFile>
-#include <QtCore/QPluginLoader>
-#include <QtCore/QSet>
-#include <QtCore/QSignalMapper>
-#include <QtCore/QTimer>
-#include <QtCore/QProcess>
-#include <QtNetwork/QAuthenticator>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkProxy>
-#include <QtCore/QXmlStreamReader>
+#include <QDebug>
+#include <QFile>
+#include <QPluginLoader>
+#include <QSet>
+#include <QSignalMapper>
+#include <QTimer>
+#include <QProcess>
+#include <QAuthenticator>
+#include <QNetworkReply>
+#include <QNetworkProxy>
+#include <QXmlStreamReader>
 
 #include "platformdependent.h"
 #include "qtplatformdependent_p.h"

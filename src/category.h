@@ -23,8 +23,8 @@
 #ifndef ATTICA_CATEGORY_H
 #define ATTICA_CATEGORY_H
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QList>
+#include <QSharedDataPointer>
+#include <QList>
 
 #include "attica_export.h"
 

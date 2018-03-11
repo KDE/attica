@@ -25,7 +25,7 @@
 #ifndef ATTICA_PROVIDERMANAGER_H
 #define ATTICA_PROVIDERMANAGER_H
 
-#include <QtCore/QUrl>
+#include <QUrl>
 
 #include "provider.h"
 #include "attica_export.h"

@@ -25,10 +25,10 @@
 
 #include "attica_export.h"
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
-#include <QtCore/QVariant>
+#include <QSharedDataPointer>
+#include <QStringList>
+#include <QUrl>
+#include <QVariant>
 
 namespace Attica
 {

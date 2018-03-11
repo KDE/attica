@@ -24,7 +24,7 @@
 #ifndef ATTICA_MESSAGEPARSER_H
 #define ATTICA_MESSAGEPARSER_H
 
-#include <QtCore/QXmlStreamReader>
+#include <QXmlStreamReader>
 
 #include "message.h"
 #include "parser.h"

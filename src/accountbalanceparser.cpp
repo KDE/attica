@@ -23,7 +23,7 @@
 
 #include "accountbalanceparser.h"
 
-#include <QtCore/QXmlStreamReader>
+#include <QXmlStreamReader>
 
 using namespace Attica;
 

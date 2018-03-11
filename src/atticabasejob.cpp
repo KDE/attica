@@ -23,9 +23,9 @@
 
 #include "atticabasejob.h"
 
-#include <QtCore/QDebug>
-#include <QtCore/QTimer>
-#include <QtNetwork/QNetworkReply>
+#include <QDebug>
+#include <QTimer>
+#include <QNetworkReply>
 #include <QAuthenticator>
 
 #include <attica_debug.h>

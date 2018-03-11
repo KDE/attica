@@ -25,11 +25,11 @@
 
 #include "attica_export.h"
 
-#include <QtCore/QDateTime>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QMap>
+#include <QDateTime>
+#include <QSharedDataPointer>
+#include <QMap>
 
-#include <QtCore/QUrl>
+#include <QUrl>
 
 namespace Attica
 {

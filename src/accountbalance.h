@@ -21,8 +21,8 @@
 #ifndef ATTICA_ACCOUNTBALANCE_H
 #define ATTICA_ACCOUNTBALANCE_H
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QString>
+#include <QSharedDataPointer>
+#include <QString>
 
 #include "attica_export.h"
 

@@ -27,9 +27,9 @@
 
 #include "topic.h"
 
-#include <QtCore/QDateTime>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QDateTime>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 namespace Attica
 {

@@ -25,11 +25,11 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "provider.h"
 
-#include <QtCore/QDateTime>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QDateTime>
+#include <QList>
+#include <QMap>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

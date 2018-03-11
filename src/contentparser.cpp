@@ -23,7 +23,7 @@
 
 #include "contentparser.h"
 
-#include <QtCore/QDateTime>
+#include <QDateTime>
 #include <QDebug>
 
 using namespace Attica;

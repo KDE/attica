@@ -25,9 +25,9 @@
 
 #include "attica_export.h"
 
-#include <QtCore/QList>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QList>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 namespace Attica
 {

@@ -23,7 +23,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "downloaddescription.h"
 
-#include <QtCore/QSharedData>
+#include <QSharedData>
 
 namespace Attica
 {

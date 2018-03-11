@@ -26,7 +26,7 @@
 #include <QXmlStreamReader>
 #include <QDebug>
 
-#include <QtNetwork/QNetworkAccessManager>
+#include <QNetworkAccessManager>
 
 #include "platformdependent.h"
 

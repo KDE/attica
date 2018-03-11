@@ -25,12 +25,12 @@
 #ifndef ATTICA_PROVIDER_H
 #define ATTICA_PROVIDER_H
 
-#include <QtCore/QExplicitlySharedDataPointer>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QExplicitlySharedDataPointer>
+#include <QSharedPointer>
+#include <QString>
+#include <QStringList>
 
-#include <QtCore/QUrl>
+#include <QUrl>
 
 #include "achievement.h"
 #include "attica_export.h"

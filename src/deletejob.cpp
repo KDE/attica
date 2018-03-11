@@ -23,7 +23,7 @@
 
 #include "deletejob.h"
 
-#include <QtNetwork/QNetworkAccessManager>
+#include <QNetworkAccessManager>
 
 #include "platformdependent_v2.h"
 

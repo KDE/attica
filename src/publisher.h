@@ -23,12 +23,12 @@
 #ifndef ATTICA_PUBLISHER_H
 #define ATTICA_PUBLISHER_H
 
-#include <QtCore/QDate>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QDate>
+#include <QList>
+#include <QMap>
+#include <QSharedDataPointer>
+#include <QStringList>
+#include <QUrl>
 
 #include "buildservice.h"
 #include "attica_export.h"

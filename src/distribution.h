@@ -25,8 +25,8 @@
 #ifndef ATTICA_DISTRIBUTION_H
 #define ATTICA_DISTRIBUTION_H
 
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

@@ -23,11 +23,11 @@
 #ifndef ATTICA_PERSON_H
 #define ATTICA_PERSON_H
 
-#include <QtCore/QDate>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QUrl>
+#include <QDate>
+#include <QList>
+#include <QMap>
+#include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

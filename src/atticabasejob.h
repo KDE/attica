@@ -23,11 +23,11 @@
 #ifndef ATTICA_ATTICABASEJOB_H
 #define ATTICA_ATTICABASEJOB_H
 
-#include <QtCore/QObject>
-#include <QtCore/QSharedPointer>
-#include <QtCore/QUrl>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkRequest>
+#include <QObject>
+#include <QSharedPointer>
+#include <QUrl>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
 
 #include "attica_export.h"
 #include "metadata.h"

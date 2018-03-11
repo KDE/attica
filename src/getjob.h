@@ -24,7 +24,7 @@
 #ifndef ATTICA_GETJOB_H
 #define ATTICA_GETJOB_H
 
-#include <QtNetwork/QNetworkRequest>
+#include <QNetworkRequest>
 
 #include "attica_export.h"
 #include "atticabasejob.h"

@@ -23,7 +23,7 @@
 
 #include "metadata.h"
 
-#include <QtCore/QSharedData>
+#include <QSharedData>
 
 using namespace Attica;
 

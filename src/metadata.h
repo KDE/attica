@@ -23,9 +23,9 @@
 #ifndef ATTICA_METADATA_H
 #define ATTICA_METADATA_H
 
-#include <QtCore/QString>
+#include <QString>
 
-#include <QtCore/QSharedDataPointer>
+#include <QSharedDataPointer>
 
 #include "attica_export.h"
 
