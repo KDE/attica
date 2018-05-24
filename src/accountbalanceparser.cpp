@@ -42,7 +42,7 @@ AccountBalance AccountBalance::Parser::parseXml(QXmlStreamReader &xml)
             if (xml.name() == QLatin1String("balance")) {
                 item.setBalance(xml.readElementText());
             }
-            if (xml.name() == QLatin1String("currency")) {
+            else if (xml.name() == QLatin1String("currency")) {
                 item.setCurrency(xml.readElementText());
             }
         }

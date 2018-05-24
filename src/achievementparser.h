@@ -33,11 +33,11 @@ namespace Attica
 class Achievement::Parser : public Attica::Parser<Achievement>
 {
 private:
-    Achievement parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    Achievement parseXml(QXmlStreamReader &xml) override;
     QStringList parseXmlOptions(QXmlStreamReader &xml);
     QStringList parseXmlDependencies(QXmlStreamReader &xml);
     QVariant parseXmlProgress(QXmlStreamReader &xml);
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    QStringList xmlElement() const override;
 };
 
 }

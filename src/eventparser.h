@@ -33,8 +33,8 @@ namespace Attica
 class Event::Parser : public Attica::Parser<Event>
 {
 private:
-    Event parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    Event parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

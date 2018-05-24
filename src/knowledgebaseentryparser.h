@@ -34,8 +34,8 @@ namespace Attica
 class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
 private:
-    KnowledgeBaseEntry parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    KnowledgeBaseEntry parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

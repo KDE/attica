@@ -43,25 +43,25 @@ public:
     QtPlatformDependent();
     virtual ~QtPlatformDependent();
 
-    void setNam(QNetworkAccessManager *nam) Q_DECL_OVERRIDE;
-    QNetworkAccessManager *nam() Q_DECL_OVERRIDE;
+    void setNam(QNetworkAccessManager *nam) override;
+    QNetworkAccessManager *nam() override;
 
-    QList<QUrl> getDefaultProviderFiles() const Q_DECL_OVERRIDE;
-    void addDefaultProviderFile(const QUrl &url) Q_DECL_OVERRIDE;
-    void removeDefaultProviderFile(const QUrl &url) Q_DECL_OVERRIDE;
-    void enableProvider(const QUrl &baseUrl, bool enabled) const Q_DECL_OVERRIDE;
-    bool isEnabled(const QUrl &baseUrl) const Q_DECL_OVERRIDE;
+    QList<QUrl> getDefaultProviderFiles() const override;
+    void addDefaultProviderFile(const QUrl &url) override;
+    void removeDefaultProviderFile(const QUrl &url) override;
+    void enableProvider(const QUrl &baseUrl, bool enabled) const override;
+    bool isEnabled(const QUrl &baseUrl) const override;
 
-    QNetworkReply *post(const QNetworkRequest &request, const QByteArray &data) Q_DECL_OVERRIDE;
-    QNetworkReply *post(const QNetworkRequest &request, QIODevice *data) Q_DECL_OVERRIDE;
-    QNetworkReply *get(const QNetworkRequest &request) Q_DECL_OVERRIDE;
-    bool hasCredentials(const QUrl &baseUrl) const Q_DECL_OVERRIDE;
-    bool saveCredentials(const QUrl &baseUrl, const QString &user, const QString &password) Q_DECL_OVERRIDE;
-    bool loadCredentials(const QUrl &baseUrl, QString &user, QString &password) Q_DECL_OVERRIDE;
-    bool askForCredentials(const QUrl &baseUrl, QString &user, QString &password) Q_DECL_OVERRIDE;
-    QNetworkReply *deleteResource(const QNetworkRequest &request) Q_DECL_OVERRIDE;
-    QNetworkReply *put(const QNetworkRequest &request, const QByteArray &data) Q_DECL_OVERRIDE;
-    QNetworkReply *put(const QNetworkRequest &request, QIODevice *data) Q_DECL_OVERRIDE;
+    QNetworkReply *post(const QNetworkRequest &request, const QByteArray &data) override;
+    QNetworkReply *post(const QNetworkRequest &request, QIODevice *data) override;
+    QNetworkReply *get(const QNetworkRequest &request) override;
+    bool hasCredentials(const QUrl &baseUrl) const override;
+    bool saveCredentials(const QUrl &baseUrl, const QString &user, const QString &password) override;
+    bool loadCredentials(const QUrl &baseUrl, QString &user, QString &password) override;
+    bool askForCredentials(const QUrl &baseUrl, QString &user, QString &password) override;
+    QNetworkReply *deleteResource(const QNetworkRequest &request) override;
+    QNetworkReply *put(const QNetworkRequest &request, const QByteArray &data) override;
+    QNetworkReply *put(const QNetworkRequest &request, QIODevice *data) override;
 
 private:
     QMutex m_accessMutex;

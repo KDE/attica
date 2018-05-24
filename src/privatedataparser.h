@@ -33,8 +33,8 @@ namespace Attica
 class PrivateData::Parser : public Attica::Parser<PrivateData>
 {
 private:
-    PrivateData parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    PrivateData parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

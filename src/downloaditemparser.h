@@ -33,8 +33,8 @@ namespace Attica
 class DownloadItem::Parser : public Attica::Parser<DownloadItem>
 {
 private:
-    DownloadItem parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    DownloadItem parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

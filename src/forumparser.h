@@ -33,9 +33,9 @@ namespace Attica
 class Forum::Parser : public Attica::Parser<Forum>
 {
 private:
-    Forum parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
+    Forum parseXml(QXmlStreamReader &xml) override;
     QList<Forum> parseXmlChildren(QXmlStreamReader &xml);
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    QStringList xmlElement() const override;
 };
 
 }

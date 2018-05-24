@@ -40,7 +40,7 @@ protected:
     DeleteJob(PlatformDependent *internals, const QNetworkRequest &request);
 
 private:
-    QNetworkReply *executeRequest() Q_DECL_OVERRIDE;
+    QNetworkReply *executeRequest() override;
     const QNetworkRequest m_request;
 };
 

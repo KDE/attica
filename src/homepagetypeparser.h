@@ -34,8 +34,8 @@ namespace Attica
 class HomePageType::Parser : public Attica::Parser<HomePageType>
 {
 private:
-    HomePageType parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    HomePageType parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

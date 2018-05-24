@@ -34,8 +34,8 @@ namespace Attica
 class Distribution::Parser : public Attica::Parser<Distribution>
 {
 private:
-    Distribution parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    Distribution parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

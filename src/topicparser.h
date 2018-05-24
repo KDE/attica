@@ -33,8 +33,8 @@ namespace Attica
 class Topic::Parser : public Attica::Parser<Topic>
 {
 private:
-    Topic parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    Topic parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

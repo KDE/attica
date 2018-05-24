@@ -33,8 +33,8 @@ namespace Attica
 class Content::Parser : public Attica::Parser<Content>
 {
 private:
-    Content parseXml(QXmlStreamReader &xml) Q_DECL_OVERRIDE;
-    QStringList xmlElement() const Q_DECL_OVERRIDE;
+    Content parseXml(QXmlStreamReader &xml) override;
+    QStringList xmlElement() const override;
 };
 
 }

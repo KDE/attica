@@ -46,8 +46,8 @@ protected:
     PostJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray);
 
 private:
-    QNetworkReply *executeRequest() Q_DECL_OVERRIDE;
-    void parse(const QString &) Q_DECL_OVERRIDE;
+    QNetworkReply *executeRequest() override;
+    void parse(const QString &) override;
 
     QIODevice *m_ioDevice;
     QByteArray m_byteArray;
