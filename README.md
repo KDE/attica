@@ -6,7 +6,7 @@ Open Collaboration Service client library
 
 Attica is a Qt library that implements the Open Collaboration Services API version 1.6.
 The REST API is defined here:
-http://freedesktop.org/wiki/Specifications/open-collaboration-services/
+https://www.freedesktop.org/wiki/Specifications/open-collaboration-services/
 
 It grants easy access to the services such as querying information about persons and contents.
 The library is used in KNewStuff3 as content provider.
