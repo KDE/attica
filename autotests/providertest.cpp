@@ -54,11 +54,13 @@ private:
     Attica::ProviderManager *m_manager;
     QEventLoop *m_eventloop;
     QTimer m_timer;
+    bool m_checkFail;
 };
 
 ProviderTest::ProviderTest()
   : m_manager(0),
-    m_eventloop(new QEventLoop)
+    m_eventloop(new QEventLoop),
+    m_checkFail(true)
 {
 }
 
@@ -88,6 +90,8 @@ void ProviderTest::initProvider(const QUrl &url)
     connect(m_manager, SIGNAL(providerAdded(Attica::Provider)), this, SLOT(providerAdded(Attica::Provider)));
     m_manager->addProviderFile(url);
     m_timer.singleShot(5000, this, SLOT(slotTimeout()));
+    m_checkFail = true;
+
     m_eventloop->exec();
 }
 void ProviderTest::testFetchValidProvider()
@@ -123,7 +127,8 @@ void ProviderTest::slotTimeout()
 {
     if (m_eventloop->isRunning()) {
         m_eventloop->exit();
-        QFAIL("Could not fetch provider");
+        if (m_checkFail)
+            QFAIL("Could not fetch provider");
     }
 }
 
@@ -132,6 +137,7 @@ void ProviderTest::testFetchInvalidProvider()
     // TODO error state could only be checked indirectly by timeout
     initProvider(QUrl(QLatin1String("https://invalid-url.org/ocs/providers.xml")));
     m_timer.singleShot(5000, this, SLOT(slotTimeout()));
+    m_checkFail = false;
     m_eventloop->exec();
     QVERIFY(m_manager->providers().size() == 0);
 }
