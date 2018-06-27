@@ -36,6 +36,8 @@ set(ocsclient_SRCS
    categoryparser.cpp
    comment.cpp
    commentparser.cpp
+   config.cpp
+   configparser.cpp
    content.cpp
    contentparser.cpp
    deletejob.cpp

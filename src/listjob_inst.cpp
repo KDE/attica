@@ -44,6 +44,8 @@
 #include "categoryparser.h"
 #include "comment.h"
 #include "commentparser.h"
+#include "config.h"
+#include "configparser.h"
 #include "content.h"
 #include "contentparser.h"
 #include "distribution.h"
@@ -119,6 +121,7 @@ template class ItemJob<BuildServiceJobOutput>;
 template class ItemJob<BuildService>;
 template class ItemJob<Forum>;
 template class ItemJob<PrivateData>;
+template class ItemJob<Config>;
 template class ItemJob<Content>;
 template class ItemJob<DownloadItem>;
 template class ItemJob<Event>;
@@ -143,6 +146,7 @@ template class Parser<BuildServiceJobOutput>;
 template class Parser<PrivateData>;
 template class Parser<Category>;
 template class Parser<Comment>;
+template class Parser<Config>;
 template class Parser<Content>;
 template class Parser<Distribution>;
 template class Parser<DownloadItem>;
