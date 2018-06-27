@@ -27,9 +27,11 @@
 #include "config.h"
 #include "parser.h"
 
+#include "attica_export.h"
+
 namespace Attica {
 
-class Config::Parser : public Attica::Parser<Config>
+class ATTICA_EXPORT Config::Parser : public Attica::Parser<Config>
 {
 private:
     Config parseXml(QXmlStreamReader& xml) override;
