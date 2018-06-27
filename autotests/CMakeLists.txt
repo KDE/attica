@@ -1,3 +1,5 @@
+include_directories(${QT_INCLUDES})
+
 macro(ATTICA_TESTS)
     foreach(_testname ${ARGN})
         qt4_generate_moc(${_testname}.cpp ${CMAKE_CURRENT_BINARY_DIR}/${_testname}.moc)

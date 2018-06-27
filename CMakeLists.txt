@@ -58,6 +58,8 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/
 
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
+# Enable test
+option(ATTICA_ENABLE_TESTS "Build tests" Off)
 
 add_subdirectory(src)
 
