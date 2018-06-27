@@ -29,7 +29,7 @@
 
 namespace Attica {
 
-class Config::Parser : public Attica::Parser<Config>
+class ATTICA_EXPORT Config::Parser : public Attica::Parser<Config>
 {
 private:
     Config parseXml(QXmlStreamReader& xml) override;
