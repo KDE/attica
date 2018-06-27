@@ -26,6 +26,8 @@ set(attica_SRCS
    categoryparser.cpp
    comment.cpp
    commentparser.cpp
+   config.cpp
+   configparser.cpp
    content.cpp
    contentparser.cpp
    deletejob.cpp
@@ -102,6 +104,7 @@ ecm_generate_headers(Attica_CamelCase_HEADERS
   AccountBalance
   Achievement
   Comment
+  Config
   Content
   Category
   DeleteJob

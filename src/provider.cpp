@@ -43,6 +43,7 @@
 #include "categoryparser.h"
 #include "comment.h"
 #include "commentparser.h"
+#include "config.h"
 #include "content.h"
 #include "contentparser.h"
 #include "distribution.h"
@@ -307,6 +308,16 @@ PostJob *Provider::checkLogin(const QString &user, const QString &password)
     postParameters.insert(QLatin1String("password"), password);
 
     return new PostJob(d->m_internals, createRequest(QLatin1String("person/check")), postParameters);
+}
+
+ItemJob<Config> *Provider::requestConfig()
+{
+    if (!isValid()) {
+        return 0;
+    }
+
+    QUrl url = createUrl(QLatin1String("config"));
+    return doRequestConfig(url);
 }
 
 PostJob *Provider::registerAccount(const QString &id, const QString &password, const QString &mail, const QString &firstName, const QString &lastName)
@@ -1595,6 +1606,11 @@ QNetworkRequest Provider::createRequest(const QUrl &url)
 QNetworkRequest Provider::createRequest(const QString &path)
 {
     return createRequest(createUrl(path));
+}
+
+ItemJob<Config>* Provider::doRequestConfig(const QUrl& url)
+{
+    return new ItemJob<Config>(d->m_internals, createRequest(url));
 }
 
 ItemJob<Person> *Provider::doRequestPerson(const QUrl &url)

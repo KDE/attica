@@ -59,6 +59,7 @@ class BuildServiceJobOutput;
 class BuildServiceJob;
 class BuildService;
 class PrivateData;
+class Config;
 class Content;
 class DownloadItem;
 class Distribution;
@@ -270,6 +271,12 @@ public:
       @return the job that will contain the success of the login as metadata
     */
     PostJob *checkLogin(const QString &user, const QString &password);
+
+    /**
+     * Fetches server config
+     * @return The job responsible for fetching data
+     */
+    ItemJob<Config> *requestConfig();
 
     // Person part of OCS
 
@@ -670,6 +677,7 @@ protected:
     // Convenience overload
     QNetworkRequest createRequest(const QString &path);
 
+    ItemJob<Config> *doRequestConfig(const QUrl &url);
     ItemJob<Person> *doRequestPerson(const QUrl &url);
     ItemJob<AccountBalance> *doRequestAccountBalance(const QUrl &url);
     ListJob<Person> *doRequestPersonList(const QUrl &url);
