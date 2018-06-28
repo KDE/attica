@@ -72,3 +72,17 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 
     return result;
 }
+
+const char *Utils::toString(QNetworkAccessManager::Operation operation)
+{
+    switch(operation) {
+    case QNetworkAccessManager::GetOperation : return "Get";
+    case QNetworkAccessManager::HeadOperation : return "Head";
+    case QNetworkAccessManager::PutOperation : return "Put";
+    case QNetworkAccessManager::PostOperation : return "Post";
+    case QNetworkAccessManager::DeleteOperation : return "Delete";
+    case QNetworkAccessManager::CustomOperation : return "Custom";
+    default: return "unknown";
+    }
+    return "invalid";
+}

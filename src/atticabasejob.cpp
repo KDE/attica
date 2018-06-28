@@ -29,6 +29,7 @@
 #include <QAuthenticator>
 
 #include <attica_debug.h>
+#include <atticautils.h>
 #include "platformdependent.h"
 
 using namespace Attica;
@@ -137,6 +138,7 @@ void BaseJob::start()
 void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
+    qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
     connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)),
             this, SLOT(authenticationRequired(QNetworkReply*,QAuthenticator*)));

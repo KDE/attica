@@ -37,7 +37,6 @@ GetJob::GetJob(PlatformDependent *internals, const QNetworkRequest &request)
 
 QNetworkReply *GetJob::executeRequest()
 {
-    qCDebug(ATTICA) << "executing get request for url" << m_request.url().toString();
     return internals()->get(m_request);
 }
 

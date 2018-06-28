@@ -24,6 +24,8 @@
 
 #include "providermanager.h"
 
+#include "atticautils.h"
+
 #include <QCoreApplication>
 #include <QDebug>
 #include <QFile>
@@ -145,6 +147,7 @@ void ProviderManager::addProviderFile(const QUrl &url)
             QNetworkRequest req(url);
             req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             QNetworkReply *reply = d->m_internals->get(req);
+            qDebug() << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
             d->m_downloads.insert(url.toString(), reply);

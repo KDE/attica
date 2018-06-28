@@ -24,6 +24,8 @@
 #include <QtTest/QtTest>
 #include <QEventLoop>
 
+#include <QLoggingCategory>
+
 #include <config.h>
 #include <providermanager.h>
 
@@ -62,6 +64,7 @@ ProviderTest::ProviderTest()
     m_eventloop(new QEventLoop),
     m_checkFail(true)
 {
+    QLoggingCategory::setFilterRules(QStringLiteral("org.kde.attica.debug=true"));
 }
 
 ProviderTest::~ProviderTest()
