@@ -39,6 +39,8 @@
 #include <QtXml/QXmlStreamReader>
 #endif // QT_VERSION
 
+#include "atticautils.h"
+
 #include "platformdependent.h"
 #include "qtplatformdependent.h"
 #include <QLibraryInfo>
@@ -198,6 +200,7 @@ void ProviderManager::addProviderFile(const QUrl& url)
     } else {
         if (!d->m_downloads.contains(url.toString())) {
             QNetworkReply* reply = d->m_internals->get(QNetworkRequest(url));
+            qDebug() << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
             d->m_downloads.insert(url.toString(), reply);

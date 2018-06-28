@@ -28,6 +28,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QAuthenticator>
 
+#include <atticautils.h>
 #include "platformdependent.h"
 
 
@@ -132,6 +133,7 @@ void BaseJob::start()
 void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
+    qDebug() << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
     connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)),
             this, SLOT(authenticationRequired(QNetworkReply*, QAuthenticator*)));
