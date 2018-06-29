@@ -39,9 +39,6 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 
 set(ATTICA_LIB_SONAME KF5Attica)
 
-add_definitions( -DQT_NO_CAST_FROM_ASCII )
-add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 
