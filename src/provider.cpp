@@ -571,7 +571,7 @@ ListJob<Activity> *Provider::requestActivities()
         return nullptr;
     }
 
-    //qDebug() << "request activity";
+    //qCDebug(ATTICA) << "request activity";
     QUrl url = createUrl(QLatin1String("activity"));
     return doRequestActivityList(url);
 }
@@ -582,7 +582,7 @@ ListJob<Project> *Provider::requestProjects()
         return nullptr;
     }
 
-    //qDebug() << "request projects";
+    //qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/project/list"));
     return new ListJob<Project>(d->m_internals, createRequest(url));
 }
@@ -594,7 +594,7 @@ ItemJob<Project> *Provider::requestProject(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/project/get/") + id);
-    //qDebug() << url;
+    //qCDebug(ATTICA) << url;
     return new ItemJob<Project>(d->m_internals, createRequest(url));
 }
 
@@ -682,7 +682,7 @@ ItemJob<Publisher> *Provider::requestPublisher(const QString &id)
         return nullptr;
     }
 
-    //qDebug() << "request publisher" << id;
+    //qCDebug(ATTICA) << "request publisher" << id;
     QUrl url = createUrl(QLatin1String("buildservice/publishing/getpublisher/") + id);
     return new ItemJob<Publisher>(d->m_internals, createRequest(url));
 }
@@ -699,7 +699,7 @@ PostJob *Provider::savePublisherField(const Project &project, const PublisherFie
     postParameters.insert(QLatin1String("fields[0][data]"), field.data());
 
     QString url = QLatin1String("buildservice/publishing/savefields/") + project.id();
-    //qDebug() << "saving field values...";
+    //qCDebug(ATTICA) << "saving field values...";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
@@ -714,7 +714,7 @@ PostJob *Provider::publishBuildJob(const BuildServiceJob &buildjob, const Publis
 
     QString url = QLatin1String("buildservice/publishing/publishtargetresult/") +
                   buildjob.id() + QLatin1Char('/') + publisher.id();
-    //qDebug() << "pub'ing";
+    //qCDebug(ATTICA) << "pub'ing";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
@@ -726,7 +726,7 @@ ItemJob<BuildServiceJobOutput> *Provider::requestBuildServiceJobOutput(const QSt
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/jobs/getoutput/") + id);
-    //qDebug() << url;
+    //qCDebug(ATTICA) << url;
     return new ItemJob<BuildServiceJobOutput>(d->m_internals, createRequest(url));
 }
 
@@ -737,7 +737,7 @@ ItemJob<BuildServiceJob> *Provider::requestBuildServiceJob(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/jobs/get/") + id);
-    //qDebug() << url;
+    //qCDebug(ATTICA) << url;
     return new ItemJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
 
@@ -769,7 +769,7 @@ PostJob *Provider::cancelBuildServiceJob(const BuildServiceJob &job)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
-    //qDebug() << "b....................b";
+    //qCDebug(ATTICA) << "b....................b";
     return new PostJob(d->m_internals, createRequest(
                            QLatin1String("buildservice/jobs/cancel/") + job.id()), postParameters);
 }
@@ -785,7 +785,7 @@ PostJob *Provider::createBuildServiceJob(const BuildServiceJob &job)
     // so even while we don't need any in this case,
     // we add dummy data to the request
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
-    //qDebug() << "Creating new BSJ on" << job.buildServiceId();
+    //qCDebug(ATTICA) << "Creating new BSJ on" << job.buildServiceId();
     return new PostJob(d->m_internals, createRequest(
                            QLatin1String("buildservice/jobs/create/") +
                            job.projectId() + QLatin1Char('/') + job.buildServiceId()  + QLatin1Char('/') + job.target()),
@@ -798,7 +798,7 @@ ListJob<BuildService> *Provider::requestBuildServices()
         return nullptr;
     }
 
-    //qDebug() << "request projects";
+    //qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/buildservices/list"));
     return new ListJob<BuildService>(d->m_internals, createRequest(url));
 }
@@ -810,7 +810,7 @@ ListJob<Publisher> *Provider::requestPublishers()
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/publishing/getpublishingcapabilities"));
-    //qDebug() << "request publishers" << url;
+    //qCDebug(ATTICA) << "request publishers" << url;
     return new ListJob<Publisher>(d->m_internals, createRequest(url));
 }
 
@@ -820,7 +820,7 @@ ListJob<BuildServiceJob> *Provider::requestBuildServiceJobs(const Project &proje
         return nullptr;
     }
 
-    //qDebug() << "request projects";
+    //qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/jobs/list/") + project.id());
     return new ListJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
@@ -831,7 +831,7 @@ ListJob<RemoteAccount> *Provider::requestRemoteAccounts()
         return nullptr;
     }
 
-    //qDebug() << "request remoteaccounts";
+    //qCDebug(ATTICA) << "request remoteaccounts";
     QUrl url = createUrl(QLatin1String("buildservice/remoteaccounts/list/"));
     return new ListJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
@@ -851,7 +851,7 @@ PostJob *Provider::createRemoteAccount(const RemoteAccount &account)
     postParameters.insert(QLatin1String("type"), account.type());
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
-    //qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
+    //qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
     return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/add")),
                        postParameters);
 }
@@ -871,7 +871,7 @@ PostJob *Provider::editRemoteAccount(const RemoteAccount &account)
     postParameters.insert(QLatin1String("type"), account.type());
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
-    //qDebug() << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
+    //qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
     return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()),
                        postParameters);
 }
@@ -883,7 +883,7 @@ ItemJob<RemoteAccount> *Provider::requestRemoteAccount(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/remoteaccounts/get/") + id);
-    //qDebug() << url;
+    //qCDebug(ATTICA) << url;
     return new ItemJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
 
@@ -906,7 +906,7 @@ PostJob *Provider::uploadTarballToBuildService(const QString &projectId, const Q
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/project/uploadsource/") + projectId);
-    //qDebug() << "Up'ing tarball" << url << projectId << fileName << payload;
+    //qCDebug(ATTICA) << "Up'ing tarball" << url << projectId << fileName << payload;
     PostFileData postRequest(url);
     postRequest.addFile(fileName, payload, QLatin1String("application/octet-stream"), QLatin1String("source"));
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
@@ -1166,7 +1166,7 @@ ItemPostJob<Content> *Provider::addNewContent(const Category &category, const Co
     pars.insert(QLatin1String("type"), category.id());
     pars.insert(QLatin1String("name"), cont.name());
 
-    //qDebug() << "Parameter map: " << pars;
+    //qCDebug(ATTICA) << "Parameter map: " << pars;
 
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
@@ -1184,7 +1184,7 @@ ItemPostJob<Content> *Provider::editContent(const Category &updatedCategory, con
     pars.insert(QLatin1String("type"), updatedCategory.id());
     pars.insert(QLatin1String("name"), updatedContent.name());
 
-    //qDebug() << "Parameter map: " << pars;
+    //qCDebug(ATTICA) << "Parameter map: " << pars;
 
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
@@ -1277,7 +1277,7 @@ PostJob *Provider::voteForContent(const QString &contentId, bool positiveVote)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("vote"), positiveVote ? QLatin1String("good") : QLatin1String("bad"));
-    //qDebug() << "vote: " << positiveVote;
+    //qCDebug(ATTICA) << "vote: " << positiveVote;
     return new PostJob(d->m_internals, createRequest(QLatin1String("content/vote/") + contentId), postParameters);
 }
 
@@ -1295,7 +1295,7 @@ PostJob *Provider::voteForContent(const QString &contentId, uint rating)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("vote"), QString::number(rating));
-    //qDebug() << "vote: " << QString::number(rating);
+    //qCDebug(ATTICA) << "vote: " << QString::number(rating);
     return new PostJob(d->m_internals, createRequest(QLatin1String("content/vote/") + contentId), postParameters);
 }
 

@@ -24,6 +24,7 @@
 
 #include "providermanager.h"
 
+#include "attica_debug.h"
 #include "atticautils.h"
 
 #include <QCoreApplication>
@@ -147,7 +148,7 @@ void ProviderManager::addProviderFile(const QUrl &url)
             QNetworkRequest req(url);
             req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             QNetworkReply *reply = d->m_internals->get(req);
-            qDebug() << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
+            qCDebug(ATTICA) << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
             connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
             d->m_downloadMapping.setMapping(reply, url.toString());
             d->m_downloads.insert(url.toString(), reply);
@@ -226,7 +227,7 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &ur
                 }
             }
             if (!baseUrl.isEmpty()) {
-                //qDebug() << "Adding provider" << baseUrl;
+                //qCDebug(ATTICA) << "Adding provider" << baseUrl;
                 d->m_providers.insert(baseUrl, Provider(d->m_internals, baseUrl, name, icon,
                                                         person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
                                                         event, comment, registerUrl));
@@ -237,7 +238,7 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &ur
     }
 
     if (xml.error() != QXmlStreamReader::NoError) {
-        qDebug() << "error:" << xml.errorString() << "in" << url;
+        qCDebug(ATTICA) << "error:" << xml.errorString() << "in" << url;
     }
 
     if (d->m_downloads.isEmpty()) {
@@ -281,14 +282,14 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
         }
     }
 
-    //qDebug() << "ProviderManager::authenticate" << baseUrl;
+    //qCDebug(ATTICA) << "ProviderManager::authenticate" << baseUrl;
 
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
         if (d->m_internals->hasCredentials(baseUrl)) {
             if (d->m_internals->loadCredentials(baseUrl, user, password)) {
-                //qDebug() << "ProviderManager::authenticate: loading authentication";
+                //qCDebug(ATTICA) << "ProviderManager::authenticate: loading authentication";
                 auth->setUser(user);
                 auth->setPassword(password);
                 return;
@@ -297,7 +298,7 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
     }
 
     if (!d->m_authenticationSuppressed && d->m_internals->askForCredentials(baseUrl, user, password)) {
-        //qDebug() << "ProviderManager::authenticate: asking internals for new credentials";
+        //qCDebug(ATTICA) << "ProviderManager::authenticate: asking internals for new credentials";
         //auth->setUser(user);
         //auth->setPassword(password);
         return;

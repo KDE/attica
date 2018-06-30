@@ -97,7 +97,7 @@ void PostFileData::addArgument(const QString &key, const QString &value)
 void PostFileData::addFile(const QString& fileName, QIODevice* file, const QString& mimeType)
 {
     if (d->finished) {
-        qDebug() << "PostFileData::addFile: should not add data after calling request() or data()";
+        qCDebug(ATTICA) << "PostFileData::addFile: should not add data after calling request() or data()";
     }
     QByteArray data = file->readAll();
     addFile(fileName, data, mimeType);

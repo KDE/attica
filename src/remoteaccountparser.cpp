@@ -33,7 +33,7 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader &xml)
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft#RemoteAccounts
     while (!xml.atEnd()) {
-        //qDebug() << "XML returned:" << xml.text().toString();
+        //qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
         xml.readNext();
 
         if (xml.isStartElement()) {

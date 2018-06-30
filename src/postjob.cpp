@@ -68,7 +68,7 @@ QNetworkReply *PostJob::executeRequest()
 
 void PostJob::parse(const QString &xmlString)
 {
-    //qDebug() << "PostJob::parse" << xmlString;
+    //qCDebug(ATTICA) << "PostJob::parse" << xmlString;
     QXmlStreamReader xml(xmlString);
     Metadata data;
     while (!xml.atEnd()) {

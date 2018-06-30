@@ -35,7 +35,7 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader &xml)
     QStringList fields;
 
     while (!xml.atEnd()) {
-        //qDebug() << "XML returned:" << xml.text().toString();
+        //qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
         xml.readNext();
 
         if (xml.isStartElement()) {

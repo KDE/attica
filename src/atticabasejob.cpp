@@ -95,7 +95,7 @@ void BaseJob::dataFinished()
     // handle redirections automatically
     QUrl newUrl;
     if (d->redirection(newUrl)) {
-        //qDebug() << "BaseJob::dataFinished" << newUrl;
+        //qCDebug(ATTICA) << "BaseJob::dataFinished" << newUrl;
         QNetworkRequest request = d->m_reply->request();
         QNetworkAccessManager::Operation operation = d->m_reply->operation();
         if (newUrl.isValid() && operation == QNetworkAccessManager::GetOperation) {
@@ -112,7 +112,7 @@ void BaseJob::dataFinished()
 
     if (!error) {
         QByteArray data = d->m_reply->readAll();
-        //qDebug() << "XML Returned:\n" << data;
+        //qCDebug(ATTICA) << "XML Returned:\n" << data;
         parse(QString::fromUtf8(data.constData()));
         if (d->m_metadata.statusCode() == 100) {
             d->m_metadata.setError(Metadata::NoError);

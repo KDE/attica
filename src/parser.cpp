@@ -108,7 +108,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
     </ocs>\
      ");
 
-        qDebug() << "parsing list:" << xmlString;
+        qCDebug(ATTICA) << "parsing list:" << xmlString;
         */
     QStringList elements = xmlElement();
     typename T::List items;
@@ -118,7 +118,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
 
     while (!xml.atEnd()) {
         xml.readNext();
-        //qDebug() << "parseList():: Looking for:" << xml.name().toString();
+        //qCDebug(ATTICA) << "parseList():: Looking for:" << xml.name().toString();
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("data")) {
                 while (!xml.atEnd()) {
@@ -129,7 +129,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
                     }
 
                     if (xml.isStartElement() && elements.contains(xml.name().toString())) {
-                        //qDebug() << "xxxxxxxxx New Item!" << xml.name().toString();
+                        //qCDebug(ATTICA) << "xxxxxxxxx New Item!" << xml.name().toString();
                         items.append(parseXml(xml));
                     }
                 }
