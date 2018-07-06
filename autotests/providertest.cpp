@@ -60,7 +60,7 @@ private:
 };
 
 ProviderTest::ProviderTest()
-  : m_manager(0),
+  : m_manager(nullptr),
     m_eventloop(new QEventLoop),
     m_checkFail(true)
 {

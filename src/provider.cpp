@@ -313,7 +313,7 @@ PostJob *Provider::checkLogin(const QString &user, const QString &password)
 ItemJob<Config> *Provider::requestConfig()
 {
     if (!isValid()) {
-        return 0;
+        return nullptr;
     }
 
     QUrl url = createUrl(QLatin1String("config"));
