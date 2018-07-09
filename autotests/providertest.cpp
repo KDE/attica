@@ -145,6 +145,6 @@ void ProviderTest::testFetchInvalidProvider()
     QVERIFY(m_manager->providers().size() == 0);
 }
 
-QTEST_MAIN(ProviderTest)
+QTEST_GUILESS_MAIN(ProviderTest)
 
 #include "providertest.moc"

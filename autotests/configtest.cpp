@@ -53,6 +53,6 @@ void ConfigTest::testParsing()
     QVERIFY(!config.isValid());
 }
 
-QTEST_MAIN(ConfigTest)
+QTEST_GUILESS_MAIN(ConfigTest)
 
 #include "configtest.moc"
