@@ -30,9 +30,9 @@ namespace Attica
 class DownloadDescription::Private : public QSharedData
 {
 public:
-    int id;
-    Attica::DownloadDescription::Type type;
-    bool hasPrice;
+    int id = 0;
+    Attica::DownloadDescription::Type type = Attica::DownloadDescription::FileDownload;
+    bool hasPrice = false;
     QString category;
     QString name;
     QString link;
@@ -43,11 +43,7 @@ public:
     QString gpgSignature;
     QString packageName;
     QString repository;
-    uint size;
-
-    Private() : id(0), type(Attica::DownloadDescription::FileDownload), hasPrice(false), size(0)
-    {
-    }
+    uint size = 0;
 };
 }
 
