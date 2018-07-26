@@ -27,6 +27,15 @@
 
 using namespace Attica;
 
+static bool stringList_contains_stringRef(const QStringList &stringList, const QStringRef &str)
+{
+    for (const auto &string : stringList) {
+        if (str == string)
+            return true;
+    }
+    return false;
+}
+
 template <class T>
 Parser<T>::~Parser()
 {
@@ -46,7 +55,7 @@ T Parser<T>::parse(const QString &xmlString)
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("meta")) {
                 parseMetadataXml(xml);
-            } else if (elements.contains(xml.name().toString())) {
+            } else if (stringList_contains_stringRef(elements, xml.name())) {
                 item = parseXml(xml);
             }
         }
@@ -128,7 +137,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
                         break;
                     }
 
-                    if (xml.isStartElement() && elements.contains(xml.name().toString())) {
+                    if (xml.isStartElement() && stringList_contains_stringRef(elements, xml.name())) {
                         //qCDebug(ATTICA) << "xxxxxxxxx New Item!" << xml.name().toString();
                         items.append(parseXml(xml));
                     }
