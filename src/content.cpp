@@ -39,6 +39,7 @@ public:
     QDateTime m_updated;
     QList<Icon> m_icons;
     QList<QUrl> m_videos;
+    QStringList m_tags;
 
     QMap<QString, QString> m_extendedAttributes;
 
@@ -234,6 +235,7 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     desc.setGpgSignature(attribute(QLatin1String("downloadgpgsignature") + num));
     desc.setPackageName(attribute(QLatin1String("downloadpackagename") + num));
     desc.setRepository(attribute(QLatin1String("downloadrepository") + num));
+    desc.setTags(attribute(QLatin1String("downloadtags") + num).split(QLatin1Char(',')));
     return desc;
 }
 
@@ -326,4 +328,14 @@ QList<QUrl> Attica::Content::videos()
 void Attica::Content::setVideos(QList<QUrl> videos)
 {
     d->m_videos = videos;
+}
+
+QStringList Attica::Content::tags() const
+{
+    return d->m_tags;
+}
+
+void Attica::Content::setTags(const QStringList &tags)
+{
+    d->m_tags = tags;
 }

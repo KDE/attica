@@ -83,6 +83,11 @@ public:
     QString packageName() const;
     Q_DECL_DEPRECATED QString repository();
     QString repository() const;
+    /**
+     * Get the list of tags for this download description
+     * @since 5.50
+     */
+    QStringList tags() const;
 
     void setId(int id);
     void setType(Attica::DownloadDescription::Type type);
@@ -99,6 +104,11 @@ public:
     void setGpgSignature(const QString &signature);
     void setPackageName(const QString &packageName);
     void setRepository(const QString &repository);
+    /**
+     * Set the list of tags for this download description
+     * @since 5.50
+     */
+    void setTags(const QStringList &tags);
 
 private:
     class Private;

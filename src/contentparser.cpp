@@ -78,6 +78,8 @@ Content Content::Parser::parseXml(QXmlStreamReader &xml)
                 videos = content.videos();
                 videos.append(video);
                 content.setVideos(videos);
+            } else if (xml.name() == QLatin1String("tags")) {
+                content.setTags(xml.readElementText().split(QLatin1Char(',')));
             } else {
                 content.addAttribute(xml.name().toString(), xml.readElementText());
             }

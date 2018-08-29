@@ -233,6 +233,18 @@ public:
     void setVideos(QList<QUrl> videos);
 
     /**
+     * Get all the tags for this content
+     * @since 5.50
+     */
+    QStringList tags() const;
+    /**
+     * Set the list of tags
+     * @param tags list of tags for this content
+     * @since 5.50
+     */
+    void setTags(const QStringList &tags);
+
+    /**
      * Add an attribute that is not included in the basis set of attributes exposed by the Content class.
      * If the attribute already exists it gets overwritten.
      * @param key the key of the attribute

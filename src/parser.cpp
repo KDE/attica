@@ -149,7 +149,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
     }
     if (xml.hasError()) {
         // TODO: error handling in metadata?
-        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn XML:\n" << xmlString;
+        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn xml name" << xml.name() << "with text" << xml.text() << "at offset:\n" << xml.characterOffset() << "\nIn XML:\n" << xmlString;
     }
 
     return items;

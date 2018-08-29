@@ -44,6 +44,7 @@ public:
     QString packageName;
     QString repository;
     uint size = 0;
+    QStringList tags;
 };
 }
 
@@ -291,4 +292,14 @@ QString Attica::DownloadDescription::repository() const
 void Attica::DownloadDescription::setRepository(const QString &repository)
 {
     d->repository = repository;
+}
+
+QStringList Attica::DownloadDescription::tags() const
+{
+    return d->tags;
+}
+
+void Attica::DownloadDescription::setTags(const QStringList &tags)
+{
+    d->tags = tags;
 }
