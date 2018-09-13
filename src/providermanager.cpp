@@ -39,6 +39,7 @@
 #include <QNetworkReply>
 #include <QNetworkProxy>
 #include <QXmlStreamReader>
+#include <QSignalMapper>
 
 #include "platformdependent.h"
 #include "qtplatformdependent_p.h"

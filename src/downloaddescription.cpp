@@ -24,6 +24,7 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 #include "downloaddescription.h"
 
 #include <QSharedData>
+#include <QStringList>
 
 namespace Attica
 {
