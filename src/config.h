@@ -23,8 +23,8 @@
 #ifndef ATTICA_CONFIG_H
 #define ATTICA_CONFIG_H
 
-#include <QtCore/QString>
-#include <QtCore/QSharedDataPointer>
+#include <QString>
+#include <QSharedDataPointer>
 
 #include "attica_export.h"
 
