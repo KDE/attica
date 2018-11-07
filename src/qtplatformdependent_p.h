@@ -41,7 +41,7 @@ class QtPlatformDependent : public Attica::PlatformDependentV2
 {
 public:
     QtPlatformDependent();
-    virtual ~QtPlatformDependent();
+    ~QtPlatformDependent() override;
 
     void setNam(QNetworkAccessManager *nam) override;
     QNetworkAccessManager *nam() override;
