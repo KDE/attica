@@ -614,7 +614,7 @@ QMap<QString, QString> projectPostParameters(const Project &project)
     if (!project.url().isEmpty()) {
         postParameters.insert(QLatin1String("url"), project.url());
     }
-    if (project.developers().count()) {
+    if (!project.developers().isEmpty()) {
         postParameters.insert(QLatin1String("developers"), project.developers().join(QLatin1String("\n")));
     }
     if (!project.version().isEmpty()) {

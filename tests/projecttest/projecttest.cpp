@@ -301,7 +301,7 @@ void ProjectTest::projectListResult(Attica::BaseJob *j)
             m_editor->projects->insertItem(0, p.name(), p.id());
             // TODO: start project jobs here
         }
-        if (!listJob->itemList().count()) {
+        if (listJob->itemList().isEmpty()) {
             output.append(QLatin1String("No Projects found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
@@ -337,7 +337,7 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
             //new_bsa->setData(Qt::UserRole, QVariant(bs.id()));
 
         }
-        if (!listJob->itemList().count()) {
+        if (listJob->itemList().isEmpty()) {
             output.append(QLatin1String("No OBS'en found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
@@ -368,7 +368,7 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
             QListWidgetItem *new_bsj = new QListWidgetItem(bsj.name(), m_editor->buildServiceJobs);
             new_bsj->setData(Qt::UserRole, QVariant(bsj.id()));
         }
-        if (!listJob->itemList().count()) {
+        if (listJob->itemList().isEmpty()) {
             output.append(QLatin1String("No jobs found."));
         }
     } else if (j->metadata().error() == Metadata::OcsError) {
