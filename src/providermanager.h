@@ -26,6 +26,7 @@
 #define ATTICA_PROVIDERMANAGER_H
 
 #include <QUrl>
+#include <QNetworkReply>
 
 #include "provider.h"
 #include "attica_export.h"
@@ -151,6 +152,7 @@ Q_SIGNALS:
     void providerAdded(const Attica::Provider &provider);
     void defaultProvidersLoaded();
     void authenticationCredentialsMissing(const Provider &provider);
+    void failedToLoad(const QUrl& provider, QNetworkReply::NetworkError error);
 
 private Q_SLOTS:
     void fileFinished(const QString &url);

@@ -160,7 +160,10 @@ void ProviderManager::addProviderFile(const QUrl &url)
 void ProviderManager::fileFinished(const QString &url)
 {
     QNetworkReply *reply = d->m_downloads.take(url);
-    parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
+    if (reply->error())
+        Q_EMIT failedToLoad(QUrl(url), reply->error());
+    else
+        parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
     reply->deleteLater();
 }
 
