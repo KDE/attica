@@ -56,13 +56,12 @@ private:
     Attica::ProviderManager *m_manager;
     QEventLoop *m_eventloop;
     QTimer m_timer;
-    bool m_checkFail;
+    bool m_errorReceived = false;
 };
 
 ProviderTest::ProviderTest()
   : m_manager(nullptr),
-    m_eventloop(new QEventLoop),
-    m_checkFail(true)
+    m_eventloop(new QEventLoop)
 {
     QLoggingCategory::setFilterRules(QStringLiteral("org.kde.attica.debug=true"));
 }
@@ -70,6 +69,7 @@ ProviderTest::ProviderTest()
 ProviderTest::~ProviderTest()
 {
     delete m_manager;
+    delete m_eventloop;
 }
 
 void ProviderTest::slotDefaultProvidersLoaded()
@@ -86,12 +86,17 @@ void ProviderTest::providerAdded(Attica::Provider p)
 
 void ProviderTest::initProvider(const QUrl &url)
 {
+    m_errorReceived = false;
     delete m_manager;
     m_manager = new Attica::ProviderManager;
     m_manager->setAuthenticationSuppressed(true);
     connect(m_manager, &ProviderManager::defaultProvidersLoaded, this, &ProviderTest::slotDefaultProvidersLoaded);
     connect(m_manager, &ProviderManager::providerAdded, this, &ProviderTest::providerAdded);
     m_manager->addProviderFile(url);
+    connect(m_manager, &Attica::ProviderManager::failedToLoad, this, [this]() {
+        m_errorReceived = true;
+        m_eventloop->quit();
+    });
     m_timer.singleShot(5000, this, &ProviderTest::slotTimeout);
 
     m_eventloop->exec();
@@ -128,19 +133,16 @@ void ProviderTest::slotConfigResult(Attica::BaseJob* j)
 
 void ProviderTest::slotTimeout()
 {
-    if (m_eventloop->isRunning()) {
-        m_eventloop->exit();
-        if (m_checkFail)
-            QFAIL("Could not fetch provider");
-    }
+    QVERIFY(m_eventloop->isRunning());
+    m_eventloop->exit();
+    QFAIL("Timeout fetching provider");
 }
 
 void ProviderTest::testFetchInvalidProvider()
 {
-    // TODO error state could only be checked indirectly by timeout
-    m_checkFail = false;
     initProvider(QUrl(QLatin1String("https://invalid-url.org/ocs/providers.xml")));
     QVERIFY(m_manager->providers().size() == 0);
+    QVERIFY(m_errorReceived);
 }
 
 QTEST_GUILESS_MAIN(ProviderTest)
