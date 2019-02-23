@@ -82,5 +82,5 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList BuildService::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("buildservice")) << QLatin1String("user");
+    return QStringList(QStringLiteral("buildservice")) << QStringLiteral("user");
 }

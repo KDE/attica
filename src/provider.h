@@ -586,7 +586,7 @@ public:
      */
     ItemJob<Content> *requestContent(const QString &contentId);
 
-    ItemJob<DownloadItem> *downloadLink(const QString &contentId, const QString &itemId = QLatin1String("1"));
+    ItemJob<DownloadItem> *downloadLink(const QString &contentId, const QString &itemId = QStringLiteral("1"));
 
     /** Vote for a content item
      * This version is for the old OCS API < 1.6

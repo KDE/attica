@@ -147,5 +147,5 @@ QVariant Achievement::Parser::parseXmlProgress(QXmlStreamReader &xml)
 
 QStringList Achievement::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("achievement"));
+    return QStringList(QStringLiteral("achievement"));
 }

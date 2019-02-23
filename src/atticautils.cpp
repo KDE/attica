@@ -34,11 +34,11 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 
     int tzsign = 0;
     if (str.indexOf(QLatin1String("+")) != -1) {
-        list = str.split(QLatin1String("+"));
+        list = str.split(QStringLiteral("+"));
         datetime = list[0];
         tzsign = 1;
     } else if (str.indexOf(QLatin1String("-")) != -1) {
-        list = str.split(QLatin1String("-"));
+        list = str.split(QStringLiteral("-"));
         datetime = list[0];
         tzsign = -1;
     } else {
@@ -56,7 +56,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
         int mm = 0;
         int tzsecs = 0;
         if (tz.indexOf(QLatin1String(":")) != -1) {
-            QStringList tzlist = tz.split(QLatin1String(":"));
+            QStringList tzlist = tz.split(QStringLiteral(":"));
             if (tzlist.count() == 2) {
                 hh = tzlist[0].toInt();
                 mm = tzlist[1].toInt();

@@ -89,10 +89,10 @@ void ProviderTest::initProvider(const QUrl &url)
     delete m_manager;
     m_manager = new Attica::ProviderManager;
     m_manager->setAuthenticationSuppressed(true);
-    connect(m_manager, SIGNAL(defaultProvidersLoaded()), this, SLOT(slotDefaultProvidersLoaded()));
-    connect(m_manager, SIGNAL(providerAdded(Attica::Provider)), this, SLOT(providerAdded(Attica::Provider)));
+    connect(m_manager, &ProviderManager::defaultProvidersLoaded, this, &ProviderTest::slotDefaultProvidersLoaded);
+    connect(m_manager, &ProviderManager::providerAdded, this, &ProviderTest::providerAdded);
     m_manager->addProviderFile(url);
-    m_timer.singleShot(5000, this, SLOT(slotTimeout()));
+    m_timer.singleShot(5000, this, &ProviderTest::slotTimeout);
 
     m_eventloop->exec();
 }
@@ -103,7 +103,7 @@ void ProviderTest::testFetchValidProvider()
     Attica::Provider provider = m_manager->providers().at(0);
     ItemJob<Config>* job = provider.requestConfig();
     QVERIFY(job);
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(slotConfigResult(Attica::BaseJob*)));
+    connect(job, &BaseJob::finished, this, &ProviderTest::slotConfigResult);
     job->start();
     m_eventloop->exec();
 }

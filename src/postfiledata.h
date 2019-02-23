@@ -45,7 +45,7 @@ public:
 
     void addArgument(const QString &key, const QString &value);
     void addFile(const QString &fileName, QIODevice *file, const QString &mimeType);
-    void addFile(const QString &fileName, const QByteArray &file, const QString &mimeType, const QString &fieldName = QLatin1String("localfile"));
+    void addFile(const QString &fileName, const QByteArray &file, const QString &mimeType, const QString &fieldName = QStringLiteral("localfile"));
 
     QNetworkRequest request();
     QByteArray data();

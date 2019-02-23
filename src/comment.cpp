@@ -32,13 +32,13 @@ QString Comment::commentTypeToString(const Comment::Type type)
 {
     switch (type) {
     case ContentComment:
-        return QLatin1String("1");
+        return QStringLiteral("1");
     case ForumComment:
-        return QLatin1String("4");
+        return QStringLiteral("4");
     case KnowledgeBaseComment:
-        return QLatin1String("7");
+        return QStringLiteral("7");
     case EventComment:
-        return QLatin1String("8");
+        return QStringLiteral("8");
     }
 
     Q_ASSERT(false);

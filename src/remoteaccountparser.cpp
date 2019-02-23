@@ -59,5 +59,5 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList RemoteAccount::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("remoteaccount")) << QLatin1String("user");
+    return QStringList(QStringLiteral("remoteaccount")) << QStringLiteral("user");
 }

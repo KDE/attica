@@ -28,7 +28,7 @@ using namespace Attica;
 
 QStringList Distribution::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("distribution"));
+    return QStringList(QStringLiteral("distribution"));
 }
 
 Distribution Distribution::Parser::parseXml(QXmlStreamReader &xml)

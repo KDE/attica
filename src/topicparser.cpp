@@ -59,5 +59,5 @@ Topic Topic::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Topic::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("topic"));
+    return QStringList(QStringLiteral("topic"));
 }

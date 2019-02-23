@@ -82,5 +82,5 @@ QList<Forum> Forum::Parser::parseXmlChildren(QXmlStreamReader &xml)
 
 QStringList Forum::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("forum"));
+    return QStringList(QStringLiteral("forum"));
 }

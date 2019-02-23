@@ -114,5 +114,5 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Publisher::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("publisher")) << QLatin1String("user");
+    return QStringList(QStringLiteral("publisher")) << QStringLiteral("user");
 }

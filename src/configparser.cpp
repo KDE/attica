@@ -57,5 +57,5 @@ Config Config::Parser::parseXml(QXmlStreamReader& xml)
 
 
 QStringList Config::Parser::xmlElement() const {
-    return QStringList(QLatin1String( "data" ));
+    return QStringList(QStringLiteral( "data" ));
 }

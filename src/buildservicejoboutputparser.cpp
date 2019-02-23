@@ -47,5 +47,5 @@ BuildServiceJobOutput BuildServiceJobOutput::Parser::parseXml(QXmlStreamReader &
 
 QStringList BuildServiceJobOutput::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("output"));
+    return QStringList(QStringLiteral("output"));
 }

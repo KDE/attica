@@ -84,13 +84,13 @@ ProviderManager::ProviderManager(const ProviderFlags &flags)
     : d(new Private)
 {
     d->m_internals = loadPlatformDependent(flags);
-    connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
+    connect(d->m_internals->nam(), &QNetworkAccessManager::authenticationRequired, this, &ProviderManager::authenticate);
     connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }
 
 void ProviderManager::loadDefaultProviders()
 {
-    QTimer::singleShot(0, this, SLOT(slotLoadDefaultProvidersInternal()));
+    QTimer::singleShot(0, this, &ProviderManager::slotLoadDefaultProvidersInternal);
 }
 
 void ProviderManager::setAuthenticationSuppressed(bool suppressed)
@@ -321,7 +321,7 @@ void ProviderManager::proxyAuthenticationRequired(const QNetworkProxy &proxy, QA
 
 void ProviderManager::initNetworkAccesssManager()
 {
-    connect(d->m_internals->nam(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), this, SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
-    connect(d->m_internals->nam(), SIGNAL(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)), this, SLOT(proxyAuthenticationRequired(QNetworkProxy,QAuthenticator*)));
+    connect(d->m_internals->nam(), &QNetworkAccessManager::authenticationRequired, this, &ProviderManager::authenticate);
+    connect(d->m_internals->nam(), &QNetworkAccessManager::proxyAuthenticationRequired, this, &ProviderManager::proxyAuthenticationRequired);
 }
 

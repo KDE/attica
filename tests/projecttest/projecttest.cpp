@@ -51,20 +51,20 @@ ProjectTest::ProjectTest() : QMainWindow(),
     m_editor->setupUi(m_mainWidget);
 
     // Project page
-    connect(m_editor->save, SIGNAL(clicked()), this, SLOT(save()));
+    connect(m_editor->save, &QAbstractButton::clicked, this, &ProjectTest::save);
     connect(m_editor->create, SIGNAL(clicked()), this, SLOT(create()));
     connect(m_editor->deleteProject, SIGNAL(clicked()), this, SLOT(deleteProject()));
 
     // build service / job page
-    connect(m_editor->build, SIGNAL(clicked()), this, SLOT(createBuildServiceJob()));
-    connect(m_editor->cancelJob, SIGNAL(clicked()), this, SLOT(cancelBuildServiceJob()));
-    connect(m_editor->updateJob, SIGNAL(clicked()), this, SLOT(updateCurrentProject()));
-    connect(m_editor->buildServices, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
-            this, SLOT(selectedBuildServiceChanged(QListWidgetItem*,QListWidgetItem*)));
+    connect(m_editor->build, &QAbstractButton::clicked, this, &ProjectTest::createBuildServiceJob);
+    connect(m_editor->cancelJob, &QAbstractButton::clicked, this, &ProjectTest::cancelBuildServiceJob);
+    connect(m_editor->updateJob, &QAbstractButton::clicked, this, &ProjectTest::updateCurrentProject);
+    connect(m_editor->buildServices, &QListWidget::currentItemChanged,
+            this, &ProjectTest::selectedBuildServiceChanged);
 
     QAction *a = new QAction(this);
     a->setText(QLatin1String("Quit"));
-    connect(a, SIGNAL(triggered()), SLOT(close()));
+    connect(a, &QAction::triggered, this, &QWidget::close);
     menuBar()->addMenu(QLatin1String("File"))->addAction(a);
 
     initOcs();
@@ -76,7 +76,7 @@ ProjectTest::~ProjectTest()
 void ProjectTest::initOcs()
 {
     m_pm.setAuthenticationSuppressed(true);
-    connect(&m_pm, SIGNAL(providerAdded(Attica::Provider)), SLOT(providerAdded(Attica::Provider)));
+    connect(&m_pm, &ProviderManager::providerAdded, this, &ProjectTest::providerAdded);
     m_pm.loadDefaultProviders();
     m_mainWidget->setEnabled(false);
     setStatus(QLatin1String("Loading providers..."));
@@ -108,7 +108,7 @@ void ProjectTest::providerAdded(const Attica::Provider &provider)
 void ProjectTest::getProject(QString id)
 {
     ItemJob<Project> *job = m_provider.requestProject(id);
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectResult(Attica::BaseJob*)));
+    connect(job, &BaseJob::finished, this, &ProjectTest::projectResult);
     job->start();
     setStatus(QString(QLatin1String("Loading project %")).arg(id));
     m_mainWidget->setEnabled(false);
@@ -118,21 +118,21 @@ void ProjectTest::getProject(QString id)
 void ProjectTest::listProjects()
 {
     ListJob<Project> *job = m_provider.requestProjects();
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(projectListResult(Attica::BaseJob*)));
+    connect(job, &BaseJob::finished, this, &ProjectTest::projectListResult);
     job->start();
 }
 
 void ProjectTest::listBuildServices()
 {
     ListJob<BuildService> *job = m_provider.requestBuildServices();
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceListResult(Attica::BaseJob*)));
+    connect(job, &BaseJob::finished, this, &ProjectTest::buildServiceListResult);
     job->start();
 }
 
 void ProjectTest::listBuildServiceJobs(const Project &p)
 {
     ListJob<BuildServiceJob> *job = m_provider.requestBuildServiceJobs(p);
-    connect(job, SIGNAL(finished(Attica::BaseJob*)), SLOT(buildServiceJobListResult(Attica::BaseJob*)));
+    connect(job, &BaseJob::finished, this, &ProjectTest::buildServiceJobListResult);
     job->start();
 }
 
@@ -200,7 +200,7 @@ Project ProjectTest::uiToProject()
 void ProjectTest::save()
 {
     Attica::PostJob *postjob = m_provider.editProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(saveProjectResult(Attica::BaseJob*)));
+    connect(postjob, &BaseJob::finished, this, &ProjectTest::saveProjectResult);
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
@@ -208,7 +208,7 @@ void ProjectTest::save()
 void ProjectTest::create()
 {
     Attica::PostJob *postjob = m_provider.createProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(createProjectResult(Attica::BaseJob*)));
+    connect(postjob, &BaseJob::finished, this, &ProjectTest::createProjectResult);
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
@@ -216,7 +216,7 @@ void ProjectTest::create()
 void ProjectTest::deleteProject()
 {
     Attica::PostJob *postjob = m_provider.deleteProject(uiToProject());
-    connect(postjob, SIGNAL(finished(Attica::BaseJob*)), SLOT(deleteProjectResult(Attica::BaseJob*)));
+    connect(postjob, &BaseJob::finished, this, &ProjectTest::deleteProjectResult);
     postjob->start();
     m_mainWidget->setEnabled(false);
 }
@@ -411,7 +411,7 @@ void ProjectTest::createBuildServiceJob()
     qDebug() << "Buildservice:" << b.buildServiceId();
     //*/
     Attica::PostJob *j = m_provider.createBuildServiceJob(b);
-    connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCreated(Attica::BaseJob*)));
+    connect(j, &BaseJob::finished, this, &ProjectTest::buildServiceJobCreated);
     j->start();
     setStatus(QLatin1String("Starting a build job on the server."));
 }
@@ -423,7 +423,7 @@ void ProjectTest::cancelBuildServiceJob()
     BuildServiceJob b = BuildServiceJob();
     b.setId(bsj_id);
     Attica::PostJob *j = m_provider.cancelBuildServiceJob(b);
-    connect(j, SIGNAL(finished(Attica::BaseJob*)), this, SLOT(buildServiceJobCanceled(Attica::BaseJob*)));
+    connect(j, &BaseJob::finished, this, &ProjectTest::buildServiceJobCanceled);
     j->start();
 }
 

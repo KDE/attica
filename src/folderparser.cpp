@@ -52,5 +52,5 @@ Folder Folder::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Folder::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("folder"));
+    return QStringList(QStringLiteral("folder"));
 }

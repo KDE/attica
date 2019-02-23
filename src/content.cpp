@@ -163,28 +163,28 @@ bool Content::isValid() const
 
 QString Content::summary() const
 {
-    return attribute(QLatin1String("summary"));
+    return attribute(QStringLiteral("summary"));
 }
 
 QString Content::description() const
 {
-    return attribute(QLatin1String("description"));
+    return attribute(QStringLiteral("description"));
 }
 
 QUrl Content::detailpage() const
 {
-    return QUrl(attribute(QLatin1String("detailpage")));
+    return QUrl(attribute(QStringLiteral("detailpage")));
 }
 
 QString Attica::Content::changelog() const
 {
-    return attribute(QLatin1String("changelog"));
+    return attribute(QStringLiteral("changelog"));
 
 }
 
 QString Attica::Content::depend() const
 {
-    return attribute(QLatin1String("depend"));
+    return attribute(QStringLiteral("depend"));
 }
 
 QList<Attica::DownloadDescription> Attica::Content::downloadUrlDescriptions() const
@@ -267,7 +267,7 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
     QString num(QString::number(number));
     HomePageEntry homepage;
 
-    if (number == 1 && attribute(QLatin1String("homepage1")).isEmpty()) {
+    if (number == 1 && attribute(QStringLiteral("homepage1")).isEmpty()) {
         num.clear();
     }
     homepage.setType(attribute(QLatin1String("homepagetype") + num));
@@ -277,22 +277,22 @@ Attica::HomePageEntry Attica::Content::homePageEntry(int number) const
 
 QString Attica::Content::version() const
 {
-    return attribute(QLatin1String("version"));
+    return attribute(QStringLiteral("version"));
 }
 
 QString Attica::Content::author() const
 {
-    return attribute(QLatin1String("personid"));
+    return attribute(QStringLiteral("personid"));
 }
 
 QString Attica::Content::license() const
 {
-    return attribute(QLatin1String("licensetype"));
+    return attribute(QStringLiteral("licensetype"));
 }
 
 QString Attica::Content::licenseName() const
 {
-    return attribute(QLatin1String("license"));
+    return attribute(QStringLiteral("license"));
 }
 
 QString Attica::Content::previewPicture(const QString &number) const

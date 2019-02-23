@@ -28,7 +28,7 @@ using namespace Attica;
 
 QStringList HomePageType::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("homepagetype"));
+    return QStringList(QStringLiteral("homepagetype"));
 }
 
 HomePageType HomePageType::Parser::parseXml(QXmlStreamReader &xml)

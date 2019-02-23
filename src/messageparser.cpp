@@ -60,5 +60,5 @@ Message Message::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Message::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("message"));
+    return QStringList(QStringLiteral("message"));
 }

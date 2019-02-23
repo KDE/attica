@@ -68,5 +68,5 @@ Activity Activity::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Activity::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("activity"));
+    return QStringList(QStringLiteral("activity"));
 }

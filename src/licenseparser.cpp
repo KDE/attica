@@ -25,7 +25,7 @@ using namespace Attica;
 
 QStringList License::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("license"));
+    return QStringList(QStringLiteral("license"));
 }
 
 License License::Parser::parseXml(QXmlStreamReader &xml)

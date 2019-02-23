@@ -52,6 +52,6 @@ PrivateData PrivateData::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList PrivateData::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("privatedata"));
+    return QStringList(QStringLiteral("privatedata"));
 }
 

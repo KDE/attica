@@ -48,5 +48,5 @@ PublisherField PublisherField::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList PublisherField::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("field"));
+    return QStringList(QStringLiteral("field"));
 }

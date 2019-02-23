@@ -76,5 +76,5 @@ Person Person::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Person::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("person")) << QLatin1String("user");
+    return QStringList(QStringLiteral("person")) << QStringLiteral("user");
 }

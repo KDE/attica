@@ -50,5 +50,5 @@ Category Category::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Category::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("category"));
+    return QStringList(QStringLiteral("category"));
 }

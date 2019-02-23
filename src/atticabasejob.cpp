@@ -103,7 +103,7 @@ void BaseJob::dataFinished()
             // reissue same request with different Url
             request.setUrl(newUrl);
             d->m_reply = internals()->get(request);
-            connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
+            connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
             return;
         } else {
             error = true;
@@ -132,16 +132,16 @@ void BaseJob::dataFinished()
 
 void BaseJob::start()
 {
-    QTimer::singleShot(0, this, SLOT(doWork()));
+    QTimer::singleShot(0, this, &BaseJob::doWork);
 }
 
 void BaseJob::doWork()
 {
     d->m_reply = executeRequest();
     qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
-    connect(d->m_reply, SIGNAL(finished()), SLOT(dataFinished()));
-    connect(d->m_reply->manager(), SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)),
-            this, SLOT(authenticationRequired(QNetworkReply*,QAuthenticator*)));
+    connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
+    connect(d->m_reply->manager(), &QNetworkAccessManager::authenticationRequired,
+            this, &BaseJob::authenticationRequired);
     connect(d->m_reply, static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
       [](QNetworkReply::NetworkError code){
           qCDebug(ATTICA) << "error found" << code;

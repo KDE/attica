@@ -72,5 +72,5 @@ Event Event::Parser::parseXml(QXmlStreamReader &xml)
 
 QStringList Event::Parser::xmlElement() const
 {
-    return QStringList(QLatin1String("event"));
+    return QStringList(QStringLiteral("event"));
 }
