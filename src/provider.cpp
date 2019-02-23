@@ -1093,7 +1093,8 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
     QUrl url = createUrl(QStringLiteral("content/data"));
     QUrlQuery q(url);
     QStringList categoryIds;
-    foreach (const Category &category, categories) {
+    categoryIds.reserve(categories.count());
+    for (const Category &category : categories) {
         categoryIds.append(category.id());
     }
     q.addQueryItem(QStringLiteral("categories"), categoryIds.join(QLatin1String("x")));

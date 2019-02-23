@@ -278,8 +278,8 @@ QList<QUrl> ProviderManager::providerFiles() const
 void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
 {
     QUrl baseUrl;
-    QList<QUrl> urls = d->m_providers.keys();
-    foreach (const QUrl &url, urls) {
+    const QList<QUrl> urls = d->m_providers.keys();
+    for (const QUrl &url : urls) {
         if (url.isParentOf(reply->url())) {
             baseUrl = url;
             break;
