@@ -32,7 +32,6 @@
 #include <QFile>
 #include <QPluginLoader>
 #include <QSet>
-#include <QSignalMapper>
 #include <QTimer>
 #include <QProcess>
 #include <QAuthenticator>
@@ -53,7 +52,6 @@ public:
     PlatformDependent *m_internals;
     QHash<QUrl, Provider> m_providers;
     QHash<QUrl, QUrl> m_providerTargets;
-    QSignalMapper m_downloadMapping;
     QHash<QString, QNetworkReply *> m_downloads;
     bool m_authenticationSuppressed;
 
@@ -85,7 +83,6 @@ ProviderManager::ProviderManager(const ProviderFlags &flags)
 {
     d->m_internals = loadPlatformDependent(flags);
     connect(d->m_internals->nam(), &QNetworkAccessManager::authenticationRequired, this, &ProviderManager::authenticate);
-    connect(&d->m_downloadMapping, SIGNAL(mapped(QString)), SLOT(fileFinished(QString)));
 }
 
 void ProviderManager::loadDefaultProviders()
@@ -150,8 +147,9 @@ void ProviderManager::addProviderFile(const QUrl &url)
             req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
             QNetworkReply *reply = d->m_internals->get(req);
             qCDebug(ATTICA) << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
-            connect(reply, SIGNAL(finished()), &d->m_downloadMapping, SLOT(map()));
-            d->m_downloadMapping.setMapping(reply, url.toString());
+            connect(reply, &QNetworkReply::finished, this, [this, url]() {
+                fileFinished(url.toString());
+            });
             d->m_downloads.insert(url.toString(), reply);
         }
     }
