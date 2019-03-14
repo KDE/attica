@@ -183,9 +183,9 @@ Project ProjectTest::uiToProject()
     project.setVersion(m_editor->version->text());
     project.setLicense(m_editor->license->text());
     project.setUrl(m_editor->url->text());
-    QStringList _d = m_editor->developers->text().split(QLatin1Char(','));
+    const QStringList _d = m_editor->developers->text().split(QLatin1Char(','));
     QStringList devs;
-    foreach (const QString &dev, _d) {
+    for (const QString &dev : _d) {
         devs << dev.trimmed();
     }
     project.setDevelopers(devs);
@@ -293,7 +293,8 @@ void ProjectTest::projectListResult(Attica::BaseJob *j)
         qDebug() << "Yay, no errors ...";
         QStringList projectIds;
 
-        foreach (const Project &p, listJob->itemList()) {
+        const auto itemList = listJob->itemList();
+        for (const Project &p : itemList) {
             m_projects[p.id()] = p;
             qDebug() << "New project:" << p.id() << p.name();
             output.append(QString(QLatin1String("<br />%1 (%2)")).arg(p.name(), p.id()));
@@ -325,7 +326,8 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
         Attica::ListJob<BuildService> *listJob = static_cast<Attica::ListJob<BuildService> *>(j);
         qDebug() << "Yay, no errors ...";
 
-        foreach (const BuildService &bs, listJob->itemList()) {
+        const auto itemList = listJob->itemList();
+        for (const BuildService &bs : itemList) {
             m_buildServices[bs.id()] = bs;
             qDebug() << "New OBS:" << bs.id() << bs.name() << bs.url();
             output.append(QString(QLatin1String("<br />%1 (%2) at %3")).arg(bs.name(), bs.id(), bs.url()));
@@ -361,7 +363,8 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
         Attica::ListJob<BuildServiceJob> *listJob = static_cast<Attica::ListJob<BuildServiceJob> *>(j);
         qDebug() << "Yay, no errors. Items found:" << listJob->itemList().count();
 
-        foreach (const BuildServiceJob &bsj, listJob->itemList()) {
+        const auto itemList = listJob->itemList();
+        for (const BuildServiceJob &bsj : itemList) {
             m_buildServiceJobs[bsj.id()] = bsj;
             qDebug() << "New BuildServiceJob:" << bsj.id() << bsj.name() << bsj.target();
             output.append(QString(QLatin1String("<br />%1 (%2) for %3")).arg(bsj.name(), bsj.id(), bsj.target()));
@@ -387,8 +390,8 @@ void ProjectTest::selectedBuildServiceChanged(QListWidgetItem *current, QListWid
     Q_UNUSED(previous)
     qDebug() << "current item changed to " << current->data(Qt::UserRole).toString();
     m_editor->targets->clear();
-    QList<Target> targetlist = m_buildServices[current->data(Qt::UserRole).toString()].targets();
-    foreach (const Target &t, targetlist) {
+    const QList<Target> targetlist = m_buildServices[current->data(Qt::UserRole).toString()].targets();
+    for (const Target &t : targetlist) {
         //m_editor->targets->insertItems(0, m_buildServices[current->data(Qt::UserRole).toString()].targets());
         m_editor->targets->insertItem(0, t.name, t.id);
         // FIXME: target id.

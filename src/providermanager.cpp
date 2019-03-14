@@ -103,7 +103,8 @@ void ProviderManager::clear()
 
 void ProviderManager::slotLoadDefaultProvidersInternal()
 {
-    foreach (const QUrl &url, d->m_internals->getDefaultProviderFiles()) {
+    const auto providerFiles  = d->m_internals->getDefaultProviderFiles();
+    for (const QUrl &url : providerFiles) {
         addProviderFile(url);
     }
     if (d->m_downloads.isEmpty()) {

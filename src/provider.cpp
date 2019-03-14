@@ -477,12 +477,14 @@ ItemPostJob<Achievement> *Provider::addNewAchievement(const QString &contentId, 
     postParameters.insert(QLatin1String("explanation"), newAchievement.explanation());
     postParameters.insert(QLatin1String("points"), QString::number(newAchievement.points()));
     postParameters.insert(QLatin1String("image"), newAchievement.image().toLocalFile());
-    foreach (const QString &dependency, newAchievement.dependencies()) {
+    const auto dependenciesList = newAchievement.dependencies();
+    for (const QString &dependency : dependenciesList) {
         postParameters.insert(QString::fromLatin1("dependencies[%1]").arg(QString::number(i++)), dependency);
     }
 
     postParameters.insert(QLatin1String("type"), Achievement::achievementTypeToString(newAchievement.type()));
-    foreach (const QString &option, newAchievement.options()) {
+    const auto optionsList = newAchievement.options();
+    for (const QString &option : optionsList) {
         postParameters.insert(QString::fromLatin1("options[%1]").arg(QString::number(j++)), option);
     }
 
@@ -510,12 +512,14 @@ PutJob *Provider::editAchievement(const QString &contentId, const QString &achie
     postParameters.insert(QLatin1String("explanation"), achievement.explanation());
     postParameters.insert(QLatin1String("points"), QString::number(achievement.points()));
     postParameters.insert(QLatin1String("image"), achievement.image().toLocalFile());
-    foreach (const QString &dependency, achievement.dependencies()) {
+    const auto dependenciesList = achievement.dependencies();
+    for (const QString &dependency : dependenciesList) {
         postParameters.insert(QString::fromLatin1("dependencies[%1]").arg(QString::number(i++)), dependency);
     }
 
     postParameters.insert(QLatin1String("type"), Achievement::achievementTypeToString(achievement.type()));
-    foreach (const QString &option, achievement.options()) {
+    const auto optionsList = achievement.options();
+    for (const QString &option : optionsList) {
         postParameters.insert(QString::fromLatin1("options[%1]").arg(QString::number(j++)), option);
     }
 
@@ -1100,13 +1104,13 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
     q.addQueryItem(QStringLiteral("categories"), categoryIds.join(QLatin1String("x")));
 
     QStringList distributionIds;
-    foreach (const Distribution &distribution, distributions) {
+    for (const Distribution &distribution : distributions) {
         distributionIds.append(QString(distribution.id()));
     }
     q.addQueryItem(QStringLiteral("distribution"), distributionIds.join(QLatin1String(",")));
 
     QStringList licenseIds;
-    foreach (const License &license, licenses) {
+    for (const License &license : licenses) {
         licenseIds.append(QString(license.id()));
     }
     q.addQueryItem(QStringLiteral("license"), licenseIds.join(QLatin1String(",")));
