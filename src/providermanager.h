@@ -45,11 +45,27 @@ namespace Attica
  * Provider files are defined here:
  * http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
  *
- * <pre>
-   provider file example
- * </pre>
+ * \section basicuse Basic Use
  *
- * Once you have loaded a Provider, use its functions to access the service.
+ * See addProviderFileToDefaultProviders(const QUrl &url) for an example of
+ * what the provider file sohuld look like. You can add providers to the
+ * ProviderManager as either raw XML data using addProviderFromXml(const QString &providerXml),
+ * or from a file somewhere on the system through addProviderFile(const QUrl &file),
+ * or you can simply load the default providers provided by your system
+ * (which generally means KDE's provider opendesktop.org).
+ *
+ * Importantly, to be able to detect when the ProviderManager is ready to
+ * manage things, before initialising it you will want to connect to the
+ * providerAdded(const Attica::Provider &provider) signal, which is fired
+ * every time a new provider is added to the manager.
+ *
+ * If you manually add all providers from XML, you can expect this to happen
+ * immediately. This means that once you have added your providers that way,
+ * you can access them through the providers() function, which returns
+ * a list of all loaded Providers.
+ *
+ * Once you have loaded a Provider, you can use its functions to access the
+ * services offered by that provider.
  */
 class ATTICA_EXPORT ProviderManager : public QObject
 {

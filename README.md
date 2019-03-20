@@ -12,3 +12,4 @@ It grants easy access to the services such as querying information about persons
 The library is used in KNewStuff3 as content provider.
 In order to integrate with KDE's Plasma Desktop, a platform plugin exists in kdebase.
 
+Your basic entrypoint for using Attica's functionality is the Attica::ProviderManager class.
