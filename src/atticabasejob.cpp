@@ -114,7 +114,7 @@ void BaseJob::dataFinished()
         QByteArray data = d->m_reply->readAll();
         //qCDebug(ATTICA) << "XML Returned:\n" << data;
         parse(QString::fromUtf8(data.constData()));
-        if (d->m_metadata.statusCode() == 100) {
+        if (d->m_metadata.statusCode() >= 100 && d->m_metadata.statusCode() < 200) {
             d->m_metadata.setError(Metadata::NoError);
         } else {
             d->m_metadata.setError(Metadata::OcsError);
