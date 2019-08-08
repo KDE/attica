@@ -1,11 +1,12 @@
-prefix=${CMAKE_INSTALL_PREFIX}
-exec_prefix=${CMAKE_INSTALL_PREFIX}/bin
-libdir=${LIB_INSTALL_DIR}
-includedir=${INCLUDE_INSTALL_DIR}/KF5Attica
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@KDE_INSTALL_FULL_LIBDIR@
+includedir=@KDE_INSTALL_FULL_INCLUDEDIR@
 
-Name: lib${ATTICA_LIB_SONAME}
+Name: lib@ATTICA_LIB_SONAME@
 Description: Qt library to access Open Collaboration Services
-#Requires:
-Version: ${CMAKE_LIBATTICA_VERSION_MAJOR}.${CMAKE_LIBATTICA_VERSION_MINOR}.${CMAKE_LIBATTICA_VERSION_PATCH}
-Libs: -L${LIB_INSTALL_DIR} -l${ATTICA_LIB_SONAME}
-Cflags: -I${INCLUDE_INSTALL_DIR}/KF5Attica
+URL: https://www.kde.org
+Requires: Qt5Core Qt5Network
+Version: @ATTICA_VERSION_STRING@
+Libs: -L@KDE_INSTALL_FULL_LIBDIR@ -l@ATTICA_LIB_SONAME@
+Cflags: -I@KDE_INSTALL_FULL_INCLUDEDIR_KF5@/Attica
