@@ -456,7 +456,7 @@ ListJob<Achievement> *Provider::requestAchievements(const QString &contentId, co
         return nullptr;
     }
 
-    QUrl url = createUrl(QStringLiteral("achievements/content/") + contentId + achievementId);
+    QUrl url = createUrl(QLatin1String("achievements/content/") + contentId + achievementId);
     QUrlQuery q(url);
     q.addQueryItem(QStringLiteral("user_id"), userId);
     url.setQuery(q);
@@ -619,7 +619,7 @@ QMap<QString, QString> projectPostParameters(const Project &project)
         postParameters.insert(QLatin1String("url"), project.url());
     }
     if (!project.developers().isEmpty()) {
-        postParameters.insert(QLatin1String("developers"), project.developers().join(QLatin1String("\n")));
+        postParameters.insert(QLatin1String("developers"), project.developers().join(QLatin1Char('\n')));
     }
     if (!project.version().isEmpty()) {
         postParameters.insert(QLatin1String("version"), project.version());
@@ -1005,7 +1005,7 @@ ListJob<Message> *Provider::requestMessages(const Folder &folder, Message::Statu
         return nullptr;
     }
 
-    QUrl url = createUrl(QStringLiteral("message/") + folder.id());
+    QUrl url = createUrl(QLatin1String("message/") + folder.id());
     QUrlQuery q(url);
     q.addQueryItem(QStringLiteral("status"), QString::number(status));
     url.setQuery(q);
@@ -1101,19 +1101,19 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
     for (const Category &category : categories) {
         categoryIds.append(category.id());
     }
-    q.addQueryItem(QStringLiteral("categories"), categoryIds.join(QLatin1String("x")));
+    q.addQueryItem(QStringLiteral("categories"), categoryIds.join(QLatin1Char('x')));
 
     QStringList distributionIds;
     for (const Distribution &distribution : distributions) {
         distributionIds.append(QString(distribution.id()));
     }
-    q.addQueryItem(QStringLiteral("distribution"), distributionIds.join(QLatin1String(",")));
+    q.addQueryItem(QStringLiteral("distribution"), distributionIds.join(QLatin1Char(',')));
 
     QStringList licenseIds;
     for (const License &license : licenses) {
         licenseIds.append(QString(license.id()));
     }
-    q.addQueryItem(QStringLiteral("license"), licenseIds.join(QLatin1String(",")));
+    q.addQueryItem(QStringLiteral("license"), licenseIds.join(QLatin1Char(',')));
 
     if (!person.isEmpty()) {
         q.addQueryItem(QStringLiteral("user"), person);
@@ -1322,7 +1322,7 @@ ListJob<Person> *Provider::requestFans(const QString &contentId, uint page, uint
         return nullptr;
     }
 
-    QUrl url = createUrl(QStringLiteral("fan/data/") + contentId);
+    QUrl url = createUrl(QLatin1String("fan/data/") + contentId);
     QUrlQuery q(url);
     q.addQueryItem(QStringLiteral("contentid"), contentId);
     q.addQueryItem(QStringLiteral("page"), QString::number(page));

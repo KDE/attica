@@ -55,8 +55,8 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
         int hh = 0;
         int mm = 0;
         int tzsecs = 0;
-        if (tz.indexOf(QLatin1String(":")) != -1) {
-            QStringList tzlist = tz.split(QStringLiteral(":"));
+        if (tz.indexOf(QLatin1Char(':')) != -1) {
+            QStringList tzlist = tz.split(QLatin1Char(':'));
             if (tzlist.count() == 2) {
                 hh = tzlist[0].toInt();
                 mm = tzlist[1].toInt();

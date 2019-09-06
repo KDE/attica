@@ -215,18 +215,18 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     DownloadDescription desc;
 
     Attica::DownloadDescription::Type downloadType = Attica::DownloadDescription::LinkDownload;
-    if (attribute(QLatin1String("downloadway") + num) == QLatin1String("0")) {
+    if (attribute(QLatin1String("downloadway") + num) == QLatin1Char('0')) {
         downloadType = Attica::DownloadDescription::FileDownload;
-    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1String("1")) {
+    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1Char('1')) {
         downloadType = Attica::DownloadDescription::LinkDownload;
-    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1String("2")) {
+    } else if (attribute(QLatin1String("downloadway") + num) == QLatin1Char('2')) {
         downloadType = Attica::DownloadDescription::PackageDownload;
     }
     desc.setType(downloadType);
     desc.setId(number);
     desc.setName(attribute(QLatin1String("downloadname") + num));
     desc.setDistributionType(attribute(QLatin1String("downloadtype") + num));
-    desc.setHasPrice(attribute(QLatin1String("downloadbuy") + num) == QLatin1String("1"));
+    desc.setHasPrice(attribute(QLatin1String("downloadbuy") + num) == QLatin1Char('1'));
     desc.setLink(attribute(QLatin1String("downloadlink") + num));
     desc.setPriceReason(attribute(QLatin1String("downloadreason") + num));
     desc.setPriceAmount(attribute(QLatin1String("downloadprice") + num));

@@ -54,7 +54,7 @@ Project Project::Parser::parseXml(QXmlStreamReader &xml)
             } else if (xml.name() == QLatin1String("specfile")) {
                 project.setSpecFile(xml.readElementText());
             } else if (xml.name() == QLatin1String("developers")) {
-                project.setDevelopers(xml.readElementText().split(QStringLiteral("\n")));
+                project.setDevelopers(xml.readElementText().split(QLatin1Char('\n')));
             } else if (xml.name() == QLatin1String("projectlist")) {
                 QXmlStreamReader list_xml(xml.readElementText());
                 while (!list_xml.atEnd()) {
