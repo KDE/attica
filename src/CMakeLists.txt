@@ -179,6 +179,8 @@ if(BUILD_QCH)
         LINK_QCHS
             Qt5Core_QCH
             Qt5Network_QCH
+        INCLUDE_DIRS
+            ${CMAKE_CURRENT_BINARY_DIR}
         BLANK_MACROS
             ATTICA_EXPORT
             ATTICA_DEPRECATED
