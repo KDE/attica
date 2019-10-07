@@ -156,7 +156,7 @@ int Comment::score() const
 
 void Comment::setChildren(QList<Comment> children)
 {
-    d->m_children = children;
+    d->m_children = std::move(children); // TODO KF6 Make QList const & and remove the std::move
 }
 
 QList<Comment> Comment::children() const

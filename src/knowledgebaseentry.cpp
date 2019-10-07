@@ -72,7 +72,7 @@ KnowledgeBaseEntry::~KnowledgeBaseEntry()
 
 void KnowledgeBaseEntry::setId(QString id)
 {
-    d->m_id = id;
+    d->m_id = std::move(id); // TODO KF6 Make QString const & and remove the std::move
 }
 
 QString KnowledgeBaseEntry::id() const

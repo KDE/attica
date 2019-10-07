@@ -317,7 +317,7 @@ QList<Icon> Attica::Content::icons() const
 
 void Attica::Content::setIcons(QList<Icon> icons)
 {
-    d->m_icons = icons;
+    d->m_icons = std::move(icons); // TODO KF6 Make QList const & and remove the std::move
 }
 
 QList<QUrl> Attica::Content::videos()
@@ -327,7 +327,7 @@ QList<QUrl> Attica::Content::videos()
 
 void Attica::Content::setVideos(QList<QUrl> videos)
 {
-    d->m_videos = videos;
+    d->m_videos = std::move(videos);
 }
 
 QStringList Attica::Content::tags() const

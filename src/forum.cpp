@@ -126,7 +126,7 @@ int Forum::childCount() const
 
 void Forum::setChildren(QList<Forum> children)
 {
-    d->m_children = children;
+    d->m_children = std::move(children); // TODO KF6 Make QList const & and remove the std::move
 }
 
 QList<Forum> Forum::children() const
