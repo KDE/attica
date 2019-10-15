@@ -88,7 +88,14 @@ set_target_properties(KF5Attica PROPERTIES
 )
 
 add_library(KF5::Attica ALIAS KF5Attica)
-generate_export_header(KF5Attica BASE_NAME Attica)
+ecm_generate_export_header(KF5Attica
+    BASE_NAME Attica
+    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    VERSION ${KF5_VERSION}
+    DEPRECATED_BASE_VERSION 0
+    DEPRECATION_VERSIONS 0.2 5.4 5.23
+    EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
+)
 
 target_link_libraries(KF5Attica
 PUBLIC

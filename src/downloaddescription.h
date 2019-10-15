@@ -52,36 +52,80 @@ public:
       The id of the description - as one Content can have multiple download descriptions associated.
       This will simply be 1, 2, ...
       */
-    Q_DECL_DEPRECATED int id();
     int id() const;
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    int id();
+#endif
 
-    // TODO KF6 remove deprecated methods.
-    Q_DECL_DEPRECATED Attica::DownloadDescription::Type type();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::type()")
+    Attica::DownloadDescription::Type type();
+#endif
     Attica::DownloadDescription::Type type() const;
-    Q_DECL_DEPRECATED bool isDownloadtypLink();
-    Q_DECL_DEPRECATED bool hasPrice();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(0, 2)
+    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::type()")
+    bool isDownloadtypLink();
+#endif
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    bool hasPrice();
+#endif
     bool hasPrice() const;
-    Q_DECL_DEPRECATED QString category();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString category();
+#endif
     QString category() const;
-    Q_DECL_DEPRECATED QString name();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString name();
+#endif
     QString name() const;
-    Q_DECL_DEPRECATED QString link();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString link();
+#endif
     QString link() const;
-    Q_DECL_DEPRECATED QString distributionType();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString distributionType();
+#endif
     QString distributionType() const;
-    Q_DECL_DEPRECATED QString priceReason();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString priceReason();
+#endif
     QString priceReason() const;
-    Q_DECL_DEPRECATED QString priceAmount();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString priceAmount();
+#endif
     QString priceAmount() const;
-    Q_DECL_DEPRECATED uint size();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    uint size();
+#endif
     uint size() const;
-    Q_DECL_DEPRECATED QString gpgFingerprint();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString gpgFingerprint();
+#endif
     QString gpgFingerprint() const;
-    Q_DECL_DEPRECATED QString gpgSignature();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString gpgSignature();
+#endif
     QString gpgSignature() const;
-    Q_DECL_DEPRECATED QString packageName();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString packageName();
+#endif
     QString packageName() const;
-    Q_DECL_DEPRECATED QString repository();
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
+    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
+    QString repository();
+#endif
     QString repository() const;
     /**
      * Get the list of tags for this download description
@@ -91,7 +135,10 @@ public:
 
     void setId(int id);
     void setType(Attica::DownloadDescription::Type type);
-    Q_DECL_DEPRECATED void setDownloadtypLink(bool isLink);
+#if ATTICA_ENABLE_DEPRECATED_SINCE(0, 2)
+    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::setType(Attica::DownloadDescription::Type)")
+    void setDownloadtypLink(bool isLink);
+#endif
     void setHasPrice(bool hasPrice);
     void setCategory(const QString &category);
     void setName(const QString &name);

@@ -264,10 +264,12 @@ QList<Provider> ProviderManager::providers() const
     return d->m_providers.values();
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 23)
 bool ProviderManager::contains(const QString &provider) const
 {
     return d->m_providers.contains(QUrl(provider));
 }
+#endif
 
 QList<QUrl> ProviderManager::providerFiles() const
 {

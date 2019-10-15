@@ -147,7 +147,13 @@ public:
      */
     QList<Provider> providers() const;
 
-    ATTICA_DEPRECATED bool contains(const QString &provider) const;
+#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 23)
+    /**
+     * @deprecated Since 5.23, use contains(const QUrl&)
+     */
+    ATTICA_DEPRECATED_VERSION(5, 23, "Use ProviderManager::contains(const QUrl&)")
+    bool contains(const QString &provider) const;
+#endif
 
     /**
      * @returns whether there's a provider with base url @p provider

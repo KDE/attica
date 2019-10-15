@@ -71,15 +71,19 @@ DownloadDescription::~DownloadDescription()
 {
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::category()
 {
     return d->category;
 }
+#endif
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 int DownloadDescription::id()
 {
     return d->id;
 }
+#endif
 
 QString Attica::DownloadDescription::category() const
 {
@@ -101,10 +105,12 @@ void DownloadDescription::setCategory(const QString &category)
     d->category = category;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::distributionType()
 {
     return d->distributionType;
 }
+#endif
 
 QString Attica::DownloadDescription::distributionType() const
 {
@@ -116,10 +122,12 @@ void DownloadDescription::setDistributionType(const QString &distributionType)
     d->distributionType = distributionType;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 bool Attica::DownloadDescription::hasPrice()
 {
     return d->hasPrice;
 }
+#endif
 
 bool Attica::DownloadDescription::hasPrice() const
 {
@@ -131,10 +139,12 @@ void DownloadDescription::setHasPrice(bool hasPrice)
     d->hasPrice = hasPrice;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 Attica::DownloadDescription::Type DownloadDescription::type()
 {
     return d->type;
 }
+#endif
 
 Attica::DownloadDescription::Type DownloadDescription::type() const
 {
@@ -146,11 +156,14 @@ void DownloadDescription::setType(Attica::DownloadDescription::Type type)
     d->type = type;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(0, 2)
 bool Attica::DownloadDescription::isDownloadtypLink()
 {
     return d->type == Attica::DownloadDescription::LinkDownload;
 }
+#endif
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(0, 2)
 void DownloadDescription::setDownloadtypLink(bool isLink)
 {
     if (isLink) {
@@ -159,11 +172,14 @@ void DownloadDescription::setDownloadtypLink(bool isLink)
         d->type = Attica::DownloadDescription::FileDownload;
     }
 }
+#endif
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::link()
 {
     return d->link;
 }
+#endif
 
 QString Attica::DownloadDescription::link() const
 {
@@ -175,10 +191,12 @@ void DownloadDescription::setLink(const QString &link)
     d->link = link;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::name()
 {
     return d->name;
 }
+#endif
 
 QString Attica::DownloadDescription::name() const
 {
@@ -190,10 +208,12 @@ void DownloadDescription::setName(const QString &name)
     d->name = name;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::priceAmount()
 {
     return d->priceAmount;
 }
+#endif
 
 QString Attica::DownloadDescription::priceAmount() const
 {
@@ -205,10 +225,12 @@ void DownloadDescription::setPriceAmount(const QString &priceAmount)
     d->priceAmount = priceAmount;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::priceReason()
 {
     return d->priceReason;
 }
+#endif
 
 QString Attica::DownloadDescription::priceReason() const
 {
@@ -220,10 +242,12 @@ void Attica::DownloadDescription::setPriceReason(const QString &priceReason)
     d->priceReason = priceReason;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 uint Attica::DownloadDescription::size()
 {
     return d->size;
 }
+#endif
 
 uint Attica::DownloadDescription::size() const
 {
@@ -235,10 +259,12 @@ void Attica::DownloadDescription::setSize(uint size)
     d->size = size;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::gpgFingerprint()
 {
     return d->gpgFingerprint;
 }
+#endif
 
 QString Attica::DownloadDescription::gpgFingerprint() const
 {
@@ -250,10 +276,12 @@ void Attica::DownloadDescription::setGpgFingerprint(const QString &fingerprint)
     d->gpgFingerprint = fingerprint;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::gpgSignature()
 {
     return d->gpgSignature;
 }
+#endif
 
 QString Attica::DownloadDescription::gpgSignature() const
 {
@@ -265,10 +293,12 @@ void Attica::DownloadDescription::setGpgSignature(const QString &signature)
     d->gpgSignature = signature;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::packageName()
 {
     return d->packageName;
 }
+#endif
 
 QString Attica::DownloadDescription::packageName() const
 {
@@ -280,10 +310,12 @@ void Attica::DownloadDescription::setPackageName(const QString &packageName)
     d->packageName = packageName;
 }
 
+#if ATTICA_BUILD_DEPRECATED_SINCE(5, 4)
 QString Attica::DownloadDescription::repository()
 {
     return d->repository;
 }
+#endif
 
 QString Attica::DownloadDescription::repository() const
 {
