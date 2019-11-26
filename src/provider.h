@@ -128,6 +128,33 @@ public:
     void setEnabled(bool enabled);
 
     /**
+     * Set a custom identifier for your application (sent along with the requests as
+     * the http agent header in addition to the applicaiton name and version).
+     *
+     * For example, you might have an application named SomeApplication, version 23,
+     * and wish to send along the data "lookandfeel.knsrc". Call this function, and
+     * the resulting agent header would be:
+     *
+     * SomeApplication/23 (+lookandfeel.knsrc)
+     *
+     * If you do not set this (or set it to an empty string), the agent string becomes
+     *
+     * SomeApplication/23
+     *
+     * @param additionalAgentInformation The extra string
+     * @since 5.65
+     */
+    void setAdditionalAgentInformation(const QString& additionalInformation);
+    /**
+     * The custom identifier sent along with requests
+     *
+     * @return The custom identifier
+     * @see setAdditionalAgentInformation(const QString&)
+     * @since 5.65
+     */
+    QString additionalAgentInformation() const;
+
+    /**
     A url that identifies this provider.
     This should be used as identifier when referring to this provider but you don't want to use the full provider object.
     */
@@ -706,6 +733,12 @@ private:
              const QString &person, const QString &friendV, const QString &message, const QString &achievements,
              const QString &activity, const QString &content, const QString &fan, const QString &forum,
              const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl);
+    // TODO KF6: merge with the constructor above (i.e. remove the above one - and actually do it this time :P )
+    Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
+             const QString &person, const QString &friendV, const QString &message, const QString &achievements,
+             const QString &activity, const QString &content, const QString &fan, const QString &forum,
+             const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+             const QString &additionalAgentInformation);
 
     friend class ProviderManager;
 };

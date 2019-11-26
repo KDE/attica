@@ -89,6 +89,7 @@
 #include <QUrlQuery>
 #include <QNetworkReply>
 #include <QFile>
+#include <QCoreApplication>
 
 using namespace Attica;
 
@@ -122,6 +123,7 @@ public:
     QString m_commentVersion;
     QString m_registerUrl;
     PlatformDependent *m_internals;
+    QString m_additionalAgentInformation;
 
     Private()
         : m_internals(nullptr)
@@ -144,13 +146,15 @@ public:
         , m_commentVersion(other.m_commentVersion)
         , m_registerUrl(other.m_registerUrl)
         , m_internals(other.m_internals)
+        , m_additionalAgentInformation(other.m_additionalAgentInformation)
     {
     }
 
     Private(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
             const QString &person, const QString &friendV, const QString &message, const QString &achievement,
             const QString &activity, const QString &content, const QString &fan, const QString &forum,
-            const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl)
+            const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+            const QString &additionalAgentInformation)
         : m_baseUrl(baseUrl), m_icon(icon), m_name(name)
         , m_personVersion(person)
         , m_friendVersion(friendV)
@@ -165,6 +169,7 @@ public:
         , m_commentVersion(comment)
         , m_registerUrl(registerUrl)
         , m_internals(internals)
+        , m_additionalAgentInformation(additionalAgentInformation)
     {
         if (m_baseUrl.isEmpty()) {
             return;
@@ -197,7 +202,7 @@ Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QStr
                    const QString &activity, const QString &content, const QString &fan, const QString &forum,
                    const QString &knowledgebase, const QString &event, const QString &comment)
     : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
-                    fan, forum, knowledgebase, event, comment, QString()))
+                    fan, forum, knowledgebase, event, comment, QString(), QString()))
 {
 }
 
@@ -206,7 +211,17 @@ Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QStr
                    const QString &activity, const QString &content, const QString &fan, const QString &forum,
                    const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl)
     : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
-                    fan, forum, knowledgebase, event, comment, registerUrl))
+                    fan, forum, knowledgebase, event, comment, registerUrl, QString()))
+{
+}
+
+Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
+                   const QString &person, const QString &friendV, const QString &message, const QString &achievement,
+                   const QString &activity, const QString &content, const QString &fan, const QString &forum,
+                   const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+                   const QString &additionalAgentInformation)
+    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
+                    fan, forum, knowledgebase, event, comment, registerUrl, additionalAgentInformation))
 {
 }
 
@@ -246,6 +261,14 @@ void Provider::setEnabled(bool enabled)
     }
 
     d->m_internals->enableProvider(d->m_baseUrl, enabled);
+}
+
+void Provider::setAdditionalAgentInformation(const QString& additionalInformation) {
+    d->m_additionalAgentInformation = additionalInformation;
+}
+
+QString Provider::additionalAgentInformation() const {
+    return d->m_additionalAgentInformation;
 }
 
 QString Provider::name() const
@@ -1603,6 +1626,18 @@ QNetworkRequest Provider::createRequest(const QUrl &url)
 {
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader,QStringLiteral("application/x-www-form-urlencoded"));
+
+    QString agentHeader;
+    if (QCoreApplication::instance()) {
+        agentHeader = QString::fromLocal8Bit("%1/%2").arg(QCoreApplication::instance()->applicationName(), QCoreApplication::instance()->applicationVersion());
+    } else {
+        agentHeader = QString::fromLocal8Bit("Attica/%1").arg(QCoreApplication::instance()->applicationVersion());
+    }
+    if (!d->m_additionalAgentInformation.isEmpty()) {
+        agentHeader = QString::fromLocal8Bit("%1 (+%2)").arg(agentHeader, d->m_additionalAgentInformation);
+    }
+    request.setHeader(QNetworkRequest::UserAgentHeader, agentHeader);
+
     if (!d->m_credentialsUserName.isEmpty()) {
         request.setAttribute((QNetworkRequest::Attribute) BaseJob::UserAttribute, QVariant(d->m_credentialsUserName));
         request.setAttribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute, QVariant(d->m_credentialsPassword));
