@@ -142,7 +142,7 @@ public:
      * SomeApplication/23
      *
      * @param additionalAgentInformation The extra string
-     * @since 5.65
+     * @since 5.66
      */
     void setAdditionalAgentInformation(const QString& additionalInformation);
     /**
@@ -150,7 +150,7 @@ public:
      *
      * @return The custom identifier
      * @see setAdditionalAgentInformation(const QString&)
-     * @since 5.65
+     * @since 5.66
      */
     QString additionalAgentInformation() const;
 
