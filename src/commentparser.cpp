@@ -51,7 +51,11 @@ Comment Comment::Parser::parseXml(QXmlStreamReader &xml)
             } else if (xml.name() == QLatin1String("score")) {
                 comment.setScore(xml.readElementText().toInt());
             } else if (xml.name() == QLatin1String("children")) {
-                QList<Comment> children = parseXmlChildren(xml);
+                // This may seem strange, however we are dealing with a situation where we may
+                // receive multiple children subsections (the standard accepts this, and certain
+                // server implementations do do this)
+                QList<Comment> children = comment.children();
+                children += parseXmlChildren(xml);
                 comment.setChildren(children);
             }
         } else if (xml.isEndElement() && xml.name() == QLatin1String("comment")) {
