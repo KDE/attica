@@ -81,6 +81,7 @@
 #include "topicparser.h"
 #include "itemjob.h"
 #include "listjob.h"
+#include "version.h"
 
 #include <QStringList>
 #include <QNetworkAccessManager>
@@ -1631,7 +1632,7 @@ QNetworkRequest Provider::createRequest(const QUrl &url)
     if (QCoreApplication::instance()) {
         agentHeader = QString::fromLocal8Bit("%1/%2").arg(QCoreApplication::instance()->applicationName(), QCoreApplication::instance()->applicationVersion());
     } else {
-        agentHeader = QString::fromLocal8Bit("Attica/%1").arg(QCoreApplication::instance()->applicationVersion());
+        agentHeader = QString::fromLocal8Bit("Attica/%1").arg(QLatin1String(LIBATTICA_VERSION_STRING));
     }
     if (!d->m_additionalAgentInformation.isEmpty()) {
         agentHeader = QString::fromLocal8Bit("%1 (+%2)").arg(agentHeader, d->m_additionalAgentInformation);

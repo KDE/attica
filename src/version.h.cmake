@@ -24,16 +24,16 @@
 #include "attica_export.h"
 
 /// @brief Attica version as string at compile time.
-#define LIBATTICA_VERSION_STRING "${CMAKE_LIBATTICA_VERSION_STRING}"
+#define LIBATTICA_VERSION_STRING "${ATTICA_VERSION_STRING}"
 
 /// @brief The major Attica version number at compile time
-#define LIBATTICA_VERSION_MAJOR ${CMAKE_LIBATTICA_VERSION_MAJOR}
+#define LIBATTICA_VERSION_MAJOR ${ATTICA_VERSION_MAJOR}
 
 /// @brief The minor Attica version number at compile time
-#define LIBATTICA_VERSION_MINOR ${CMAKE_LIBATTICA_VERSION_MINOR}
+#define LIBATTICA_VERSION_MINOR ${ATTICA_VERSION_MINOR}
 
 /// @brief The Attica release version number at compile time
-#define LIBATTICA_VERSION_RELEASE ${CMAKE_LIBATTICA_VERSION_PATCH}
+#define LIBATTICA_VERSION_RELEASE ${ATTICA_VERSION_PATCH}
 
 /**
  * \brief Create a unique number from the major, minor and release number of a %Attica version
