@@ -21,7 +21,8 @@
 
 */
 
-#include <QtTest>
+#include <QTest>
+#include <QTimer>
 #include <QEventLoop>
 
 #include <QLoggingCategory>

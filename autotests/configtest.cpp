@@ -21,7 +21,7 @@
 
 */
 
-#include <QtTest>
+#include <QTest>
 #include <configparser.h>
 
 using namespace Attica;

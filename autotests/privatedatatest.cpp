@@ -21,7 +21,7 @@
 
 */
 
-#include <QtTest>
+#include <QTest>
 #include "../privatedata.h"
 #include "../privatedataparser.h"
 
