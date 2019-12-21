@@ -26,6 +26,7 @@
 
 #include "postfiledata.h"
 
+#include <QRandomGenerator>
 #include <QDebug>
 #include <QDateTime>
 
@@ -49,7 +50,6 @@ PostFileData::PostFileData(const QUrl &url)
     : d(new PostFileDataPrivate)
 {
     d->url = url;
-    qsrand(QTime::currentTime().secsTo(QTime(0, 0, 0)));
     d->boundary = "----------" + randomString(42 + 13).toLatin1();
 }
 
@@ -66,8 +66,9 @@ QString PostFileData::randomString(int length)
 
     QString str; str.resize(length);
     int i = 0;
+    auto *generator = QRandomGenerator::global();
     while (length--) {
-        int r = qrand() % 62;
+        int r = generator->bounded(62);
         r += 48;
         if (r > 57) {
             r += 7;
