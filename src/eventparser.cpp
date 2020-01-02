@@ -23,7 +23,7 @@
 
 #include "eventparser.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 using namespace Attica;
 
@@ -44,10 +44,10 @@ Event Event::Parser::parseXml(QXmlStreamReader &xml)
             } else if (xml.name() == QLatin1String("user")) {
                 event.setUser(xml.readElementText());
             } else if (xml.name() == QLatin1String("startdate")) {
-                QString date = xml.readElementText().remove(QRegExp(QLatin1String("\\+.*$")));
+                QString date = xml.readElementText().remove(QRegularExpression(QStringLiteral("\\+.*$")));
                 event.setStartDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == QLatin1String("enddate")) {
-                QString date = xml.readElementText().remove(QRegExp(QLatin1String("\\+.*$")));
+                QString date = xml.readElementText().remove(QRegularExpression(QStringLiteral("\\+.*$")));
                 event.setEndDate(QDate::fromString(date, Qt::ISODate));
             } else if (xml.name() == QLatin1String("latitude")) {
                 event.setLatitude(xml.readElementText().toFloat());

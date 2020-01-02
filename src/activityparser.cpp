@@ -24,7 +24,7 @@
 #include "activityparser.h"
 
 #include <QDateTime>
-#include <QRegExp>
+#include <QRegularExpression>
 
 using namespace Attica;
 
@@ -49,7 +49,7 @@ Activity Activity::Parser::parseXml(QXmlStreamReader &xml)
                 person.setLastName(xml.readElementText());
             } else if (xml.name() == QLatin1String("timestamp")) {
                 QString timestampString = xml.readElementText();
-                timestampString.remove(QRegExp(QLatin1String("\\+.*$")));
+                timestampString.remove(QRegularExpression(QStringLiteral("\\+.*$")));
                 QDateTime timestamp = QDateTime::fromString(timestampString, Qt::ISODate);
                 activity.setTimestamp(timestamp);
             } else if (xml.name() == QLatin1String("message")) {
