@@ -159,8 +159,13 @@ void ProviderManager::addProviderFile(const QUrl &url)
 void ProviderManager::fileFinished(const QString &url)
 {
     QNetworkReply *reply = d->m_downloads.take(url);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
     if (reply->error())
         Q_EMIT failedToLoad(QUrl(url), reply->error());
+#else
+    if (reply->networkError())
+        Q_EMIT failedToLoad(QUrl(url), reply->networkError());
+#endif
     else
         parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
     reply->deleteLater();
