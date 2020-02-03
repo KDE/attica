@@ -94,7 +94,8 @@ QNetworkAccessManager *QtPlatformDependent::nam()
 // TODO actually save and restore providers!
 QList<QUrl> Attica::QtPlatformDependent::getDefaultProviderFiles() const
 {
-    return QList<QUrl>();
+    // Return the defaultiest default provider (since that's what our documentation says we'll do)
+    return QList<QUrl>{QUrl(QStringLiteral("https://autoconfig.kde.org/ocs/providers.xml"))};
 }
 
 void QtPlatformDependent::addDefaultProviderFile(const QUrl &)
