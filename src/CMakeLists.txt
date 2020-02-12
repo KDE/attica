@@ -78,7 +78,13 @@ set(attica_SRCS
    topicparser.cpp
 )
 
-ecm_qt_declare_logging_category(attica_SRCS HEADER attica_debug.h IDENTIFIER ATTICA CATEGORY_NAME org.kde.attica)
+ecm_qt_declare_logging_category(attica_SRCS
+    HEADER attica_debug.h
+    IDENTIFIER ATTICA
+    CATEGORY_NAME org.kde.attica
+    DESCRIPTION "Attica"
+    EXPORT ATTICA
+)
 
 add_library(KF5Attica ${attica_SRCS})
 set_target_properties(KF5Attica PROPERTIES
@@ -171,6 +177,12 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/attica_export.h
     DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/Attica/attica
     COMPONENT Devel
+)
+
+ecm_qt_install_logging_categories(
+    EXPORT ATTICA
+    FILE attica.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
 )
 
 if(BUILD_QCH)
