@@ -34,11 +34,7 @@ public:
     bool redirection(QUrl &newUrl) const
     {
         if (m_reply == nullptr ||
-        #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
                 m_reply->error()
-        #else
-                m_reply->networkError()
-        #endif
                 != QNetworkReply::NoError) {
             return false;
         }
@@ -82,11 +78,7 @@ void BaseJob::dataFinished()
     }
 
     bool error = (
-            #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
                 d->m_reply->error()
-            #else
-                d->m_reply->networkError()
-            #endif
                 != QNetworkReply::NoError);
 
     // handle redirections automatically
@@ -118,11 +110,7 @@ void BaseJob::dataFinished()
         }
     } else {
         d->m_metadata.setError(Metadata::NetworkError);
-#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
         d->m_metadata.setStatusCode(d->m_reply->error());
-#else
-        d->m_metadata.setStatusCode(d->m_reply->networkError());
-#endif
         d->m_metadata.setStatusString(d->m_reply->errorString());
     }
     emit finished(this);
