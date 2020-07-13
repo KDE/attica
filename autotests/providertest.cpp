@@ -49,7 +49,7 @@ ProviderTest::ProviderTest()
   : m_manager(nullptr),
     m_eventloop(new QEventLoop)
 {
-    QLoggingCategory::setFilterRules(QStringLiteral("org.kde.attica.debug=true"));
+    QLoggingCategory::setFilterRules(QStringLiteral("kf.attica.debug=true"));
 }
 
 ProviderTest::~ProviderTest()

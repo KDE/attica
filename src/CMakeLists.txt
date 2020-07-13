@@ -81,7 +81,8 @@ set(attica_SRCS
 ecm_qt_declare_logging_category(attica_SRCS
     HEADER attica_debug.h
     IDENTIFIER ATTICA
-    CATEGORY_NAME org.kde.attica
+    CATEGORY_NAME kf.attica
+    OLD_CATEGORY_NAMES org.kde.attica
     DESCRIPTION "Attica"
     EXPORT ATTICA
 )
