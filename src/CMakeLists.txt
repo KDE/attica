@@ -87,6 +87,13 @@ ecm_qt_declare_logging_category(attica_SRCS
     EXPORT ATTICA
 )
 
+file(GLOB TEST_FILES "*.cpp" "*.h")
+ecm_check_outbound_license(
+    LICENSES LGPL-2.1-only LGPL-3.0-only
+    TEST_NAME KF5Attica
+    FILES ${TEST_FILES}
+)
+
 add_library(KF5Attica ${attica_SRCS})
 set_target_properties(KF5Attica PROPERTIES
     VERSION ${ATTICA_VERSION}

@@ -17,6 +17,7 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDEGitCommitHooks)
 
 include(ECMGenerateExportHeader)
+include(ECMCheckOutboundLicense)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers) # Used to create CMake config files
