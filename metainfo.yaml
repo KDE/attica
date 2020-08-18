@@ -14,6 +14,7 @@ release: true
 libraries:
  - qmake: Attica
    cmake: "KF5::Attica"
+   license: LGPL-2.1-only OR LGPL-3.0-only
 cmakename: KF5Attica
 
 public_lib: true
