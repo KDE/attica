@@ -180,8 +180,8 @@ private:
     Private *const d;
 };
 
-}
+Q_DECLARE_OPERATORS_FOR_FLAGS(ProviderManager::ProviderFlags)
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Attica::ProviderManager::ProviderFlags)
+}
 
 #endif
