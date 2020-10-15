@@ -56,7 +56,6 @@ protected:
     virtual void parse(const QString &xml) = 0;
     PlatformDependent *internals();
     void setError(int errorCode);
-    void setErrorString(const QString &errorString);
 
 private Q_SLOTS:
     void doWork();

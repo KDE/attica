@@ -332,7 +332,6 @@ public:
     // Friend part of OCS
 
     ListJob<Person> *requestFriends(const QString &id, int page = 0, int pageSize = 20);
-    PostJob *postFriendInvitation(const QString &to, const QString &message);
     ListJob<Person> *requestSentInvitations(int page = 0, int pageSize = 20);
     ListJob<Person> *requestReceivedInvitations(int page = 0, int pageSize = 20);
     PostJob *inviteFriend(const QString &to, const QString &message);
