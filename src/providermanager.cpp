@@ -143,11 +143,15 @@ void ProviderManager::addProviderFile(const QUrl &url)
 void ProviderManager::fileFinished(const QString &url)
 {
     QNetworkReply *reply = d->m_downloads.take(url);
-    if (reply->error())
-        Q_EMIT failedToLoad(QUrl(url), reply->error());
-    else
-        parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
-    reply->deleteLater();
+    if (reply) {
+        if (reply->error())
+            Q_EMIT failedToLoad(QUrl(url), reply->error());
+        else
+            parseProviderFile(QLatin1String(reply->readAll()), QUrl(url));
+        reply->deleteLater();
+    } else {
+        Q_EMIT failedToLoad(QUrl(url), QNetworkReply::UnknownNetworkError);
+    }
 }
 
 void ProviderManager::addProviderFromXml(const QString &providerXml)
