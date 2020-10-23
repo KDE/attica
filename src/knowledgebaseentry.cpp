@@ -8,7 +8,6 @@
 
 #include "knowledgebaseentry.h"
 
-#include <QMap>
 
 using namespace Attica;
 

@@ -8,7 +8,6 @@
 
 #include "downloaddescription.h"
 
-#include <QSharedData>
 #include <QStringList>
 
 namespace Attica

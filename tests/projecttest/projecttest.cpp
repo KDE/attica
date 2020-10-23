@@ -8,7 +8,6 @@
 
 #include "projecttest.h"
 
-#include <QLabel>
 #include <QListWidgetItem>
 #include <QMenu>
 #include <QMenuBar>
@@ -22,7 +21,6 @@
 #include <buildservice.h>
 #include <buildservicejob.h>
 #include <provider.h>
-#include <project.h>
 
 using namespace Attica;
 

@@ -7,7 +7,6 @@
 */
 
 #include "parser.h"
-#include <QStringList>
 #include <QDebug>
 
 using namespace Attica;

@@ -12,7 +12,6 @@
 
 #include "accountbalance.h"
 #include "accountbalanceparser.h"
-#include "achievement.h"
 #include "achievementparser.h"
 #include "activity.h"
 #include "activityparser.h"
@@ -24,14 +23,11 @@
 #include "buildservicejoboutputparser.h"
 #include "privatedata.h"
 #include "privatedataparser.h"
-#include "category.h"
 #include "categoryparser.h"
-#include "comment.h"
 #include "commentparser.h"
 #include "config.h"
 #include "content.h"
 #include "contentparser.h"
-#include "distribution.h"
 #include "distributionparser.h"
 #include "downloaditem.h"
 #include "downloaditemparser.h"
@@ -39,15 +35,12 @@
 #include "eventparser.h"
 #include "folder.h"
 #include "folderparser.h"
-#include "forum.h"
 #include "forumparser.h"
 #include "homepagetype.h"
 #include "homepagetypeparser.h"
 #include "knowledgebaseentry.h"
 #include "knowledgebaseentryparser.h"
-#include "license.h"
 #include "licenseparser.h"
-#include "message.h"
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
@@ -64,14 +57,10 @@
 #include "remoteaccountparser.h"
 #include "topic.h"
 #include "topicparser.h"
-#include "itemjob.h"
-#include "listjob.h"
 #include "version.h"
 
-#include <QStringList>
 #include <QNetworkAccessManager>
 #include <QDebug>
-#include <QUrl>
 #include <QUrlQuery>
 #include <QNetworkReply>
 #include <QFile>

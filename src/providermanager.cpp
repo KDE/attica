@@ -20,7 +20,6 @@
 #include <QTimer>
 #include <QProcess>
 #include <QAuthenticator>
-#include <QNetworkReply>
 #include <QNetworkProxy>
 #include <QXmlStreamReader>
 #include <QSignalMapper>
