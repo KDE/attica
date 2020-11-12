@@ -61,7 +61,7 @@ QString PostFileData::randomString(int length)
         if (r > 90) {
             r += 6;
         }
-        str[i++] =  char(r);
+        str[i++] = QLatin1Char(char(r));
     }
     return str;
 }
