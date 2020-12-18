@@ -25,6 +25,7 @@ public:
     Metadata m_metadata;
     PlatformDependent *m_internals;
     QNetworkReply *m_reply;
+    bool aborted{false};
 
     Private(PlatformDependent *internals)
         : m_internals(internals), m_reply(nullptr)
@@ -126,6 +127,9 @@ void BaseJob::start()
 
 void BaseJob::doWork()
 {
+    if (d->aborted) {
+        return;
+    }
     d->m_reply = executeRequest();
     qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
@@ -149,6 +153,7 @@ void BaseJob::authenticationRequired(QNetworkReply *reply, QAuthenticator *auth)
 
 void BaseJob::abort()
 {
+    d->aborted = true;
     if (d->m_reply) {
         d->m_reply->abort();
         d->m_reply->deleteLater();

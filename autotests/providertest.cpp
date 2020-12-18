@@ -12,8 +12,9 @@
 
 #include <QLoggingCategory>
 
-#include <config.h>
-#include <providermanager.h>
+#include "config.h"
+#include "content.h"
+#include "providermanager.h"
 
 
 using namespace Attica;
@@ -31,11 +32,14 @@ private:
 private Q_SLOTS:
     void testFetchValidProvider();
     void testFetchInvalidProvider();
+    void testSwitchSortOrder();
 
 protected Q_SLOTS:
     void providerAdded(Attica::Provider p);
     void slotDefaultProvidersLoaded();
     void slotConfigResult(Attica::BaseJob *j);
+    void slotListResult(Attica::BaseJob *j);
+    void slotList2Result(Attica::BaseJob *j);
     void slotTimeout();
 
 private:
@@ -105,6 +109,60 @@ void ProviderTest::slotConfigResult(Attica::BaseJob* j)
         Attica::ItemJob<Config> *itemJob = static_cast<Attica::ItemJob<Config> *>( j );
         Attica::Config p = itemJob->result();
         qDebug() << QLatin1String("Config loaded - Server has version") << p.version();
+    } else if (j->metadata().error() == Metadata::OcsError) {
+        qDebug() << QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message());
+    } else if (j->metadata().error() == Metadata::NetworkError) {
+        qDebug() << QString(QLatin1String("Network Error: %1")).arg(j->metadata().message());
+    } else {
+        qDebug() << QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message());
+    }
+    m_eventloop->exit();
+    m_timer.stop();
+    QVERIFY(j->metadata().error() == Metadata::NoError);
+}
+
+void ProviderTest::testSwitchSortOrder()
+{
+    initProvider(QUrl(QLatin1String("https://autoconfig.kde.org/ocs/providers.xml")));
+    Attica::Provider provider = m_manager->providers().at(0);
+    ListJob<Content> *job = provider.searchContents({}, {});
+    QVERIFY(job);
+    connect(job, &BaseJob::finished, this, &ProviderTest::slotListResult);
+    job->start();
+    m_eventloop->exec();
+}
+
+void ProviderTest::slotListResult(Attica::BaseJob* j)
+{
+    if (j->metadata().error() == Metadata::NoError) {
+        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>( j );
+        Content::List items = contentJob->itemList();
+        qDebug() << QLatin1String("First list of items loaded, we have the following amount:") << items.count();
+    } else if (j->metadata().error() == Metadata::OcsError) {
+        qDebug() << QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message());
+    } else if (j->metadata().error() == Metadata::NetworkError) {
+        qDebug() << QString(QLatin1String("Network Error: %1")).arg(j->metadata().message());
+    } else {
+        qDebug() << QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message());
+    }
+    m_timer.stop();
+    QVERIFY(j->metadata().error() == Metadata::NoError);
+
+    // Now do the actual switch
+    Attica::Provider provider = m_manager->providers().at(0);
+    ListJob<Content> *job = provider.searchContents({}, {}, Provider::Downloads);
+    QVERIFY(job);
+    connect(job, &BaseJob::finished, this, &ProviderTest::slotList2Result);
+    m_timer.singleShot(5000, this, &ProviderTest::slotTimeout);
+    job->start();
+}
+
+void ProviderTest::slotList2Result(Attica::BaseJob *j)
+{
+    if (j->metadata().error() == Metadata::NoError) {
+        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>( j );
+        Content::List items = contentJob->itemList();
+        qDebug() << QLatin1String("Second list of items loaded, we have the following amount:") << items.count();
     } else if (j->metadata().error() == Metadata::OcsError) {
         qDebug() << QString(QLatin1String("OCS Error: %1")).arg(j->metadata().message());
     } else if (j->metadata().error() == Metadata::NetworkError) {
