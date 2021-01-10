@@ -129,7 +129,7 @@ void ProviderManager::addProviderFile(const QUrl &url)
     } else {
         if (!d->m_downloads.contains(url.toString())) {
             QNetworkRequest req(url);
-            req.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+            req.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::RedirectPolicy::NoLessSafeRedirectPolicy);
             QNetworkReply *reply = d->m_internals->get(req);
             qCDebug(ATTICA) << "executing" << Utils::toString(reply->operation()) << "for" << reply->url();
             connect(reply, &QNetworkReply::finished, this, [this, url]() {
