@@ -1103,13 +1103,13 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
 
     QStringList distributionIds;
     for (const Distribution &distribution : distributions) {
-        distributionIds.append(QString(distribution.id()));
+        distributionIds.append(QString::number(distribution.id()));
     }
     q.addQueryItem(QStringLiteral("distribution"), distributionIds.join(QLatin1Char(',')));
 
     QStringList licenseIds;
     for (const License &license : licenses) {
-        licenseIds.append(QString(license.id()));
+        licenseIds.append(QString::number(license.id()));
     }
     q.addQueryItem(QStringLiteral("license"), licenseIds.join(QLatin1Char(',')));
 
