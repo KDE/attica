@@ -92,7 +92,7 @@ void ProviderManager::slotLoadDefaultProvidersInternal()
         addProviderFile(url);
     }
     if (d->m_downloads.isEmpty()) {
-        emit defaultProvidersLoaded();
+        Q_EMIT defaultProvidersLoaded();
     }
 }
 
@@ -223,7 +223,7 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &ur
                                                         person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
                                                         event, comment, registerUrl));
                 d->m_providerTargets[url] = baseUrl;
-                emit providerAdded(d->m_providers.value(baseUrl));
+                Q_EMIT providerAdded(d->m_providers.value(baseUrl));
             }
         }
     }
@@ -233,7 +233,7 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &ur
     }
 
     if (d->m_downloads.isEmpty()) {
-        emit defaultProvidersLoaded();
+        Q_EMIT defaultProvidersLoaded();
     }
 }
 
@@ -298,7 +298,7 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
     }
 
     qWarning() << "ProviderManager::authenticate: No authentication credentials provided, aborting." << reply->url().toString();
-    emit authenticationCredentialsMissing(d->m_providers.value(baseUrl));
+    Q_EMIT authenticationCredentialsMissing(d->m_providers.value(baseUrl));
     reply->abort();
 }
 

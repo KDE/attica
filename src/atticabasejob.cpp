@@ -114,7 +114,7 @@ void BaseJob::dataFinished()
         d->m_metadata.setStatusCode(d->m_reply->error());
         d->m_metadata.setStatusString(d->m_reply->errorString());
     }
-    emit finished(this);
+    Q_EMIT finished(this);
 
     d->m_reply->deleteLater();
     deleteLater();
