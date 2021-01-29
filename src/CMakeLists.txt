@@ -98,7 +98,7 @@ add_library(KF5::Attica ALIAS KF5Attica)
 ecm_generate_export_header(KF5Attica
     BASE_NAME Attica
     GROUP_BASE_NAME KF
-    VERSION ${KF5_VERSION}
+    VERSION ${KF_VERSION}
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS 0.2 5.4 5.23
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
@@ -191,7 +191,7 @@ if(BUILD_QCH)
         KF5Attica_QCH
         NAME Attica
         BASE_NAME KF5Attica
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${Attica_HEADERS}
