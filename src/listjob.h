@@ -18,7 +18,7 @@ namespace Attica
 {
 class Provider;
 
-template <class T>
+template<class T>
 class ATTICA_EXPORT ListJob : public GetJob
 {
 public:

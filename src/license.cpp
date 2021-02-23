@@ -15,8 +15,10 @@ public:
     QString name;
     QUrl url;
 
-    Private() : id(-1)
-    {}
+    Private()
+        : id(-1)
+    {
+    }
 };
 
 License::License()
@@ -36,7 +38,8 @@ License &License::operator=(const Attica::License &other)
 }
 
 License::~License()
-{}
+{
+}
 
 uint License::id() const
 {

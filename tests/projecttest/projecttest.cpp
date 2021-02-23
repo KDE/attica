@@ -8,24 +8,25 @@
 
 #include "projecttest.h"
 
+#include <QAction>
 #include <QListWidgetItem>
 #include <QMenu>
 #include <QMenuBar>
-#include <QAction>
 #include <QVBoxLayout>
 
 #include <QDebug>
 
-#include <itemjob.h>
-#include <listjob.h>
 #include <buildservice.h>
 #include <buildservicejob.h>
+#include <itemjob.h>
+#include <listjob.h>
 #include <provider.h>
 
 using namespace Attica;
 
-ProjectTest::ProjectTest() : QMainWindow(),
-    m_mainWidget(nullptr)
+ProjectTest::ProjectTest()
+    : QMainWindow()
+    , m_mainWidget(nullptr)
 {
     m_mainWidget = new QWidget();
     setCentralWidget(m_mainWidget);
@@ -42,8 +43,7 @@ ProjectTest::ProjectTest() : QMainWindow(),
     connect(m_editor->build, &QAbstractButton::clicked, this, &ProjectTest::createBuildServiceJob);
     connect(m_editor->cancelJob, &QAbstractButton::clicked, this, &ProjectTest::cancelBuildServiceJob);
     connect(m_editor->updateJob, &QAbstractButton::clicked, this, &ProjectTest::updateCurrentProject);
-    connect(m_editor->buildServices, &QListWidget::currentItemChanged,
-            this, &ProjectTest::selectedBuildServiceChanged);
+    connect(m_editor->buildServices, &QListWidget::currentItemChanged, this, &ProjectTest::selectedBuildServiceChanged);
 
     QAction *a = new QAction(this);
     a->setText(QLatin1String("Quit"));
@@ -54,7 +54,8 @@ ProjectTest::ProjectTest() : QMainWindow(),
 }
 
 ProjectTest::~ProjectTest()
-{}
+{
+}
 
 void ProjectTest::initOcs()
 {
@@ -63,7 +64,7 @@ void ProjectTest::initOcs()
     m_pm.loadDefaultProviders();
     m_mainWidget->setEnabled(false);
     setStatus(QLatin1String("Loading providers..."));
-    //connect(m_serviceUpdates.data(), SIGNAL(mapped(QString)), SLOT(serviceUpdates(QString)));
+    // connect(m_serviceUpdates.data(), SIGNAL(mapped(QString)), SLOT(serviceUpdates(QString)));
 }
 
 void ProjectTest::providerAdded(const Attica::Provider &provider)
@@ -95,7 +96,6 @@ void ProjectTest::getProject(QString id)
     job->start();
     setStatus(QString(QLatin1String("Loading project %")).arg(id));
     m_mainWidget->setEnabled(false);
-
 }
 
 void ProjectTest::listProjects()
@@ -303,7 +303,7 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
 {
     qDebug() << "BuildService list job returned";
     QString output = QLatin1String("<b>BuildServices:</b>");
-    //m_mainWidget->setEnabled(true); // fixme: tab
+    // m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
         Attica::ListJob<BuildService> *listJob = static_cast<Attica::ListJob<BuildService> *>(j);
@@ -318,9 +318,8 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
             new_bs->setData(Qt::UserRole, QVariant(bs.id()));
 
             m_editor->accountsServers->insertItem(0, bs.name(), bs.id());
-            //QListWidgetItem* new_bsa = new QListWidgetItem(bs.name(), m_editor->accountsServers);
-            //new_bsa->setData(Qt::UserRole, QVariant(bs.id()));
-
+            // QListWidgetItem* new_bsa = new QListWidgetItem(bs.name(), m_editor->accountsServers);
+            // new_bsa->setData(Qt::UserRole, QVariant(bs.id()));
         }
         if (listJob->itemList().isEmpty()) {
             output.append(QLatin1String("No OBS'en found."));
@@ -333,14 +332,14 @@ void ProjectTest::buildServiceListResult(Attica::BaseJob *j)
         output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
-    //setBuildStatus(output);
+    // setBuildStatus(output);
 }
 
 void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
 {
     qDebug() << "BuildServiceJobList list job returned";
     QString output = QLatin1String("<b>BuildServiceJobs: </b>");
-    //m_mainWidget->setEnabled(true); // fixme: tab
+    // m_mainWidget->setEnabled(true); // fixme: tab
 
     if (j->metadata().error() == Metadata::NoError) {
         Attica::ListJob<BuildServiceJob> *listJob = static_cast<Attica::ListJob<BuildServiceJob> *>(j);
@@ -365,7 +364,7 @@ void ProjectTest::buildServiceJobListResult(Attica::BaseJob *j)
         output.append(QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message()));
     }
     qDebug() << output;
-    //setBuildStatus(output);
+    // setBuildStatus(output);
 }
 
 void ProjectTest::selectedBuildServiceChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -375,7 +374,7 @@ void ProjectTest::selectedBuildServiceChanged(QListWidgetItem *current, QListWid
     m_editor->targets->clear();
     const QList<Target> targetlist = m_buildServices[current->data(Qt::UserRole).toString()].targets();
     for (const Target &t : targetlist) {
-        //m_editor->targets->insertItems(0, m_buildServices[current->data(Qt::UserRole).toString()].targets());
+        // m_editor->targets->insertItems(0, m_buildServices[current->data(Qt::UserRole).toString()].targets());
         m_editor->targets->insertItem(0, t.name, t.id);
         // FIXME: target id.
         qDebug() << "target:" << t.name << t.id;
@@ -391,7 +390,8 @@ void ProjectTest::createBuildServiceJob()
     b.setTarget(m_editor->targets->itemData(m_editor->targets->currentIndex()).toString());
 
     ///*
-    qDebug() << "Create build job:" << m_editor->targets->itemData(m_editor->targets->currentIndex()).toString() << m_editor->targets->currentIndex() << m_editor->targets->itemData(m_editor->targets->currentIndex());
+    qDebug() << "Create build job:" << m_editor->targets->itemData(m_editor->targets->currentIndex()).toString() << m_editor->targets->currentIndex()
+             << m_editor->targets->itemData(m_editor->targets->currentIndex());
     qDebug() << "Project:" << b.projectId();
     qDebug() << "Target:" << b.target();
     qDebug() << "Buildservice:" << b.buildServiceId();
@@ -415,7 +415,7 @@ void ProjectTest::cancelBuildServiceJob()
 
 void ProjectTest::buildServiceJobCanceled(Attica::BaseJob *j)
 {
-    //m_mainWidget->setEnabled(true); // fixme: tab
+    // m_mainWidget->setEnabled(true); // fixme: tab
     QString output;
     if (j->metadata().error() == Metadata::NoError) {
         qDebug() << "job canceled.";
@@ -435,7 +435,7 @@ void ProjectTest::buildServiceJobCanceled(Attica::BaseJob *j)
 void ProjectTest::buildServiceJobCreated(Attica::BaseJob *j)
 {
     qDebug() << "JOB CREATED!!!!!!!!!!!!!!!!";
-    //m_mainWidget->setEnabled(true); // fixme: tab
+    // m_mainWidget->setEnabled(true); // fixme: tab
     QString output;
     if (j->metadata().error() == Metadata::NoError) {
         qDebug() << "job created. I think.";
@@ -472,4 +472,3 @@ void ProjectTest::updateCurrentProject()
     p.setId(currentProject());
     listBuildServiceJobs(p);
 }
-

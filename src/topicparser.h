@@ -9,12 +9,11 @@
 #ifndef ATTICA_TOPICPARSER_H
 #define ATTICA_TOPICPARSER_H
 
-#include "topic.h"
 #include "parser.h"
+#include "topic.h"
 
 namespace Attica
 {
-
 class Topic::Parser : public Attica::Parser<Topic>
 {
 private:

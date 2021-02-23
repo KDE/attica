@@ -20,20 +20,19 @@
 #include "achievement.h"
 #include "attica_export.h"
 #include "category.h"
-#include "forum.h"
-#include "itemjob.h"
-#include "listjob.h"
-#include "message.h"
 #include "comment.h"
 #include "distribution.h"
+#include "forum.h"
+#include "itemjob.h"
 #include "license.h"
+#include "listjob.h"
+#include "message.h"
 
 class QDate;
 class QUrl;
 
 namespace Attica
 {
-
 class PlatformDependent;
 
 class PostJobStatus;
@@ -129,7 +128,7 @@ public:
      * @param additionalAgentInformation The extra string
      * @since 5.66
      */
-    void setAdditionalAgentInformation(const QString& additionalInformation);
+    void setAdditionalAgentInformation(const QString &additionalInformation);
     /**
      * The custom identifier sent along with requests
      *
@@ -537,21 +536,21 @@ public:
     ListJob<Category> *requestCategories();
 
     /**
-    * Get a list of licenses (such as GPL)
-    * @return the licenses available from the server
-    */
+     * Get a list of licenses (such as GPL)
+     * @return the licenses available from the server
+     */
     ListJob<License> *requestLicenses();
 
     /**
-    * Get a list of distributions (such as Ark, Debian)
-    * @return the licenses available from the server
-    */
+     * Get a list of distributions (such as Ark, Debian)
+     * @return the licenses available from the server
+     */
     ListJob<Distribution> *requestDistributions();
 
     /**
-    * Get a list of home page types (such as blog, Facebook)
-    * @return the licenses available from the server
-    */
+     * Get a list of home page types (such as blog, Facebook)
+     * @return the licenses available from the server
+     */
     ListJob<HomePageType> *requestHomePageTypes();
 
     /**
@@ -565,14 +564,20 @@ public:
       @param pageSize requested size of pages when calculating the list of results
       @return list job for the search results
       */
-    ListJob<Content> *searchContents(const Category::List &categories, const QString &search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+    ListJob<Content> *
+    searchContents(const Category::List &categories, const QString &search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
 
     /**
       Request a list of Contents.
       Like @see searchContents, but only contents created by one person.
       @param person the person-id that created the contents.
      */
-    ListJob<Content> *searchContentsByPerson(const Category::List &categories, const QString &person, const QString &search = QString(), SortMode mode = Rating, uint page = 0, uint pageSize = 10);
+    ListJob<Content> *searchContentsByPerson(const Category::List &categories,
+                                             const QString &person,
+                                             const QString &search = QString(),
+                                             SortMode mode = Rating,
+                                             uint page = 0,
+                                             uint pageSize = 10);
 
     /**
       Request a list of Contents. More complete version.
@@ -588,7 +593,14 @@ public:
       @param pageSize requested size of pages when calculating the list of results
       @return list job for the search results
       */
-    ListJob<Content> *searchContents(const Category::List &categories, const QString &person, const Distribution::List &distributions, const License::List &licenses, const QString &search = QString(), SortMode sortMode = Rating, uint page = 0, uint pageSize = 10);
+    ListJob<Content> *searchContents(const Category::List &categories,
+                                     const QString &person,
+                                     const Distribution::List &distributions,
+                                     const License::List &licenses,
+                                     const QString &search = QString(),
+                                     SortMode sortMode = Rating,
+                                     uint page = 0,
+                                     uint pageSize = 10);
 
     /**
       Retrieve a single content.
@@ -665,7 +677,12 @@ public:
      * @param message text of the comment
      * @return item post job for adding the new comment
      */
-    ItemPostJob<Comment> *addNewComment(const Comment::Type commentType, const QString &id, const QString &id2, const QString &parentId, const QString &subject, const QString &message);
+    ItemPostJob<Comment> *addNewComment(const Comment::Type commentType,
+                                        const QString &id,
+                                        const QString &id2,
+                                        const QString &parentId,
+                                        const QString &subject,
+                                        const QString &message);
 
     /** Vote a comment item
      * @param id the comment id which this voting is for
@@ -708,26 +725,61 @@ private:
     QExplicitlySharedDataPointer<Private> d;
 
     Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon = QUrl());
-    Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-             const QString &person, const QString &friendV, const QString &message, const QString &achievements,
-             const QString &activity, const QString &content, const QString &fan, const QString &forum,
-             const QString &knowledgebase, const QString &event, const QString &comment);
+    Provider(PlatformDependent *internals,
+             const QUrl &baseUrl,
+             const QString &name,
+             const QUrl &icon,
+             const QString &person,
+             const QString &friendV,
+             const QString &message,
+             const QString &achievements,
+             const QString &activity,
+             const QString &content,
+             const QString &fan,
+             const QString &forum,
+             const QString &knowledgebase,
+             const QString &event,
+             const QString &comment);
     // kde-SC5: merge with the constructor above (i.e. remove the above one)
-    Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-             const QString &person, const QString &friendV, const QString &message, const QString &achievements,
-             const QString &activity, const QString &content, const QString &fan, const QString &forum,
-             const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl);
+    Provider(PlatformDependent *internals,
+             const QUrl &baseUrl,
+             const QString &name,
+             const QUrl &icon,
+             const QString &person,
+             const QString &friendV,
+             const QString &message,
+             const QString &achievements,
+             const QString &activity,
+             const QString &content,
+             const QString &fan,
+             const QString &forum,
+             const QString &knowledgebase,
+             const QString &event,
+             const QString &comment,
+             const QString &registerUrl);
     // TODO KF6: merge with the constructor above (i.e. remove the above one - and actually do it this time :P )
-    Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-             const QString &person, const QString &friendV, const QString &message, const QString &achievements,
-             const QString &activity, const QString &content, const QString &fan, const QString &forum,
-             const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+    Provider(PlatformDependent *internals,
+             const QUrl &baseUrl,
+             const QString &name,
+             const QUrl &icon,
+             const QString &person,
+             const QString &friendV,
+             const QString &message,
+             const QString &achievements,
+             const QString &activity,
+             const QString &content,
+             const QString &fan,
+             const QString &forum,
+             const QString &knowledgebase,
+             const QString &event,
+             const QString &comment,
+             const QString &registerUrl,
              const QString &additionalAgentInformation);
 
     friend class ProviderManager;
 };
 }
 
-QDebug operator<<(QDebug s, const Attica::Provider& prov);
+QDebug operator<<(QDebug s, const Attica::Provider &prov);
 
 #endif

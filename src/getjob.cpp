@@ -16,7 +16,8 @@
 using namespace Attica;
 
 GetJob::GetJob(PlatformDependent *internals, const QNetworkRequest &request)
-    : BaseJob(internals), m_request(request)
+    : BaseJob(internals)
+    , m_request(request)
 {
 }
 
@@ -24,4 +25,3 @@ QNetworkReply *GetJob::executeRequest()
 {
     return internals()->get(m_request);
 }
-

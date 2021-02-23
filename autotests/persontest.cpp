@@ -22,20 +22,21 @@ private Q_SLOTS:
 void PersonTest::testParsing()
 {
     Person::Parser parser;
-    QString validData(QLatin1String("<?xml version=\"1.0\"?>"
-                                    "<ocs><person>"
-                                    "<personid>10</personid>"
-                                    "<firstname>Ola</firstname>"
-                                    "<lastname>Nordmann</lastname>"
-                                    "<homepage>http://kde.org/</homepage>"
-                                    "<avatarpic>http://techbase.kde.org/skins/oxygen/top-kde.png</avatarpic>"
-                                    "<avatarpicfound>1</avatarpicfound>"
-                                    "<birthday>2010-06-21</birthday>"
-                                    "<city>Oslo</city>"
-                                    "<country>Norway</country>"
-                                    "<latitude>59.56</latitude>"
-                                    "<longitude>10.41</longitude>"
-                                    "</person></ocs>"));
+    QString validData(
+        QLatin1String("<?xml version=\"1.0\"?>"
+                      "<ocs><person>"
+                      "<personid>10</personid>"
+                      "<firstname>Ola</firstname>"
+                      "<lastname>Nordmann</lastname>"
+                      "<homepage>http://kde.org/</homepage>"
+                      "<avatarpic>http://techbase.kde.org/skins/oxygen/top-kde.png</avatarpic>"
+                      "<avatarpicfound>1</avatarpicfound>"
+                      "<birthday>2010-06-21</birthday>"
+                      "<city>Oslo</city>"
+                      "<country>Norway</country>"
+                      "<latitude>59.56</latitude>"
+                      "<longitude>10.41</longitude>"
+                      "</person></ocs>"));
     Person person = parser.parse(validData);
     QVERIFY(person.isValid());
 

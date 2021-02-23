@@ -27,8 +27,8 @@ public:
     QMap<QString, QString> m_extendedAttributes;
 
     Private()
-        : m_latitude(0),
-          m_longitude(0)
+        : m_latitude(0)
+        , m_longitude(0)
     {
     }
 };

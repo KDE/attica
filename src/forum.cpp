@@ -23,8 +23,8 @@ public:
     QList<Forum> m_children;
 
     Private()
-        : m_childCount(0),
-          m_topics(0)
+        : m_childCount(0)
+        , m_topics(0)
     {
     }
 };

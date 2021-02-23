@@ -53,7 +53,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
         }
 
         tzsecs = 60 * 60 * hh + 60 * mm;
-        result = result.addSecs(- tzsecs * tzsign);
+        result = result.addSecs(-tzsecs * tzsign);
     }
 
     return result;
@@ -61,14 +61,21 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 
 const char *Utils::toString(QNetworkAccessManager::Operation operation)
 {
-    switch(operation) {
-    case QNetworkAccessManager::GetOperation : return "Get";
-    case QNetworkAccessManager::HeadOperation : return "Head";
-    case QNetworkAccessManager::PutOperation : return "Put";
-    case QNetworkAccessManager::PostOperation : return "Post";
-    case QNetworkAccessManager::DeleteOperation : return "Delete";
-    case QNetworkAccessManager::CustomOperation : return "Custom";
-    default: return "unknown";
+    switch (operation) {
+    case QNetworkAccessManager::GetOperation:
+        return "Get";
+    case QNetworkAccessManager::HeadOperation:
+        return "Head";
+    case QNetworkAccessManager::PutOperation:
+        return "Put";
+    case QNetworkAccessManager::PostOperation:
+        return "Post";
+    case QNetworkAccessManager::DeleteOperation:
+        return "Delete";
+    case QNetworkAccessManager::CustomOperation:
+        return "Custom";
+    default:
+        return "unknown";
     }
     return "invalid";
 }

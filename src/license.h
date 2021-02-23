@@ -25,26 +25,26 @@ public:
     class Parser;
 
     /**
-    * Creates an empty License
-    */
+     * Creates an empty License
+     */
     License();
 
     /**
-    * Copy constructor.
-    * @param other the License to copy from
-    */
+     * Copy constructor.
+     * @param other the License to copy from
+     */
     License(const License &other);
 
     /**
-    * Assignment operator.
-    * @param other the License to assign from
-    * @return pointer to this License
-    */
+     * Assignment operator.
+     * @param other the License to assign from
+     * @return pointer to this License
+     */
     License &operator=(const License &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~License();
 
     /*

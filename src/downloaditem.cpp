@@ -21,8 +21,8 @@ public:
     QString m_gpgSignature;
     Attica::DownloadDescription::Type m_type;
 
-    Private() :
-        m_type(DownloadDescription::FileDownload)
+    Private()
+        : m_type(DownloadDescription::FileDownload)
     {
     }
 };
@@ -44,7 +44,8 @@ DownloadItem &DownloadItem::operator=(const Attica::DownloadItem &other)
 }
 
 DownloadItem::~DownloadItem()
-{}
+{
+}
 
 void DownloadItem::setUrl(const QUrl &url)
 {

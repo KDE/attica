@@ -121,4 +121,3 @@ bool Topic::isValid() const
 {
     return !(d->m_id.isEmpty());
 }
-

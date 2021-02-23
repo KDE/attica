@@ -10,32 +10,32 @@
 
 using namespace Attica;
 
-class Config::Private : public QSharedData {
-    public:
-        QString m_version;
-        QString m_website;
-        QString m_host;
-        QString m_contact;
-        bool m_ssl;
+class Config::Private : public QSharedData
+{
+public:
+    QString m_version;
+    QString m_website;
+    QString m_host;
+    QString m_contact;
+    bool m_ssl;
 
-        Private()
-            : m_ssl(false)
-        {
-        }
+    Private()
+        : m_ssl(false)
+    {
+    }
 };
-
 
 Config::Config()
     : d(new Private)
 {
 }
 
-Config::Config(const Attica::Config& other)
+Config::Config(const Attica::Config &other)
     : d(other.d)
 {
 }
 
-Config& Config::operator=(const Attica::Config & other)
+Config &Config::operator=(const Attica::Config &other)
 {
     d = other.d;
     return *this;
@@ -72,7 +72,7 @@ bool Config::ssl() const
 
 bool Config::isValid() const
 {
-  return !(d->m_version.isEmpty());
+    return !(d->m_version.isEmpty());
 }
 
 void Config::setContact(const QString &contact)

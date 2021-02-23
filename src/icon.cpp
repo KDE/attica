@@ -18,8 +18,11 @@ public:
     uint width;
     uint height;
 
-    Private() : width(0), height(0)
-    {}
+    Private()
+        : width(0)
+        , height(0)
+    {
+    }
 };
 
 Icon::Icon()
@@ -39,7 +42,8 @@ Icon &Icon::operator=(const Attica::Icon &other)
 }
 
 Icon::~Icon()
-{}
+{
+}
 
 QUrl Icon::url() const
 {

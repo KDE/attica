@@ -8,14 +8,13 @@
 #ifndef ATTICA_CATEGORY_H
 #define ATTICA_CATEGORY_H
 
-#include <QSharedDataPointer>
 #include <QList>
+#include <QSharedDataPointer>
 
 #include "attica_export.h"
 
 namespace Attica
 {
-
 /**
  * Represents a single content category
  */
@@ -105,6 +104,6 @@ private:
 
 }
 
-QDebug operator<<(QDebug s, const Attica::Category& cat);
+QDebug operator<<(QDebug s, const Attica::Category &cat);
 
 #endif

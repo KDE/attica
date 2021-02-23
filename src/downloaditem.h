@@ -17,7 +17,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT DownloadItem
 {
 public:
@@ -25,26 +24,26 @@ public:
     class Parser;
 
     /**
-    * Creates an empty DownloadItem
-    */
+     * Creates an empty DownloadItem
+     */
     DownloadItem();
 
     /**
-    * Copy constructor.
-    * @param other the DownloadItem to copy from
-    */
+     * Copy constructor.
+     * @param other the DownloadItem to copy from
+     */
     DownloadItem(const DownloadItem &other);
 
     /**
-    * Assignment operator.
-    * @param other the DownloadItem to assign from
-    * @return pointer to this DownloadItem
-    */
+     * Assignment operator.
+     * @param other the DownloadItem to assign from
+     * @return pointer to this DownloadItem
+     */
     DownloadItem &operator=(const DownloadItem &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~DownloadItem();
 
     void setUrl(const QUrl &url);

@@ -43,8 +43,8 @@ public:
     QList<Comment> m_children;
 
     Private()
-        : m_childCount(0),
-          m_score(0)
+        : m_childCount(0)
+        , m_score(0)
     {
     }
 };

@@ -15,7 +15,8 @@
 using namespace Attica;
 
 DeleteJob::DeleteJob(PlatformDependent *internals, const QNetworkRequest &request)
-    : BaseJob(internals), m_request(request)
+    : BaseJob(internals)
+    , m_request(request)
 {
 }
 
@@ -28,4 +29,3 @@ QNetworkReply *DeleteJob::executeRequest()
 
     return platformDependentV2->deleteResource(m_request);
 }
-

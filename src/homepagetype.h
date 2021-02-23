@@ -28,26 +28,26 @@ public:
     class Parser;
 
     /**
-    * Creates an empty HomePageType
-    */
+     * Creates an empty HomePageType
+     */
     HomePageType();
 
     /**
-    * Copy constructor.
-    * @param other the HomePageType to copy from
-    */
+     * Copy constructor.
+     * @param other the HomePageType to copy from
+     */
     HomePageType(const HomePageType &other);
 
     /**
-    * Assignment operator.
-    * @param other the HomePageType to assign from
-    * @return pointer to this HomePageType
-    */
+     * Assignment operator.
+     * @param other the HomePageType to assign from
+     * @return pointer to this HomePageType
+     */
     HomePageType &operator=(const HomePageType &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~HomePageType();
 
     /*

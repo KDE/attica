@@ -25,8 +25,7 @@ class QStringList;
 
 namespace Attica
 {
-
-class PlatformDependentV2: public PlatformDependent
+class PlatformDependentV2 : public PlatformDependent
 {
 public:
     virtual ~PlatformDependentV2();

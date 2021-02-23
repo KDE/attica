@@ -12,7 +12,6 @@
 
 namespace Attica
 {
-
 class License::Parser : public Attica::Parser<License>
 {
 private:

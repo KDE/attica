@@ -71,4 +71,3 @@ void PrivateData::setTimestamp(const QString &key, const QDateTime &when)
 {
     d->m_attributesTimestamp[key] = when;
 }
-

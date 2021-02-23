@@ -59,8 +59,7 @@ Achievement Achievement::Parser::parseXml(QXmlStreamReader &xml)
                 case Achievement::SetAchievement: {
                     QVariant progress = parseXmlProgress(xml);
                     achievement.setProgress(progress);
-                }
-                break;
+                } break;
                 default:
                     break;
                 }

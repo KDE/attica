@@ -27,26 +27,26 @@ public:
     typedef QList<HomePageEntry> List;
 
     /**
-    * Creates an empty HomePageEntry
-    */
+     * Creates an empty HomePageEntry
+     */
     HomePageEntry();
 
     /**
-    * Copy constructor.
-    * @param other the HomePageEntry to copy from
-    */
+     * Copy constructor.
+     * @param other the HomePageEntry to copy from
+     */
     HomePageEntry(const HomePageEntry &other);
 
     /**
-    * Assignment operator.
-    * @param other the HomePageEntry to assign from
-    * @return pointer to this HomePageEntry
-    */
+     * Assignment operator.
+     * @param other the HomePageEntry to assign from
+     * @return pointer to this HomePageEntry
+     */
     HomePageEntry &operator=(const HomePageEntry &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~HomePageEntry();
 
     QString type() const;

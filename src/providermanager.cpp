@@ -12,17 +12,17 @@
 #include "attica_debug.h"
 #include "atticautils.h"
 
+#include <QAuthenticator>
 #include <QCoreApplication>
 #include <QDebug>
 #include <QFile>
-#include <QPluginLoader>
-#include <QSet>
-#include <QTimer>
-#include <QProcess>
-#include <QAuthenticator>
 #include <QNetworkProxy>
-#include <QXmlStreamReader>
+#include <QPluginLoader>
+#include <QProcess>
+#include <QSet>
 #include <QSignalMapper>
+#include <QTimer>
+#include <QXmlStreamReader>
 
 #include "platformdependent.h"
 #include "qtplatformdependent_p.h"
@@ -57,7 +57,7 @@ PlatformDependent *ProviderManager::loadPlatformDependent(const ProviderFlags &f
     }
 
     QPluginLoader loader(QStringLiteral("attica_kde"));
-    PlatformDependent * ret = qobject_cast<PlatformDependent *>(loader.instance());
+    PlatformDependent *ret = qobject_cast<PlatformDependent *>(loader.instance());
 
     return ret ? ret : new QtPlatformDependent;
 }
@@ -87,7 +87,7 @@ void ProviderManager::clear()
 
 void ProviderManager::slotLoadDefaultProvidersInternal()
 {
-    const auto providerFiles  = d->m_internals->getDefaultProviderFiles();
+    const auto providerFiles = d->m_internals->getDefaultProviderFiles();
     for (const QUrl &url : providerFiles) {
         addProviderFile(url);
     }
@@ -218,10 +218,24 @@ void ProviderManager::parseProviderFile(const QString &xmlString, const QUrl &ur
                 }
             }
             if (!baseUrl.isEmpty()) {
-                //qCDebug(ATTICA) << "Adding provider" << baseUrl;
-                d->m_providers.insert(baseUrl, Provider(d->m_internals, baseUrl, name, icon,
-                                                        person, friendV, message, achievement, activity, content, fan, forum, knowledgebase,
-                                                        event, comment, registerUrl));
+                // qCDebug(ATTICA) << "Adding provider" << baseUrl;
+                d->m_providers.insert(baseUrl,
+                                      Provider(d->m_internals,
+                                               baseUrl,
+                                               name,
+                                               icon,
+                                               person,
+                                               friendV,
+                                               message,
+                                               achievement,
+                                               activity,
+                                               content,
+                                               fan,
+                                               forum,
+                                               knowledgebase,
+                                               event,
+                                               comment,
+                                               registerUrl));
                 d->m_providerTargets[url] = baseUrl;
                 Q_EMIT providerAdded(d->m_providers.value(baseUrl));
             }
@@ -275,14 +289,14 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
         }
     }
 
-    //qCDebug(ATTICA) << "ProviderManager::authenticate" << baseUrl;
+    // qCDebug(ATTICA) << "ProviderManager::authenticate" << baseUrl;
 
     QString user;
     QString password;
     if (auth->user().isEmpty() && auth->password().isEmpty()) {
         if (d->m_internals->hasCredentials(baseUrl)) {
             if (d->m_internals->loadCredentials(baseUrl, user, password)) {
-                //qCDebug(ATTICA) << "ProviderManager::authenticate: loading authentication";
+                // qCDebug(ATTICA) << "ProviderManager::authenticate: loading authentication";
                 auth->setUser(user);
                 auth->setPassword(password);
                 return;
@@ -291,9 +305,9 @@ void ProviderManager::authenticate(QNetworkReply *reply, QAuthenticator *auth)
     }
 
     if (!d->m_authenticationSuppressed && d->m_internals->askForCredentials(baseUrl, user, password)) {
-        //qCDebug(ATTICA) << "ProviderManager::authenticate: asking internals for new credentials";
-        //auth->setUser(user);
-        //auth->setPassword(password);
+        // qCDebug(ATTICA) << "ProviderManager::authenticate: asking internals for new credentials";
+        // auth->setUser(user);
+        // auth->setPassword(password);
         return;
     }
 
@@ -313,4 +327,3 @@ void ProviderManager::initNetworkAccesssManager()
     connect(d->m_internals->nam(), &QNetworkAccessManager::authenticationRequired, this, &ProviderManager::authenticate);
     connect(d->m_internals->nam(), &QNetworkAccessManager::proxyAuthenticationRequired, this, &ProviderManager::proxyAuthenticationRequired);
 }
-

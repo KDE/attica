@@ -10,15 +10,15 @@
 
 #include "qtplatformdependent_p.h"
 
-#include <QUrl>
-#include <QStringList>
 #include <QDebug>
+#include <QStringList>
+#include <QUrl>
 
 using namespace Attica;
 
 QtPlatformDependent::QtPlatformDependent()
 {
-    m_threadNamHash[ QThread::currentThread() ] = new QNetworkAccessManager();
+    m_threadNamHash[QThread::currentThread()] = new QNetworkAccessManager();
     m_ourNamSet.insert(QThread::currentThread());
 }
 
@@ -27,7 +27,7 @@ QtPlatformDependent::~QtPlatformDependent()
     QThread *currThread = QThread::currentThread();
     if (m_threadNamHash.contains(currThread)) {
         if (m_ourNamSet.contains(currThread)) {
-            delete m_threadNamHash[ currThread ];
+            delete m_threadNamHash[currThread];
         }
         m_threadNamHash.remove(currThread);
         m_ourNamSet.remove(currThread);
@@ -44,7 +44,7 @@ void QtPlatformDependent::setNam(QNetworkAccessManager *nam)
     QThread *currThread = QThread::currentThread();
     QNetworkAccessManager *oldNam = nullptr;
     if (m_threadNamHash.contains(currThread) && m_ourNamSet.contains(currThread)) {
-        oldNam = m_threadNamHash[ currThread ];
+        oldNam = m_threadNamHash[currThread];
     }
 
     if (oldNam == nam) {
@@ -54,7 +54,7 @@ void QtPlatformDependent::setNam(QNetworkAccessManager *nam)
         return;
     }
 
-    m_threadNamHash[ currThread ] = nam;
+    m_threadNamHash[currThread] = nam;
     m_ourNamSet.remove(currThread);
 
     if (oldNam) {
@@ -68,12 +68,12 @@ QNetworkAccessManager *QtPlatformDependent::nam()
     QThread *currThread = QThread::currentThread();
     if (!m_threadNamHash.contains(currThread)) {
         QNetworkAccessManager *newNam = new QNetworkAccessManager();
-        m_threadNamHash[ currThread ] = newNam;
+        m_threadNamHash[currThread] = newNam;
         m_ourNamSet.insert(currThread);
         return newNam;
     }
 
-    return m_threadNamHash[ currThread ];
+    return m_threadNamHash[currThread];
 }
 
 // TODO actually save and restore providers!
@@ -142,7 +142,7 @@ bool QtPlatformDependent::hasCredentials(const QUrl &baseUrl) const
 
 bool QtPlatformDependent::saveCredentials(const QUrl &baseUrl, const QString &user, const QString &password)
 {
-    m_passwords[baseUrl.toString()] = QPair<QString, QString> (user, password);
+    m_passwords[baseUrl.toString()] = QPair<QString, QString>(user, password);
     return true;
 }
 
@@ -164,4 +164,3 @@ bool Attica::QtPlatformDependent::askForCredentials(const QUrl &baseUrl, QString
     Q_UNUSED(password)
     return false;
 }
-

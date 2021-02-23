@@ -16,7 +16,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Topic
 {
 public:

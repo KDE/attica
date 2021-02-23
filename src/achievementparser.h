@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Achievement::Parser : public Attica::Parser<Achievement>
 {
 private:

@@ -16,12 +16,11 @@
 #include <QStringList>
 #include <QUrl>
 
-#include "buildservice.h"
 #include "attica_export.h"
+#include "buildservice.h"
 
 namespace Attica
 {
-
 struct Field {
     QString type;
     QString name;
@@ -57,6 +56,7 @@ public:
     QList<Target> targets() const;
 
     bool isValid() const;
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

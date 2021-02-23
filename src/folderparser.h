@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Folder::Parser : public Attica::Parser<Folder>
 {
 private:

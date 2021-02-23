@@ -11,8 +11,8 @@
 #define ATTICA_ITEMJOB_H
 
 #include "attica_export.h"
-#include "getjob.h"
 #include "deletejob.h"
+#include "getjob.h"
 #include "postjob.h"
 #include "putjob.h"
 
@@ -20,7 +20,7 @@ namespace Attica
 {
 class Provider;
 
-template <class T>
+template<class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
@@ -33,7 +33,7 @@ private:
     friend class Attica::Provider;
 };
 
-template <class T>
+template<class T>
 class ATTICA_EXPORT ItemDeleteJob : public DeleteJob
 {
 public:
@@ -46,7 +46,7 @@ private:
     friend class Attica::Provider;
 };
 
-template <class T>
+template<class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
 public:
@@ -61,7 +61,7 @@ private:
     friend class Attica::Provider;
 };
 
-template <class T>
+template<class T>
 class ATTICA_EXPORT ItemPutJob : public PutJob
 {
 public:

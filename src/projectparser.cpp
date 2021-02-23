@@ -18,7 +18,7 @@ Project Project::Parser::parseXml(QXmlStreamReader &xml)
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft#Projects
     while (!xml.atEnd()) {
-        //qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
+        // qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
         xml.readNext();
 
         if (xml.isStartElement()) {
@@ -48,7 +48,6 @@ Project Project::Parser::parseXml(QXmlStreamReader &xml)
                         project.setSpecFile(xml.readElementText());
                     }
                 }
-
             }
         } else if (xml.isEndElement() && (xml.name() == QLatin1String("project") || xml.name() == QLatin1String("user"))) {
             break;

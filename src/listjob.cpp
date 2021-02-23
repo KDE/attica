@@ -8,25 +8,25 @@
 
 #include "listjob.h"
 
-#include <attica_debug.h>
 #include <QXmlStreamReader>
+#include <attica_debug.h>
 
 using namespace Attica;
 
-template <class T>
+template<class T>
 ListJob<T>::ListJob(PlatformDependent *internals, const QNetworkRequest &request)
     : GetJob(internals, request)
 {
     qCDebug(ATTICA) << "creating list job:" << request.url();
 }
 
-template <class T>
+template<class T>
 typename T::List ListJob<T>::itemList() const
 {
     return m_itemList;
 }
 
-template <class T>
+template<class T>
 void ListJob<T>::parse(const QString &xml)
 {
     typename T::Parser parser;

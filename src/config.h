@@ -8,19 +8,19 @@
 #ifndef ATTICA_CONFIG_H
 #define ATTICA_CONFIG_H
 
-#include <QString>
 #include <QSharedDataPointer>
+#include <QString>
 
 #include "attica_export.h"
 
-namespace Attica {
-
+namespace Attica
+{
 /**
  * Represents a server config
  */
 class ATTICA_EXPORT Config
 {
-  public:
+public:
     typedef QList<Config> List;
     class Parser;
 
@@ -33,14 +33,14 @@ class ATTICA_EXPORT Config
      * Copy constructor.
      * @param other the Config to copy from
      */
-    Config(const Config& other);
+    Config(const Config &other);
 
     /**
      * Assignment operator.
      * @param other the Config to assign from
      * @return pointer to this Config
      */
-    Config& operator=(const Config& other);
+    Config &operator=(const Config &other);
 
     /**
      * Destructor.
@@ -65,7 +65,7 @@ class ATTICA_EXPORT Config
      */
     bool isValid() const;
 
-  private:
+private:
     class Private;
     QSharedDataPointer<Private> d;
 };

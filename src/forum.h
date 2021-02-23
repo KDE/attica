@@ -19,7 +19,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Forum
 {
 public:

@@ -22,7 +22,8 @@ public:
     QUrl m_link;
 };
 
-Activity::Activity() : d(new Private)
+Activity::Activity()
+    : d(new Private)
 {
 }
 

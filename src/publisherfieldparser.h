@@ -9,8 +9,8 @@
 #ifndef PUBLISHERFIELDPARSER_H
 #define PUBLISHERFIELDPARSER_H
 
-#include "publisherfield.h"
 #include "parser.h"
+#include "publisherfield.h"
 
 namespace Attica
 {

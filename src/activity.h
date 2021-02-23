@@ -19,7 +19,6 @@ class QDateTime;
 
 namespace Attica
 {
-
 /**
  * Represents a single news item (also known as activity)
  */

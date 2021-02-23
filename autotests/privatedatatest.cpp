@@ -6,9 +6,9 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include <QTest>
 #include "../privatedata.h"
 #include "../privatedataparser.h"
+#include <QTest>
 
 using namespace Attica;
 
@@ -24,11 +24,12 @@ private slots:
 void PersonTest::testParsing()
 {
     PrivateData::Parser parser;
-    QString validData("<?xml version=\"1.0\"?><ocs><attributes>"
-                      "<key>keyfoo</key>"
-                      "<value>valuebar</value>"
-                      "<changed>01.01.1998</changed>"
-                      "</attributes></ocs>");
+    QString validData(
+        "<?xml version=\"1.0\"?><ocs><attributes>"
+        "<key>keyfoo</key>"
+        "<value>valuebar</value>"
+        "<changed>01.01.1998</changed>"
+        "</attributes></ocs>");
     PrivateData attributes = parser.parse(validData);
     QVERIFY(attributes.attributeChanged("keyfoo").isValid());
     QVERIFY(!attributes.attribute("keyfoo").isNull());

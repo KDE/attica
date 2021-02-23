@@ -18,7 +18,8 @@ public:
     QUrl url;
 
     Private()
-    {}
+    {
+    }
 };
 
 HomePageEntry::HomePageEntry()
@@ -38,7 +39,8 @@ HomePageEntry &HomePageEntry::operator=(const Attica::HomePageEntry &other)
 }
 
 HomePageEntry::~HomePageEntry()
-{}
+{
+}
 
 QString HomePageEntry::type() const
 {
@@ -59,4 +61,3 @@ void HomePageEntry::setUrl(const QUrl &url)
 {
     d->url = url;
 }
-

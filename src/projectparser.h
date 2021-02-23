@@ -9,12 +9,11 @@
 #ifndef ATTICA_PROJECTPARSER_H
 #define ATTICA_PROJECTPARSER_H
 
-#include "project.h"
 #include "parser.h"
+#include "project.h"
 
 namespace Attica
 {
-
 class Project::Parser : public Attica::Parser<Project>
 {
 private:

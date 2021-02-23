@@ -20,11 +20,10 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader &xml)
     QStringList fields;
 
     while (!xml.atEnd()) {
-        //qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
+        // qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
         xml.readNext();
 
         if (xml.isStartElement()) {
-
             if (xml.name() == QLatin1String("id")) {
                 publisher.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("name")) {
@@ -88,9 +87,7 @@ Publisher Publisher::Parser::parseXml(QXmlStreamReader &xml)
                     }
                 }
             }
-        } else if (xml.isEndElement()
-                   && ((xml.name() == QLatin1String("publisher"))
-                       || (xml.name() == QLatin1String("user")))) {
+        } else if (xml.isEndElement() && ((xml.name() == QLatin1String("publisher")) || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }

@@ -29,9 +29,9 @@ public:
     QMap<QString, QString> m_extendedAttributes;
 
     Private()
-        : m_downloads(0),
-          m_numberOfComments(0),
-          m_rating(0)
+        : m_downloads(0)
+        , m_numberOfComments(0)
+        , m_rating(0)
     {
     }
 };
@@ -164,7 +164,6 @@ QUrl Content::detailpage() const
 QString Attica::Content::changelog() const
 {
     return attribute(QStringLiteral("changelog"));
-
 }
 
 QString Attica::Content::depend() const

@@ -15,7 +15,6 @@
 
 namespace Attica
 {
-
 class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
 private:

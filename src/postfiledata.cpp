@@ -11,9 +11,9 @@
 
 #include "postfiledata.h"
 
-#include <QRandomGenerator>
-#include <QDebug>
 #include <QDateTime>
+#include <QDebug>
+#include <QRandomGenerator>
 
 namespace Attica
 {
@@ -49,7 +49,8 @@ QString PostFileData::randomString(int length)
         return QString();
     }
 
-    QString str; str.resize(length);
+    QString str;
+    str.resize(length);
     int i = 0;
     auto *generator = QRandomGenerator::global();
     while (length--) {
@@ -100,8 +101,7 @@ void PostFileData::addFile(const QString &fileName, const QByteArray &file, cons
         "--" + d->boundary + "\r\n"
         "Content-Disposition: form-data; name=\"");
     data.append(fieldName.toLatin1());
-    data.append("\"; filename=\"" + fileName.toUtf8()
-                + "\"\r\nContent-Type: " + mimeType.toLatin1() + "\r\n\r\n");
+    data.append("\"; filename=\"" + fileName.toUtf8() + "\"\r\nContent-Type: " + mimeType.toLatin1() + "\r\n\r\n");
 
     d->buffer.append(data);
     d->buffer.append(file + QByteArray("\r\n"));

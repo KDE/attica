@@ -17,8 +17,10 @@ public:
     int id;
     QString name;
 
-    Private() : id(-1)
-    {}
+    Private()
+        : id(-1)
+    {
+    }
 };
 
 HomePageType::HomePageType()
@@ -38,7 +40,8 @@ HomePageType &HomePageType::operator=(const Attica::HomePageType &other)
 }
 
 HomePageType::~HomePageType()
-{}
+{
+}
 
 uint HomePageType::id() const
 {
@@ -59,4 +62,3 @@ void HomePageType::setName(const QString &name)
 {
     d->name = name;
 }
-

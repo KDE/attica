@@ -90,8 +90,8 @@ public:
     QVariant m_progress;
 
     Private()
-        : m_points(0),
-          m_steps(0)
+        : m_points(0)
+        , m_steps(0)
     {
     }
 };

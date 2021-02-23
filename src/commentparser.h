@@ -15,7 +15,6 @@
 
 namespace Attica
 {
-
 class Comment::Parser : public Attica::Parser<Comment>
 {
 private:

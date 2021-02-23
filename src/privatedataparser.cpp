@@ -39,4 +39,3 @@ QStringList PrivateData::Parser::xmlElement() const
 {
     return QStringList(QStringLiteral("privatedata"));
 }
-

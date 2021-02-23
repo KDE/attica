@@ -17,7 +17,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Cloud
 {
 public:

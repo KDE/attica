@@ -16,7 +16,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT DeleteJob : public Attica::BaseJob
 {
     Q_OBJECT

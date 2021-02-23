@@ -8,8 +8,8 @@
 
 #include "postjob.h"
 
-#include <QXmlStreamReader>
 #include <QDebug>
+#include <QXmlStreamReader>
 
 #include <QNetworkAccessManager>
 
@@ -18,17 +18,24 @@
 using namespace Attica;
 
 PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, QIODevice *iodevice)
-    : BaseJob(internals), m_ioDevice(iodevice), m_request(request)
+    : BaseJob(internals)
+    , m_ioDevice(iodevice)
+    , m_request(request)
 {
 }
 
 Attica::PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const QByteArray &byteArray)
-    : BaseJob(internals), m_ioDevice(nullptr), m_byteArray(byteArray), m_request(request)
+    : BaseJob(internals)
+    , m_ioDevice(nullptr)
+    , m_byteArray(byteArray)
+    , m_request(request)
 {
 }
 
 PostJob::PostJob(PlatformDependent *internals, const QNetworkRequest &request, const StringMap &parameters)
-    : BaseJob(internals), m_ioDevice(nullptr), m_request(request)
+    : BaseJob(internals)
+    , m_ioDevice(nullptr)
+    , m_request(request)
 {
     // Create post data
     int j = 0;
@@ -53,7 +60,7 @@ QNetworkReply *PostJob::executeRequest()
 
 void PostJob::parse(const QString &xmlString)
 {
-    //qCDebug(ATTICA) << "PostJob::parse" << xmlString;
+    // qCDebug(ATTICA) << "PostJob::parse" << xmlString;
     QXmlStreamReader xml(xmlString);
     Metadata data;
     while (!xml.atEnd()) {
@@ -87,10 +94,10 @@ void PostJob::parse(const QString &xmlString)
                     } else if (xml.isStartElement()) {
                         if (xml.name() == QLatin1String("projectid")) {
                             data.setResultingId(xml.readElementText());
-                        } if (xml.name() == QLatin1String("buildjobid")) {
+                        }
+                        if (xml.name() == QLatin1String("buildjobid")) {
                             data.setResultingId(xml.readElementText());
                         }
-
                     }
                 }
             }
@@ -98,4 +105,3 @@ void PostJob::parse(const QString &xmlString)
     }
     setMetadata(data);
 }
-

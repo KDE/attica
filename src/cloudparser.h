@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Cloud::Parser : public Attica::Parser<Cloud>
 {
 private:

@@ -16,7 +16,6 @@
 
 namespace Attica
 {
-
 class Message::Parser : public Attica::Parser<Message>
 {
 private:

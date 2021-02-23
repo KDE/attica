@@ -10,9 +10,9 @@
 #define ATTICA_CONTENT_H
 
 #include <QList>
-#include <QString>
 #include <QMap>
 #include <QSharedDataPointer>
+#include <QString>
 #include <QUrl>
 
 #include "attica_export.h"
@@ -24,7 +24,6 @@ class QDateTime;
 
 namespace Attica
 {
-
 /**
  * Represents a single content
  */

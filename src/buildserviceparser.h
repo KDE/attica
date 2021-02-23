@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class BuildService::Parser : public Attica::Parser<BuildService>
 {
 private:

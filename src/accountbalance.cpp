@@ -32,7 +32,8 @@ AccountBalance &AccountBalance::operator=(const Attica::AccountBalance &other)
 }
 
 AccountBalance::~AccountBalance()
-{}
+{
+}
 
 void AccountBalance::setBalance(const QString &balance)
 {

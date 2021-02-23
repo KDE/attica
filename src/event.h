@@ -19,7 +19,6 @@
 
 namespace Attica
 {
-
 /**
  * Represents a single event
  */

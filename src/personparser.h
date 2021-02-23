@@ -9,14 +9,13 @@
 #ifndef ATTICA_PERSONPARSER_H
 #define ATTICA_PERSONPARSER_H
 
-#include "person.h"
 #include "parser.h"
+#include "person.h"
 
 #include "attica_export.h"
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Person::Parser : public Attica::Parser<Person>
 {
 private:

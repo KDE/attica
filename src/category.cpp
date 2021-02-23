@@ -8,12 +8,12 @@
 
 #include "category.h"
 
-#include <QString>
 #include <QDebug>
+#include <QString>
 
 using namespace Attica;
 
-QDebug operator<<(QDebug s, const Attica::Category& cat)
+QDebug operator<<(QDebug s, const Attica::Category &cat)
 {
     const QString name = cat.isValid() ? cat.name() : QStringLiteral("Invalid");
     s.nospace() << "Category(" << name << ')';
@@ -28,7 +28,8 @@ public:
     QString m_displayName;
 };
 
-Category::Category() : d(new Private)
+Category::Category()
+    : d(new Private)
 {
 }
 

@@ -20,7 +20,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT PrivateData
 {
 public:
@@ -65,4 +64,4 @@ private:
 
 }
 
-#endif//ATTICA_ATTRIBUTES_H
+#endif // ATTICA_ATTRIBUTES_H

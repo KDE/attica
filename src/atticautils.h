@@ -11,12 +11,11 @@
 #define ATTICAUTILS_H
 
 #include <QDateTime>
-#include <QString>
 #include <QNetworkAccessManager>
+#include <QString>
 
 namespace Attica
 {
-
 class Utils
 {
 public:

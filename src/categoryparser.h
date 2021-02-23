@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Category::Parser : public Attica::Parser<Category>
 {
 private:

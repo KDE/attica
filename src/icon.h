@@ -27,26 +27,26 @@ public:
     typedef QList<Icon> List;
 
     /**
-    * Creates an empty Icon
-    */
+     * Creates an empty Icon
+     */
     Icon();
 
     /**
-    * Copy constructor.
-    * @param other the Icon to copy from
-    */
+     * Copy constructor.
+     * @param other the Icon to copy from
+     */
     Icon(const Icon &other);
 
     /**
-    * Assignment operator.
-    * @param other the Icon to assign from
-    * @return pointer to this Icon
-    */
+     * Assignment operator.
+     * @param other the Icon to assign from
+     * @return pointer to this Icon
+     */
     Icon &operator=(const Icon &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~Icon();
 
     QUrl url() const;

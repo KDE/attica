@@ -22,14 +22,15 @@ private Q_SLOTS:
 void ConfigTest::testParsing()
 {
     Config::Parser parser;
-    QString validData (QLatin1String("<?xml version=\"1.0\"?>"
-                                     "<ocs><data>"
-                                     "<version>1.7</version>"
-                                     "<website>store.kde.org</website>"
-                                     "<host>api.kde-look.org</host>"
-                                     "<contact>contact@opendesktop.org</contact>"
-                                     "<ssl>true</ssl>"
-                                     "</data></ocs>"));
+    QString validData(
+        QLatin1String("<?xml version=\"1.0\"?>"
+                      "<ocs><data>"
+                      "<version>1.7</version>"
+                      "<website>store.kde.org</website>"
+                      "<host>api.kde-look.org</host>"
+                      "<contact>contact@opendesktop.org</contact>"
+                      "<ssl>true</ssl>"
+                      "</data></ocs>"));
     Config config = parser.parse(validData);
     QVERIFY(config.isValid());
 

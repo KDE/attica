@@ -16,8 +16,7 @@
 
 namespace Attica
 {
-
-template <class T>
+template<class T>
 class ATTICA_EXPORT Parser
 {
 public:

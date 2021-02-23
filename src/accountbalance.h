@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 /**
  * Represents the money in the account of the user
  */

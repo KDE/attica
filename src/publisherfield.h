@@ -9,12 +9,11 @@
 #ifndef PUBLISHERFIELD_H
 #define PUBLISHERFIELD_H
 
-#include "buildservice.h"
 #include "attica_export.h"
+#include "buildservice.h"
 
 namespace Attica
 {
-
 class ATTICA_EXPORT PublisherField
 {
 public:

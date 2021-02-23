@@ -20,7 +20,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Project
 {
 public:

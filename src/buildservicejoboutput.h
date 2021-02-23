@@ -8,15 +8,14 @@
 #ifndef ATTICA_BUILDSERVICEJOBOUTPUT_H
 #define ATTICA_BUILDSERVICEJOBOUTPUT_H
 
-#include <QtCore/QString>
 #include <QtCore/QList>
 #include <QtCore/QSharedDataPointer>
+#include <QtCore/QString>
 
 #include "attica_export.h"
 
 namespace Attica
 {
-
 class ATTICA_EXPORT BuildServiceJobOutput
 {
 public:
@@ -36,6 +35,7 @@ public:
     bool isFailed() const;
 
     bool isValid() const;
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

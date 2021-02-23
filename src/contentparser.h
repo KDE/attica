@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Content::Parser : public Attica::Parser<Content>
 {
 private:

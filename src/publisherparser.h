@@ -9,12 +9,11 @@
 #ifndef ATTICA_PUBLISHERPARSER_H
 #define ATTICA_PUBLISHERPARSER_H
 
-#include "publisher.h"
 #include "parser.h"
+#include "publisher.h"
 
 namespace Attica
 {
-
 class Publisher::Parser : public Attica::Parser<Publisher>
 {
 private:

@@ -19,7 +19,6 @@
 
 namespace Attica
 {
-
 struct Target {
     QString id;
     QString name;
@@ -49,6 +48,7 @@ public:
     QList<Target> targets() const;
 
     bool isValid() const;
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

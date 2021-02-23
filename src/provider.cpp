@@ -16,13 +16,11 @@
 #include "activity.h"
 #include "activityparser.h"
 #include "buildservice.h"
-#include "buildserviceparser.h"
 #include "buildservicejob.h"
-#include "buildservicejobparser.h"
 #include "buildservicejoboutput.h"
 #include "buildservicejoboutputparser.h"
-#include "privatedata.h"
-#include "privatedataparser.h"
+#include "buildservicejobparser.h"
+#include "buildserviceparser.h"
 #include "categoryparser.h"
 #include "commentparser.h"
 #include "config.h"
@@ -45,30 +43,32 @@
 #include "person.h"
 #include "personparser.h"
 #include "platformdependent_v2.h"
-#include "postjob.h"
 #include "postfiledata.h"
+#include "postjob.h"
+#include "privatedata.h"
+#include "privatedataparser.h"
 #include "project.h"
 #include "projectparser.h"
 #include "publisher.h"
-#include "publisherparser.h"
 #include "publisherfield.h"
 #include "publisherfieldparser.h"
+#include "publisherparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
 #include "topic.h"
 #include "topicparser.h"
 #include "version.h"
 
-#include <QNetworkAccessManager>
-#include <QDebug>
-#include <QUrlQuery>
-#include <QNetworkReply>
-#include <QFile>
 #include <QCoreApplication>
+#include <QDebug>
+#include <QFile>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QUrlQuery>
 
 using namespace Attica;
 
-QDebug operator<<(QDebug s, const Attica::Provider& prov)
+QDebug operator<<(QDebug s, const Attica::Provider &prov)
 {
     if (prov.isValid())
         s.nospace() << "Provider(" << prov.name() << ':' << prov.baseUrl() << ')';
@@ -102,10 +102,13 @@ public:
 
     Private()
         : m_internals(nullptr)
-    {}
+    {
+    }
 
     Private(const Private &other)
-        : QSharedData(other), m_baseUrl(other.m_baseUrl), m_name(other.m_name)
+        : QSharedData(other)
+        , m_baseUrl(other.m_baseUrl)
+        , m_name(other.m_name)
         , m_credentialsUserName(other.m_credentialsUserName)
         , m_credentialsPassword(other.m_credentialsPassword)
         , m_personVersion(other.m_personVersion)
@@ -125,12 +128,26 @@ public:
     {
     }
 
-    Private(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-            const QString &person, const QString &friendV, const QString &message, const QString &achievement,
-            const QString &activity, const QString &content, const QString &fan, const QString &forum,
-            const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+    Private(PlatformDependent *internals,
+            const QUrl &baseUrl,
+            const QString &name,
+            const QUrl &icon,
+            const QString &person,
+            const QString &friendV,
+            const QString &message,
+            const QString &achievement,
+            const QString &activity,
+            const QString &content,
+            const QString &fan,
+            const QString &forum,
+            const QString &knowledgebase,
+            const QString &event,
+            const QString &comment,
+            const QString &registerUrl,
             const QString &additionalAgentInformation)
-        : m_baseUrl(baseUrl), m_icon(icon), m_name(name)
+        : m_baseUrl(baseUrl)
+        , m_icon(icon)
+        , m_name(name)
         , m_personVersion(person)
         , m_friendVersion(friendV)
         , m_messageVersion(message)
@@ -172,31 +189,111 @@ Provider::Provider(const Provider &other)
 {
 }
 
-Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-                   const QString &person, const QString &friendV, const QString &message, const QString &achievement,
-                   const QString &activity, const QString &content, const QString &fan, const QString &forum,
-                   const QString &knowledgebase, const QString &event, const QString &comment)
-    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
-                    fan, forum, knowledgebase, event, comment, QString(), QString()))
+Provider::Provider(PlatformDependent *internals,
+                   const QUrl &baseUrl,
+                   const QString &name,
+                   const QUrl &icon,
+                   const QString &person,
+                   const QString &friendV,
+                   const QString &message,
+                   const QString &achievement,
+                   const QString &activity,
+                   const QString &content,
+                   const QString &fan,
+                   const QString &forum,
+                   const QString &knowledgebase,
+                   const QString &event,
+                   const QString &comment)
+    : d(new Private(internals,
+                    baseUrl,
+                    name,
+                    icon,
+                    person,
+                    friendV,
+                    message,
+                    achievement,
+                    activity,
+                    content,
+                    fan,
+                    forum,
+                    knowledgebase,
+                    event,
+                    comment,
+                    QString(),
+                    QString()))
 {
 }
 
-Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-                   const QString &person, const QString &friendV, const QString &message, const QString &achievement,
-                   const QString &activity, const QString &content, const QString &fan, const QString &forum,
-                   const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl)
-    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
-                    fan, forum, knowledgebase, event, comment, registerUrl, QString()))
+Provider::Provider(PlatformDependent *internals,
+                   const QUrl &baseUrl,
+                   const QString &name,
+                   const QUrl &icon,
+                   const QString &person,
+                   const QString &friendV,
+                   const QString &message,
+                   const QString &achievement,
+                   const QString &activity,
+                   const QString &content,
+                   const QString &fan,
+                   const QString &forum,
+                   const QString &knowledgebase,
+                   const QString &event,
+                   const QString &comment,
+                   const QString &registerUrl)
+    : d(new Private(internals,
+                    baseUrl,
+                    name,
+                    icon,
+                    person,
+                    friendV,
+                    message,
+                    achievement,
+                    activity,
+                    content,
+                    fan,
+                    forum,
+                    knowledgebase,
+                    event,
+                    comment,
+                    registerUrl,
+                    QString()))
 {
 }
 
-Provider::Provider(PlatformDependent *internals, const QUrl &baseUrl, const QString &name, const QUrl &icon,
-                   const QString &person, const QString &friendV, const QString &message, const QString &achievement,
-                   const QString &activity, const QString &content, const QString &fan, const QString &forum,
-                   const QString &knowledgebase, const QString &event, const QString &comment, const QString &registerUrl,
+Provider::Provider(PlatformDependent *internals,
+                   const QUrl &baseUrl,
+                   const QString &name,
+                   const QUrl &icon,
+                   const QString &person,
+                   const QString &friendV,
+                   const QString &message,
+                   const QString &achievement,
+                   const QString &activity,
+                   const QString &content,
+                   const QString &fan,
+                   const QString &forum,
+                   const QString &knowledgebase,
+                   const QString &event,
+                   const QString &comment,
+                   const QString &registerUrl,
                    const QString &additionalAgentInformation)
-    : d(new Private(internals, baseUrl, name, icon, person, friendV, message, achievement, activity, content,
-                    fan, forum, knowledgebase, event, comment, registerUrl, additionalAgentInformation))
+    : d(new Private(internals,
+                    baseUrl,
+                    name,
+                    icon,
+                    person,
+                    friendV,
+                    message,
+                    achievement,
+                    activity,
+                    content,
+                    fan,
+                    forum,
+                    knowledgebase,
+                    event,
+                    comment,
+                    registerUrl,
+                    additionalAgentInformation))
 {
 }
 
@@ -238,11 +335,13 @@ void Provider::setEnabled(bool enabled)
     d->m_internals->enableProvider(d->m_baseUrl, enabled);
 }
 
-void Provider::setAdditionalAgentInformation(const QString& additionalInformation) {
+void Provider::setAdditionalAgentInformation(const QString &additionalInformation)
+{
     d->m_additionalAgentInformation = additionalInformation;
 }
 
-QString Provider::additionalAgentInformation() const {
+QString Provider::additionalAgentInformation() const
+{
     return d->m_additionalAgentInformation;
 }
 
@@ -573,7 +672,7 @@ ListJob<Activity> *Provider::requestActivities()
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request activity";
+    // qCDebug(ATTICA) << "request activity";
     QUrl url = createUrl(QLatin1String("activity"));
     return doRequestActivityList(url);
 }
@@ -584,7 +683,7 @@ ListJob<Project> *Provider::requestProjects()
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request projects";
+    // qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/project/list"));
     return new ListJob<Project>(d->m_internals, createRequest(url));
 }
@@ -596,7 +695,7 @@ ItemJob<Project> *Provider::requestProject(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/project/get/") + id);
-    //qCDebug(ATTICA) << url;
+    // qCDebug(ATTICA) << url;
     return new ItemJob<Project>(d->m_internals, createRequest(url));
 }
 
@@ -642,8 +741,7 @@ PostJob *Provider::createProject(const Project &project)
         return nullptr;
     }
 
-    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/create")),
-                       projectPostParameters(project));
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/create")), projectPostParameters(project));
 }
 
 PostJob *Provider::editProject(const Project &project)
@@ -652,9 +750,7 @@ PostJob *Provider::editProject(const Project &project)
         return nullptr;
     }
 
-    return new PostJob(d->m_internals, createRequest(
-                           QLatin1String("buildservice/project/edit/") + project.id()),
-                       projectPostParameters(project));
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/edit/") + project.id()), projectPostParameters(project));
 }
 
 PostJob *Provider::deleteProject(const Project &project)
@@ -663,9 +759,7 @@ PostJob *Provider::deleteProject(const Project &project)
         return nullptr;
     }
 
-    return new PostJob(d->m_internals, createRequest(
-                           QLatin1String("buildservice/project/delete/") + project.id()),
-                       projectPostParameters(project));
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/project/delete/") + project.id()), projectPostParameters(project));
 }
 
 ItemJob<BuildService> *Provider::requestBuildService(const QString &id)
@@ -684,7 +778,7 @@ ItemJob<Publisher> *Provider::requestPublisher(const QString &id)
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request publisher" << id;
+    // qCDebug(ATTICA) << "request publisher" << id;
     QUrl url = createUrl(QLatin1String("buildservice/publishing/getpublisher/") + id);
     return new ItemJob<Publisher>(d->m_internals, createRequest(url));
 }
@@ -701,7 +795,7 @@ PostJob *Provider::savePublisherField(const Project &project, const PublisherFie
     postParameters.insert(QLatin1String("fields[0][data]"), field.data());
 
     QString url = QLatin1String("buildservice/publishing/savefields/") + project.id();
-    //qCDebug(ATTICA) << "saving field values...";
+    // qCDebug(ATTICA) << "saving field values...";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
@@ -714,9 +808,8 @@ PostJob *Provider::publishBuildJob(const BuildServiceJob &buildjob, const Publis
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
 
-    QString url = QLatin1String("buildservice/publishing/publishtargetresult/") +
-                  buildjob.id() + QLatin1Char('/') + publisher.id();
-    //qCDebug(ATTICA) << "pub'ing";
+    QString url = QLatin1String("buildservice/publishing/publishtargetresult/") + buildjob.id() + QLatin1Char('/') + publisher.id();
+    // qCDebug(ATTICA) << "pub'ing";
     return new PostJob(d->m_internals, createRequest(url), postParameters);
 }
 
@@ -728,7 +821,7 @@ ItemJob<BuildServiceJobOutput> *Provider::requestBuildServiceJobOutput(const QSt
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/jobs/getoutput/") + id);
-    //qCDebug(ATTICA) << url;
+    // qCDebug(ATTICA) << url;
     return new ItemJob<BuildServiceJobOutput>(d->m_internals, createRequest(url));
 }
 
@@ -739,7 +832,7 @@ ItemJob<BuildServiceJob> *Provider::requestBuildServiceJob(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/jobs/get/") + id);
-    //qCDebug(ATTICA) << url;
+    // qCDebug(ATTICA) << url;
     return new ItemJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
 
@@ -771,9 +864,8 @@ PostJob *Provider::cancelBuildServiceJob(const BuildServiceJob &job)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
-    //qCDebug(ATTICA) << "b....................b";
-    return new PostJob(d->m_internals, createRequest(
-                           QLatin1String("buildservice/jobs/cancel/") + job.id()), postParameters);
+    // qCDebug(ATTICA) << "b....................b";
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/jobs/cancel/") + job.id()), postParameters);
 }
 
 PostJob *Provider::createBuildServiceJob(const BuildServiceJob &job)
@@ -787,11 +879,11 @@ PostJob *Provider::createBuildServiceJob(const BuildServiceJob &job)
     // so even while we don't need any in this case,
     // we add dummy data to the request
     postParameters.insert(QLatin1String("dummyparameter"), QLatin1String("dummyvalue"));
-    //qCDebug(ATTICA) << "Creating new BSJ on" << job.buildServiceId();
-    return new PostJob(d->m_internals, createRequest(
-                           QLatin1String("buildservice/jobs/create/") +
-                           job.projectId() + QLatin1Char('/') + job.buildServiceId()  + QLatin1Char('/') + job.target()),
-                       postParameters);
+    // qCDebug(ATTICA) << "Creating new BSJ on" << job.buildServiceId();
+    return new PostJob(
+        d->m_internals,
+        createRequest(QLatin1String("buildservice/jobs/create/") + job.projectId() + QLatin1Char('/') + job.buildServiceId() + QLatin1Char('/') + job.target()),
+        postParameters);
 }
 
 ListJob<BuildService> *Provider::requestBuildServices()
@@ -800,7 +892,7 @@ ListJob<BuildService> *Provider::requestBuildServices()
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request projects";
+    // qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/buildservices/list"));
     return new ListJob<BuildService>(d->m_internals, createRequest(url));
 }
@@ -812,7 +904,7 @@ ListJob<Publisher> *Provider::requestPublishers()
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/publishing/getpublishingcapabilities"));
-    //qCDebug(ATTICA) << "request publishers" << url;
+    // qCDebug(ATTICA) << "request publishers" << url;
     return new ListJob<Publisher>(d->m_internals, createRequest(url));
 }
 
@@ -822,7 +914,7 @@ ListJob<BuildServiceJob> *Provider::requestBuildServiceJobs(const Project &proje
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request projects";
+    // qCDebug(ATTICA) << "request projects";
     QUrl url = createUrl(QLatin1String("buildservice/jobs/list/") + project.id());
     return new ListJob<BuildServiceJob>(d->m_internals, createRequest(url));
 }
@@ -833,7 +925,7 @@ ListJob<RemoteAccount> *Provider::requestRemoteAccounts()
         return nullptr;
     }
 
-    //qCDebug(ATTICA) << "request remoteaccounts";
+    // qCDebug(ATTICA) << "request remoteaccounts";
     QUrl url = createUrl(QLatin1String("buildservice/remoteaccounts/list/"));
     return new ListJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
@@ -853,9 +945,8 @@ PostJob *Provider::createRemoteAccount(const RemoteAccount &account)
     postParameters.insert(QLatin1String("type"), account.type());
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
-    //qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/add")),
-                       postParameters);
+    // qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/add")), postParameters);
 }
 
 PostJob *Provider::editRemoteAccount(const RemoteAccount &account)
@@ -873,9 +964,8 @@ PostJob *Provider::editRemoteAccount(const RemoteAccount &account)
     postParameters.insert(QLatin1String("type"), account.type());
     postParameters.insert(QLatin1String("typeid"), account.remoteServiceId()); // FIXME: remoteserviceid?
     postParameters.insert(QLatin1String("data"), account.data());
-    //qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
-    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()),
-                       postParameters);
+    // qCDebug(ATTICA) << "Creating new Remoteaccount" << account.id() << account.login() << account.password();
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/edit/") + account.id()), postParameters);
 }
 
 ItemJob<RemoteAccount> *Provider::requestRemoteAccount(const QString &id)
@@ -885,7 +975,7 @@ ItemJob<RemoteAccount> *Provider::requestRemoteAccount(const QString &id)
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/remoteaccounts/get/") + id);
-    //qCDebug(ATTICA) << url;
+    // qCDebug(ATTICA) << url;
     return new ItemJob<RemoteAccount>(d->m_internals, createRequest(url));
 }
 
@@ -896,9 +986,7 @@ PostJob *Provider::deleteRemoteAccount(const QString &id)
     }
 
     StringMap postParameters;
-    return new PostJob(d->m_internals, createRequest(
-                           QLatin1String("buildservice/remoteaccounts/remove/") + id),
-                       postParameters);
+    return new PostJob(d->m_internals, createRequest(QLatin1String("buildservice/remoteaccounts/remove/") + id), postParameters);
 }
 
 PostJob *Provider::uploadTarballToBuildService(const QString &projectId, const QString &fileName, const QByteArray &payload)
@@ -908,7 +996,7 @@ PostJob *Provider::uploadTarballToBuildService(const QString &projectId, const Q
     }
 
     QUrl url = createUrl(QLatin1String("buildservice/project/uploadsource/") + projectId);
-    //qCDebug(ATTICA) << "Up'ing tarball" << url << projectId << fileName << payload;
+    // qCDebug(ATTICA) << "Up'ing tarball" << url << projectId << fileName << payload;
     PostFileData postRequest(url);
     postRequest.addFile(fileName, payload, QLatin1String("application/octet-stream"), QLatin1String("source"));
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
@@ -1043,7 +1131,7 @@ ListJob<Category> *Provider::requestCategories()
     return job;
 }
 
-ListJob< License > *Provider::requestLicenses()
+ListJob<License> *Provider::requestLicenses()
 {
     if (!isValid()) {
         return nullptr;
@@ -1054,7 +1142,7 @@ ListJob< License > *Provider::requestLicenses()
     return job;
 }
 
-ListJob< Distribution > *Provider::requestDistributions()
+ListJob<Distribution> *Provider::requestDistributions()
 {
     if (!isValid()) {
         return nullptr;
@@ -1065,7 +1153,7 @@ ListJob< Distribution > *Provider::requestDistributions()
     return job;
 }
 
-ListJob< HomePageType > *Provider::requestHomePageTypes()
+ListJob<HomePageType> *Provider::requestHomePageTypes()
 {
     if (!isValid()) {
         return nullptr;
@@ -1081,12 +1169,20 @@ ListJob<Content> *Provider::searchContents(const Category::List &categories, con
     return searchContents(categories, QString(), Distribution::List(), License::List(), search, sortMode, page, pageSize);
 }
 
-ListJob<Content> *Provider::searchContentsByPerson(const Category::List &categories, const QString &person, const QString &search, SortMode sortMode, uint page, uint pageSize)
+ListJob<Content> *
+Provider::searchContentsByPerson(const Category::List &categories, const QString &person, const QString &search, SortMode sortMode, uint page, uint pageSize)
 {
     return searchContents(categories, person, Distribution::List(), License::List(), search, sortMode, page, pageSize);
 }
 
-ListJob<Content> *Provider::searchContents(const Category::List &categories, const QString &person, const Distribution::List &distributions, const License::List &licenses, const QString &search, SortMode sortMode, uint page, uint pageSize)
+ListJob<Content> *Provider::searchContents(const Category::List &categories,
+                                           const QString &person,
+                                           const Distribution::List &distributions,
+                                           const License::List &licenses,
+                                           const QString &search,
+                                           SortMode sortMode,
+                                           uint page,
+                                           uint pageSize)
 {
     if (!isValid()) {
         return nullptr;
@@ -1169,7 +1265,7 @@ ItemPostJob<Content> *Provider::addNewContent(const Category &category, const Co
     pars.insert(QLatin1String("type"), category.id());
     pars.insert(QLatin1String("name"), cont.name());
 
-    //qCDebug(ATTICA) << "Parameter map: " << pars;
+    // qCDebug(ATTICA) << "Parameter map: " << pars;
 
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
@@ -1187,7 +1283,7 @@ ItemPostJob<Content> *Provider::editContent(const Category &updatedCategory, con
     pars.insert(QLatin1String("type"), updatedCategory.id());
     pars.insert(QLatin1String("name"), updatedContent.name());
 
-    //qCDebug(ATTICA) << "Parameter map: " << pars;
+    // qCDebug(ATTICA) << "Parameter map: " << pars;
 
     return new ItemPostJob<Content>(d->m_internals, createRequest(url), pars);
 }
@@ -1281,7 +1377,7 @@ PostJob *Provider::voteForContent(const QString &contentId, bool positiveVote)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("vote"), positiveVote ? QLatin1String("good") : QLatin1String("bad"));
-    //qCDebug(ATTICA) << "vote: " << positiveVote;
+    // qCDebug(ATTICA) << "vote: " << positiveVote;
     return new PostJob(d->m_internals, createRequest(QLatin1String("content/vote/") + contentId), postParameters);
 }
 #endif
@@ -1300,7 +1396,7 @@ PostJob *Provider::voteForContent(const QString &contentId, uint rating)
 
     StringMap postParameters;
     postParameters.insert(QLatin1String("vote"), QString::number(rating));
-    //qCDebug(ATTICA) << "vote: " << QString::number(rating);
+    // qCDebug(ATTICA) << "vote: " << QString::number(rating);
     return new PostJob(d->m_internals, createRequest(QLatin1String("content/vote/") + contentId), postParameters);
 }
 
@@ -1347,7 +1443,8 @@ ListJob<Forum> *Provider::requestForums(uint page, uint pageSize)
     return doRequestForumList(url);
 }
 
-ListJob<Topic> *Provider::requestTopics(const QString &forum, const QString &search, const QString &description, Provider::SortMode mode, int page, int pageSize)
+ListJob<Topic> *
+Provider::requestTopics(const QString &forum, const QString &search, const QString &description, Provider::SortMode mode, int page, int pageSize)
 {
     if (!isValid()) {
         return nullptr;
@@ -1438,7 +1535,7 @@ ListJob<KnowledgeBaseEntry> *Provider::searchKnowledgeBase(const Content &conten
     case Rating:
         sortModeString = QLatin1String("high");
         break;
-    //FIXME: knowledge base doesn't have downloads
+    // FIXME: knowledge base doesn't have downloads
     case Downloads:
         sortModeString = QLatin1String("new");
         break;
@@ -1530,7 +1627,12 @@ ListJob<Comment> *Provider::requestComments(const Comment::Type commentType, con
     return job;
 }
 
-ItemPostJob<Comment> *Provider::addNewComment(const Comment::Type commentType, const QString &id, const QString &id2, const QString &parentId, const QString &subject, const QString &message)
+ItemPostJob<Comment> *Provider::addNewComment(const Comment::Type commentType,
+                                              const QString &id,
+                                              const QString &id2,
+                                              const QString &parentId,
+                                              const QString &subject,
+                                              const QString &message)
 {
     if (!isValid()) {
         return nullptr;
@@ -1587,7 +1689,8 @@ ItemJob<PrivateData> *Provider::requestPrivateData(const QString &app, const QSt
         return nullptr;
     }
 
-    ItemJob<PrivateData> *job = new ItemJob<PrivateData>(d->m_internals, createRequest(QLatin1String("privatedata/getattribute/") + app + QLatin1Char('/') + key));
+    ItemJob<PrivateData> *job =
+        new ItemJob<PrivateData>(d->m_internals, createRequest(QLatin1String("privatedata/getattribute/") + app + QLatin1Char('/') + key));
     return job;
 }
 
@@ -1600,7 +1703,7 @@ QUrl Provider::createUrl(const QString &path)
 QNetworkRequest Provider::createRequest(const QUrl &url)
 {
     QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
     QString agentHeader;
     if (QCoreApplication::instance()) {
@@ -1614,8 +1717,8 @@ QNetworkRequest Provider::createRequest(const QUrl &url)
     request.setHeader(QNetworkRequest::UserAgentHeader, agentHeader);
 
     if (!d->m_credentialsUserName.isEmpty()) {
-        request.setAttribute((QNetworkRequest::Attribute) BaseJob::UserAttribute, QVariant(d->m_credentialsUserName));
-        request.setAttribute((QNetworkRequest::Attribute) BaseJob::PasswordAttribute, QVariant(d->m_credentialsPassword));
+        request.setAttribute((QNetworkRequest::Attribute)BaseJob::UserAttribute, QVariant(d->m_credentialsUserName));
+        request.setAttribute((QNetworkRequest::Attribute)BaseJob::PasswordAttribute, QVariant(d->m_credentialsPassword));
     }
     return request;
 }
@@ -1625,7 +1728,7 @@ QNetworkRequest Provider::createRequest(const QString &path)
     return createRequest(createUrl(path));
 }
 
-ItemJob<Config>* Provider::doRequestConfig(const QUrl& url)
+ItemJob<Config> *Provider::doRequestConfig(const QUrl &url)
 {
     return new ItemJob<Config>(d->m_internals, createRequest(url));
 }

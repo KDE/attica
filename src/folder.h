@@ -16,7 +16,6 @@
 
 namespace Attica
 {
-
 /**
  * Represents a single mail folder
  */

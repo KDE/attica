@@ -8,10 +8,9 @@
 
 #include "configparser.h"
 
-
 using namespace Attica;
 
-Config Config::Parser::parseXml(QXmlStreamReader& xml)
+Config Config::Parser::parseXml(QXmlStreamReader &xml)
 {
     Config config;
 
@@ -20,13 +19,13 @@ Config Config::Parser::parseXml(QXmlStreamReader& xml)
 
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("version")) {
-                config.setVersion( xml.readElementText());
+                config.setVersion(xml.readElementText());
             } else if (xml.name() == QLatin1String("website")) {
-                config.setWebsite( xml.readElementText());
+                config.setWebsite(xml.readElementText());
             } else if (xml.name() == QLatin1String("host")) {
-                config.setHost( xml.readElementText());
+                config.setHost(xml.readElementText());
             } else if (xml.name() == QLatin1String("contact")) {
-                config.setContact( xml.readElementText());
+                config.setContact(xml.readElementText());
             } else if (xml.name() == QLatin1String("ssl")) {
                 config.setSsl(xml.readElementText() == QLatin1String("true"));
             }
@@ -40,7 +39,7 @@ Config Config::Parser::parseXml(QXmlStreamReader& xml)
     return config;
 }
 
-
-QStringList Config::Parser::xmlElement() const {
-    return QStringList(QStringLiteral( "data" ));
+QStringList Config::Parser::xmlElement() const
+{
+    return QStringList(QStringLiteral("data"));
 }

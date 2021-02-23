@@ -16,11 +16,9 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT DownloadDescription
 {
 public:
-
     enum Type {
         FileDownload = 0,
         LinkDownload,

@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Event::Parser : public Attica::Parser<Event>
 {
 private:

@@ -24,11 +24,12 @@ class QStringList;
 
 namespace Attica
 {
-
 class PlatformDependent
 {
 public:
-    virtual ~PlatformDependent() {}
+    virtual ~PlatformDependent()
+    {
+    }
     virtual QList<QUrl> getDefaultProviderFiles() const = 0;
     virtual void addDefaultProviderFile(const QUrl &url) = 0;
     virtual void removeDefaultProviderFile(const QUrl &url) = 0;
@@ -37,7 +38,7 @@ public:
      * Providers are enabled by default. Use this call to disable or enable them later.
      */
     virtual void enableProvider(const QUrl &baseUrl, bool enabled) const = 0;
-    virtual bool isEnabled(const QUrl &baseUrl) const  = 0;
+    virtual bool isEnabled(const QUrl &baseUrl) const = 0;
 
     /**
      * Asks the PlatformDependent plugin if it have a credentials for baseUrl
@@ -69,7 +70,9 @@ public:
     virtual QNetworkReply *get(const QNetworkRequest &request) = 0;
     virtual QNetworkReply *post(const QNetworkRequest &request, QIODevice *data) = 0;
     virtual QNetworkReply *post(const QNetworkRequest &request, const QByteArray &data) = 0;
-    virtual void setNam(QNetworkAccessManager *) {}
+    virtual void setNam(QNetworkAccessManager *)
+    {
+    }
     virtual QNetworkAccessManager *nam() = 0;
 };
 

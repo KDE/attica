@@ -7,8 +7,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "listjob.cpp"
 #include "itemjob.cpp"
+#include "listjob.cpp"
 #include "parser.cpp"
 
 #include "accountbalance.h"
@@ -18,13 +18,11 @@
 #include "activity.h"
 #include "activityparser.h"
 #include "buildservice.h"
-#include "buildserviceparser.h"
 #include "buildservicejob.h"
-#include "buildservicejobparser.h"
 #include "buildservicejoboutput.h"
 #include "buildservicejoboutputparser.h"
-#include "privatedata.h"
-#include "privatedataparser.h"
+#include "buildservicejobparser.h"
+#include "buildserviceparser.h"
 #include "category.h"
 #include "categoryparser.h"
 #include "comment.h"
@@ -52,12 +50,14 @@
 #include "messageparser.h"
 #include "person.h"
 #include "personparser.h"
+#include "privatedata.h"
+#include "privatedataparser.h"
 #include "project.h"
 #include "projectparser.h"
 #include "publisher.h"
-#include "publisherparser.h"
 #include "publisherfield.h"
 #include "publisherfieldparser.h"
+#include "publisherparser.h"
 #include "remoteaccount.h"
 #include "remoteaccountparser.h"
 #include "topic.h"
@@ -65,7 +65,6 @@
 
 namespace Attica
 {
-
 template class ListJob<Achievement>;
 template class ListJob<Activity>;
 template class ListJob<BuildServiceJob>;

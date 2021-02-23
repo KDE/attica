@@ -9,12 +9,11 @@
 #ifndef ATTICA_REMOTEACCOUNTPARSER_H
 #define ATTICA_REMOTEACCOUNTPARSER_H
 
-#include "remoteaccount.h"
 #include "parser.h"
+#include "remoteaccount.h"
 
 namespace Attica
 {
-
 class RemoteAccount::Parser : public Attica::Parser<RemoteAccount>
 {
 private:

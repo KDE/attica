@@ -28,26 +28,26 @@ public:
     class Parser;
 
     /**
-    * Creates an empty Distribution
-    */
+     * Creates an empty Distribution
+     */
     Distribution();
 
     /**
-    * Copy constructor.
-    * @param other the Distribution to copy from
-    */
+     * Copy constructor.
+     * @param other the Distribution to copy from
+     */
     Distribution(const Distribution &other);
 
     /**
-    * Assignment operator.
-    * @param other the Distribution to assign from
-    * @return pointer to this Distribution
-    */
+     * Assignment operator.
+     * @param other the Distribution to assign from
+     * @return pointer to this Distribution
+     */
     Distribution &operator=(const Distribution &other);
 
     /**
-    * Destructor.
-    */
+     * Destructor.
+     */
     ~Distribution();
 
     /*

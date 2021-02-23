@@ -9,12 +9,11 @@
 #ifndef ATTICA_PRIVATEDATAPARSER_H
 #define ATTICA_PRIVATEDATAPARSER_H
 
-#include "privatedata.h"
 #include "parser.h"
+#include "privatedata.h"
 
 namespace Attica
 {
-
 class PrivateData::Parser : public Attica::Parser<PrivateData>
 {
 private:
@@ -25,4 +24,3 @@ private:
 }
 
 #endif
-

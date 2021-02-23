@@ -10,15 +10,14 @@
 #ifndef ATTICA_PROVIDERMANAGER_H
 #define ATTICA_PROVIDERMANAGER_H
 
-#include <QUrl>
 #include <QNetworkReply>
+#include <QUrl>
 
-#include "provider.h"
 #include "attica_export.h"
+#include "provider.h"
 
 namespace Attica
 {
-
 /**
  * Attica ProviderManager
  *
@@ -57,7 +56,6 @@ class ATTICA_EXPORT ProviderManager : public QObject
     Q_OBJECT
 
 public:
-
     enum ProviderFlag {
         NoFlags = 0x0,
         DisablePlugins = 0x1,
@@ -159,7 +157,7 @@ Q_SIGNALS:
     void providerAdded(const Attica::Provider &provider);
     void defaultProvidersLoaded();
     void authenticationCredentialsMissing(const Provider &provider);
-    void failedToLoad(const QUrl& provider, QNetworkReply::NetworkError error);
+    void failedToLoad(const QUrl &provider, QNetworkReply::NetworkError error);
 
 private Q_SLOTS:
     void fileFinished(const QString &url);

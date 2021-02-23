@@ -14,8 +14,8 @@
 #include <QLabel>
 #include <QMainWindow>
 
-#include <providermanager.h>
 #include <project.h>
+#include <providermanager.h>
 
 namespace Attica
 {
@@ -70,7 +70,7 @@ private:
 
     Attica::ProviderManager m_pm;
     Attica::Provider m_provider;
-    QHash<QString, QSharedPointer<Attica::Provider> > m_providers;
+    QHash<QString, QSharedPointer<Attica::Provider>> m_providers;
 
     QString m_currentProjectId;
 
@@ -81,7 +81,6 @@ private:
     QHash<QString, Attica::BuildService> m_buildServices;
     QHash<QString, Attica::BuildServiceJob> m_buildServiceJobs;
     QHash<QString, Attica::Project> m_projects;
-
 };
 
 #endif // PROJECTTEST_H

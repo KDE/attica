@@ -20,12 +20,12 @@ static bool stringList_contains_stringRef(const QStringList &stringList, const Q
     return false;
 }
 
-template <class T>
+template<class T>
 Parser<T>::~Parser()
 {
 }
 
-template <class T>
+template<class T>
 T Parser<T>::parse(const QString &xmlString)
 {
     QStringList elements = xmlElement();
@@ -52,7 +52,7 @@ T Parser<T>::parse(const QString &xmlString)
     return item;
 }
 
-template <class T>
+template<class T>
 typename T::List Parser<T>::parseList(const QString &xmlString)
 {
     /*
@@ -106,12 +106,12 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
     QStringList elements = xmlElement();
     typename T::List items;
 
-    //QXmlStreamReader xml( xmlString );
+    // QXmlStreamReader xml( xmlString );
     QXmlStreamReader xml(xmlString);
 
     while (!xml.atEnd()) {
         xml.readNext();
-        //qCDebug(ATTICA) << "parseList():: Looking for:" << xml.name().toString();
+        // qCDebug(ATTICA) << "parseList():: Looking for:" << xml.name().toString();
         if (xml.isStartElement()) {
             if (xml.name() == QLatin1String("data")) {
                 while (!xml.atEnd()) {
@@ -122,7 +122,7 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
                     }
 
                     if (xml.isStartElement() && stringList_contains_stringRef(elements, xml.name())) {
-                        //qCDebug(ATTICA) << "xxxxxxxxx New Item!" << xml.name().toString();
+                        // qCDebug(ATTICA) << "xxxxxxxxx New Item!" << xml.name().toString();
                         items.append(parseXml(xml));
                     }
                 }
@@ -133,13 +133,15 @@ typename T::List Parser<T>::parseList(const QString &xmlString)
     }
     if (xml.hasError()) {
         // TODO: error handling in metadata?
-        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn xml name" << xml.name() << "with text" << xml.text() << "at offset:\n" << xml.characterOffset() << "\nIn XML:\n" << xmlString;
+        qWarning() << "parseList():: XML Error: " << xml.errorString() << "\nIn xml name" << xml.name() << "with text" << xml.text() << "at offset:\n"
+                   << xml.characterOffset() << "\nIn XML:\n"
+                   << xmlString;
     }
 
     return items;
 }
 
-template <class T>
+template<class T>
 void Parser<T>::parseMetadataXml(QXmlStreamReader &xml)
 {
     while (!xml.atEnd()) {
@@ -164,10 +166,9 @@ void Parser<T>::parseMetadataXml(QXmlStreamReader &xml)
         // TODO: error handling in metadata?
         qWarning() << "XML Error: " << xml.errorString();
     }
-
 }
 
-template <class T>
+template<class T>
 Metadata Parser<T>::metadata() const
 {
     return m_metadata;

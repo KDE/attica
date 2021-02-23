@@ -6,16 +6,15 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
+#include <QEventLoop>
 #include <QTest>
 #include <QTimer>
-#include <QEventLoop>
 
 #include <QLoggingCategory>
 
 #include "config.h"
 #include "content.h"
 #include "providermanager.h"
-
 
 using namespace Attica;
 
@@ -50,8 +49,8 @@ private:
 };
 
 ProviderTest::ProviderTest()
-  : m_manager(nullptr),
-    m_eventloop(new QEventLoop)
+    : m_manager(nullptr)
+    , m_eventloop(new QEventLoop)
 {
     QLoggingCategory::setFilterRules(QStringLiteral("kf.attica.debug=true"));
 }
@@ -96,17 +95,17 @@ void ProviderTest::testFetchValidProvider()
 {
     initProvider(QUrl(QLatin1String("https://autoconfig.kde.org/ocs/providers.xml")));
     Attica::Provider provider = m_manager->providers().at(0);
-    ItemJob<Config>* job = provider.requestConfig();
+    ItemJob<Config> *job = provider.requestConfig();
     QVERIFY(job);
     connect(job, &BaseJob::finished, this, &ProviderTest::slotConfigResult);
     job->start();
     m_eventloop->exec();
 }
 
-void ProviderTest::slotConfigResult(Attica::BaseJob* j)
+void ProviderTest::slotConfigResult(Attica::BaseJob *j)
 {
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ItemJob<Config> *itemJob = static_cast<Attica::ItemJob<Config> *>( j );
+        Attica::ItemJob<Config> *itemJob = static_cast<Attica::ItemJob<Config> *>(j);
         Attica::Config p = itemJob->result();
         qDebug() << QLatin1String("Config loaded - Server has version") << p.version();
     } else if (j->metadata().error() == Metadata::OcsError) {
@@ -132,10 +131,10 @@ void ProviderTest::testSwitchSortOrder()
     m_eventloop->exec();
 }
 
-void ProviderTest::slotListResult(Attica::BaseJob* j)
+void ProviderTest::slotListResult(Attica::BaseJob *j)
 {
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>( j );
+        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>(j);
         Content::List items = contentJob->itemList();
         qDebug() << QLatin1String("First list of items loaded, we have the following amount:") << items.count();
     } else if (j->metadata().error() == Metadata::OcsError) {
@@ -160,7 +159,7 @@ void ProviderTest::slotListResult(Attica::BaseJob* j)
 void ProviderTest::slotList2Result(Attica::BaseJob *j)
 {
     if (j->metadata().error() == Metadata::NoError) {
-        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>( j );
+        Attica::ListJob<Content> *contentJob = static_cast<Attica::ListJob<Content> *>(j);
         Content::List items = contentJob->itemList();
         qDebug() << QLatin1String("Second list of items loaded, we have the following amount:") << items.count();
     } else if (j->metadata().error() == Metadata::OcsError) {

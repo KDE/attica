@@ -19,7 +19,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT BuildServiceJob
 {
 public:
@@ -61,6 +60,7 @@ public:
     bool isFailed() const;
 
     bool isValid() const;
+
 private:
     class Private;
     QSharedDataPointer<Private> d;

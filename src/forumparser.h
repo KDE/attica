@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Forum::Parser : public Attica::Parser<Forum>
 {
 private:

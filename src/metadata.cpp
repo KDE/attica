@@ -34,7 +34,7 @@ public:
     QString resultingId;
 
     Private()
-    // values that make sense for single item jobs
+        // values that make sense for single item jobs
         : error(NoError)
         , statusCode(0)
         , totalItems(1)
@@ -132,4 +132,3 @@ void Metadata::setItemsPerPage(int itemsPerPage)
 {
     d->itemsPerPage = itemsPerPage;
 }
-

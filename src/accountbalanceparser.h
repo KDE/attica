@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class AccountBalance::Parser : public Attica::Parser<AccountBalance>
 {
 private:

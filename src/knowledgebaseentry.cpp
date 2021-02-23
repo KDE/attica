@@ -8,7 +8,6 @@
 
 #include "knowledgebaseentry.h"
 
-
 using namespace Attica;
 
 class KnowledgeBaseEntry::Private : public QSharedData
@@ -28,8 +27,8 @@ public:
     QMap<QString, QString> m_extendedAttributes;
 
     Private()
-        : m_contentId(0),
-          m_comments(0)
+        : m_contentId(0)
+        , m_comments(0)
     {
     }
 };

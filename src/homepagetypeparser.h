@@ -15,7 +15,6 @@
 
 namespace Attica
 {
-
 class HomePageType::Parser : public Attica::Parser<HomePageType>
 {
 private:

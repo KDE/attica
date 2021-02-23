@@ -15,7 +15,6 @@
 
 namespace Attica
 {
-
 class Distribution::Parser : public Attica::Parser<Distribution>
 {
 private:

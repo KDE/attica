@@ -22,7 +22,6 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader &xml)
         xml.readNext();
 
         if (xml.isStartElement()) {
-
             if (xml.name() == QLatin1String("id")) {
                 buildservice.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("name")) {
@@ -56,9 +55,7 @@ BuildService BuildService::Parser::parseXml(QXmlStreamReader &xml)
                     }
                 }
             }
-        } else if (xml.isEndElement()
-                   && ((xml.name() == QLatin1String("buildservice"))
-                       || (xml.name() == QLatin1String("user")))) {
+        } else if (xml.isEndElement() && ((xml.name() == QLatin1String("buildservice")) || (xml.name() == QLatin1String("user")))) {
             break;
         }
     }

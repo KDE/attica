@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class Activity::Parser : public Attica::Parser<Activity>
 {
 private:

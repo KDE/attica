@@ -14,7 +14,6 @@
 
 namespace Attica
 {
-
 class DownloadItem::Parser : public Attica::Parser<DownloadItem>
 {
 private:

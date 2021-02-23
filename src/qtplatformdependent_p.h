@@ -15,13 +15,12 @@
 
 #include <QHash>
 #include <QMutex>
+#include <QNetworkAccessManager>
 #include <QSet>
 #include <QThread>
-#include <QNetworkAccessManager>
 
 namespace Attica
 {
-
 class QtPlatformDependent : public Attica::PlatformDependentV2
 {
 public:
@@ -52,7 +51,7 @@ private:
     QMutex m_accessMutex;
     QHash<QThread *, QNetworkAccessManager *> m_threadNamHash;
     QSet<QThread *> m_ourNamSet;
-    QHash<QString, QPair <QString, QString> > m_passwords;
+    QHash<QString, QPair<QString, QString>> m_passwords;
 };
 
 }

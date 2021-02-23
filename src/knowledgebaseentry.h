@@ -12,14 +12,13 @@
 #include "attica_export.h"
 
 #include <QDateTime>
-#include <QSharedDataPointer>
 #include <QMap>
+#include <QSharedDataPointer>
 
 #include <QUrl>
 
 namespace Attica
 {
-
 class ATTICA_EXPORT KnowledgeBaseEntry
 {
 public:
@@ -76,4 +75,3 @@ private:
 }
 
 #endif
-

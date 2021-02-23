@@ -18,7 +18,6 @@
 
 namespace Attica
 {
-
 class ATTICA_EXPORT Achievement
 {
 public:

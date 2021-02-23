@@ -16,7 +16,7 @@ public:
     QString id;
     QString name;
     QString url;
-    //QStringList targets;
+    // QStringList targets;
     QList<Target> targets;
 
     Private()

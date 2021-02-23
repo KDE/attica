@@ -17,8 +17,10 @@ public:
     int id;
     QString name;
 
-    Private() : id(-1)
-    {}
+    Private()
+        : id(-1)
+    {
+    }
 };
 
 Distribution::Distribution()
@@ -38,7 +40,8 @@ Distribution &Distribution::operator=(const Attica::Distribution &other)
 }
 
 Distribution::~Distribution()
-{}
+{
+}
 
 uint Distribution::id() const
 {
@@ -59,4 +62,3 @@ void Distribution::setName(const QString &name)
 {
     d->name = name;
 }
-

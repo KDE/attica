@@ -18,7 +18,7 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader &xml)
     // For specs about the XML provided, see here:
     // http://www.freedesktop.org/wiki/Specifications/open-collaboration-services-draft#RemoteAccounts
     while (!xml.atEnd()) {
-        //qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
+        // qCDebug(ATTICA) << "XML returned:" << xml.text().toString();
         xml.readNext();
 
         if (xml.isStartElement()) {
@@ -26,7 +26,7 @@ RemoteAccount RemoteAccount::Parser::parseXml(QXmlStreamReader &xml)
                 remoteaccount.setId(xml.readElementText());
             } else if (xml.name() == QLatin1String("type")) {
                 remoteaccount.setType(xml.readElementText());
-            } else if (xml.name() == QLatin1String("typeid")) {  // FIXME: change to remoteserviceid sometime soon (OCS API change pending
+            } else if (xml.name() == QLatin1String("typeid")) { // FIXME: change to remoteserviceid sometime soon (OCS API change pending
                 remoteaccount.setRemoteServiceId(xml.readElementText());
             } else if (xml.name() == QLatin1String("data")) {
                 remoteaccount.setData(xml.readElementText());
