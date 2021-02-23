@@ -29,7 +29,7 @@ public:
         FlowingAchievement,
         SteppedAchievement,
         NamedstepsAchievement,
-        SetAchievement
+        SetAchievement,
     };
     static Achievement::Type stringToAchievementType(const QString &achievementTypeString);
     static QString achievementTypeToString(const Achievement::Type type);
@@ -37,7 +37,7 @@ public:
     enum Visibility {
         VisibleAchievement,
         DependentsAchievement,
-        SecretAchievement
+        SecretAchievement,
     };
     static Achievement::Visibility stringToAchievementVisibility(const QString &achievementVisibilityString);
     static QString achievementVisibilityToString(const Achievement::Visibility visibility);

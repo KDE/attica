@@ -30,7 +30,7 @@ public:
         ContentComment,
         ForumComment,
         KnowledgeBaseComment,
-        EventComment
+        EventComment,
     };
     static QString commentTypeToString(const Comment::Type type);
 

@@ -33,7 +33,7 @@ public:
     enum Error {
         NoError = 0,
         NetworkError,
-        OcsError
+        OcsError,
     };
 
     /**

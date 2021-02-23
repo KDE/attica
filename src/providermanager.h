@@ -60,7 +60,7 @@ public:
 
     enum ProviderFlag {
         NoFlags = 0x0,
-        DisablePlugins = 0x1
+        DisablePlugins = 0x1,
     };
     Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
 

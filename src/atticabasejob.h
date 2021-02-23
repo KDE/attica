@@ -34,7 +34,7 @@ public:
 
     enum NetworkRequestCustomAttributes {
         UserAttribute = QNetworkRequest::User + 1,
-        PasswordAttribute
+        PasswordAttribute,
     };
 
 public Q_SLOTS:

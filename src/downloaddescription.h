@@ -24,7 +24,7 @@ public:
     enum Type {
         FileDownload = 0,
         LinkDownload,
-        PackageDownload
+        PackageDownload,
     };
 
     DownloadDescription();

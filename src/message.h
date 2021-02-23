@@ -24,7 +24,7 @@ public:
     typedef QList<Message> List;
     class Parser;
 
-    enum Status { Unread = 0, Read = 1, Answered = 2};
+    enum Status { Unread = 0, Read = 1, Answered = 2, };
 
     Message();
     Message(const Message &other);
