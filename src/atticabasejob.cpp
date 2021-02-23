@@ -39,11 +39,11 @@ public:
             return false;
         }
 
-        int httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-        if (httpStatusCode == 301 || // Moved Permanently
-            httpStatusCode == 302 || // Found
-            httpStatusCode == 303 || // See Other
-            httpStatusCode == 307) { // Temporary Redirect
+        const int httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        if (httpStatusCode == 301 // Moved Permanently
+            || httpStatusCode == 302 // Found
+            || httpStatusCode == 303 // See Other
+            || httpStatusCode == 307) { // Temporary Redirect
             QNetworkRequest request = m_reply->request();
             QUrl redirectUrl(m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl());
             if (redirectUrl.isRelative()) {
