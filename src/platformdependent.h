@@ -20,7 +20,6 @@ class QNetworkReply;
 class QNetworkRequest;
 class QString;
 class QUrl;
-class QStringList;
 
 namespace Attica
 {
