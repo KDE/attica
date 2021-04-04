@@ -35,7 +35,7 @@ ecm_setup_version(PROJECT
     SOVERSION 5)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.14.0)
+set(REQUIRED_QT_VERSION 5.15.0)
 
 # Required Qt5 components to build this framework
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
@@ -44,7 +44,7 @@ set(ATTICA_LIB_SONAME KF5Attica)
 
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
 add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
 
