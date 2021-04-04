@@ -131,16 +131,9 @@ void BaseJob::doWork()
     qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
     connect(d->m_reply->manager(), &QNetworkAccessManager::authenticationRequired, this, &BaseJob::authenticationRequired);
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    connect(d->m_reply,
-            static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error),
-#else
-    connect(d->m_reply,
-            &QNetworkReply::errorOccurred,
-#endif
-            [](QNetworkReply::NetworkError code) {
-                qCDebug(ATTICA) << "error found" << code;
-            });
+    connect(d->m_reply, &QNetworkReply::errorOccurred, [](QNetworkReply::NetworkError code) {
+        qCDebug(ATTICA) << "error found" << code;
+    });
 }
 
 void BaseJob::authenticationRequired(QNetworkReply *reply, QAuthenticator *auth)
