@@ -11,7 +11,7 @@
 #include "attica_export.h"
 
 /// @brief Attica version as string at compile time.
-#define LIBATTICA_VERSION_STRING "${ATTICA_VERSION_STRING}"
+#define LIBATTICA_VERSION_STRING "${ATTICA_VERSION}"
 
 /// @brief The major Attica version number at compile time
 #define LIBATTICA_VERSION_MAJOR ${ATTICA_VERSION_MAJOR}

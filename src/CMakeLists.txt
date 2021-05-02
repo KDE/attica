@@ -89,7 +89,7 @@ ecm_qt_declare_logging_category(attica_SRCS
 
 add_library(KF5Attica ${attica_SRCS})
 set_target_properties(KF5Attica PROPERTIES
-    VERSION ${ATTICA_VERSION_STRING}
+    VERSION ${ATTICA_VERSION}
     SOVERSION ${ATTICA_SOVERSION}
     EXPORT_NAME "Attica"
 )
