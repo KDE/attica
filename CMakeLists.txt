@@ -45,7 +45,6 @@ set(ATTICA_LIB_SONAME KF5Attica)
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
-add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
 
 # Enable unit testing
