@@ -33,6 +33,9 @@ public:
 
     QString resultingId;
 
+    /// The http headers for the most recent network action in the case of a network error
+    QList<QNetworkReply::RawHeaderPair> headers;
+
     Private()
         // values that make sense for single item jobs
         : error(NoError)
@@ -131,4 +134,14 @@ int Metadata::itemsPerPage()
 void Metadata::setItemsPerPage(int itemsPerPage)
 {
     d->itemsPerPage = itemsPerPage;
+}
+
+QList<QNetworkReply::RawHeaderPair> Metadata::headers() const
+{
+    return d->headers;
+}
+
+void Metadata::setHeaders(QList<QNetworkReply::RawHeaderPair> headers)
+{
+    d->headers = headers;
 }

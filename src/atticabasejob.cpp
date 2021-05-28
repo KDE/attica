@@ -97,7 +97,12 @@ void BaseJob::dataFinished()
         }
     }
 
-    if (!error) {
+    if (error) {
+        d->m_metadata.setError(Metadata::NetworkError);
+        d->m_metadata.setStatusCode(d->m_reply->error());
+        d->m_metadata.setStatusString(d->m_reply->errorString());
+        d->m_metadata.setHeaders(d->m_reply->rawHeaderPairs());
+    } else {
         QByteArray data = d->m_reply->readAll();
         // qCDebug(ATTICA) << "XML Returned:\n" << data;
         parse(QString::fromUtf8(data.constData()));
@@ -106,10 +111,6 @@ void BaseJob::dataFinished()
         } else {
             d->m_metadata.setError(Metadata::OcsError);
         }
-    } else {
-        d->m_metadata.setError(Metadata::NetworkError);
-        d->m_metadata.setStatusCode(d->m_reply->error());
-        d->m_metadata.setStatusString(d->m_reply->errorString());
     }
     Q_EMIT finished(this);
 

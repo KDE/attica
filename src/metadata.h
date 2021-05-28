@@ -11,6 +11,7 @@
 
 #include <QString>
 
+#include <QNetworkReply>
 #include <QSharedDataPointer>
 
 #include "attica_export.h"
@@ -72,6 +73,10 @@ public:
     /// The resulting ID when a PostJob created a new item.
     QString resultingId();
     void setResultingId(const QString &id);
+
+    /// The http headers for the most recent network action in the case of a network error
+    QList<QNetworkReply::RawHeaderPair> headers() const;
+    void setHeaders(QList<QNetworkReply::RawHeaderPair> headers);
 
 private:
     class Private;
