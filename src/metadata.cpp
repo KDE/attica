@@ -141,7 +141,7 @@ QList<QNetworkReply::RawHeaderPair> Metadata::headers() const
     return d->headers;
 }
 
-void Metadata::setHeaders(QList<QNetworkReply::RawHeaderPair> headers)
+void Metadata::setHeaders(const QList<QNetworkReply::RawHeaderPair> &headers)
 {
     d->headers = headers;
 }

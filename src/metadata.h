@@ -76,7 +76,7 @@ public:
 
     /// The http headers for the most recent network action in the case of a network error
     QList<QNetworkReply::RawHeaderPair> headers() const;
-    void setHeaders(QList<QNetworkReply::RawHeaderPair> headers);
+    void setHeaders(const QList<QNetworkReply::RawHeaderPair> &headers);
 
 private:
     class Private;
