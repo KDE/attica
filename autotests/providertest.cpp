@@ -86,7 +86,7 @@ void ProviderTest::initProvider(const QUrl &url)
         m_errorReceived = true;
         m_eventloop->quit();
     });
-    m_timer.singleShot(5000, this, &ProviderTest::slotTimeout);
+    m_timer.singleShot(30000, this, &ProviderTest::slotTimeout);
 
     m_eventloop->exec();
 }
@@ -152,7 +152,7 @@ void ProviderTest::slotListResult(Attica::BaseJob *j)
     ListJob<Content> *job = provider.searchContents({}, {}, Provider::Downloads);
     QVERIFY(job);
     connect(job, &BaseJob::finished, this, &ProviderTest::slotList2Result);
-    m_timer.singleShot(5000, this, &ProviderTest::slotTimeout);
+    m_timer.singleShot(30000, this, &ProviderTest::slotTimeout);
     job->start();
 }
 
