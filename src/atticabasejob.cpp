@@ -9,7 +9,6 @@
 #include "atticabasejob.h"
 
 #include <QAuthenticator>
-#include <QDebug>
 #include <QNetworkReply>
 #include <QTimer>
 

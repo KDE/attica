@@ -15,7 +15,6 @@
 #include <QDateTime>
 #include <QSharedDataPointer>
 
-#include <QUrl>
 
 namespace Attica
 {

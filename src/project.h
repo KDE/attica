@@ -9,12 +9,10 @@
 #ifndef ATTICA_PROJECT_H
 #define ATTICA_PROJECT_H
 
-#include <QDate>
 #include <QList>
 #include <QMap>
 #include <QSharedDataPointer>
 #include <QStringList>
-#include <QUrl>
 
 #include "attica_export.h"
 

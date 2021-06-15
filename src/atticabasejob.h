@@ -8,11 +8,9 @@
 #ifndef ATTICA_ATTICABASEJOB_H
 #define ATTICA_ATTICABASEJOB_H
 
-#include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QObject>
 #include <QSharedPointer>
-#include <QUrl>
 
 #include "attica_export.h"
 #include "metadata.h"

@@ -13,20 +13,15 @@
 #include "atticautils.h"
 
 #include <QAuthenticator>
-#include <QCoreApplication>
 #include <QDebug>
 #include <QFile>
 #include <QNetworkProxy>
 #include <QPluginLoader>
-#include <QProcess>
-#include <QSet>
-#include <QSignalMapper>
 #include <QTimer>
 #include <QXmlStreamReader>
 
 #include "platformdependent.h"
 #include "qtplatformdependent_p.h"
-#include <QLibraryInfo>
 
 using namespace Attica;
 

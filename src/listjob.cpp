@@ -8,7 +8,6 @@
 
 #include "listjob.h"
 
-#include <QXmlStreamReader>
 #include <attica_debug.h>
 
 using namespace Attica;

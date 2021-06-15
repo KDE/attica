@@ -8,7 +8,6 @@
 
 #include "deletejob.h"
 
-#include <QNetworkAccessManager>
 
 #include "platformdependent_v2.h"
 

@@ -11,7 +11,6 @@
 #define ATTICA_DISTRIBUTION_H
 
 #include <QSharedDataPointer>
-#include <QUrl>
 
 #include "attica_export.h"
 

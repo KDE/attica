@@ -11,7 +11,6 @@
 #include "qtplatformdependent_p.h"
 
 #include <QDebug>
-#include <QStringList>
 #include <QUrl>
 
 using namespace Attica;

@@ -9,12 +9,9 @@
 #ifndef ATTICA_PUBLISHER_H
 #define ATTICA_PUBLISHER_H
 
-#include <QDate>
 #include <QList>
-#include <QMap>
 #include <QSharedDataPointer>
 #include <QStringList>
-#include <QUrl>
 
 #include "attica_export.h"
 #include "buildservice.h"

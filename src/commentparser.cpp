@@ -9,7 +9,6 @@
 
 #include "commentparser.h"
 #include "atticautils.h"
-#include <QDebug>
 
 using namespace Attica;
 

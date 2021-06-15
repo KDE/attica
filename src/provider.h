@@ -13,7 +13,6 @@
 #include <QExplicitlySharedDataPointer>
 #include <QSharedPointer>
 #include <QString>
-#include <QStringList>
 
 #include <QUrl>
 

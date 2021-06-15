@@ -9,12 +9,8 @@
 #ifndef ATTICA_REMOTEACCOUNT_H
 #define ATTICA_REMOTEACCOUNT_H
 
-#include <QDate>
 #include <QList>
-#include <QMap>
 #include <QSharedDataPointer>
-#include <QStringList>
-#include <QUrl>
 
 #include "attica_export.h"
 

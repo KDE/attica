@@ -8,10 +8,8 @@
 
 #include "putjob.h"
 
-#include <QDebug>
 #include <QXmlStreamReader>
 
-#include <QNetworkAccessManager>
 
 #include "platformdependent_v2.h"
 
