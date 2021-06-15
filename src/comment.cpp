@@ -9,7 +9,7 @@
 
 #include "comment.h"
 
-#include <QList>
+#include <QMap>
 
 using namespace Attica;
 

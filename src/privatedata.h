@@ -12,7 +12,9 @@
 
 #include <QDateTime>
 #include <QList>
+#include <QMap>
 #include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

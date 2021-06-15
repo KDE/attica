@@ -11,6 +11,7 @@
 #define ATTICA_HOMEPAGETYPE_H
 
 #include <QSharedDataPointer>
+#include <QUrl>
 
 #include "attica_export.h"
 

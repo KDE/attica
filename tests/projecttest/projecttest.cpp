@@ -12,6 +12,7 @@
 #include <QListWidgetItem>
 #include <QMenu>
 #include <QMenuBar>
+#include <QVBoxLayout>
 
 #include <QDebug>
 

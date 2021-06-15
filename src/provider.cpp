@@ -61,6 +61,9 @@
 
 #include <QCoreApplication>
 #include <QDebug>
+#include <QFile>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QUrlQuery>
 
 using namespace Attica;

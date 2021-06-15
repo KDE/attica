@@ -11,6 +11,7 @@
 #define ATTICA_PLATFORMDEPENDENT_H
 
 #include <QList>
+#include <QtPlugin>
 
 class QByteArray;
 class QIODevice;

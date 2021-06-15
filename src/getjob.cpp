@@ -8,6 +8,7 @@
 
 #include "getjob.h"
 
+#include <QNetworkAccessManager>
 
 #include "platformdependent.h"
 #include <attica_debug.h>

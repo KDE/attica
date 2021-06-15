@@ -11,6 +11,7 @@
 
 #include "ui_editproject.h"
 
+#include <QLabel>
 #include <QMainWindow>
 
 #include <project.h>

@@ -8,8 +8,10 @@
 
 #include "postjob.h"
 
+#include <QDebug>
 #include <QXmlStreamReader>
 
+#include <QNetworkAccessManager>
 
 #include "platformdependent.h"
 
