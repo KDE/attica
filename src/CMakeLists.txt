@@ -5,7 +5,16 @@ endif (MINGW)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
-set(attica_SRCS
+add_library(KF5Attica)
+add_library(KF5::Attica ALIAS KF5Attica)
+
+set_target_properties(KF5Attica PROPERTIES
+    VERSION     ${ATTICA_VERSION}
+    SOVERSION   ${ATTICA_SOVERSION}
+    EXPORT_NAME "Attica"
+)
+
+target_sources(KF5Attica PRIVATE
    accountbalance.cpp
    accountbalanceparser.cpp
    achievement.cpp
@@ -78,7 +87,7 @@ set(attica_SRCS
    topicparser.cpp
 )
 
-ecm_qt_declare_logging_category(attica_SRCS
+ecm_qt_declare_logging_category(KF5Attica
     HEADER attica_debug.h
     IDENTIFIER ATTICA
     CATEGORY_NAME kf.attica
@@ -94,14 +103,6 @@ ecm_check_outbound_license(
     FILES ${TEST_FILES}
 )
 
-add_library(KF5Attica ${attica_SRCS})
-set_target_properties(KF5Attica PROPERTIES
-    VERSION ${ATTICA_VERSION}
-    SOVERSION ${ATTICA_SOVERSION}
-    EXPORT_NAME "Attica"
-)
-
-add_library(KF5::Attica ALIAS KF5Attica)
 ecm_generate_export_header(KF5Attica
     BASE_NAME Attica
     GROUP_BASE_NAME KF
