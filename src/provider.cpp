@@ -350,6 +350,11 @@ QString Provider::name() const
     return d->m_name;
 }
 
+QUrl Attica::Provider::icon() const
+{
+    return d->m_icon;
+}
+
 bool Provider::hasCredentials()
 {
     if (!isValid()) {

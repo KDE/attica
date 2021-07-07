@@ -149,6 +149,13 @@ public:
     */
     QString name() const;
 
+    /**
+     * An icon used to visually identify this provider
+     * @return A URL for an icon image (or an invalid URL if one was not defined by the provider)
+     * @since 5.85
+     */
+    QUrl icon() const;
+
     enum SortMode {
         Newest,
         Alphabetical,
