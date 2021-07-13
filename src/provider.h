@@ -113,7 +113,7 @@ public:
 
     /**
      * Set a custom identifier for your application (sent along with the requests as
-     * the http agent header in addition to the applicaiton name and version).
+     * the http agent header in addition to the application name and version).
      *
      * For example, you might have an application named SomeApplication, version 23,
      * and wish to send along the data "lookandfeel.knsrc". Call this function, and
@@ -529,7 +529,7 @@ public:
 
     /** Upload a tarball to the buildservice.
      * @param projectId The ID of the project this source file belongs to
-     * @param payload A reference tothe complete file data
+     * @param payload A reference to the complete file data
      * @return A postjob to keep keep track of the upload
      */
     Attica::PostJob *uploadTarballToBuildService(const QString &projectId, const QString &fileName, const QByteArray &payload);
