@@ -70,10 +70,11 @@ using namespace Attica;
 
 QDebug operator<<(QDebug s, const Attica::Provider &prov)
 {
-    if (prov.isValid())
+    if (prov.isValid()) {
         s.nospace() << "Provider(" << prov.name() << ':' << prov.baseUrl() << ')';
-    else
+    } else {
         s.nospace() << "Provider(Invalid)";
+    }
     return s.space();
 }
 
@@ -572,7 +573,8 @@ ItemPostJob<Achievement> *Provider::addNewAchievement(const QString &contentId, 
     }
 
     StringMap postParameters;
-    int i = 0, j = 0;
+    int i = 0;
+    int j = 0;
 
     postParameters.insert(QLatin1String("name"), newAchievement.name());
     postParameters.insert(QLatin1String("description"), newAchievement.description());
@@ -607,7 +609,8 @@ PutJob *Provider::editAchievement(const QString &contentId, const QString &achie
     }
 
     StringMap postParameters;
-    int i = 0, j = 0;
+    int i = 0;
+    int j = 0;
 
     postParameters.insert(QLatin1String("name"), achievement.name());
     postParameters.insert(QLatin1String("description"), achievement.description());

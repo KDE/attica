@@ -14,8 +14,9 @@ using namespace Attica;
 static bool stringList_contains_stringRef(const QStringList &stringList, const QStringRef &str)
 {
     for (const auto &string : stringList) {
-        if (str == string)
+        if (str == string) {
             return true;
+        }
     }
     return false;
 }
