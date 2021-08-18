@@ -42,15 +42,19 @@ Content Content::Parser::parseXml(QXmlStreamReader &xml)
             } else if (xml.name() == QLatin1String("icon")) {
                 Icon icon;
                 icon.setUrl(QUrl(xml.readElementText()));
+
                 const QXmlStreamAttributes attributes = xml.attributes();
-                const QStringRef width = attributes.value(QLatin1String("width"));
-                const QStringRef height = attributes.value(QLatin1String("height"));
+
+                const auto width = attributes.value(QLatin1String("width"));
                 if (!width.isEmpty()) {
                     icon.setWidth(width.toInt());
                 }
+
+                const auto height = attributes.value(QLatin1String("height"));
                 if (!height.isEmpty()) {
                     icon.setHeight(height.toInt());
                 }
+
                 // append the icon to the current list of icons
                 QList<Icon> icons;
                 icons = content.icons();
