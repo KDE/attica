@@ -26,6 +26,7 @@ public:
     PlatformDependent *m_internals;
     QNetworkReply *m_reply;
     bool aborted{false};
+    bool started = false;
 
     Private(PlatformDependent *internals)
         : m_internals(internals)
@@ -120,6 +121,10 @@ void BaseJob::dataFinished()
 
 void BaseJob::start()
 {
+    if (d->started) {
+        return;
+    }
+    d->started = true;
     QTimer::singleShot(0, this, &BaseJob::doWork);
 }
 
