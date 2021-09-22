@@ -121,11 +121,10 @@ void BaseJob::dataFinished()
 
 void BaseJob::start()
 {
-    if (d->started) {
-        return;
+    if (!d->started) {
+        d->started = true;
+        QTimer::singleShot(0, this, &BaseJob::doWork);
     }
-    d->started = true;
-    QTimer::singleShot(0, this, &BaseJob::doWork);
 }
 
 void BaseJob::doWork()

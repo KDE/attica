@@ -64,6 +64,7 @@
 #include <QFile>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QThreadStorage>
 #include <QUrlQuery>
 
 using namespace Attica;
@@ -1134,8 +1135,18 @@ ListJob<Category> *Provider::requestCategories()
         return nullptr;
     }
 
-    QUrl url = createUrl(QLatin1String("content/categories"));
-    ListJob<Category> *job = new ListJob<Category>(d->m_internals, createRequest(url));
+    const QUrl url = createUrl(QLatin1String("content/categories"));
+
+    // Thread-local cache of categories requests. They are fairly slow and block startup
+    static QThreadStorage<QHash<QUrl, ListJob<Category> *>> reqs;
+    ListJob<Category> *job = reqs.localData().value(url);
+    if (!job) {
+        job = new ListJob<Category>(d->m_internals, createRequest(url));
+        QObject::connect(job, &BaseJob::finished, [url] {
+            reqs.localData().remove(url);
+        });
+        reqs.localData().insert(url, job);
+    }
     return job;
 }
 
