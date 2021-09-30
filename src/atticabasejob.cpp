@@ -78,7 +78,7 @@ void BaseJob::dataFinished()
         return;
     }
 
-    bool error = (d->m_reply->error() != QNetworkReply::NoError);
+    bool error = d->m_reply->error() != QNetworkReply::NoError && d->m_reply->error() == QNetworkReply::OperationCanceledError;
 
     // handle redirections automatically
     QUrl newUrl;
@@ -155,6 +155,11 @@ void BaseJob::abort()
         d->m_reply->deleteLater();
     }
     deleteLater();
+}
+
+bool BaseJob::isAborted() const
+{
+    return d->aborted;
 }
 
 PlatformDependent *BaseJob::internals()

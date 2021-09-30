@@ -37,6 +37,13 @@ public:
         PasswordAttribute,
     };
 
+    /**
+     * @returns whether abort() has been called on the job
+     *
+     * @since 5.87
+     */
+    bool isAborted() const;
+
 public Q_SLOTS:
     void start();
     void abort();
