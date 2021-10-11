@@ -48,8 +48,14 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
                 mm = tzlist[1].toInt();
             }
         } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            QStringView sv(tz);
+            hh = sv.left(2).toInt();
+            mm = sv.mid(2).toInt();
+#else
             hh = tz.leftRef(2).toInt();
             mm = tz.midRef(2).toInt();
+#endif
         }
 
         tzsecs = 60 * 60 * hh + 60 * mm;
