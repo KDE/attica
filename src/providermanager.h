@@ -63,7 +63,7 @@ public:
     Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
 
     ProviderManager(const ProviderFlags &flags = NoFlags);
-    ~ProviderManager();
+    ~ProviderManager() override;
 
     /**
      * Load available providers from configuration

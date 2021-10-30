@@ -29,7 +29,7 @@ class ProjectTest : public QMainWindow
     Q_OBJECT
 public:
     ProjectTest();
-    virtual ~ProjectTest();
+    ~ProjectTest() override;
 
 private Q_SLOTS:
     void providerAdded(const Attica::Provider &provider);

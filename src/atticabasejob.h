@@ -28,7 +28,7 @@ class ATTICA_EXPORT BaseJob : public QObject
     Q_OBJECT
 
 public:
-    virtual ~BaseJob();
+    ~BaseJob() override;
 
     Metadata metadata() const;
 

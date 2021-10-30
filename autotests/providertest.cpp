@@ -23,7 +23,7 @@ class ProviderTest : public QObject
     Q_OBJECT
 public:
     ProviderTest();
-    virtual ~ProviderTest();
+    ~ProviderTest() override;
 
 private:
     void initProvider(const QUrl &url);
