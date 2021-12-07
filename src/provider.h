@@ -787,6 +787,4 @@ private:
 };
 }
 
-QDebug operator<<(QDebug s, const Attica::Provider &prov);
-
 #endif
