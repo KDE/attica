@@ -104,6 +104,4 @@ private:
 
 }
 
-QDebug operator<<(QDebug s, const Attica::Category &cat);
-
 #endif
