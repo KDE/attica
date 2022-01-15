@@ -86,7 +86,7 @@ install(EXPORT KF5AtticaTargets
         NAMESPACE KF5::)
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
-        DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}"
+        DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/Attica"
         COMPONENT Devel)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
