@@ -18,7 +18,6 @@
 #include <QFile>
 #include <QNetworkProxy>
 #include <QPluginLoader>
-#include <QProcess>
 #include <QSet>
 #include <QSignalMapper>
 #include <QTimer>
