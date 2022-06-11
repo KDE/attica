@@ -17,6 +17,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class DownloadItem downloaditem.h <Attica/DownloadItem>
+ *
+ * Represents a download item.
+ */
 class ATTICA_EXPORT DownloadItem
 {
 public:

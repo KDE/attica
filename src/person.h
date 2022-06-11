@@ -19,6 +19,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class Person person.h <Attica/Person>
+ *
+ * Represents a person.
+ */
 class ATTICA_EXPORT Person
 {
 public:

@@ -16,6 +16,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class DownloadDescription downloaddescription.h <Attica/DownloadDescription>
+ *
+ * Represents a download description.
+ */
 class ATTICA_EXPORT DownloadDescription
 {
 public:

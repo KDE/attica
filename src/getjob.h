@@ -16,6 +16,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class GetJob getjob.h <Attica/GetJob>
+ *
+ * Represents a get job.
+ */
 class ATTICA_EXPORT GetJob : public Attica::BaseJob
 {
     Q_OBJECT

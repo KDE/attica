@@ -23,6 +23,11 @@ namespace Attica
 {
 class PlatformDependent;
 
+/**
+ * @class BaseJob atticabasejob.h
+ *
+ * The baseclass for all job classes.
+ */
 class ATTICA_EXPORT BaseJob : public QObject
 {
     Q_OBJECT

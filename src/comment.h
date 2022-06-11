@@ -19,6 +19,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class Comment comment.h <Attica/Comment>
+ *
+ * Represents a comment.
+ */
 class ATTICA_EXPORT Comment
 {
 public:

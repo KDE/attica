@@ -21,6 +21,10 @@
 
 namespace Attica
 {
+
+/**
+ * Field as set for the class Publisher.
+ */
 struct Field {
     QString type;
     QString name;
@@ -29,6 +33,11 @@ struct Field {
     QStringList options;
 };
 
+/**
+ * @class Publisher publisher.h <Attica/Publisher>
+ *
+ * Represents a publisher.
+ */
 class ATTICA_EXPORT Publisher
 {
 public:

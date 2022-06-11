@@ -18,6 +18,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class Achievement achievement.h <Attica/Achievement>
+ *
+ * Represents an achievement.
+ */
 class ATTICA_EXPORT Achievement
 {
 public:

@@ -17,6 +17,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class Cloud cloud.h <Attica/Cloud>
+ *
+ * Represents a cloud service.
+ */
 class ATTICA_EXPORT Cloud
 {
 public:

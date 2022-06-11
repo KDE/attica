@@ -16,6 +16,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class DeleteJob deletejob.h <Attica/DeleteJob>
+ *
+ * Represents a delete job.
+ */
 class ATTICA_EXPORT DeleteJob : public Attica::BaseJob
 {
     Q_OBJECT

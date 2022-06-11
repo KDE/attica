@@ -20,6 +20,11 @@ namespace Attica
 {
 class Provider;
 
+/**
+ * @class ItemJob itemjob.h <Attica/ItemJob>
+ *
+ * Represents an item get job.
+ */
 template<class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
@@ -33,6 +38,11 @@ private:
     friend class Attica::Provider;
 };
 
+/**
+ * @class ItemDeleteJob itemjob.h <Attica/ItemJob>
+ *
+ * Represents an item delete job.
+ */
 template<class T>
 class ATTICA_EXPORT ItemDeleteJob : public DeleteJob
 {
@@ -46,6 +56,11 @@ private:
     friend class Attica::Provider;
 };
 
+/**
+ * @class ItemPostJob itemjob.h <Attica/ItemJob>
+ *
+ * Represents an item post job.
+ */
 template<class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
@@ -61,6 +76,11 @@ private:
     friend class Attica::Provider;
 };
 
+/**
+ * @class ItemPutJob itemjob.h <Attica/ItemJob>
+ *
+ * Represents an item put job.
+ */
 template<class T>
 class ATTICA_EXPORT ItemPutJob : public PutJob
 {

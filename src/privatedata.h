@@ -20,6 +20,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class PrivateData privatedata.h <Attica/PrivateData>
+ *
+ * Represents private data.
+ */
 class ATTICA_EXPORT PrivateData
 {
 public:

@@ -16,6 +16,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class Topic topic.h <Attica/Topic>
+ *
+ * Represents a topic.
+ */
 class ATTICA_EXPORT Topic
 {
 public:

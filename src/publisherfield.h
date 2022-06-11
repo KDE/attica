@@ -14,6 +14,12 @@
 
 namespace Attica
 {
+
+/**
+ * @class PublisherField publisherfield.h <Attica/PublisherField>
+ *
+ * Represents a publisher field.
+ */
 class ATTICA_EXPORT PublisherField
 {
 public:
