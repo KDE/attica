@@ -18,6 +18,8 @@
 namespace Attica
 {
 /**
+    @class Icon icon.h <Attica/Icon>
+
     The Icon class contains information about an icon.
     It consists of a Url and icon size information.
  */

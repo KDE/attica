@@ -18,6 +18,8 @@
 namespace Attica
 {
 /**
+    @class HomePageEntry homepageentry.h <Attica/HomePageEntry>
+
     The HomePageEntry class contains information about one home page entry.
     It consists of a type and a home page url.
  */

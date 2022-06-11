@@ -61,6 +61,8 @@ class PublisherField;
 class RemoteAccount;
 
 /**
+ * @class Provider provider.h <Attica/Provider>
+ *
  * The Provider class represents one Open Collaboration Service provider.
  * Use the ProviderManager to instantiate a Provider.
  *

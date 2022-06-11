@@ -15,6 +15,8 @@
 namespace Attica
 {
 /**
+ * @class AccountBalance accountbalance.h <Attica/AccountBalance>
+ *
  * Represents the money in the account of the user
  */
 class ATTICA_EXPORT AccountBalance

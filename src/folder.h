@@ -17,6 +17,8 @@
 namespace Attica
 {
 /**
+ * @class Folder folder.h <Attica/Folder>
+ *
  * Represents a single mail folder
  */
 class ATTICA_EXPORT Folder

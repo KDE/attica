@@ -18,6 +18,8 @@
 namespace Attica
 {
 /**
+    @class HomePageType homepagetype.h <Attica/HomePageType>
+
     The HomePageType class contains information about one home page type.
     It consists of an integer id and a home page type name.
  */

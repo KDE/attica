@@ -16,6 +16,8 @@
 namespace Attica
 {
 /**
+ * @class Config config.h <Attica/Config>
+ *
  * Represents a server config
  */
 class ATTICA_EXPORT Config

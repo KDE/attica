@@ -21,7 +21,9 @@ namespace Attica
 class BaseJob;
 
 /**
- *Status messages from the server
+ * @class Metadata metadata.h <Attica/Metadata>
+ *
+ * Status messages from the server
  */
 class ATTICA_EXPORT Metadata
 {

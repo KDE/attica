@@ -20,6 +20,8 @@
 namespace Attica
 {
 /**
+ * @class Event event.h <Attica/Event>
+ *
  * Represents a single event
  */
 class ATTICA_EXPORT Event

@@ -18,6 +18,8 @@
 namespace Attica
 {
 /**
+    @class Distribution distribution.h <Attica/Distribution>
+
     The Distribution class contains information about one distribution that the server offers.
     It consists of an integer id and a distribution name.
  */

@@ -16,6 +16,8 @@
 namespace Attica
 {
 /**
+ * @class Category category.h <Attica/Category>
+ *
  * Represents a single content category
  */
 class ATTICA_EXPORT Category

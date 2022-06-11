@@ -15,6 +15,8 @@
 namespace Attica
 {
 /**
+    @class License license.h <Attica/License>
+
     The License class contains information about one license that the server offers.
     It consists of an integer id, a name and a link to a webpage describing the license.
  */

@@ -25,6 +25,8 @@ class QDateTime;
 namespace Attica
 {
 /**
+ * @class Content content.h <Attica/Content>
+ *
  * Represents a single content
  */
 class ATTICA_EXPORT Content

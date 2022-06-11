@@ -20,6 +20,8 @@ class QDateTime;
 namespace Attica
 {
 /**
+ * @class Activity activity.h <Attica/Activity>
+ *
  * Represents a single news item (also known as activity)
  */
 class ATTICA_EXPORT Activity
