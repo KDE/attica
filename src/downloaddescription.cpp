@@ -12,7 +12,7 @@
 
 namespace Attica
 {
-class DownloadDescription::Private : public QSharedData
+class Q_DECL_HIDDEN DownloadDescription::Private : public QSharedData
 {
 public:
     int id = 0;

@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Event::Parser : public Attica::Parser<Event>
+class Q_DECL_HIDDEN Event::Parser : public Attica::Parser<Event>
 {
 private:
     Event parseXml(QXmlStreamReader &xml) override;

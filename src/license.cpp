@@ -8,7 +8,7 @@
 
 using namespace Attica;
 
-class License::Private : public QSharedData
+class Q_DECL_HIDDEN License::Private : public QSharedData
 {
 public:
     int id;

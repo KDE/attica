@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Folder::Parser : public Attica::Parser<Folder>
+class Q_DECL_HIDDEN Folder::Parser : public Attica::Parser<Folder>
 {
 private:
     Folder parseXml(QXmlStreamReader &xml) override;

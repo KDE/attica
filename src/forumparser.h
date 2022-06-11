@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Forum::Parser : public Attica::Parser<Forum>
+class Q_DECL_HIDDEN Forum::Parser : public Attica::Parser<Forum>
 {
 private:
     Forum parseXml(QXmlStreamReader &xml) override;

@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class RemoteAccount::Private : public QSharedData
+class Q_DECL_HIDDEN RemoteAccount::Private : public QSharedData
 {
 public:
     QString id;

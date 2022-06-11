@@ -12,7 +12,7 @@
 
 using namespace Attica;
 
-class PrivateData::Private : public QSharedData
+class Q_DECL_HIDDEN PrivateData::Private : public QSharedData
 {
 public:
     QMap<QString, QString> m_attributes;

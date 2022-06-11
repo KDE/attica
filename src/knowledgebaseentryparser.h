@@ -15,7 +15,7 @@
 
 namespace Attica
 {
-class KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
+class Q_DECL_HIDDEN KnowledgeBaseEntry::Parser : public Attica::Parser<KnowledgeBaseEntry>
 {
 private:
     KnowledgeBaseEntry parseXml(QXmlStreamReader &xml) override;

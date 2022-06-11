@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class AccountBalance::Parser : public Attica::Parser<AccountBalance>
+class Q_DECL_HIDDEN AccountBalance::Parser : public Attica::Parser<AccountBalance>
 {
 private:
     AccountBalance parseXml(QXmlStreamReader &xml) override;

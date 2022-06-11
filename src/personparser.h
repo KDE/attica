@@ -16,6 +16,7 @@
 
 namespace Attica
 {
+// exported for autotest
 class ATTICA_EXPORT Person::Parser : public Attica::Parser<Person>
 {
 private:

@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Achievement::Parser : public Attica::Parser<Achievement>
+class Q_DECL_HIDDEN Achievement::Parser : public Attica::Parser<Achievement>
 {
 private:
     Achievement parseXml(QXmlStreamReader &xml) override;

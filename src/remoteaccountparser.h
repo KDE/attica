@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class RemoteAccount::Parser : public Attica::Parser<RemoteAccount>
+class Q_DECL_HIDDEN RemoteAccount::Parser : public Attica::Parser<RemoteAccount>
 {
 private:
     RemoteAccount parseXml(QXmlStreamReader &xml) override;

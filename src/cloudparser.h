@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Cloud::Parser : public Attica::Parser<Cloud>
+class Q_DECL_HIDDEN Cloud::Parser : public Attica::Parser<Cloud>
 {
 private:
     Cloud parseXml(QXmlStreamReader &xml);

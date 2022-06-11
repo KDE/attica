@@ -11,7 +11,7 @@
 
 using namespace Attica;
 
-class Icon::Private : public QSharedData
+class Q_DECL_HIDDEN Icon::Private : public QSharedData
 {
 public:
     QUrl url;

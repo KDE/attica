@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Publisher::Parser : public Attica::Parser<Publisher>
+class Q_DECL_HIDDEN Publisher::Parser : public Attica::Parser<Publisher>
 {
 private:
     Publisher parseXml(QXmlStreamReader &xml) override;

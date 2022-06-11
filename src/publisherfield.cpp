@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class PublisherField::Private : public QSharedData
+class Q_DECL_HIDDEN PublisherField::Private : public QSharedData
 {
 public:
     QString name;

@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class DownloadItem::Private : public QSharedData
+class Q_DECL_HIDDEN DownloadItem::Private : public QSharedData
 {
 public:
     QUrl m_url;

@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class Forum::Private : public QSharedData
+class Q_DECL_HIDDEN Forum::Private : public QSharedData
 {
 public:
     QString m_id;

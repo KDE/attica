@@ -16,7 +16,7 @@
 
 namespace Attica
 {
-class Message::Parser : public Attica::Parser<Message>
+class Q_DECL_HIDDEN Message::Parser : public Attica::Parser<Message>
 {
 private:
     Message parseXml(QXmlStreamReader &xml) override;

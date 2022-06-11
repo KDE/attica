@@ -15,7 +15,7 @@
 
 namespace Attica
 {
-class Comment::Parser : public Attica::Parser<Comment>
+class Q_DECL_HIDDEN Comment::Parser : public Attica::Parser<Comment>
 {
 private:
     Comment parseXml(QXmlStreamReader &xml) override;

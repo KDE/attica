@@ -12,7 +12,7 @@
 
 namespace Attica
 {
-class License::Parser : public Attica::Parser<License>
+class Q_DECL_HIDDEN License::Parser : public Attica::Parser<License>
 {
 private:
     License parseXml(QXmlStreamReader &xml) override;

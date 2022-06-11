@@ -13,7 +13,7 @@
 
 using namespace Attica;
 
-class Category::Private : public QSharedData
+class Q_DECL_HIDDEN Category::Private : public QSharedData
 {
 public:
     QString m_id;

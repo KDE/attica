@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Content::Parser : public Attica::Parser<Content>
+class Q_DECL_HIDDEN Content::Parser : public Attica::Parser<Content>
 {
 private:
     Content parseXml(QXmlStreamReader &xml) override;

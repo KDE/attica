@@ -12,7 +12,7 @@
 
 using namespace Attica;
 
-class Metadata::Private : public QSharedData
+class Q_DECL_HIDDEN Metadata::Private : public QSharedData
 {
 public:
     Error error;

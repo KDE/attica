@@ -8,7 +8,7 @@
 
 using namespace Attica;
 
-class AccountBalance::Private : public QSharedData
+class Q_DECL_HIDDEN AccountBalance::Private : public QSharedData
 {
 public:
     QString balance;

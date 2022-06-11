@@ -11,7 +11,7 @@
 
 using namespace Attica;
 
-class HomePageType::Private : public QSharedData
+class Q_DECL_HIDDEN HomePageType::Private : public QSharedData
 {
 public:
     int id;

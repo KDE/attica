@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class PublisherField::Parser : public Attica::Parser<PublisherField>
+class Q_DECL_HIDDEN PublisherField::Parser : public Attica::Parser<PublisherField>
 {
 private:
     PublisherField parseXml(QXmlStreamReader &xml) override;

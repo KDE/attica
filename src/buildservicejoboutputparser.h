@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class BuildServiceJobOutput::Parser : public Attica::Parser<BuildServiceJobOutput>
+class Q_DECL_HIDDEN BuildServiceJobOutput::Parser : public Attica::Parser<BuildServiceJobOutput>
 {
 public:
     BuildServiceJobOutput parseXml(QXmlStreamReader &xml) override;

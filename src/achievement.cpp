@@ -72,7 +72,7 @@ QString Achievement::achievementVisibilityToString(const Achievement::Visibility
     return QString();
 }
 
-class Achievement::Private : public QSharedData
+class Q_DECL_HIDDEN Achievement::Private : public QSharedData
 {
 public:
     QString m_id;

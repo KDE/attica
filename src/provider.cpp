@@ -69,7 +69,7 @@
 
 using namespace Attica;
 
-class Provider::Private : public QSharedData
+class Q_DECL_HIDDEN Provider::Private : public QSharedData
 {
 public:
     QUrl m_baseUrl;

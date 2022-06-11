@@ -29,7 +29,7 @@
 
 using namespace Attica;
 
-class ProviderManager::Private
+class Q_DECL_HIDDEN ProviderManager::Private
 {
 public:
     PlatformDependent *m_internals;

@@ -15,7 +15,7 @@
 
 namespace Attica
 {
-class Distribution::Parser : public Attica::Parser<Distribution>
+class Q_DECL_HIDDEN Distribution::Parser : public Attica::Parser<Distribution>
 {
 private:
     Distribution parseXml(QXmlStreamReader &xml) override;

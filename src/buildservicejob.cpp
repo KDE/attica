@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class BuildServiceJob::Private : public QSharedData
+class Q_DECL_HIDDEN BuildServiceJob::Private : public QSharedData
 {
 public:
     QString id;

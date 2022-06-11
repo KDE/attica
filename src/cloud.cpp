@@ -10,7 +10,7 @@
 
 using namespace Attica;
 
-class Cloud::Private : public QSharedData
+class Q_DECL_HIDDEN Cloud::Private : public QSharedData
 {
 public:
     QString m_name;

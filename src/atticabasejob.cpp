@@ -19,7 +19,7 @@
 
 using namespace Attica;
 
-class BaseJob::Private
+class Q_DECL_HIDDEN BaseJob::Private
 {
 public:
     Metadata m_metadata;

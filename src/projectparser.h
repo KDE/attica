@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class Project::Parser : public Attica::Parser<Project>
+class Q_DECL_HIDDEN Project::Parser : public Attica::Parser<Project>
 {
 private:
     Project parseXml(QXmlStreamReader &xml) override;

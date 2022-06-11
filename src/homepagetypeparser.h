@@ -15,7 +15,7 @@
 
 namespace Attica
 {
-class HomePageType::Parser : public Attica::Parser<HomePageType>
+class Q_DECL_HIDDEN HomePageType::Parser : public Attica::Parser<HomePageType>
 {
 private:
     HomePageType parseXml(QXmlStreamReader &xml) override;

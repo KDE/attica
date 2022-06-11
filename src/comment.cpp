@@ -30,7 +30,7 @@ QString Comment::commentTypeToString(const Comment::Type type)
     return QString();
 }
 
-class Comment::Private : public QSharedData
+class Q_DECL_HIDDEN Comment::Private : public QSharedData
 {
 public:
     QString m_id;

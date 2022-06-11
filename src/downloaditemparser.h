@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-class DownloadItem::Parser : public Attica::Parser<DownloadItem>
+class Q_DECL_HIDDEN DownloadItem::Parser : public Attica::Parser<DownloadItem>
 {
 private:
     DownloadItem parseXml(QXmlStreamReader &xml) override;

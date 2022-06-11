@@ -11,7 +11,7 @@
 
 using namespace Attica;
 
-class Distribution::Private : public QSharedData
+class Q_DECL_HIDDEN Distribution::Private : public QSharedData
 {
 public:
     int id;
