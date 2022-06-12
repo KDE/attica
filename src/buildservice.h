@@ -21,6 +21,8 @@ namespace Attica
 {
 
 /**
+ * @class Target buildservice.h <Attica/BuildService>
+ *
  * The target in a build service.
  */
 struct Target {

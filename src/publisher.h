@@ -23,6 +23,8 @@ namespace Attica
 {
 
 /**
+ * @class Field publisher.h <Attica/Publisher>
+ *
  * Field as set for the class Publisher.
  */
 struct Field {
