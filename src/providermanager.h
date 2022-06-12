@@ -16,6 +16,9 @@
 #include "attica_export.h"
 #include "provider.h"
 
+/**
+ * The Attica namespace,
+ */
 namespace Attica
 {
 /**
