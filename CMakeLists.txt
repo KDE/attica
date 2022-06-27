@@ -22,6 +22,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(CMakePackageConfigHelpers) # Used to create CMake config files
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 include(ECMAddQch)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
@@ -45,7 +46,11 @@ set(ATTICA_LIB_SONAME KF5Attica)
 
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02)
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+)
+
 add_subdirectory(src)
 
 # Enable unit testing
