@@ -78,7 +78,7 @@ void BaseJob::dataFinished()
         return;
     }
 
-    bool error = d->m_reply->error() != QNetworkReply::NoError && d->m_reply->error() == QNetworkReply::OperationCanceledError;
+    bool error = d->m_reply->error() != QNetworkReply::NoError && d->m_reply->error() != QNetworkReply::OperationCanceledError;
 
     // handle redirections automatically
     QUrl newUrl;
