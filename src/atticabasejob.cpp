@@ -100,7 +100,7 @@ void BaseJob::dataFinished()
 
     if (error) {
         d->m_metadata.setError(Metadata::NetworkError);
-        d->m_metadata.setStatusCode(d->m_reply->error());
+        d->m_metadata.setStatusCode(d->m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
         d->m_metadata.setStatusString(d->m_reply->errorString());
         d->m_metadata.setHeaders(d->m_reply->rawHeaderPairs());
     } else {
