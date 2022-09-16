@@ -178,7 +178,7 @@ install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KDE_INSTALL_INCLUDEDIR_K
 
 install(TARGETS KF5Attica
         EXPORT KF5AtticaTargets
-        ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+        ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
     ${Attica_HEADERS}
