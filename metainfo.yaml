@@ -13,9 +13,9 @@ deprecated: false
 release: true
 libraries:
  - qmake: Attica
-   cmake: "KF5::Attica"
+   cmake: "KF6::Attica"
    license: LGPL-2.1-only OR LGPL-3.0-only
-cmakename: KF5Attica
+cmakename: KF6Attica
 
 public_lib: true
 group: Frameworks

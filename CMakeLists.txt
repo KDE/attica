@@ -33,8 +33,8 @@ add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt 
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX ATTICA
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
-    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfigVersion.cmake"
-    SOVERSION 5)
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6AtticaConfigVersion.cmake"
+    SOVERSION 6)
 
 # Dependencies
 set(REQUIRED_QT_VERSION 6.4.0)
@@ -42,7 +42,7 @@ set(REQUIRED_QT_VERSION 6.4.0)
 # Required Qt components to build this framework
 find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 
-set(ATTICA_LIB_SONAME KF5Attica)
+set(ATTICA_LIB_SONAME KF6Attica)
 
 # Enable static build
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
@@ -60,35 +60,35 @@ if (BUILD_TESTING)
 endif ()
 
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5Attica")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6Attica")
 
 # Create the CMake Config files
 if (BUILD_QCH)
     ecm_install_qch_export(
-        TARGETS KF5Attica_QCH
-        FILE KF5AtticaQchTargets.cmake
+        TARGETS KF6Attica_QCH
+        FILE KF6AtticaQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF5AtticaQchTargets.cmake\")")
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6AtticaQchTargets.cmake\")")
 endif()
 
 configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/KF5AtticaConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/KF6AtticaConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/KF6AtticaConfig.cmake"
     INSTALL_DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
 )
 
 install(FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfig.cmake"
-            "${CMAKE_CURRENT_BINARY_DIR}/KF5AtticaConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/KF6AtticaConfig.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/KF6AtticaConfigVersion.cmake"
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel)
 
-install(EXPORT KF5AtticaTargets
+install(EXPORT KF6AtticaTargets
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        FILE KF5AtticaTargets.cmake
-        NAMESPACE KF5::)
+        FILE KF6AtticaTargets.cmake
+        NAMESPACE KF6::)
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
         DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/Attica"

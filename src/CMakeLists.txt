@@ -5,16 +5,16 @@ endif (MINGW)
 
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
-add_library(KF5Attica)
-add_library(KF5::Attica ALIAS KF5Attica)
+add_library(KF6Attica)
+add_library(KF6::Attica ALIAS KF6Attica)
 
-set_target_properties(KF5Attica PROPERTIES
+set_target_properties(KF6Attica PROPERTIES
     VERSION     ${ATTICA_VERSION}
     SOVERSION   ${ATTICA_SOVERSION}
     EXPORT_NAME "Attica"
 )
 
-target_sources(KF5Attica PRIVATE
+target_sources(KF6Attica PRIVATE
    accountbalance.cpp
    accountbalanceparser.cpp
    achievement.cpp
@@ -87,7 +87,7 @@ target_sources(KF5Attica PRIVATE
    topicparser.cpp
 )
 
-ecm_qt_declare_logging_category(KF5Attica
+ecm_qt_declare_logging_category(KF6Attica
     HEADER attica_debug.h
     IDENTIFIER ATTICA
     CATEGORY_NAME kf.attica
@@ -99,11 +99,11 @@ ecm_qt_declare_logging_category(KF5Attica
 file(GLOB TEST_FILES "*.cpp" "*.h")
 ecm_check_outbound_license(
     LICENSES LGPL-2.1-only LGPL-3.0-only
-    TEST_NAME KF5Attica
+    TEST_NAME KF6Attica
     FILES ${TEST_FILES}
 )
 
-ecm_generate_export_header(KF5Attica
+ecm_generate_export_header(KF6Attica
     BASE_NAME Attica
     GROUP_BASE_NAME KF
     VERSION ${KF_VERSION}
@@ -112,12 +112,12 @@ ecm_generate_export_header(KF5Attica
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-target_link_libraries(KF5Attica
+target_link_libraries(KF6Attica
 PUBLIC
   Qt${QT_MAJOR_VERSION}::Core
   Qt${QT_MAJOR_VERSION}::Network
 )
-target_include_directories(KF5Attica INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/Attica>")
+target_include_directories(KF6Attica INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/Attica>")
 
 
 ecm_generate_headers(Attica_CamelCase_HEADERS
@@ -176,8 +176,8 @@ set(Attica_HEADERS
 
 install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/Attica/Attica COMPONENT Devel)
 
-install(TARGETS KF5Attica
-        EXPORT KF5AtticaTargets
+install(TARGETS KF6Attica
+        EXPORT KF6AtticaTargets
         ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES
@@ -196,9 +196,9 @@ ecm_qt_install_logging_categories(
 
 if(BUILD_QCH)
     ecm_add_qch(
-        KF5Attica_QCH
+        KF6Attica_QCH
         NAME Attica
-        BASE_NAME KF5Attica
+        BASE_NAME KF6Attica
         VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
@@ -221,18 +221,18 @@ if(BUILD_QCH)
 endif()
 
 include(ECMGeneratePriFile)
-ecm_generate_pri_file(BASE_NAME Attica LIB_NAME KF5Attica DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/Attica)
+ecm_generate_pri_file(BASE_NAME Attica LIB_NAME KF6Attica DEPS "core" FILENAME_VAR PRI_FILENAME INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/Attica)
 install(FILES ${PRI_FILENAME}
         DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
 
 # Install package config file
 if(NOT WIN32)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libKF5Attica.pc.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libKF6Attica.pc.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/libKF6Attica.pc
         @ONLY
     )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF5Attica.pc
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF6Attica.pc
        DESTINATION ${KDE_INSTALL_LIBDIR}/pkgconfig
     )
 endif(NOT WIN32)

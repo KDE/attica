@@ -15,4 +15,4 @@ target_sources(projecttest PRIVATE
     ${editproject_UI_H}
 )
 
-target_link_libraries(projecttest Qt${QT_MAJOR_VERSION}::Widgets KF5::Attica)
+target_link_libraries(projecttest Qt${QT_MAJOR_VERSION}::Widgets KF6::Attica)
