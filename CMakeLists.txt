@@ -40,7 +40,7 @@ ecm_setup_version(PROJECT
 set(REQUIRED_QT_VERSION 6.4.0)
 
 # Required Qt components to build this framework
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
+find_package(Qt6 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
 
 set(ATTICA_LIB_SONAME KF6Attica)
 
@@ -48,7 +48,7 @@ set(ATTICA_LIB_SONAME KF6Attica)
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 
 ecm_set_disabled_deprecation_versions(
-    QT 5.15.2
+    QT 6.4
 )
 
 add_subdirectory(src)

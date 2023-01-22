@@ -1,7 +1,7 @@
 include(ECMMarkAsTest)
 
-find_package(Qt${QT_MAJOR_VERSION}Widgets ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
-set_package_properties(Qt${QT_MAJOR_VERSION}Widgets PROPERTIES PURPOSE "Required for tests")
+find_package(Qt6Widgets ${REQUIRED_QT_VERSION} CONFIG REQUIRED)
+set_package_properties(Qt6Widgets PROPERTIES PURPOSE "Required for tests")
 
 add_executable(projecttest)
 ecm_mark_as_test(projecttest)
@@ -15,4 +15,4 @@ target_sources(projecttest PRIVATE
     ${editproject_UI_H}
 )
 
-target_link_libraries(projecttest Qt${QT_MAJOR_VERSION}::Widgets KF6::Attica)
+target_link_libraries(projecttest Qt6::Widgets KF6::Attica)
