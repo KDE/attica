@@ -620,18 +620,6 @@ public:
 
     ItemJob<DownloadItem> *downloadLink(const QString &contentId, const QString &itemId = QStringLiteral("1"));
 
-#if ATTICA_ENABLE_DEPRECATED_SINCE(0, 2)
-    /** Vote for a content item
-     * This version is for the old OCS API < 1.6
-     * @param contentId the content which this voting is for
-     * @param positiveVote whether the voting is positive or negative
-     * @return the post job for this voting
-     * @deprecated Since 0.2, use voteForContent(const QString &, uint)
-     */
-    ATTICA_DEPRECATED_VERSION(0, 2, "Use Provider::voteForContent(const QString &, uint)")
-    PostJob *voteForContent(const QString &contentId, bool positiveVote);
-#endif
-
     /** Vote for a content item
      * @param contentId the content which this voting is for
      * @param rating - the rating, must be between 0 (bad) and 100 (good)

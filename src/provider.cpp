@@ -1377,20 +1377,6 @@ PostJob *Provider::deletePreviewImage(const QString &contentId, const QString &p
     return new PostJob(d->m_internals, postRequest.request(), postRequest.data());
 }
 
-#if ATTICA_BUILD_DEPRECATED_SINCE(0, 2)
-PostJob *Provider::voteForContent(const QString &contentId, bool positiveVote)
-{
-    if (!isValid()) {
-        return nullptr;
-    }
-
-    StringMap postParameters;
-    postParameters.insert(QLatin1String("vote"), positiveVote ? QLatin1String("good") : QLatin1String("bad"));
-    // qCDebug(ATTICA) << "vote: " << positiveVote;
-    return new PostJob(d->m_internals, createRequest(QLatin1String("content/vote/") + contentId), postParameters);
-}
-#endif
-
 PostJob *Provider::voteForContent(const QString &contentId, uint rating)
 {
     if (!isValid()) {

@@ -42,79 +42,19 @@ public:
       This will simply be 1, 2, ...
       */
     int id() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    int id();
-#endif
 
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::type()")
-    Attica::DownloadDescription::Type type();
-#endif
     Attica::DownloadDescription::Type type() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(0, 2)
-    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::type()")
-    bool isDownloadtypLink();
-#endif
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    bool hasPrice();
-#endif
     bool hasPrice() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString category();
-#endif
     QString category() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString name();
-#endif
     QString name() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString link();
-#endif
     QString link() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString distributionType();
-#endif
     QString distributionType() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString priceReason();
-#endif
     QString priceReason() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString priceAmount();
-#endif
     QString priceAmount() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    uint size();
-#endif
     uint size() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString gpgFingerprint();
-#endif
     QString gpgFingerprint() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString gpgSignature();
-#endif
     QString gpgSignature() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString packageName();
-#endif
     QString packageName() const;
-#if ATTICA_ENABLE_DEPRECATED_SINCE(5, 4)
-    ATTICA_DEPRECATED_VERSION(5, 4, "Use const overload")
-    QString repository();
-#endif
     QString repository() const;
     /**
      * Get the list of tags for this download description
@@ -124,10 +64,6 @@ public:
 
     void setId(int id);
     void setType(Attica::DownloadDescription::Type type);
-#if ATTICA_ENABLE_DEPRECATED_SINCE(0, 2)
-    ATTICA_DEPRECATED_VERSION(0, 2, "Use DownloadDescription::setType(Attica::DownloadDescription::Type)")
-    void setDownloadtypLink(bool isLink);
-#endif
     void setHasPrice(bool hasPrice);
     void setCategory(const QString &category);
     void setName(const QString &name);
