@@ -17,6 +17,7 @@ include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 include(KDEGitCommitHooks)
 
 include(ECMGenerateExportHeader)
+include(ECMGeneratePkgConfigFile)
 include(ECMCheckOutboundLicense)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)

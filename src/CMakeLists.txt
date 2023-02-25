@@ -228,12 +228,12 @@ install(FILES ${PRI_FILENAME}
 
 # Install package config file
 if(NOT WIN32)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libKF6Attica.pc.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/libKF6Attica.pc
-        @ONLY
-    )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libKF6Attica.pc
-       DESTINATION ${KDE_INSTALL_LIBDIR}/pkgconfig
+    ecm_generate_pkgconfig_file(BASE_NAME KF6Attica
+        LIB_NAME KF6Attica
+        INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/Attica
+        DEPS Qt6Core Qt6Network
+        DESCRIPTION "Qt library to access Open Collaboration Services"
+        INSTALL
     )
 endif(NOT WIN32)
 
