@@ -74,8 +74,8 @@ private Q_SLOTS:
     void authenticationRequired(QNetworkReply *, QAuthenticator *);
 
 private:
-    BaseJob(const BaseJob &other);
-    BaseJob &operator=(const BaseJob &other);
+    BaseJob(const BaseJob &other) = delete;
+    BaseJob &operator=(const BaseJob &other) = delete;
 
     class Private;
     Private *d;
