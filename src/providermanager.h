@@ -163,8 +163,8 @@ private Q_SLOTS:
     void slotLoadDefaultProvidersInternal();
 
 private:
-    ProviderManager(const ProviderManager &other);
-    ProviderManager &operator=(const ProviderManager &other);
+    ProviderManager(const ProviderManager &other) = delete;
+    ProviderManager &operator=(const ProviderManager &other) = delete;
 
     ATTICA_NO_EXPORT void initNetworkAccesssManager();
     ATTICA_NO_EXPORT PlatformDependent *loadPlatformDependent(const ProviderFlags &flags);
