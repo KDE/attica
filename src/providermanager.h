@@ -166,10 +166,10 @@ private:
     ProviderManager(const ProviderManager &other);
     ProviderManager &operator=(const ProviderManager &other);
 
-    void initNetworkAccesssManager();
-    PlatformDependent *loadPlatformDependent(const ProviderFlags &flags);
+    ATTICA_NO_EXPORT void initNetworkAccesssManager();
+    ATTICA_NO_EXPORT PlatformDependent *loadPlatformDependent(const ProviderFlags &flags);
 
-    void parseProviderFile(const QString &xmlString, const QUrl &url);
+    ATTICA_NO_EXPORT void parseProviderFile(const QString &xmlString, const QUrl &url);
 
     class Private;
     Private *const d;
