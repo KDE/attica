@@ -157,10 +157,10 @@ Q_SIGNALS:
     void failedToLoad(const QUrl &provider, QNetworkReply::NetworkError error);
 
 private Q_SLOTS:
-    void fileFinished(const QString &url);
-    void authenticate(QNetworkReply *, QAuthenticator *);
-    void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
-    void slotLoadDefaultProvidersInternal();
+    ATTICA_NO_EXPORT void fileFinished(const QString &url);
+    ATTICA_NO_EXPORT void authenticate(QNetworkReply *, QAuthenticator *);
+    ATTICA_NO_EXPORT void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
+    ATTICA_NO_EXPORT void slotLoadDefaultProvidersInternal();
 
 private:
     ProviderManager(const ProviderManager &other) = delete;

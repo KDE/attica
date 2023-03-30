@@ -70,8 +70,8 @@ protected:
     void setError(int errorCode);
 
 private Q_SLOTS:
-    void doWork();
-    void authenticationRequired(QNetworkReply *, QAuthenticator *);
+    ATTICA_NO_EXPORT void doWork();
+    ATTICA_NO_EXPORT void authenticationRequired(QNetworkReply *, QAuthenticator *);
 
 private:
     BaseJob(const BaseJob &other) = delete;
