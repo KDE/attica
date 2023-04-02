@@ -31,9 +31,10 @@ set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprec
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
+set(attica_version_header "${CMAKE_CURRENT_BINARY_DIR}/src/attica_version.h")
 ecm_setup_version(PROJECT
     VARIABLE_PREFIX ATTICA
-    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
+    VERSION_HEADER "${attica_version_header}"
     PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6AtticaConfigVersion.cmake"
     SOVERSION 6)
 
@@ -91,7 +92,7 @@ install(EXPORT KF6AtticaTargets
         FILE KF6AtticaTargets.cmake
         NAMESPACE KF6::)
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/attica_version.h"
+install(FILES "${attica_version_header}"
         DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}/Attica"
         COMPONENT Devel)
 
