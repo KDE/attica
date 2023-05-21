@@ -9,7 +9,6 @@
 
 #include "atticautils.h"
 #include <QStringList>
-#include <QTimeZone>
 
 using namespace Attica;
 
@@ -34,7 +33,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 
     // parse date time
     result = QDateTime::fromString(datetime, Qt::ISODate);
-    result.setTimeZone(QTimeZone::UTC);
+    result.setTimeSpec(Qt::UTC);
 
     // parse timezone
     if (list.count() == 2) {
