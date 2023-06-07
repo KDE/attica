@@ -8,12 +8,12 @@
 #ifndef ATTICA_BUILDSERVICE_H
 #define ATTICA_BUILDSERVICE_H
 
-#include <QtCore/QDate>
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QDate>
+#include <QList>
+#include <QMap>
+#include <QSharedDataPointer>
+#include <QStringList>
+#include <QUrl>
 
 #include "attica_export.h"
 

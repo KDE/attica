@@ -8,9 +8,9 @@
 #ifndef ATTICA_BUILDSERVICEJOBOUTPUT_H
 #define ATTICA_BUILDSERVICEJOBOUTPUT_H
 
-#include <QtCore/QList>
-#include <QtCore/QSharedDataPointer>
-#include <QtCore/QString>
+#include <QList>
+#include <QSharedDataPointer>
+#include <QString>
 
 #include "attica_export.h"
 
