@@ -25,3 +25,5 @@ QNetworkReply *GetJob::executeRequest()
 {
     return internals()->get(m_request);
 }
+
+#include "moc_getjob.cpp"

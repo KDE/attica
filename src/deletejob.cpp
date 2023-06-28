@@ -29,3 +29,5 @@ QNetworkReply *DeleteJob::executeRequest()
 
     return platformDependentV2->deleteResource(m_request);
 }
+
+#include "moc_deletejob.cpp"

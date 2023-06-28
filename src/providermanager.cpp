@@ -327,3 +327,5 @@ void ProviderManager::initNetworkAccesssManager()
     connect(d->m_internals->nam(), &QNetworkAccessManager::authenticationRequired, this, &ProviderManager::authenticate);
     connect(d->m_internals->nam(), &QNetworkAccessManager::proxyAuthenticationRequired, this, &ProviderManager::proxyAuthenticationRequired);
 }
+
+#include "moc_providermanager.cpp"
