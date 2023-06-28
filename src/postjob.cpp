@@ -105,3 +105,5 @@ void PostJob::parse(const QString &xmlString)
     }
     setMetadata(data);
 }
+
+#include "moc_postjob.cpp"
