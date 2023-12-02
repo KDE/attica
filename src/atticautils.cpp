@@ -33,7 +33,7 @@ QDateTime Utils::parseQtDateTimeIso8601(const QString &str)
 
     // parse date time
     result = QDateTime::fromString(datetime, Qt::ISODate);
-    result.setTimeSpec(Qt::UTC);
+    result.setTimeZone(QTimeZone::utc());
 
     // parse timezone
     if (list.count() == 2) {
