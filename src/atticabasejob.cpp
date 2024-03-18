@@ -103,6 +103,8 @@ void BaseJob::dataFinished()
         d->m_metadata.setStatusCode(d->m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
         d->m_metadata.setStatusString(d->m_reply->errorString());
         d->m_metadata.setHeaders(d->m_reply->rawHeaderPairs());
+    } else if (d->m_reply->error() == QNetworkReply::OperationCanceledError) {
+        d->m_metadata.setError(Metadata::NoError);
     } else {
         QByteArray data = d->m_reply->readAll();
         // qCDebug(ATTICA) << "XML Returned:\n" << data;
