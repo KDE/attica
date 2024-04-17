@@ -23,12 +23,7 @@ public:
     QByteArray buffer;
     QByteArray boundary;
     QUrl url;
-    bool finished;
-
-    PostFileDataPrivate()
-        : finished(false)
-    {
-    }
+    bool finished = false;
 };
 
 PostFileData::PostFileData(const QUrl &url)
