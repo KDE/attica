@@ -20,6 +20,7 @@ QtPlatformDependent::QtPlatformDependent()
 {
     m_threadNamHash[QThread::currentThread()] = new QNetworkAccessManager();
     m_ourNamSet.insert(QThread::currentThread());
+    QMetaObject::invokeMethod(this, &QtPlatformDependent::readyChanged, Qt::QueuedConnection);
 }
 
 QtPlatformDependent::~QtPlatformDependent()
@@ -163,4 +164,9 @@ bool Attica::QtPlatformDependent::askForCredentials(const QUrl &baseUrl, QString
     Q_UNUSED(user)
     Q_UNUSED(password)
     return false;
+}
+
+bool Attica::QtPlatformDependent::isReady()
+{
+    return true;
 }

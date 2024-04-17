@@ -11,7 +11,7 @@
 #ifndef ATTICA_QTPLATFORMDEPENDENT_P_H
 #define ATTICA_QTPLATFORMDEPENDENT_P_H
 
-#include "platformdependent_v2.h"
+#include "platformdependent_v3.h"
 
 #include <QHash>
 #include <QMutex>
@@ -21,7 +21,7 @@
 
 namespace Attica
 {
-class QtPlatformDependent : public Attica::PlatformDependentV2
+class QtPlatformDependent : public Attica::PlatformDependentV3
 {
 public:
     QtPlatformDependent();
@@ -46,6 +46,7 @@ public:
     QNetworkReply *deleteResource(const QNetworkRequest &request) override;
     QNetworkReply *put(const QNetworkRequest &request, const QByteArray &data) override;
     QNetworkReply *put(const QNetworkRequest &request, QIODevice *data) override;
+    [[nodiscard]] bool isReady() override;
 
 private:
     QMutex m_accessMutex;

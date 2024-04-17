@@ -85,6 +85,7 @@ target_sources(KF6Attica PRIVATE
    qtplatformdependent.cpp
    topic.cpp
    topicparser.cpp
+   platformdependent_v3.cpp
 )
 
 ecm_qt_declare_logging_category(KF6Attica
@@ -173,6 +174,7 @@ set(Attica_HEADERS
     #interface for external platform plugins
     platformdependent.h
     platformdependent_v2.h
+    platformdependent_v3.h
 )
 
 install(FILES ${Attica_CamelCase_HEADERS} DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/Attica/Attica COMPONENT Devel)

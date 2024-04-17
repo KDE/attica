@@ -14,6 +14,7 @@
 #include <QTimer>
 
 #include "platformdependent.h"
+#include "platformdependent_v3.h"
 #include <attica_debug.h>
 #include <atticautils.h>
 
@@ -134,6 +135,13 @@ void BaseJob::doWork()
     if (d->aborted) {
         return;
     }
+
+    auto platformDependentV3 = dynamic_cast<Attica::PlatformDependentV3 *>(d->m_internals);
+    if (platformDependentV3 && !platformDependentV3->isReady()) {
+        connect(platformDependentV3, &Attica::PlatformDependentV3::readyChanged, this, &BaseJob::doWork);
+        return;
+    }
+
     d->m_reply = executeRequest();
     qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);

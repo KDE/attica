@@ -12,7 +12,8 @@
 #include <QList>
 #include <QtPlugin>
 
-#include <platformdependent.h>
+#include "attica_export.h"
+#include "platformdependent.h"
 
 class QByteArray;
 class QIODevice;
@@ -24,7 +25,7 @@ class QUrl;
 
 namespace Attica
 {
-class PlatformDependentV2 : public PlatformDependent
+class ATTICA_EXPORT PlatformDependentV2 : public PlatformDependent
 {
 public:
     ~PlatformDependentV2() override;

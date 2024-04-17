@@ -24,6 +24,7 @@
 #include <QXmlStreamReader>
 
 #include "platformdependent.h"
+#include "platformdependent_v3.h"
 #include "qtplatformdependent_p.h"
 #include <QLibraryInfo>
 
@@ -70,6 +71,16 @@ ProviderManager::ProviderManager(const ProviderFlags &flags)
 
 void ProviderManager::loadDefaultProviders()
 {
+    auto platformDependentV3 = dynamic_cast<Attica::PlatformDependentV3 *>(d->m_internals);
+    if (platformDependentV3 && !platformDependentV3->isReady()) {
+        connect(platformDependentV3,
+                &Attica::PlatformDependentV3::readyChanged,
+                this,
+                &ProviderManager::slotLoadDefaultProvidersInternal,
+                Qt::QueuedConnection);
+        return;
+    }
+
     QTimer::singleShot(0, this, &ProviderManager::slotLoadDefaultProvidersInternal);
 }
 
