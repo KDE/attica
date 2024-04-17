@@ -9,6 +9,8 @@
 #ifndef POSTFILEDATA_H
 #define POSTFILEDATA_H
 
+#include <memory>
+
 #include <QByteArray>
 #include <QIODevice>
 #include <QNetworkRequest>
@@ -38,7 +40,7 @@ public:
 private:
     void finish();
     QString randomString(int length);
-    PostFileDataPrivate *d;
+    std::unique_ptr<PostFileDataPrivate> d;
     Q_DISABLE_COPY(PostFileData)
 };
 

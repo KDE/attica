@@ -63,15 +63,11 @@ public:
 };
 
 BaseJob::BaseJob(PlatformDependent *internals)
-    : d(new Private(internals))
+    : d(std::make_unique<Private>(internals))
 {
 }
 
-BaseJob::~BaseJob()
-{
-    delete d;
-    d = nullptr;
-}
+BaseJob::~BaseJob() = default;
 
 void BaseJob::dataFinished()
 {

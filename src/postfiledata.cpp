@@ -32,16 +32,13 @@ public:
 };
 
 PostFileData::PostFileData(const QUrl &url)
-    : d(new PostFileDataPrivate)
+    : d(std::make_unique<PostFileDataPrivate>())
 {
     d->url = url;
     d->boundary = "----------" + randomString(42 + 13).toLatin1();
 }
 
-PostFileData::~PostFileData()
-{
-    delete d;
-}
+PostFileData::~PostFileData() = default;
 
 QString PostFileData::randomString(int length)
 {

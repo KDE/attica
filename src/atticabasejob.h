@@ -8,6 +8,8 @@
 #ifndef ATTICA_ATTICABASEJOB_H
 #define ATTICA_ATTICABASEJOB_H
 
+#include <memory>
+
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QObject>
@@ -78,7 +80,7 @@ private:
     BaseJob &operator=(const BaseJob &other) = delete;
 
     class Private;
-    Private *d;
+    std::unique_ptr<Private> d;
 };
 
 }
