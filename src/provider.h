@@ -96,6 +96,9 @@ class RemoteAccount;
 class ATTICA_EXPORT Provider
 {
 public:
+    /**
+     * Default construct a Provider. Please note that this provider is incomplete and never valid.
+     */
     Provider();
     Provider(const Provider &other);
     Provider &operator=(const Provider &other);
