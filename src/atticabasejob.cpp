@@ -90,9 +90,8 @@ void BaseJob::dataFinished()
             d->m_reply = internals()->get(request);
             connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
             return;
-        } else {
-            error = true;
         }
+        error = true;
     }
 
     if (error) {
