@@ -25,13 +25,12 @@ class Q_DECL_HIDDEN BaseJob::Private
 public:
     Metadata m_metadata;
     PlatformDependent *m_internals;
-    QNetworkReply *m_reply;
+    QPointer<QNetworkReply> m_reply;
     bool aborted{false};
     bool started = false;
 
     Private(PlatformDependent *internals)
         : m_internals(internals)
-        , m_reply(nullptr)
     {
     }
 
@@ -71,6 +70,7 @@ BaseJob::BaseJob(PlatformDependent *internals)
 BaseJob::~BaseJob()
 {
     delete d;
+    d = nullptr;
 }
 
 void BaseJob::dataFinished()
