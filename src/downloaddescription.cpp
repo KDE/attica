@@ -30,6 +30,7 @@ public:
     QString repository;
     uint size = 0;
     QStringList tags;
+    QString version;
 };
 }
 
@@ -203,4 +204,14 @@ QStringList Attica::DownloadDescription::tags() const
 void Attica::DownloadDescription::setTags(const QStringList &tags)
 {
     d->tags = tags;
+}
+
+QString Attica::DownloadDescription::version() const
+{
+    return d->version;
+}
+
+void Attica::DownloadDescription::setVersion(const QString &version)
+{
+    d->version = version;
 }

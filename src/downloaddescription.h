@@ -82,6 +82,17 @@ public:
      */
     void setTags(const QStringList &tags);
 
+    /**
+     * The download version as set on the remote. May be QString() when not set.
+     * @since 6.5
+     */
+    [[nodiscard]] QString version() const;
+
+    /**
+     * @since 6.5
+     */
+    void setVersion(const QString &version);
+
 private:
     class Private;
     QSharedDataPointer<Private> d;
