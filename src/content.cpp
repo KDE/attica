@@ -10,6 +10,7 @@
 
 #include <QDateTime>
 
+using namespace Qt::StringLiterals;
 using namespace Attica;
 
 class Q_DECL_HIDDEN Content::Private : public QSharedData
@@ -221,6 +222,7 @@ Attica::DownloadDescription Attica::Content::downloadUrlDescription(int number) 
     desc.setPackageName(attribute(QLatin1String("downloadpackagename") + num));
     desc.setRepository(attribute(QLatin1String("downloadrepository") + num));
     desc.setTags(attribute(QLatin1String("downloadtags") + num).split(QLatin1Char(',')));
+    desc.setVersion(attribute("download_version"_L1 + num));
     return desc;
 }
 

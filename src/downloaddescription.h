@@ -82,6 +82,9 @@ public:
      */
     void setTags(const QStringList &tags);
 
+    [[nodiscard]] QString version() const;
+    void setVersion(const QString &version);
+
 private:
     class Private;
     QSharedDataPointer<Private> d;
