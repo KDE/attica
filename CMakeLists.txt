@@ -50,7 +50,7 @@ set(ATTICA_LIB_SONAME KF6Attica)
 option(ATTICA_STATIC_BUILD "Build a static library" Off)
 
 ecm_set_disabled_deprecation_versions(
-    QT 6.5
+    QT 6.8
 )
 
 add_subdirectory(src)
