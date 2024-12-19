@@ -17,7 +17,7 @@
 
 namespace Attica
 {
-/**
+/*!
     @class HomePageType homepagetype.h <Attica/HomePageType>
 
     The HomePageType class contains information about one home page type.
@@ -29,25 +29,25 @@ public:
     typedef QList<HomePageType> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty HomePageType
      */
     HomePageType();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the HomePageType to copy from
      */
     HomePageType(const HomePageType &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the HomePageType to assign from
      * @return pointer to this HomePageType
      */
     HomePageType &operator=(const HomePageType &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~HomePageType();

@@ -17,7 +17,7 @@
 
 namespace Attica
 {
-/**
+/*!
     @class Distribution distribution.h <Attica/Distribution>
 
     The Distribution class contains information about one distribution that the server offers.
@@ -29,25 +29,25 @@ public:
     typedef QList<Distribution> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Distribution
      */
     Distribution();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the Distribution to copy from
      */
     Distribution(const Distribution &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the Distribution to assign from
      * @return pointer to this Distribution
      */
     Distribution &operator=(const Distribution &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~Distribution();

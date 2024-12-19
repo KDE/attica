@@ -14,7 +14,7 @@
 
 namespace Attica
 {
-/**
+/*!
     @class License license.h <Attica/License>
 
     The License class contains information about one license that the server offers.
@@ -26,25 +26,25 @@ public:
     typedef QList<License> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty License
      */
     License();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the License to copy from
      */
     License(const License &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the License to assign from
      * @return pointer to this License
      */
     License &operator=(const License &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~License();

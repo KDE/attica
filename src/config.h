@@ -15,7 +15,7 @@
 
 namespace Attica
 {
-/**
+/*!
  * @class Config config.h <Attica/Config>
  *
  * Represents a server config
@@ -26,25 +26,25 @@ public:
     typedef QList<Config> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Config
      */
     Config();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the Config to copy from
      */
     Config(const Config &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the Config to assign from
      * @return pointer to this Config
      */
     Config &operator=(const Config &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~Config();
@@ -61,7 +61,7 @@ public:
     void setVersion(const QString &version);
     void setWebsite(const QString &website);
 
-    /**
+    /*!
      * Checks whether this config is valid
      * @return @c true if config is valid, @c false otherwise
      */

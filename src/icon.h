@@ -17,7 +17,7 @@
 
 namespace Attica
 {
-/**
+/*!
     @class Icon icon.h <Attica/Icon>
 
     The Icon class contains information about an icon.
@@ -28,25 +28,25 @@ class ATTICA_EXPORT Icon
 public:
     typedef QList<Icon> List;
 
-    /**
+    /*!
      * Creates an empty Icon
      */
     Icon();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the Icon to copy from
      */
     Icon(const Icon &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the Icon to assign from
      * @return pointer to this Icon
      */
     Icon &operator=(const Icon &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~Icon();

@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Forum forum.h <Attica/Forum>
  *
  * Represents a forum.

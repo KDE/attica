@@ -17,7 +17,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class BuildServiceJobOutput buildservicejoboutput.h <Attica/BuildServiceJobOutput>
  *
  * Represents the ouput of a build service job.

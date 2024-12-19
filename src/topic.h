@@ -17,7 +17,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Topic topic.h <Attica/Topic>
  *
  * Represents a topic.

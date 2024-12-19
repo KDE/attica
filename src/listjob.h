@@ -18,7 +18,7 @@ namespace Attica
 {
 class Provider;
 
-/**
+/*!
  * @class ListJob listjob.h <Attica/ListJob>
  *
  * Represents a list job.

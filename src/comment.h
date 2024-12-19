@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Comment comment.h <Attica/Comment>
  *
  * Represents a comment.
@@ -62,12 +62,12 @@ public:
     void setDate(const QDateTime &date);
     QDateTime date() const;
 
-    /**
+    /*!
       This is for internal usage, @see Provider::setCommentScore to set scores in comments.
       @param score average comment score in scale from 0 to 100
      */
     void setScore(const int score);
-    /**
+    /*!
       Returns score of this comment.
       @param score average comment score in scale from 0 to 100
      */

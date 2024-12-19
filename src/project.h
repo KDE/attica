@@ -21,7 +21,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Project project.h <Attica/Project>
  *
  * Represents a project.

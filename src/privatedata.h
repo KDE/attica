@@ -21,7 +21,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class PrivateData privatedata.h <Attica/PrivateData>
  *
  * Represents private data.
@@ -38,27 +38,27 @@ public:
     PrivateData &operator=(const PrivateData &other);
     ~PrivateData();
 
-    /**
+    /*!
      * Sets an attribute referenced by \key to \value.
      */
     void setAttribute(const QString &key, const QString &value);
 
-    /**
+    /*!
      * Returns an attribute referenced by \key.
      */
     QString attribute(const QString &key) const;
 
-    /**
+    /*!
      * Sets when an attribute last was changed (mostly for internal use).
      */
     void setTimestamp(const QString &key, const QDateTime &when);
 
-    /**
+    /*!
      * Returns the date and time an attribute last was changed.
      */
     QDateTime timestamp(const QString &key) const;
 
-    /**
+    /*!
      * Returns a list of fetched keys.
      */
     QStringList keys() const;

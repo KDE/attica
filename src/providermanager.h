@@ -16,12 +16,12 @@
 #include "attica_export.h"
 #include "provider.h"
 
-/**
+/*!
  * The Attica namespace,
  */
 namespace Attica
 {
-/**
+/*!
  * @class ProviderManager providermanager.h <Attica/ProviderManager>
  *
  * Attica ProviderManager
@@ -70,19 +70,19 @@ public:
     ProviderManager(const ProviderFlags &flags = NoFlags);
     ~ProviderManager() override;
 
-    /**
+    /*!
      * Load available providers from configuration
      */
     void loadDefaultProviders();
 
-    /**
+    /*!
      * The list of provider files that get loaded by loadDefaultProviders.
      * Each of these files can contain multiple providers.
      * @return list of provider file urls
      */
     QList<QUrl> defaultProviderFiles();
 
-    /**
+    /*!
     * Add a provider file to the default providers (xml that contains provider descriptions).
       Provider files contain information about each provider:
      <pre>
@@ -113,39 +113,39 @@ public:
 
     void removeProviderFileFromDefaultProviders(const QUrl &url);
 
-    /**
+    /*!
      * Suppresses the authentication, so that the application can take care of authenticating itself
      */
     void setAuthenticationSuppressed(bool suppressed);
 
-    /**
+    /*!
      * Remove all providers and provider files that have been loaded
      */
     void clear();
 
-    /**
+    /*!
      * Parse a xml file containing a provider description
      */
     void addProviderFromXml(const QString &providerXml);
     void addProviderFile(const QUrl &file);
     QList<QUrl> providerFiles() const;
 
-    /**
+    /*!
      * @returns all loaded providers
      */
     QList<Provider> providers() const;
 
-    /**
+    /*!
      * @returns whether there's a provider with base url @p provider
      */
     bool contains(const QUrl &provider) const;
 
-    /**
+    /*!
      * @returns the provider with @p url base url.
      */
     Provider providerByUrl(const QUrl &url) const;
 
-    /**
+    /*!
      * @returns the provider for a given provider @p url.
      */
     Provider providerFor(const QUrl &url) const;

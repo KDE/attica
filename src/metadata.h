@@ -20,7 +20,7 @@ namespace Attica
 {
 class BaseJob;
 
-/**
+/*!
  * @class Metadata metadata.h <Attica/Metadata>
  *
  * Status messages from the server
@@ -39,14 +39,14 @@ public:
         OcsError,
     };
 
-    /**
+    /*!
      * Check if the job was successful.
      * @return the error state enum returns the type of error (network or ocs)
      */
     Error error() const;
     void setError(Error error);
 
-    /**
+    /*!
      * The status as integer.
      * If the error is an OCS error, refer to http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
      * in any other case it is the network return code.
@@ -54,7 +54,7 @@ public:
     int statusCode() const;
     void setStatusCode(int code);
 
-    /**
+    /*!
      * The status of the job, for example "Ok"
      */
     QString statusString() const;
@@ -76,7 +76,7 @@ public:
     QString resultingId();
     void setResultingId(const QString &id);
 
-    /**
+    /*!
      * The http headers for the most recent network action in the case of a network error
      * Use this to further inspect the error condition if the OCS status code and string is
      * not enough to work out precisely what has happened (for example in case of a HTTP
@@ -86,7 +86,7 @@ public:
      * @since 5.83
      */
     QList<QNetworkReply::RawHeaderPair> headers() const;
-    /**
+    /*!
      * Sets the http headers read by headers()
      * @param headers The new list of raw headers
      * @since 5.83

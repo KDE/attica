@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Person person.h <Attica/Person>
  *
  * Represents a person.

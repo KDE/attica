@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Target buildservice.h <Attica/BuildService>
  *
  * The target in a build service.
@@ -30,7 +30,7 @@ struct Target {
     QString name;
 };
 
-/**
+/*!
  * @class BuildService buildservice.h <Attica/BuildService>
  *
  * Represents a build service.

@@ -22,7 +22,7 @@ class PostFileDataPrivate;
 class PostFileData
 {
 public:
-    /**
+    /*!
      * Prepare a QNetworkRequest and QByteArray for sending a HTTP POST.
      * Parameters and files can be added with addArgument() and addFile()
      * Do not add anything after calling request or data for the first time.

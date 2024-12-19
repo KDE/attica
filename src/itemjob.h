@@ -20,7 +20,7 @@ namespace Attica
 {
 class Provider;
 
-/**
+/*!
  * @class ItemJob itemjob.h <Attica/ItemJob>
  *
  * Represents an item get job.
@@ -38,7 +38,7 @@ private:
     friend class Attica::Provider;
 };
 
-/**
+/*!
  * @class ItemDeleteJob itemjob.h <Attica/ItemJob>
  *
  * Represents an item delete job.
@@ -56,7 +56,7 @@ private:
     friend class Attica::Provider;
 };
 
-/**
+/*!
  * @class ItemPostJob itemjob.h <Attica/ItemJob>
  *
  * Represents an item post job.
@@ -76,7 +76,7 @@ private:
     friend class Attica::Provider;
 };
 
-/**
+/*!
  * @class ItemPutJob itemjob.h <Attica/ItemJob>
  *
  * Represents an item put job.
