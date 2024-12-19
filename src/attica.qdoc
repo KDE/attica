@@ -1,0 +1,9 @@
+/*!
+    \module Attica
+    \title Attica C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent Attica
+
+    \brief Open Collaboration Service client library.
+*/

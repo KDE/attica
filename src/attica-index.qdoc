@@ -1,0 +1,20 @@
+/*!
+    \page attica-index.html
+    \title Attica
+
+    Open Collaboration Service client library
+
+    \section1 Using the Module
+
+    \include {module-use.qdocinc} {using the c++ api}
+
+    \section2 Building with CMake
+
+    \include {module-use.qdocinc} {building with cmake} {KF6} {Attica} {KF6::Attica}
+
+    \section1 API Reference
+
+    \list
+        \li \l{Attica C++ Classes}
+    \endlist
+*/

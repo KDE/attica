@@ -17,43 +17,103 @@
 namespace Attica
 {
 
-/**
- * @class Topic topic.h <Attica/Topic>
+/*!
+ * \class Attica::Topic
+ * \inheaderfile Attica/Topic
+ * \inmodule Attica::Topic
  *
- * Represents a topic.
+ * \brief Represents a topic.
  */
 class ATTICA_EXPORT Topic
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Topic> List;
     class Parser;
 
+    /*!
+     *
+     */
     Topic();
     Topic(const Topic &other);
     Topic &operator=(const Topic &other);
     ~Topic();
 
+    /*!
+     *
+     */
     void setId(const QString &id);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setForumId(const QString &forumId);
+
+    /*!
+     *
+     */
     QString forumId() const;
 
+    /*!
+     *
+     */
     void setUser(const QString &user);
+
+    /*!
+     *
+     */
     QString user() const;
 
+    /*!
+     *
+     */
     void setDate(const QDateTime &date);
+
+    /*!
+     *
+     */
     QDateTime date() const;
 
+    /*!
+     *
+     */
     void setSubject(const QString &subject);
+
+    /*!
+     *
+     */
     QString subject() const;
 
+    /*!
+     *
+     */
     void setContent(const QString &content);
+
+    /*!
+     *
+     */
     QString content() const;
 
+    /*!
+     *
+     */
     void setComments(const int comments);
+
+    /*!
+     *
+     */
     int comments() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

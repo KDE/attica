@@ -18,170 +18,127 @@
 namespace Attica
 {
 
-/**
- * @class Cloud cloud.h <Attica/Cloud>
+/*!
+ * \class Attica::Cloud
+ * \inheaderfile Attica/Cloud
+ * \inmodule Attica
  *
- * Represents a cloud service.
+ * \brief Represents a cloud service.
  */
 class ATTICA_EXPORT Cloud
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Cloud> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Cloud
      */
-
     Cloud();
-
-    /**
-     * Copy constructor.
-     * @param other the Cloud to copy from
-     */
 
     Cloud(const Cloud &other);
 
-    /**
-     * Assignment operator.
-     * @param other the Cloud to assign from
-     * @return pointer to this Activity
-     */
-
     Cloud &operator=(const Cloud &other);
-
-    /**
-     * Destructor.
-     */
 
     ~Cloud();
 
-    /**
+    /*!
      * Sets the name of the Cloud service
      *
-     * @param name the new name
+     * \a name the new name
      */
-
     void setName(const QString &name);
 
-    /**
-     * Gets the name of the Cloud service.
-     *
-     * @return the name
+    /*!
+     * Returns the name of the Cloud service.
      */
-
     QString name() const;
 
-    /**
+    /*!
      * Sets the url of the Cloud service
      *
-     * @param url the new url
+     * \a url the new url
      */
-
     void setUrl(const QString &url);
 
-    /**
-     * Gets the url of the Cloud service.
-     *
-     * @return the url
+    /*!
+     * Returns the url of the Cloud service.
      */
-
     QString url() const;
 
-    /**
+    /*!
      * Sets the icon of the Cloud service
      *
-     * @param icon the new icon
+     * \a icon the new icon
      */
-
     void setIcon(const QUrl &icon);
 
-    /**
-     * Gets the icon of the Cloud service.
-     *
-     * @return the icon
+    /*!
+     * Returns the icon of the Cloud service.
      */
-
     QUrl icon() const;
 
-    /**
+    /*!
      * Sets the quota of the Cloud service
      *
-     * @param quota the new quota
+     * \a quota the new quota
      */
-
     void setQuota(qulonglong quota);
 
-    /**
-     * Gets the quota of the Cloud service.
-     *
-     * @return the quota
+    /*!
+     * Returns the quota of the Cloud service.
      */
-
     qulonglong quota() const;
 
-    /**
+    /*!
      * Sets the free amount of the Cloud service
      *
-     * @param free the new free amount
+     * \a free the new free amount
      */
-
     void setFree(qulonglong free);
 
-    /**
-     * Gets the free amount of the Cloud service.
-     *
-     * @return the free amount
+    /*!
+     * Returns the free amount of the Cloud service.
      */
-
     qulonglong free() const;
 
-    /**
+    /*!
      * Sets the used amount of the Cloud service
      *
-     * @param used the new used amount
+     * \a used the new used amount
      */
-
     void setUsed(qulonglong used);
 
-    /**
-     * Gets the used amount of the Cloud service.
-     *
-     * @return the used amount
+    /*!
+     * Returns the used amount of the Cloud service.
      */
-
     qulonglong used() const;
 
-    /**
+    /*!
      * Sets the relative of the Cloud service
      *
-     * @param relative the new relative
+     * \a relative the new relative
      */
-
     void setRelative(float relative);
 
-    /**
-     * Gets the relative of the Cloud service.
-     *
-     * @return the relative
+    /*!
+     * Returns the relative of the Cloud service.
      */
-
     float relative() const;
 
-    /**
+    /*!
      * Sets the private key of the Cloud service
      *
-     * @param privateKey the new privateKey
+     * \a privateKey the new privateKey
      */
-
     void setKey(const QString &privateKey);
 
-    /**
-     * Gets the private key of the Cloud service.
-     *
-     * @return the private key
+    /*!
+     * Returns the private key of the Cloud service.
      */
-
     QString key() const;
 
 private:

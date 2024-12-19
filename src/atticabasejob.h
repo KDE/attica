@@ -25,10 +25,12 @@ namespace Attica
 {
 class PlatformDependent;
 
-/**
- * @class BaseJob atticabasejob.h
+/*!
+ * \class Attica::BaseJob
+ * \inheaderfile attica/atticabasejob.h
+ * \inmodule Attica
  *
- * The baseclass for all job classes.
+ * \brief The baseclass for all job classes.
  */
 class ATTICA_EXPORT BaseJob : public QObject
 {
@@ -37,38 +39,73 @@ class ATTICA_EXPORT BaseJob : public QObject
 public:
     ~BaseJob() override;
 
+    /*!
+     *
+     */
     Metadata metadata() const;
 
+    /*!
+     * \brief UserAttribute
+     * \brief PasswordAttribute
+     */
     enum NetworkRequestCustomAttributes {
         UserAttribute = QNetworkRequest::User + 1,
         PasswordAttribute,
     };
 
-    /**
-     * @returns whether abort() has been called on the job
+    /*!
+     * Returns whether abort() has been called on the job
      *
-     * @since 5.87
+     * \since 5.87
      */
     bool isAborted() const;
 
 public Q_SLOTS:
+    /*!
+     *
+     */
     void start();
+
+    /*!
+     *
+     */
     void abort();
 
 Q_SIGNALS:
     void finished(Attica::BaseJob *job);
 
 protected Q_SLOTS:
+    /*!
+     *
+     */
     void dataFinished();
 
 protected:
     BaseJob(PlatformDependent *internals);
 
+    /*!
+     *
+     */
     void setMetadata(const Metadata &data) const;
 
+    /*!
+     *
+     */
     virtual QNetworkReply *executeRequest() = 0;
+
+    /*!
+     *
+     */
     virtual void parse(const QString &xml) = 0;
+
+    /*!
+     *
+     */
     PlatformDependent *internals();
+
+    /*!
+     *
+     */
     void setError(int errorCode);
 
 private Q_SLOTS:

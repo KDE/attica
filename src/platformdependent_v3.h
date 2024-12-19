@@ -11,12 +11,14 @@
 namespace Attica
 {
 
-/**
- * @brief Platform integration plugin v3
+/*!
+ * Platform integration plugin v3
  *
  * Version 3 introduces an async ready state where dependents need to mark themselves ready for requests before
  * Attica dispatches them. This in particular allows dependents to carry out async initializations such as loading
  * credentials.
+ *
+ * \internal
  */
 class ATTICA_EXPORT PlatformDependentV3 : public QObject, public PlatformDependentV2
 {
@@ -27,14 +29,14 @@ public:
     ~PlatformDependentV3() override;
     Q_DISABLE_COPY_MOVE(PlatformDependentV3)
 
-    /**
+    /*!
      * Whether the dependent is ready for use (e.g. has loaded credentials).
      * No requests are dispatched to this dependent until the ready change has been reached!
      */
     [[nodiscard]] virtual bool isReady() = 0;
 
 Q_SIGNALS:
-    /**
+    /*!
      * Emit this when the ready state changes. Please note that reverting to not ready results in undefined behavior.
      */
     void readyChanged();

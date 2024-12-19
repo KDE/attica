@@ -21,10 +21,12 @@ namespace Attica
 {
 class Provider;
 
-/**
- * @class PutJob putjob.h <Attica/PutJob>
+/*!
+ * \class Attica::PutJob
+ * \inheaderfile Attica/PutJob
+ * \inmodule Attica
  *
- * Represents a put job.
+ * \brief Represents a put job.
  */
 class ATTICA_EXPORT PutJob : public BaseJob
 {

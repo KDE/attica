@@ -17,10 +17,12 @@
 namespace Attica
 {
 
-/**
- * @class GetJob getjob.h <Attica/GetJob>
+/*!
+ * \class Attica::GetJob
+ * \inheaderfile Attica/GetJob
+ * \inmodule Attica
  *
- * Represents a get job.
+ * \brief Represents a get job.
  */
 class ATTICA_EXPORT GetJob : public Attica::BaseJob
 {

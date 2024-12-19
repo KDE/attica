@@ -18,49 +18,114 @@
 namespace Attica
 {
 
-/**
- * @class Message message.h <Attica/Message>
+/*!
+ * \class Attica::Message
+ * \inheaderfile Attica/Message
+ * \inmodule Attica
  *
- * Represents a message.
+ * \brief Represents a message.
  */
 class ATTICA_EXPORT Message
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Message> List;
     class Parser;
 
+    /*!
+     * \value Unread
+     * \value Read
+     * \value Answered
+     */
     enum Status {
         Unread = 0,
         Read = 1,
         Answered = 2,
     };
 
+    /*!
+     *
+     */
     Message();
     Message(const Message &other);
     Message &operator=(const Message &other);
     ~Message();
 
+    /*!
+     *
+     */
     void setId(const QString &);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setFrom(const QString &);
+
+    /*!
+     *
+     */
     QString from() const;
 
+    /*!
+     *
+     */
     void setTo(const QString &);
+
+    /*!
+     *
+     */
     QString to() const;
 
+    /*!
+     *
+     */
     void setSent(const QDateTime &);
+
+    /*!
+     *
+     */
     QDateTime sent() const;
 
+    /*!
+     *
+     */
     void setStatus(Status);
+
+    /*!
+     *
+     */
     Status status() const;
 
+    /*!
+     *
+     */
     void setSubject(const QString &);
+
+    /*!
+     *
+     */
     QString subject() const;
 
+    /*!
+     *
+     */
     void setBody(const QString &);
+
+    /*!
+     *
+     */
     QString body() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

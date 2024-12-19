@@ -20,15 +20,20 @@ namespace Attica
 {
 class Provider;
 
-/**
- * @class ItemJob itemjob.h <Attica/ItemJob>
+/*!
+ * \class Attica::ItemJob
+ * \inheaderfile Attica/ItemJob
+ * \inmodule Attica
  *
- * Represents an item get job.
+ * \brief Represents an item get job.
  */
 template<class T>
 class ATTICA_EXPORT ItemJob : public GetJob
 {
 public:
+    /*!
+     *
+     */
     T result() const;
 
 private:
@@ -38,15 +43,20 @@ private:
     friend class Attica::Provider;
 };
 
-/**
- * @class ItemDeleteJob itemjob.h <Attica/ItemJob>
+/*!
+ * \class Attica::ItemDeleteJob
+ * \inheaderfile Attica/ItemJob
+ * \inmodule Attica
  *
- * Represents an item delete job.
+ * \brief Represents an item delete job.
  */
 template<class T>
 class ATTICA_EXPORT ItemDeleteJob : public DeleteJob
 {
 public:
+    /*!
+     *
+     */
     T result() const;
 
 private:
@@ -56,15 +66,20 @@ private:
     friend class Attica::Provider;
 };
 
-/**
- * @class ItemPostJob itemjob.h <Attica/ItemJob>
+/*!
+ * \class Attica::ItemPostJob
+ * \inheaderfile Attica/ItemJob
+ * \inmodule Attica
  *
- * Represents an item post job.
+ * \brief Represents an item post job.
  */
 template<class T>
 class ATTICA_EXPORT ItemPostJob : public PostJob
 {
 public:
+    /*!
+     *
+     */
     T result() const;
 
 private:
@@ -76,15 +91,20 @@ private:
     friend class Attica::Provider;
 };
 
-/**
- * @class ItemPutJob itemjob.h <Attica/ItemJob>
+/*!
+ * \class Attica::ItemPutJob
+ * \inheaderfile Attica/ItemJob
+ * \inmodule Attica
  *
- * Represents an item put job.
+ * \brief Represents an item put job.
  */
 template<class T>
 class ATTICA_EXPORT ItemPutJob : public PutJob
 {
 public:
+    /*!
+     *
+     */
     T result() const;
 
 private:

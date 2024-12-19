@@ -20,46 +20,113 @@
 namespace Attica
 {
 
-/**
- * @class Forum forum.h <Attica/Forum>
+/*!
+ * \class Attica::Forum
+ * \inheaderfile Attica/Forum
+ * \inmodule Attica
  *
- * Represents a forum.
+ * \brief Represents a forum.
  */
 class ATTICA_EXPORT Forum
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Forum> List;
     class Parser;
 
+    /*!
+     *
+     */
     Forum();
     Forum(const Forum &other);
     Forum &operator=(const Forum &other);
     ~Forum();
 
+    /*!
+     *
+     */
     void setId(const QString &id);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setName(const QString &name);
+
+    /*!
+     *
+     */
     QString name() const;
 
+    /*!
+     *
+     */
     void setDescription(const QString &description);
+
+    /*!
+     *
+     */
     QString description() const;
 
+    /*!
+     *
+     */
     void setDate(const QDateTime &date);
+
+    /*!
+     *
+     */
     QDateTime date() const;
 
+    /*!
+     *
+     */
     void setIcon(const QUrl &icon);
+
+    /*!
+     *
+     */
     QUrl icon() const;
 
+    /*!
+     *
+     */
     void setChildCount(const int childCount);
+
+    /*!
+     *
+     */
     int childCount() const;
 
+    /*!
+     *
+     */
     void setTopics(const int topics);
+
+    /*!
+     *
+     */
     int topics() const;
 
+    /*!
+     *
+     */
     void setChildren(QList<Forum> comments);
+
+    /*!
+     *
+     */
     QList<Forum> children() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

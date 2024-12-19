@@ -15,31 +15,63 @@
 namespace Attica
 {
 
-/**
- * @class PublisherField publisherfield.h <Attica/PublisherField>
+/*!
+ * \class Attica::PublisherField
+ * \inheaderfile Attica/PublisherField
+ * \inmodule Attica
  *
- * Represents a publisher field.
+ * \brief Represents a publisher field.
  */
 class ATTICA_EXPORT PublisherField
 {
 public:
+    /*!
+     *
+     */
     typedef QList<PublisherField> List;
     class Parser;
 
+    /*!
+     *
+     */
     PublisherField();
     PublisherField(const PublisherField &other);
     PublisherField &operator=(const PublisherField &other);
     ~PublisherField();
 
+    /*!
+     *
+     */
     void setName(const QString &value);
+
+    /*!
+     *
+     */
     QString name() const;
 
+    /*!
+     *
+     */
     void setType(const QString &value);
+
+    /*!
+     *
+     */
     QString type() const;
 
+    /*!
+     *
+     */
     void setData(const QString &value);
+
+    /*!
+     *
+     */
     QString data() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:
