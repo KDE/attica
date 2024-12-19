@@ -18,7 +18,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class Message message.h <Attica/Message>
  *
  * Represents a message.

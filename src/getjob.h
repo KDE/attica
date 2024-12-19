@@ -17,7 +17,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class GetJob getjob.h <Attica/GetJob>
  *
  * Represents a get job.

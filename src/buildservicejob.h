@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class BuildServiceJob buildservicejob.h <Attica/BuildServiceJob>
  *
  * Represents a build service job.

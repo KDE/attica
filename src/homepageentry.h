@@ -17,7 +17,7 @@
 
 namespace Attica
 {
-/**
+/*!
     @class HomePageEntry homepageentry.h <Attica/HomePageEntry>
 
     The HomePageEntry class contains information about one home page entry.
@@ -28,25 +28,25 @@ class ATTICA_EXPORT HomePageEntry
 public:
     typedef QList<HomePageEntry> List;
 
-    /**
+    /*!
      * Creates an empty HomePageEntry
      */
     HomePageEntry();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the HomePageEntry to copy from
      */
     HomePageEntry(const HomePageEntry &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the HomePageEntry to assign from
      * @return pointer to this HomePageEntry
      */
     HomePageEntry &operator=(const HomePageEntry &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~HomePageEntry();

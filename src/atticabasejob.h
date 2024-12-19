@@ -25,7 +25,7 @@ namespace Attica
 {
 class PlatformDependent;
 
-/**
+/*!
  * @class BaseJob atticabasejob.h
  *
  * The baseclass for all job classes.
@@ -44,7 +44,7 @@ public:
         PasswordAttribute,
     };
 
-    /**
+    /*!
      * @returns whether abort() has been called on the job
      *
      * @since 5.87

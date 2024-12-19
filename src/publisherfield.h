@@ -15,7 +15,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class PublisherField publisherfield.h <Attica/PublisherField>
  *
  * Represents a publisher field.

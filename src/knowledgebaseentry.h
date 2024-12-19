@@ -20,7 +20,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class KnowledgeBaseEntry knowledgebaseentry.h <Attica/KnowledgeBaseEntry>
  *
  * Represents a knowledge base entry.

@@ -21,7 +21,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class RemoteAccount remoteaccount.h <Attica/RemoteAccount>
  *
  * Represents a remote account.

@@ -21,7 +21,7 @@ namespace Attica
 {
 class Provider;
 
-/**
+/*!
  * @class PostJob postjob.h <Attica/PostJob>
  *
  * Represents a post job.

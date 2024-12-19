@@ -21,7 +21,7 @@ namespace Attica
 {
 class Provider;
 
-/**
+/*!
  * @class PutJob putjob.h <Attica/PutJob>
  *
  * Represents a put job.

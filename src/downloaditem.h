@@ -18,7 +18,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class DownloadItem downloaditem.h <Attica/DownloadItem>
  *
  * Represents a download item.
@@ -29,25 +29,25 @@ public:
     typedef QList<DownloadItem> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty DownloadItem
      */
     DownloadItem();
 
-    /**
+    /*!
      * Copy constructor.
      * @param other the DownloadItem to copy from
      */
     DownloadItem(const DownloadItem &other);
 
-    /**
+    /*!
      * Assignment operator.
      * @param other the DownloadItem to assign from
      * @return pointer to this DownloadItem
      */
     DownloadItem &operator=(const DownloadItem &other);
 
-    /**
+    /*!
      * Destructor.
      */
     ~DownloadItem();

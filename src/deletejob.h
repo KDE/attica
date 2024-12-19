@@ -17,7 +17,7 @@
 namespace Attica
 {
 
-/**
+/*!
  * @class DeleteJob deletejob.h <Attica/DeleteJob>
  *
  * Represents a delete job.
