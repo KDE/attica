@@ -1,8 +1,8 @@
 /*!
-    \page kcontacts-index.html
-    \title KContacts
+    \page attica-index.html
+    \title Attica
 
-    Contacts
+    Stuff
 
     \section1 Using the Module
 
@@ -15,8 +15,7 @@
     \section1 API Reference
 
     \list
-        \li \l{KContacts C++ Classes}
-        \li \l{KContacts QML Types}
+        \li \l{Attica C++ Classes}
     \endlist
 
     \section1 Licenses
