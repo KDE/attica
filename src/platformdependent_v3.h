@@ -12,11 +12,13 @@ namespace Attica
 {
 
 /*!
- * @brief Platform integration plugin v3
+ * Platform integration plugin v3
  *
  * Version 3 introduces an async ready state where dependents need to mark themselves ready for requests before
  * Attica dispatches them. This in particular allows dependents to carry out async initializations such as loading
  * credentials.
+ *
+ * \internal
  */
 class ATTICA_EXPORT PlatformDependentV3 : public QObject, public PlatformDependentV2
 {
