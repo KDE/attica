@@ -1,0 +1,11 @@
+/*!
+    \module Attica
+    \title Attica C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent Attica
+
+    \brief Provides Stuff.
+
+    Stuff
+*/
