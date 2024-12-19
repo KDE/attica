@@ -20,51 +20,133 @@
 namespace Attica
 {
 
-/**
- * @class BuildServiceJob buildservicejob.h <Attica/BuildServiceJob>
+/*!
+ * \class Attica::BuildServiceJob
+ * \inheaderfile Attica/BuildServiceJob
+ * \inmodule Attica
  *
- * Represents a build service job.
+ * \brief Represents a build service job.
  */
 class ATTICA_EXPORT BuildServiceJob
 {
 public:
+    /*!
+     *
+     */
     typedef QList<BuildServiceJob> List;
     class Parser;
 
+    /*!
+     *
+     */
     BuildServiceJob();
     BuildServiceJob(const BuildServiceJob &other);
     BuildServiceJob &operator=(const BuildServiceJob &other);
     ~BuildServiceJob();
 
+    /*!
+     *
+     */
     void setId(const QString &);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setName(const QString &);
+
+    /*!
+     *
+     */
     QString name() const;
 
+    /*!
+     *
+     */
     void setUrl(const QString &);
+
+    /*!
+     *
+     */
     QString url() const;
 
+    /*!
+     *
+     */
     void setProjectId(const QString &);
+
+    /*!
+     *
+     */
     QString projectId() const;
 
+    /*!
+     *
+     */
     void setBuildServiceId(const QString &);
+
+    /*!
+     *
+     */
     QString buildServiceId() const;
 
+    /*!
+     *
+     */
     void setMessage(const QString &);
+
+    /*!
+     *
+     */
     QString message() const;
 
+    /*!
+     *
+     */
     void setTarget(const QString &);
+
+    /*!
+     *
+     */
     QString target() const;
 
+    /*!
+     *
+     */
     void setProgress(const qreal);
+
+    /*!
+     *
+     */
     qreal progress() const;
 
+    /*!
+     *
+     */
     void setStatus(const int);
+
+    /*!
+     *
+     */
     bool isRunning() const;
+
+    /*!
+     *
+     */
     bool isCompleted() const;
+
+    /*!
+     *
+     */
     bool isFailed() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

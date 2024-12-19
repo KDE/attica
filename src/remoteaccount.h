@@ -21,40 +21,93 @@
 namespace Attica
 {
 
-/**
- * @class RemoteAccount remoteaccount.h <Attica/RemoteAccount>
+/*!
+ * \class Attica::RemoteAccount
+ * \inheaderfile Attica/RemoteAccount
+ * \inmodule Attica
  *
- * Represents a remote account.
+ * \brief Represents a remote account.
  */
 class ATTICA_EXPORT RemoteAccount
 {
 public:
+    /*!
+     *
+     */
     typedef QList<RemoteAccount> List;
     class Parser;
 
+    /*!
+     *
+     */
     RemoteAccount();
     RemoteAccount(const RemoteAccount &other);
     RemoteAccount &operator=(const RemoteAccount &other);
     ~RemoteAccount();
 
+    /*!
+     *
+     */
     void setId(const QString &);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setType(const QString &);
+
+    /*!
+     *
+     */
     QString type() const;
 
+    /*!
+     *
+     */
     void setRemoteServiceId(const QString &);
+
+    /*!
+     *
+     */
     QString remoteServiceId() const;
 
+    /*!
+     *
+     */
     void setData(const QString &);
+
+    /*!
+     *
+     */
     QString data() const;
 
+    /*!
+     *
+     */
     void setLogin(const QString &);
+
+    /*!
+     *
+     */
     QString login() const;
 
+    /*!
+     *
+     */
     void setPassword(const QString &);
+
+    /*!
+     *
+     */
     QString password() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

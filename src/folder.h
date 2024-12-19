@@ -16,93 +16,87 @@
 
 namespace Attica
 {
-/**
- * @class Folder folder.h <Attica/Folder>
+/*!
+ * \class Attica::Folder
+ * \inheaderfile Attica/Folder
+ * \inmodule Attica
  *
- * Represents a single mail folder
+ * \brief Represents a single mail folder.
  */
 class ATTICA_EXPORT Folder
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Folder> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Folder
      */
     Folder();
 
-    /**
-     * Copy constructor.
-     * @param other the Folder to copy from
-     */
     Folder(const Folder &other);
 
-    /**
-     * Assignment operator.
-     * @param other the Folder to assign from
-     * @return pointer to this Folder
-     */
     Folder &operator=(const Folder &other);
 
-    /**
-     * Destructor.
-     */
     ~Folder();
 
-    /**
+    /*!
      * Sets the id of the Folder.
+     *
      * The id uniquely identifies a Folder with the OCS API.
-     * @param id the new id
+     *
+     * \a id the new id
      */
     void setId(const QString &id);
 
-    /**
-     * Gets the id of the Folder.
+    /*!
+     * Returns the id of the Folder.
+     *
      * The id uniquely identifies a Folder with the OCS API.
-     * @return the id
      */
     QString id() const;
 
-    /**
+    /*!
      * Sets the name of the Folder.
-     * @param name the new name
+     *
+     * \a name the new name
      */
     void setName(const QString &name);
 
-    /**
-     * Gets the name of the Folder.
-     * @return the name
+    /*!
+     * Returns the name of the Folder.
      */
     QString name() const;
 
-    /**
+    /*!
      * Sets the number of messages in the Folder.
-     * @param messageCount the new number of messages
+     *
+     * \a messageCount the new number of messages
      */
     void setMessageCount(int messageCount);
 
-    /**
-     * Gets the number of messages in the Folder.
-     * @return the number of messages
+    /*!
+     * Returns the number of messages in the Folder.
      */
     int messageCount() const;
 
-    /**
+    /*!
      * Sets the type of the folder
-     * @param type the new type
+     *
+     * \a type the new type
      */
     void setType(const QString &type);
 
-    /**
-     * Gets the type of the Folder.
-     * @return the type
+    /*!
+     * Returns the type of the Folder.
      */
     QString type() const;
 
-    /**
+    /*!
      * Checks whether this Folder has an id
-     * @return @c true if an id has been set, @c false otherwise
      */
     bool isValid() const;
 

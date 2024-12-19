@@ -17,39 +17,33 @@
 
 namespace Attica
 {
-/**
-    @class Distribution distribution.h <Attica/Distribution>
+/*!
+    \class Attica::Distribution
+    \inheaderfile Attica/Distribution
+    \inmodule Attica
 
-    The Distribution class contains information about one distribution that the server offers.
+    \brief The Distribution class contains information about one distribution that the server offers.
+
     It consists of an integer id and a distribution name.
  */
 class ATTICA_EXPORT Distribution
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Distribution> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Distribution
      */
     Distribution();
 
-    /**
-     * Copy constructor.
-     * @param other the Distribution to copy from
-     */
     Distribution(const Distribution &other);
 
-    /**
-     * Assignment operator.
-     * @param other the Distribution to assign from
-     * @return pointer to this Distribution
-     */
     Distribution &operator=(const Distribution &other);
 
-    /**
-     * Destructor.
-     */
     ~Distribution();
 
     /*
@@ -57,10 +51,24 @@ public:
      <name>Ark</name>
     */
 
+    /*!
+     *
+     */
     uint id() const;
+
+    /*!
+     *
+     */
     void setId(uint id);
 
+    /*!
+     *
+     */
     QString name() const;
+
+    /*!
+     *
+     */
     void setName(const QString &name);
 
 private:

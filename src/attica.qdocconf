@@ -1,0 +1,29 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = Attica
+description = Open Collaboration Service client library
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+outputformats = HTML
+
+depends += \
+    kde \
+    qtcore
+
+qhp.projects            = Attica
+
+qhp.Attica.file                = attica.qhp
+qhp.Attica.namespace           = org.kde.attica.$QT_VERSION_TAG
+qhp.Attica.virtualFolder       = attica
+qhp.Attica.indexTitle          = Attica
+qhp.Attica.indexRoot           =
+
+qhp.Attica.subprojects         = classes
+qhp.Attica.subprojects.classes.title = C++ Classes
+qhp.Attica.subprojects.classes.indexTitle = Attica C++ Classes
+qhp.Attica.subprojects.classes.selectors = class fake:headerfile
+qhp.Attica.subprojects.classes.sortPages = true

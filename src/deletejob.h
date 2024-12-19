@@ -17,10 +17,12 @@
 namespace Attica
 {
 
-/**
- * @class DeleteJob deletejob.h <Attica/DeleteJob>
+/*!
+ * \class Attica::DeleteJob
+ * \inheaderfile Attica/DeleteJob
+ * \inmodule Attica
  *
- * Represents a delete job.
+ * \brief Represents a delete job.
  */
 class ATTICA_EXPORT DeleteJob : public Attica::BaseJob
 {

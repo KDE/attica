@@ -33,24 +33,24 @@ public:
     virtual void addDefaultProviderFile(const QUrl &url) = 0;
     virtual void removeDefaultProviderFile(const QUrl &url) = 0;
 
-    /**
+    /*!
      * Providers are enabled by default. Use this call to disable or enable them later.
      */
     virtual void enableProvider(const QUrl &baseUrl, bool enabled) const = 0;
     virtual bool isEnabled(const QUrl &baseUrl) const = 0;
 
-    /**
+    /*!
      * Asks the PlatformDependent plugin if it have a credentials for baseUrl
      */
     virtual bool hasCredentials(const QUrl &baseUrl) const = 0;
 
-    /**
+    /*!
      * Asks the PlatformDependent plugin to load credentials from storage,
      * and save it in user, password.
      */
     virtual bool loadCredentials(const QUrl &baseUrl, QString &user, QString &password) = 0;
 
-    /**
+    /*!
      * Asks the PlatformDependent plugin to ask user to login and expects it to be stored in
      * user and password.
      * TODO KF6: Remove, askForCredentials and loadCredentials is essentially same, loadCredentials
@@ -58,7 +58,7 @@ public:
      */
     virtual bool askForCredentials(const QUrl &baseUrl, QString &user, QString &password) = 0;
 
-    /**
+    /*!
      * Method to be called by attica to store the user and password in storage used by PlatformDependent
      * plugin.
      * TODO KF6: Remove, if you let platform plugin ask for credentials, you don't want to save credentials

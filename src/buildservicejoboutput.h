@@ -17,29 +17,58 @@
 namespace Attica
 {
 
-/**
- * @class BuildServiceJobOutput buildservicejoboutput.h <Attica/BuildServiceJobOutput>
+/*!
+ * \class Attica::BuildServiceJobOutput
+ * \inmodule Attica/BuildServiceJobOutput
+ * \inmodule Attica
  *
- * Represents the ouput of a build service job.
+ * \brief Represents the ouput of a build service job.
  */
 class ATTICA_EXPORT BuildServiceJobOutput
 {
 public:
+    /*!
+     *
+     */
     typedef QList<BuildServiceJobOutput> List;
     class Parser;
 
+    /*!
+     *
+     */
     BuildServiceJobOutput();
     BuildServiceJobOutput(const BuildServiceJobOutput &other);
     BuildServiceJobOutput &operator=(const BuildServiceJobOutput &other);
     ~BuildServiceJobOutput();
 
+    /*!
+     *
+     */
     void setOutput(const QString &output);
+
+    /*!
+     *
+     */
     QString output() const;
 
+    /*!
+     *
+     */
     bool isRunning() const;
+
+    /*!
+     *
+     */
     bool isCompleted() const;
+
+    /*!
+     *
+     */
     bool isFailed() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

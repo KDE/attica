@@ -18,15 +18,20 @@ namespace Attica
 {
 class Provider;
 
-/**
- * @class ListJob listjob.h <Attica/ListJob>
+/*!
+ * \class Attica::ListJob
+ * \inheaderfile Attica/ListJob
+ * \inmodule Attica
  *
- * Represents a list job.
+ * \brief Represents a list job.
  */
 template<class T>
 class ATTICA_EXPORT ListJob : public GetJob
 {
 public:
+    /*!
+     *
+     */
     typename T::List itemList() const;
 
 protected:

@@ -22,50 +22,117 @@
 namespace Attica
 {
 
-/**
- * @class Field publisher.h <Attica/Publisher>
+/*!
+ * \class Attica::Field
+ * \inheaderfile Attica/Publisher
+ * \inmodule Attica
  *
- * Field as set for the class Publisher.
+ * \brief Field as set for the class Publisher.
  */
 struct Field {
+    /*!
+     * \variable Attica::Field::type
+     */
     QString type;
+
+    /*!
+     * \variable Attica::Field::name
+     */
     QString name;
+
+    /*!
+     * \variable Attica::Field::fieldsize
+     */
     int fieldsize;
+
+    /*!
+     * \variable Attica::Field::required
+     */
     bool required;
+
+    /*!
+     * \variable Attica::Field::options
+     */
     QStringList options;
 };
 
-/**
- * @class Publisher publisher.h <Attica/Publisher>
+/*!
+ * \class Attica::Publisher
+ * \inheaderfile Attica/Publisher
+ * \inmodule Attica
  *
- * Represents a publisher.
+ * \brief Represents a publisher.
  */
 class ATTICA_EXPORT Publisher
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Publisher> List;
     class Parser;
 
+    /*!
+     *
+     */
     Publisher();
     Publisher(const Publisher &other);
     Publisher &operator=(const Publisher &other);
     ~Publisher();
 
+    /*!
+     *
+     */
     void setId(const QString &);
+
+    /*!
+     *
+     */
     QString id() const;
 
+    /*!
+     *
+     */
     void setName(const QString &);
+
+    /*!
+     *
+     */
     QString name() const;
 
+    /*!
+     *
+     */
     void setUrl(const QString &);
+
+    /*!
+     *
+     */
     QString url() const;
 
+    /*!
+     *
+     */
     void addField(const Field &);
+
+    /*!
+     *
+     */
     QList<Field> fields() const;
 
+    /*!
+     *
+     */
     void addTarget(const Target &);
+
+    /*!
+     *
+     */
     QList<Target> targets() const;
 
+    /*!
+     *
+     */
     bool isValid() const;
 
 private:

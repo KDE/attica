@@ -19,105 +19,102 @@ class QDateTime;
 
 namespace Attica
 {
-/**
- * @class Activity activity.h <Attica/Activity>
+/*!
+ * \class Attica::Activity
+ * \inheaderfile Attica/Activity
+ * \inmodule Attica
  *
- * Represents a single news item (also known as activity)
+ * \brief Represents a single news item (also known as activity).
  */
 class ATTICA_EXPORT Activity
 {
 public:
+    /*!
+     *
+     */
     typedef QList<Activity> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty Activity
      */
     Activity();
 
-    /**
-     * Copy constructor.
-     * @param other the Activity to copy from
-     */
     Activity(const Activity &other);
 
-    /**
-     * Assignment operator.
-     * @param other the Activity to assign from
-     * @return pointer to this Activity
-     */
     Activity &operator=(const Activity &other);
 
-    /**
-     * Destructor.
-     */
     ~Activity();
 
-    /**
+    /*!
      * Sets the id of the Activity.
+     *
      * The id uniquely identifies an Activity with the OCS API.
-     * @param id the new id
+     *
+     * \a id the new id
      */
     void setId(const QString &id);
 
-    /**
+    /*!
      * Gets the id of the Activity.
+     *
      * The id uniquely identifies an Activity with the OCS API.
-     * @return the id
+     *
+     * Returns the id
      */
     QString id() const;
 
-    /**
+    /*!
      * Sets the user bound to the Activity.
-     * @param id the new user
+     *
+     * \a id the new user
      */
     void setAssociatedPerson(const Person &associatedPerson);
 
-    /**
-     * Gets the user bound to the Activity.
-     * @return the user
+    /*!
+     * Returns the user bound to the Activity.
      */
     Person associatedPerson() const;
 
-    /**
+    /*!
      * Sets the timestamp the Activity has been published.
-     * @param timestamp the new timestamp
+     *
+     * \a timestamp the new timestamp
      */
     void setTimestamp(const QDateTime &timestamp);
 
-    /**
-     * Gets the timestamp the Activity has been published.
-     * @return the timestamp
+    /*!
+     * Returns the timestamp the Activity has been published.
      */
     QDateTime timestamp() const;
 
-    /**
+    /*!
      * Sets the message of the Activity.
-     * @param message the new message
+     *
+     * \a message the new message
      */
     void setMessage(const QString &message);
 
-    /**
-     * Gets the message of the Activity.
-     * @return the message
+    /*!
+     * Returns the message of the Activity.
      */
     QString message() const;
 
-    /**
+    /*!
      * Sets the link to further information about this Activity.
-     * @param link the new link
+     *
+     * \a link the new link
      */
     void setLink(const QUrl &link);
 
-    /**
-     * Gets the link to further information about this Activity.
-     * @return the link
+    /*!
+     * Returns the link to further information about this Activity.
      */
     QUrl link() const;
 
-    /**
+    /*!
      * Checks whether this Activity has an id
-     * @return @c true if an id has been set, @c false otherwise
+     * Returns \c true if an id has been set, \c false otherwise
      */
     bool isValid() const;
 

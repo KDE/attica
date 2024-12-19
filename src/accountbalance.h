@@ -14,61 +14,54 @@
 
 namespace Attica
 {
-/**
- * @class AccountBalance accountbalance.h <Attica/AccountBalance>
+/*!
+ * \class Attica::AccountBalance
+ * \inheaderfile Attica/AccountBalance
+ * \inmodule Attica
  *
- * Represents the money in the account of the user
+ * \brief Represents the money in the account of the user.
  */
 class ATTICA_EXPORT AccountBalance
 {
 public:
+    /*!
+     *
+     */
     typedef QList<AccountBalance> List;
     class Parser;
 
-    /**
+    /*!
      * Creates an empty AccountBalance
      */
     AccountBalance();
 
-    /**
-     * Copy constructor.
-     * @param other the AccountBalance to copy from
-     */
     AccountBalance(const AccountBalance &other);
 
-    /**
-     * Assignment operator.
-     * @param other the AccountBalance to assign from
-     * @return pointer to this AccountBalance
-     */
     AccountBalance &operator=(const AccountBalance &other);
 
-    /**
-     * Destructor.
-     */
     ~AccountBalance();
 
-    /**
+    /*!
      * Sets the currency in use.
-     * @param currency the new currency (Euro, US Dollar)
+     *
+     * \a currency the new currency (Euro, US Dollar)
      */
     void setCurrency(const QString &currency);
 
-    /**
-     * Gets the currency.
-     * @return the currency
+    /*!
+     * Returns the currency.
      */
     QString currency() const;
 
-    /**
+    /*!
      * Sets the balance.
-     * @param balance
+     *
+     * \a balance
      */
     void setBalance(const QString &name);
 
-    /**
-     * Gets the balance.
-     * @return the amount of money in the account
+    /*!
+     * Returns the amount of money in the account
      */
     QString balance() const;
 
