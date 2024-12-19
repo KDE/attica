@@ -22,29 +22,37 @@ namespace Attica
 {
 
 /*!
- * @class PrivateData privatedata.h <Attica/PrivateData>
+ * \class Attica::PrivateData
+ * \inheaderfile Attica/PrivateData
+ * \inmodule Attica
  *
- * Represents private data.
+ * \brief Represents private data.
  */
 class ATTICA_EXPORT PrivateData
 {
 public:
     class Parser;
 
+    /*!
+     *
+     */
     typedef QList<PrivateData> List; // nonsense
 
+    /*!
+     *
+     */
     PrivateData();
     PrivateData(const PrivateData &other);
     PrivateData &operator=(const PrivateData &other);
     ~PrivateData();
 
     /*!
-     * Sets an attribute referenced by \key to \value.
+     * Sets an attribute referenced by \a key to \a value.
      */
     void setAttribute(const QString &key, const QString &value);
 
     /*!
-     * Returns an attribute referenced by \key.
+     * Returns an attribute referenced by \a key.
      */
     QString attribute(const QString &key) const;
 

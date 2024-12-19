@@ -17,24 +17,28 @@
 #include "provider.h"
 
 /*!
- * The Attica namespace,
+ * \namespace Attica
+ * \inmodule Attica
+ * \brief The Attica namespace.
  */
 namespace Attica
 {
 /*!
- * @class ProviderManager providermanager.h <Attica/ProviderManager>
+ * \class Attica::ProviderManager
+ * \inmodule Attica
+ * \inheaderfile Attica/ProviderManager
  *
- * Attica ProviderManager
+ * \brief Attica ProviderManager.
  *
  * This class is the primary access to Attica's functions.
  * Use the ProviderManager to load Open Collaboration Service providers,
  * either the default system ones, or from XML or custom locations.
  *
- * \section providerfiles Provider Files
+ * \section1 Provider Files
  * Provider files are defined here:
  * http://www.freedesktop.org/wiki/Specifications/open-collaboration-services
  *
- * \section basicuse Basic Use
+ * \section1 Basic Use
  *
  * See addProviderFileToDefaultProviders(const QUrl &url) for an example of
  * what the provider file sohuld look like. You can add providers to the
@@ -61,12 +65,19 @@ class ATTICA_EXPORT ProviderManager : public QObject
     Q_OBJECT
 
 public:
+    /*!
+     * \value NoFlags
+     * \value DisablePlugins
+     */
     enum ProviderFlag {
         NoFlags = 0x0,
         DisablePlugins = 0x1,
     };
     Q_DECLARE_FLAGS(ProviderFlags, ProviderFlag)
 
+    /*!
+     *
+     */
     ProviderManager(const ProviderFlags &flags = NoFlags);
     ~ProviderManager() override;
 
@@ -78,14 +89,13 @@ public:
     /*!
      * The list of provider files that get loaded by loadDefaultProviders.
      * Each of these files can contain multiple providers.
-     * @return list of provider file urls
      */
     QList<QUrl> defaultProviderFiles();
 
     /*!
-    * Add a provider file to the default providers (xml that contains provider descriptions).
-      Provider files contain information about each provider:
-     <pre>
+     Add a provider file to the default providers (xml that contains provider descriptions).
+     Provider files contain information about each provider:
+     \badcode
      <providers>
      <provider>
         <id>opendesktop</id>
@@ -106,11 +116,15 @@ public:
         </services>
      </provider>
      </providers>
-     </pre>
-    * @param url the url of the provider file
+     \endcode
+
+     \a url the url of the provider file
     */
     void addProviderFileToDefaultProviders(const QUrl &url);
 
+    /*!
+     *
+     */
     void removeProviderFileFromDefaultProviders(const QUrl &url);
 
     /*!
@@ -127,33 +141,56 @@ public:
      * Parse a xml file containing a provider description
      */
     void addProviderFromXml(const QString &providerXml);
+
+    /*!
+     *
+     */
     void addProviderFile(const QUrl &file);
+
+    /*!
+     *
+     */
     QList<QUrl> providerFiles() const;
 
     /*!
-     * @returns all loaded providers
+     * Returns all loaded providers
      */
     QList<Provider> providers() const;
 
     /*!
-     * @returns whether there's a provider with base url @p provider
+     * Returns whether there's a provider with base url \a provider
      */
     bool contains(const QUrl &provider) const;
 
     /*!
-     * @returns the provider with @p url base url.
+     * Returns the provider with \a url base url.
      */
     Provider providerByUrl(const QUrl &url) const;
 
     /*!
-     * @returns the provider for a given provider @p url.
+     * Returns the provider for a given provider \a url.
      */
     Provider providerFor(const QUrl &url) const;
 
 Q_SIGNALS:
+    /*!
+     *
+     */
     void providerAdded(const Attica::Provider &provider);
+
+    /*!
+     *
+     */
     void defaultProvidersLoaded();
+
+    /*!
+     *
+     */
     void authenticationCredentialsMissing(const Provider &provider);
+
+    /*!
+     *
+     */
     void failedToLoad(const QUrl &provider, QNetworkReply::NetworkError error);
 
 private Q_SLOTS:

@@ -18,14 +18,20 @@
 namespace Attica
 {
 /*!
-    @class HomePageType homepagetype.h <Attica/HomePageType>
+    \class Attica::HomePageType
+    \inheaderfile Attica/HomePageType
+    \inmodule Attica
 
-    The HomePageType class contains information about one home page type.
+    \brief The HomePageType class contains information about one home page type.
+
     It consists of an integer id and a home page type name.
  */
 class ATTICA_EXPORT HomePageType
 {
 public:
+    /*!
+     *
+     */
     typedef QList<HomePageType> List;
     class Parser;
 
@@ -34,22 +40,10 @@ public:
      */
     HomePageType();
 
-    /*!
-     * Copy constructor.
-     * @param other the HomePageType to copy from
-     */
     HomePageType(const HomePageType &other);
 
-    /*!
-     * Assignment operator.
-     * @param other the HomePageType to assign from
-     * @return pointer to this HomePageType
-     */
     HomePageType &operator=(const HomePageType &other);
 
-    /*!
-     * Destructor.
-     */
     ~HomePageType();
 
     /*
@@ -57,10 +51,24 @@ public:
     <name>Blog</name>
     */
 
+    /*!
+     *
+     */
     uint id() const;
+
+    /*!
+     *
+     */
     void setId(uint id);
 
+    /*!
+     *
+     */
     QString name() const;
+
+    /*!
+     *
+     */
     void setName(const QString &name);
 
 private:
