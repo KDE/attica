@@ -12,8 +12,8 @@ portingAid: false
 deprecated: false
 release: true
 libraries:
- - cmake: "KF6::Attica"
-   license: LGPL-2.1-only OR LGPL-3.0-only
+    - cmake: "KF6::Attica"
+      license: LGPL-2.1-only OR LGPL-3.0-only
 cmakename: KF6Attica
 
 public_lib: true
