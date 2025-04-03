@@ -4,3 +4,5 @@
 #include "platformdependent_v3.h"
 
 Attica::PlatformDependentV3::~PlatformDependentV3() = default;
+
+#include "moc_platformdependent_v3.cpp"
