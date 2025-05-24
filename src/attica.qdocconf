@@ -29,3 +29,5 @@ qhp.Attica.subprojects.classes.title = C++ Classes
 qhp.Attica.subprojects.classes.indexTitle = Attica C++ Classes
 qhp.Attica.subprojects.classes.selectors = class fake:headerfile
 qhp.Attica.subprojects.classes.sortPages = true
+
+tagfile = attica.tags
