@@ -36,7 +36,7 @@ ecm_setup_version(PROJECT
     SOVERSION 6)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 6.7.0)
+set(REQUIRED_QT_VERSION 6.8.0)
 
 # Required Qt components to build this framework
 find_package(Qt6 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Core Network)
