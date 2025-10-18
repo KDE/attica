@@ -39,7 +39,7 @@ void PersonTest::testMergeType()
 {
     PrivateData a;
     a.setMergeType(PrivateData::OverwriteLocal);
-    QVERIFY(a.mergeType() == PrivateData::OverwriteLocal);
+    QCOMPARE(a.mergeType(), PrivateData::OverwriteLocal);
 }
 
 QTEST_MAIN(PersonTest);

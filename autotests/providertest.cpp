@@ -117,7 +117,7 @@ void ProviderTest::slotConfigResult(Attica::BaseJob *j)
     }
     m_eventloop->exit();
     m_timer.stop();
-    QVERIFY(j->metadata().error() == Metadata::NoError);
+    QCOMPARE(j->metadata().error(), Metadata::NoError);
 }
 
 void ProviderTest::testSwitchSortOrder()
@@ -145,7 +145,7 @@ void ProviderTest::slotListResult(Attica::BaseJob *j)
         qDebug() << QString(QLatin1String("Unknown Error: %1")).arg(j->metadata().message());
     }
     m_timer.stop();
-    QVERIFY(j->metadata().error() == Metadata::NoError);
+    QCOMPARE(j->metadata().error(), Metadata::NoError);
 
     // Now do the actual switch
     Attica::Provider provider = m_manager->providers().at(0);
@@ -171,7 +171,7 @@ void ProviderTest::slotList2Result(Attica::BaseJob *j)
     }
     m_eventloop->exit();
     m_timer.stop();
-    QVERIFY(j->metadata().error() == Metadata::NoError);
+    QCOMPARE(j->metadata().error(), Metadata::NoError);
 }
 
 void ProviderTest::slotTimeout()
@@ -184,7 +184,7 @@ void ProviderTest::slotTimeout()
 void ProviderTest::testFetchInvalidProvider()
 {
     initProvider(QUrl(QLatin1String("https://invalid-url.org/ocs/providers.xml")));
-    QVERIFY(m_manager->providers().size() == 0);
+    QCOMPARE(m_manager->providers().size(), 0);
     QVERIFY(m_errorReceived);
 }
 
