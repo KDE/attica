@@ -47,6 +47,10 @@ public:
     ~Private()
     {
         // do not delete m_internals: it is the root component of a plugin!
+        // except when it's the fallback implementation, that is not loaded from a plugin
+        if (dynamic_cast<QtPlatformDependent *>(m_internals)) {
+            delete m_internals;
+        }
     }
 };
 
