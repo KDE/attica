@@ -13,6 +13,8 @@
 #include <QList>
 #include <QtPlugin>
 
+#include <attica_export.h>
+
 class QByteArray;
 class QIODevice;
 class QNetworkAccessManager;
@@ -69,9 +71,14 @@ public:
     virtual QNetworkReply *get(const QNetworkRequest &request) = 0;
     virtual QNetworkReply *post(const QNetworkRequest &request, QIODevice *data) = 0;
     virtual QNetworkReply *post(const QNetworkRequest &request, const QByteArray &data) = 0;
+
+#if ATTICA_BUILD_DEPRECATED_SINCE(6, 23)
+    ATTICA_DEPRECATED_VERSION(6, 23, "Not used");
     virtual void setNam(QNetworkAccessManager *)
     {
     }
+#endif
+
     virtual QNetworkAccessManager *nam() = 0;
 };
 
