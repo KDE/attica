@@ -16,65 +16,20 @@
 
 using namespace Attica;
 
+thread_local QNetworkAccessManager Attica::QtPlatformDependent::m_nam;
+
 QtPlatformDependent::QtPlatformDependent()
 {
-    m_threadNamHash[QThread::currentThread()] = new QNetworkAccessManager();
-    m_ourNamSet.insert(QThread::currentThread());
     QMetaObject::invokeMethod(this, &QtPlatformDependent::readyChanged, Qt::QueuedConnection);
 }
 
 QtPlatformDependent::~QtPlatformDependent()
 {
-    QThread *currThread = QThread::currentThread();
-    if (m_threadNamHash.contains(currThread)) {
-        if (m_ourNamSet.contains(currThread)) {
-            delete m_threadNamHash[currThread];
-        }
-        m_threadNamHash.remove(currThread);
-        m_ourNamSet.remove(currThread);
-    }
-}
-
-void QtPlatformDependent::setNam(QNetworkAccessManager *nam)
-{
-    if (!nam) {
-        return;
-    }
-
-    QMutexLocker l(&m_accessMutex);
-    QThread *currThread = QThread::currentThread();
-    QNetworkAccessManager *oldNam = nullptr;
-    if (m_threadNamHash.contains(currThread) && m_ourNamSet.contains(currThread)) {
-        oldNam = m_threadNamHash[currThread];
-    }
-
-    if (oldNam == nam) {
-        // If we're being passed back our own NAM, assume they want to
-        // ensure that we don't delete it out from under them
-        m_ourNamSet.remove(currThread);
-        return;
-    }
-
-    m_threadNamHash[currThread] = nam;
-    m_ourNamSet.remove(currThread);
-
-    if (oldNam) {
-        delete oldNam;
-    }
 }
 
 QNetworkAccessManager *QtPlatformDependent::nam()
 {
-    QMutexLocker l(&m_accessMutex);
-    QThread *currThread = QThread::currentThread();
-    if (!m_threadNamHash.contains(currThread)) {
-        QNetworkAccessManager *newNam = new QNetworkAccessManager();
-        m_threadNamHash[currThread] = newNam;
-        m_ourNamSet.insert(currThread);
-        return newNam;
-    }
-
-    return m_threadNamHash[currThread];
+    return &m_nam;
 }
 
 // TODO actually save and restore providers!

@@ -27,7 +27,6 @@ public:
     QtPlatformDependent();
     ~QtPlatformDependent() override;
 
-    void setNam(QNetworkAccessManager *nam) override;
     QNetworkAccessManager *nam() override;
 
     QList<QUrl> getDefaultProviderFiles() const override;
@@ -50,8 +49,7 @@ public:
 
 private:
     QMutex m_accessMutex;
-    QHash<QThread *, QNetworkAccessManager *> m_threadNamHash;
-    QSet<QThread *> m_ourNamSet;
+    static thread_local QNetworkAccessManager m_nam;
     QHash<QString, QPair<QString, QString>> m_passwords;
 };
 
