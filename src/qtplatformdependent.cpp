@@ -16,8 +16,6 @@
 
 using namespace Attica;
 
-thread_local QNetworkAccessManager Attica::QtPlatformDependent::m_nam;
-
 QtPlatformDependent::QtPlatformDependent()
 {
     QMetaObject::invokeMethod(this, &QtPlatformDependent::readyChanged, Qt::QueuedConnection);
@@ -29,7 +27,8 @@ QtPlatformDependent::~QtPlatformDependent()
 
 QNetworkAccessManager *QtPlatformDependent::nam()
 {
-    return &m_nam;
+    static thread_local QNetworkAccessManager threadLocalManager;
+    return &threadLocalManager;
 }
 
 // TODO actually save and restore providers!

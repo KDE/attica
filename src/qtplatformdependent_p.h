@@ -49,7 +49,6 @@ public:
 
 private:
     QMutex m_accessMutex;
-    static thread_local QNetworkAccessManager m_nam;
     QHash<QString, QPair<QString, QString>> m_passwords;
 };
 
