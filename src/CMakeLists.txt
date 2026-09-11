@@ -210,3 +210,17 @@ if(NOT WIN32)
     )
 endif(NOT WIN32)
 
+
+ecm_add_installed_library_check(KF6Attica
+    PACKAGE_NAME "KF6Attica"
+    PACKAGE_TARGET_NAMESPACE "KF6::"
+)
+
+ecm_installed_library_check_include_strings(KF6Attica
+    HEADERS ${Attica_CamelCase_HEADERS}
+    PREFIX Attica
+)
+
+ecm_installed_library_check_version_preprocessor_macros(KF6Attica
+    PREFIX ATTICA
+)
