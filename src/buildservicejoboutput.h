@@ -54,21 +54,6 @@ public:
     /*!
      *
      */
-    bool isRunning() const;
-
-    /*!
-     *
-     */
-    bool isCompleted() const;
-
-    /*!
-     *
-     */
-    bool isFailed() const;
-
-    /*!
-     *
-     */
     bool isValid() const;
 
 private:

@@ -103,11 +103,6 @@ protected:
      */
     PlatformDependent *internals();
 
-    /*!
-     *
-     */
-    void setError(int errorCode);
-
 private Q_SLOTS:
     ATTICA_NO_EXPORT void doWork();
     ATTICA_NO_EXPORT void authenticationRequired(QNetworkReply *, QAuthenticator *);
