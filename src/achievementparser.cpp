@@ -7,7 +7,6 @@
 */
 
 #include "achievementparser.h"
-#include "atticautils.h"
 
 using namespace Attica;
 

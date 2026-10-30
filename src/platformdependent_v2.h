@@ -17,11 +17,8 @@
 
 class QByteArray;
 class QIODevice;
-class QNetworkAccessManager;
 class QNetworkReply;
 class QNetworkRequest;
-class QString;
-class QUrl;
 
 namespace Attica
 {
