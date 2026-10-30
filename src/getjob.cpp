@@ -11,7 +11,6 @@
 #include <QNetworkAccessManager>
 
 #include "platformdependent.h"
-#include <attica_debug.h>
 
 using namespace Attica;
 
