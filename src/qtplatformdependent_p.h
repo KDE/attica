@@ -19,6 +19,8 @@
 #include <QSet>
 #include <QThread>
 
+#include <utility>
+
 namespace Attica
 {
 class QtPlatformDependent : public Attica::PlatformDependentV3
@@ -49,7 +51,7 @@ public:
 
 private:
     QMutex m_accessMutex;
-    QHash<QString, QPair<QString, QString>> m_passwords;
+    QHash<QString, std::pair<QString, QString>> m_passwords;
 };
 
 }

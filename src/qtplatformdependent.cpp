@@ -97,7 +97,7 @@ bool QtPlatformDependent::hasCredentials(const QUrl &baseUrl) const
 
 bool QtPlatformDependent::saveCredentials(const QUrl &baseUrl, const QString &user, const QString &password)
 {
-    m_passwords[baseUrl.toString()] = QPair<QString, QString>(user, password);
+    m_passwords[baseUrl.toString()] = std::pair<QString, QString>(user, password);
     return true;
 }
 
@@ -106,7 +106,7 @@ bool QtPlatformDependent::loadCredentials(const QUrl &baseUrl, QString &user, QS
     if (!hasCredentials(baseUrl)) {
         return false;
     }
-    QPair<QString, QString> userPass = m_passwords.value(baseUrl.toString());
+    const std::pair<QString, QString> userPass = m_passwords.value(baseUrl.toString());
     user = userPass.first;
     password = userPass.second;
     return true;
