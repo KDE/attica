@@ -141,7 +141,7 @@ void BaseJob::doWork()
     qCDebug(ATTICA) << "executing" << Utils::toString(d->m_reply->operation()) << "request for" << d->m_reply->url();
     connect(d->m_reply, &QNetworkReply::finished, this, &BaseJob::dataFinished);
     connect(d->m_reply->manager(), &QNetworkAccessManager::authenticationRequired, this, &BaseJob::authenticationRequired);
-    connect(d->m_reply, &QNetworkReply::errorOccurred, [](QNetworkReply::NetworkError code) {
+    connect(d->m_reply, &QNetworkReply::errorOccurred, this, [](QNetworkReply::NetworkError code) {
         qCDebug(ATTICA) << "error found" << code;
     });
 }

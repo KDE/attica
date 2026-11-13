@@ -1132,7 +1132,7 @@ ListJob<Category> *Provider::requestCategories()
     ListJob<Category> *job = reqs.localData().value(url);
     if (!job) {
         job = new ListJob<Category>(d->m_internals, createRequest(url));
-        QObject::connect(job, &BaseJob::finished, [url] {
+        QObject::connect(job, &BaseJob::finished, job, [url] {
             reqs.localData().remove(url);
         });
         reqs.localData().insert(url, job);
